@@ -4,9 +4,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb4300f-76d9-4524-bf19-a3f1b40736e2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Word_Printer.py</StartupFile>
-    <SearchPath>
-    </SearchPath>
+    <StartupFile>test.py</StartupFile>
+    <SearchPath>..\Word-Printer</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>Word-Printer</Name>
@@ -22,6 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="test.py" />
     <Compile Include="Word_Printer.py" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +34,9 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="test.ui" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
