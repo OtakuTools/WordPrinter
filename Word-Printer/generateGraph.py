@@ -86,22 +86,11 @@ class drawGraph:
                 structDict["cluster{:0>5d}".format(subCount)] = t
                 subCount += 1;
             elif "#" in item:
-                edge = item.replace("#")
-                t1 = re.split("[-]", edge)
-                edgeList = edgeList + t1;
+                edge = item.replace("#","")
+                edgeList.append(edge)
         edgeList = list(filter(lambda x: x != '', edgeList))
 
         print(structDict)
-
-        # single arrow
-        for edge in edgeList:
-            nodes = edge.split("-")
-            node1 = nodes[0].strip(" ")
-            node2 = nodes[1].strip(" ")
-            if node1 in nodeDict:
-                nodeDict[node1].append(node2)
-            else:
-                nodeDict[node1] = [node2]
 
         #print(nodeDict)
         # draw graph
@@ -110,8 +99,8 @@ class drawGraph:
         graph = Graph(comment="graph", format="png", graph_attr={'rank': 'max'})
         graph.attr(_attributes={'compound': 'true', 'rankdir': 'TB', 'center': 'true'})
         for sub, content in structDict.items():
-            subg = Graph(name=sub, graph_attr={'center': 'true', 'rankdir': 'LR', 'rank': 'max'}, node_attr={'fontname': 'KaiTi', 'shape': 'box'})
-            subg.attr(_attributes={'compound': 'false', 'color':'black'})
+            subg = Graph(name=sub, graph_attr={'center': 'true', 'rankdir': 'LR', 'rank': 'max', 'ordering':'out'}, node_attr={'fontname': 'KaiTi', 'shape': 'box'})
+            subg.attr(_attributes={'compound': 'true', 'color':'black'})
             nodes = []
             for i in range(len(content)-1, -1, -1):
                 subg.node(content[i], content[i])
@@ -131,10 +120,23 @@ class drawGraph:
 
         for i in range(1, len(subG)):
             graph.edge(linkPoint[i-1], linkPoint[i], _attributes={'ltail':subG[i-1],'lhead':subG[i]})
+
+         # single arrow
+        for edge in edgeList:
+            nodes = edge.split("-")
+            node1 = nodes[0].strip(" ")
+            node2 = nodes[1].strip(" ")
+            if node1 in nodeDict:
+                nodeDict[node1].append(node2)
+            else:
+                nodeDict[node1] = [node2]
+
+        for node, children in nodeDict.items():
+            for child in children:
+                graph.edge(node, child)
+
         print(graph.source)
         self.preview(graph)
-        #graph = self.apply_styles(graph)
-        #self.preview(graph)
         filename = self.genName()
         #self.save(graph, filename)
         return self.saveDir + filename
