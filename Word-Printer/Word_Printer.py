@@ -1,5 +1,6 @@
 from docx import Document
 from docx.shared import Inches
+from docx.shared import RGBColor
 
 document = Document()
 
@@ -7,7 +8,7 @@ document.add_heading('Document Title', 0)
 
 p = document.add_paragraph('A plain paragraph having some ')
 p.add_run('bold').bold = True
-p.add_run(' and some ')
+p.add_run(' and some ').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
 p.add_run('italic.').italic = True
 
 document.add_heading('Heading, level 1', level=1)
@@ -40,3 +41,10 @@ for qty, id, desc in records:
 document.add_page_break()
 
 document.save('demo.docx')
+
+for p in document.paragraphs:
+    for r in p.runs:
+        print( r.text )
+        print( "    bold:" + str(r.bold) )
+        print( "    italic:" + str(r.italic) )
+        print( "    color:" + str(r.font.color.rgb))

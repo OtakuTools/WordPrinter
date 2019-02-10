@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb4300f-76d9-4524-bf19-a3f1b40736e2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test.py</StartupFile>
+    <StartupFile>Word_Printer.py</StartupFile>
     <SearchPath>..\Word-Printer</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -21,6 +21,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="generateGraph.py" />
+    <Compile Include="main.py" />
     <Compile Include="test.py" />
     <Compile Include="Word_Printer.py" />
   </ItemGroup>
