@@ -9,7 +9,8 @@ document.add_heading('Document Title', 0)
 p = document.add_paragraph('A plain paragraph having some ')
 p.add_run('bold,').bold = True
 p.add_run('highlight,').font.highlight_color = 7 # YELLOW
-p.add_run('color').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+p.add_run('color,').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+p.add_run('underline').font.underline = True
 run = p.add_run(' and some ')
 run.font.color.rgb = RGBColor(0xff, 0x00, 0x00)
 run.font.highlight_color = 7 # YELLOW
