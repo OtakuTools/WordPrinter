@@ -5,6 +5,6 @@
 5、总经理姓名：00ffff manager
 6、管代姓名：7f0000 guandai
 7、编制人员姓名：007f00 employees
-8、批准人姓名：00007f allower
+8、批准人姓名：000080 allower
 9、发布日期:7f7f00 announceDate
 10、审核日期：007f7f auditDate
