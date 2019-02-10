@@ -2,6 +2,7 @@ from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
 
+fileName = 'ABMM'
 company = '黄铸韬无限公司'
 address = '广州市最高的那栋楼'
 introduction = 'abm御用公司，简介还用写？？？'
@@ -23,6 +24,10 @@ def replace( src , dst ):
             for r in p.runs:
                 if r.font.highlight_color == 7:
                     todo.append(r)
+        for p in s.header.paragraphs:
+            for r in p.runs:
+                if r.font.highlight_color == 7:
+                    todo.append(r)
 
     #表格
     for t in document.tables:
@@ -41,6 +46,11 @@ def replace( src , dst ):
     
     #替换
     for r in todo:
+        if str(r.font.color.rgb) == 'FFF000':
+            r.text = fileName
+            r.font.highlight_color = None
+            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+            print('稳了')
         if str(r.font.color.rgb) == 'FF0000':
             r.text = company
             r.font.highlight_color = None
