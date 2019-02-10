@@ -77,17 +77,25 @@ class drawGraph:
         temp = data.splitlines()
         subCount = 0
         for item in temp:
-            if ";" in item or "；" in item:
-                edge = item.replace(";","").replace("；","")
-                t = re.split("[,，]", edge)
-                t = sorted(set(t), key = t.index)
-                for i in range(len(t)):
-                    t[i] = t[i].strip(" ")
-                structDict["cluster{:0>5d}".format(subCount)] = t
-                subCount += 1;
-            elif "#" in item:
-                edge = item.replace("#","")
-                edgeList.append(edge)
+            if (";" in item or "；" in item) and "#" not in item:
+                s_item = item.strip(" ")
+                temp_list = re.split("[;；]", s_item)
+                temp_list = list(filter(lambda x: x != '' and x != ' ', temp_list))
+                for item_t in temp_list:
+                    edge = item_t.replace(";","").replace("；","")
+                    t = re.split("[,，]", edge)
+                    t = sorted(set(t), key = t.index)
+                    for i in range(len(t)):
+                        t[i] = t[i].strip(" ")
+                    structDict["cluster{:0>5d}".format(subCount)] = t
+                    subCount += 1;
+            elif "#" in item and ";" not in item and "；" not in item:
+                temp_list1 = re.split("[#]", item)
+                for item_t in temp_list1:
+                    edge = item.replace("#","")
+                    edgeList.append(edge)
+            else:
+                return ""
         edgeList = list(filter(lambda x: x != '', edgeList))
 
         print(structDict)
