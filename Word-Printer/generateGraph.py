@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
 from graphviz import Digraph
+from graphviz import Graph
+import random
+import os
+import re
+import math
 
 class drawGraph:
 
@@ -14,10 +19,10 @@ class drawGraph:
         'nodes': {
             'fontname': 'KaiTi',
             'shape': 'box',
-            'fontcolor': 'white',
-            'color': 'white',
-            'style': 'filled',
-            'fillcolor': '#006699',
+            #'fontcolor': 'white',
+            #'color': 'white',
+            #'style': 'filled',
+            #'fillcolor': '#006699',
         },
         #'edges': {
         #    'style': 'dashed',
@@ -29,6 +34,8 @@ class drawGraph:
         #}
     }
 
+    saveDir = "./save/"
+
     def __init__(self):
         pass
 
@@ -38,8 +45,15 @@ class drawGraph:
     def preview(self, graph):
         graph.view()
 
-    def save(self, graph):
-        graph.render(filename="./result.gv", view=True)
+    def save(self, graph, filename):
+        graph.render(filename=self.saveDir+filename)
+
+    def genName(self):
+        s = "0123456789abcdefghijklmnopqrstuvwxyz"
+        res = ""
+        for i in range(32):
+            res = res + s[random.randint(0, len(s)-1)]
+        return res
 
     def apply_styles(self, graph):
         graph.graph_attr.update(
@@ -52,9 +66,79 @@ class drawGraph:
             ('edges' in self.styles and self.styles['edges']) or {}
         )
         return graph
-
+    # gramma
+    # A-B;
+    # @param: data(string)
     def draw(self, data):
-        pass
+        edgeList = []
+        nodeDict = {}
+        structDict = {}
+        # deal with data
+        temp = data.splitlines()
+        subCount = 0
+        for item in temp:
+            if ";" in item or "；" in item:
+                edge = item.replace(";","").replace("；","")
+                t = re.split("[,，]", edge)
+                t = sorted(set(t), key = t.index)
+                for i in range(len(t)):
+                    t[i] = t[i].strip(" ")
+                structDict["cluster{:0>5d}".format(subCount)] = t
+                subCount += 1;
+            elif "#" in item:
+                edge = item.replace("#")
+                t1 = re.split("[-]", edge)
+                edgeList = edgeList + t1;
+        edgeList = list(filter(lambda x: x != '', edgeList))
+
+        print(structDict)
+
+        # single arrow
+        for edge in edgeList:
+            nodes = edge.split("-")
+            node1 = nodes[0].strip(" ")
+            node2 = nodes[1].strip(" ")
+            if node1 in nodeDict:
+                nodeDict[node1].append(node2)
+            else:
+                nodeDict[node1] = [node2]
+
+        #print(nodeDict)
+        # draw graph
+        subG = []
+        linkPoint = []
+        graph = Graph(comment="graph", format="png", graph_attr={'rank': 'max'})
+        graph.attr(_attributes={'compound': 'true', 'rankdir': 'TB', 'center': 'true'})
+        for sub, content in structDict.items():
+            subg = Graph(name=sub, graph_attr={'center': 'true', 'rankdir': 'LR', 'rank': 'max'}, node_attr={'fontname': 'KaiTi', 'shape': 'box'})
+            subg.attr(_attributes={'compound': 'false', 'color':'black'})
+            nodes = []
+            for i in range(len(content)-1, -1, -1):
+                subg.node(content[i], content[i])
+                nodes.append(content[i])
+
+                if len(content)%2 == 0 and i == len(content)/2:
+                    subg.node(sub+"e", "", {'height': '0', 'width':'0', 'color':'white'})
+                    linkPoint.append(sub+"e")
+                    nodes.append(sub+"e")
+                if len(content)%2 == 1 and i == (len(content)-1)/2:
+                    linkPoint.append(content[i])
+                
+            #for i in range(1, len(nodes)):
+                #subg.edge(nodes[i-1], nodes[i])
+            graph.subgraph(subg)
+            subG.append(sub)
+
+        for i in range(1, len(subG)):
+            graph.edge(linkPoint[i-1], linkPoint[i], _attributes={'ltail':subG[i-1],'lhead':subG[i]})
+        print(graph.source)
+        self.preview(graph)
+        #graph = self.apply_styles(graph)
+        #self.preview(graph)
+        filename = self.genName()
+        #self.save(graph, filename)
+        return self.saveDir + filename
+
 
     def testDraw(self):
         dot = Digraph(comment="Thre round Table", format="png")
