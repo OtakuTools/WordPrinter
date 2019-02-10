@@ -13,6 +13,7 @@ class userInfo:
     announceDate = ""
     auditDate = ""
     departments = []
+
     def __init__(self):
         pass
     def __del__(self):
