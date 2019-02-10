@@ -7,8 +7,13 @@ document = Document()
 document.add_heading('Document Title', 0)
 
 p = document.add_paragraph('A plain paragraph having some ')
-p.add_run('bold').bold = True
-p.add_run(' and some ').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+p.add_run('bold,').bold = True
+p.add_run('highlight,').font.highlight_color = 7 # YELLOW
+p.add_run('color').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+run = p.add_run(' and some ')
+run.font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+run.font.highlight_color = 7 # YELLOW
+
 p.add_run('italic.').italic = True
 
 document.add_heading('Heading, level 1', level=1)
@@ -48,3 +53,9 @@ for p in document.paragraphs:
         print( "    bold:" + str(r.bold) )
         print( "    italic:" + str(r.italic) )
         print( "    color:" + str(r.font.color.rgb))
+
+print("----------------------------")
+for p in document.paragraphs:
+    for r in p.runs:
+        if str(r.font.color.rgb) == 'FF0000' or r.font.highlight_color == 7:
+            print( r.text )
