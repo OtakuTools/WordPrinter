@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb4300f-76d9-4524-bf19-a3f1b40736e2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>module1.py</StartupFile>
     <SearchPath>..\Word-Printer</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -25,6 +25,9 @@
     <Compile Include="dataStruct.py" />
     <Compile Include="generateGraph.py" />
     <Compile Include="main.py" />
+    <Compile Include="module1.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test.py" />
     <Compile Include="Word_Printer.py" />
   </ItemGroup>
