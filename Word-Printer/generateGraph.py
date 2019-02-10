@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import markdown
 from graphviz import Digraph
 
 class drawGraph:
@@ -7,6 +6,9 @@ class drawGraph:
         pass
 
     def __del__(self):
+        pass
+
+    def draw(self, data):
         pass
 
     def testDraw(self):

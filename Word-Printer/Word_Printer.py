@@ -2,60 +2,74 @@ from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
 
-document = Document()
+class docWriter:
+    def __init__(self):
+        pass
 
-document.add_heading('Document Title', 0)
+    def __del__(self):
+        pass
 
-p = document.add_paragraph('A plain paragraph having some ')
-p.add_run('bold,').bold = True
-p.add_run('highlight,').font.highlight_color = 7 # YELLOW
-p.add_run('color').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
-run = p.add_run(' and some ')
-run.font.color.rgb = RGBColor(0xff, 0x00, 0x00)
-run.font.highlight_color = 7 # YELLOW
+    def saveAsDocx(self, doc, filepath):
+        doc.save(filepath)
 
-p.add_run('italic.').italic = True
+    def saveAsPdf(self, doc):
+        pass
 
-document.add_heading('Heading, level 1', level=1)
-document.add_paragraph('Intense quote', style='Intense Quote')
+    def write(self):
+        document = Document()
 
-document.add_paragraph(
-    'first item in unordered list', style='List Bullet'
-)
-document.add_paragraph(
-    'first item in ordered list', style='List Number'
-)
+        document.add_heading('Document Title', 0)
 
-records = (
-    (3, '101', 'Spam'),
-    (7, '422', 'Eggs'),
-    (4, '631', 'Spam, spam, eggs, and spam')
-)
+        p = document.add_paragraph('A plain paragraph having some ')
+        p.add_run('bold,').bold = True
+        p.add_run('highlight,').font.highlight_color = 7 # YELLOW
+        p.add_run('color').font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+        run = p.add_run(' and some ')
+        run.font.color.rgb = RGBColor(0xff, 0x00, 0x00)
+        run.font.highlight_color = 7 # YELLOW
 
-table = document.add_table(rows=1, cols=3)
-hdr_cells = table.rows[0].cells
-hdr_cells[0].text = 'Qty'
-hdr_cells[1].text = 'Id'
-hdr_cells[2].text = 'Desc'
-for qty, id, desc in records:
-    row_cells = table.add_row().cells
-    row_cells[0].text = str(qty)
-    row_cells[1].text = id
-    row_cells[2].text = desc
+        p.add_run('italic.').italic = True
 
-document.add_page_break()
+        document.add_heading('Heading, level 1', level=1)
+        document.add_paragraph('Intense quote', style='Intense Quote')
 
-document.save('demo.docx')
+        document.add_paragraph(
+            'first item in unordered list', style='List Bullet'
+        )
+        document.add_paragraph(
+            'first item in ordered list', style='List Number'
+        )
 
-for p in document.paragraphs:
-    for r in p.runs:
-        print( r.text )
-        print( "    bold:" + str(r.bold) )
-        print( "    italic:" + str(r.italic) )
-        print( "    color:" + str(r.font.color.rgb))
+        records = (
+            (3, '101', 'Spam'),
+            (7, '422', 'Eggs'),
+            (4, '631', 'Spam, spam, eggs, and spam')
+        )
 
-print("----------------------------")
-for p in document.paragraphs:
-    for r in p.runs:
-        if str(r.font.color.rgb) == 'FF0000' or r.font.highlight_color == 7:
-            print( r.text )
+        table = document.add_table(rows=1, cols=3)
+        hdr_cells = table.rows[0].cells
+        hdr_cells[0].text = 'Qty'
+        hdr_cells[1].text = 'Id'
+        hdr_cells[2].text = 'Desc'
+        for qty, id, desc in records:
+            row_cells = table.add_row().cells
+            row_cells[0].text = str(qty)
+            row_cells[1].text = id
+            row_cells[2].text = desc
+
+        document.add_page_break()
+
+        self.saveAsDocx(document, 'demo.docx')
+
+        for p in document.paragraphs:
+            for r in p.runs:
+                print( r.text )
+                print( "    bold:" + str(r.bold) )
+                print( "    italic:" + str(r.italic) )
+                print( "    color:" + str(r.font.color.rgb))
+
+        print("----------------------------")
+        for p in document.paragraphs:
+            for r in p.runs:
+                if str(r.font.color.rgb) == 'FF0000' or r.font.highlight_color == 7:
+                    print( r.text )
