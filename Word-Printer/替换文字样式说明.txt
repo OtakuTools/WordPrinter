@@ -9,3 +9,4 @@
 8、批准人姓名：000080 allower
 9、发布日期:7f7f00 announceDate
 10、审核日期：007f7f auditDate
+11、图片路径:000fff picPath

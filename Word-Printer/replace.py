@@ -1,6 +1,7 @@
 from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
+from pictureIns import pictureIns
 
 fileName = 'ABMM'
 company = '黄铸韬无限公司'
@@ -13,12 +14,13 @@ employees = '编制人员旭某人'
 allower = '批准人东某人'
 announceDate = '8102年3月22日'
 auditDate = '9102年5月8日'
+picPath = 'result.gv.png'
 
 def replace( src , dst ):
     document = Document(src)
     todo = []
 
-    #页脚
+    #页眉页脚
     for s in document.sections:
         for p in s.footer.paragraphs:
             for r in p.runs:
@@ -50,7 +52,6 @@ def replace( src , dst ):
             r.text = fileName
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-            print('稳了')
         if str(r.font.color.rgb) == 'FF0000':
             r.text = company
             r.font.highlight_color = None
@@ -91,10 +92,13 @@ def replace( src , dst ):
             r.text = auditDate
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-
     document.save(dst)
+
+    #插入图片
+    pictureIns(dst,dst,picPath)
+
     print('成功')
     pass
 
 if __name__ == '__main__':
-    replace('sample.docx','SM.docx')
+    replace('sample.docx',fileName+'-20000-SM-M-01.docx')
