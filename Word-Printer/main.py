@@ -23,7 +23,7 @@ if __name__ == '__main__':
     user.approver = '批准人东某人'
     user.releaseDate = '8102年3月22日'
     user.auditDate = '9102年5月8日'
-    user.picPath = 'result.gv.png'
+    user.picPath = 'Graph.gv.png'
     user.departments = [["aaa", ["hello", "world"], ["0", "1"]]]
 
     db.insertData(user)

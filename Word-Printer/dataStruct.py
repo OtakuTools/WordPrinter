@@ -13,8 +13,8 @@ class userInfo:
     manager = ""
     # string
     guandai = ""
-    # string, array
-    employees = []
+    # string
+    employees = ""
     # string
     approver = ""
     # string(Date) x年y月z日

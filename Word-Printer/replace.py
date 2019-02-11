@@ -54,7 +54,7 @@ def replace( src , dst , user ):
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == 'FFFF00':
-            r.text = user.coverField
+            r.text = '\n'.join(user.coverField)
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == '00FFFF':
@@ -95,13 +95,13 @@ if __name__ == '__main__':
     user.company = '黄铸韬无限公司'
     user.address = '广州市最高的那栋楼'
     user.introduction = 'abm御用公司，简介还用写？？？'
-    user.coverField = '美利坚合众国的一切'
+    user.coverField = ['美利坚合众国的一切','Evertything in America']
     user.manager = '狗腿1号郑经理'
     user.guandai = '狗腿2号黄管代'
     user.employees = '编制人员旭某人'
     user.approver = '批准人东某人'
     user.releaseDate = '8102年3月22日'
     user.auditDate = '9102年5月8日'
-    user.picPath = 'result.gv.png'
+    user.picPath = 'Graph.gv.png'
 
     replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user )

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pymysql
 import json
+import sys
 
 from dataStruct import userInfo
 
@@ -8,7 +9,10 @@ class DB:
     def __init__(self):
         self.info = self.loadConfig()
         print(self.info)
-        self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
+        try:
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
+        except Exception as e:
+            print(e)
         self.createDB(self.info['dbname'])
 
     def __del__(self):
@@ -21,8 +25,8 @@ class DB:
         self.db.close()
         try:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
-        except:
-            print("ERROR: Can not create DB " + dbName)
+        except Exception as e:
+            print(e)
             self.db.rollback()
         else:
             self.initDB()
@@ -58,13 +62,13 @@ class DB:
                """]
         try:
             ptr.execute(sql[0])
-        except:
-            print("ERROR: Can not create table info")
+        except Exception as e:
+            print(e)
             self.db.rollback()
         try:
             ptr.execute(sql[1])
-        except:
-            print("ERROR: Can not create table department")
+        except Exception as e:
+            print(e)
             self.db.rollback()
 
     def search(self):
@@ -75,8 +79,8 @@ class DB:
             results = ptr.fetchall()
             for row in results:
                 print(row)
-        except:
-            print("error")
+        except Exception as e:
+            print(e)
 
     def searchById(self, id):
         ptr = self.db.cursor()
@@ -103,12 +107,12 @@ class DB:
                 info.coverField = row[4].split("#")
                 info.manager = row[5]
                 info.guandai = row[6]
-                info.employees = row[7].split("#")
+                info.employees = row[7]
                 info.approver = row[8]
                 info.releaseDate = row[9]
                 info.auditDate = row[10]        
-        except:
-            print("ERROR: Can not get result from info")
+        except Exception as e:
+            print(e)
 
         try:
             ptr.execute(sql1)
@@ -118,8 +122,8 @@ class DB:
                 dep.append(row[1].split("#"))
                 dep.append(row[2].split("#"))
                 info.departments.append(dep)
-        except:
-            print("ERROR: Can not get result from department")
+        except Exception as e:
+            print(e)
         
         return info
 
@@ -141,14 +145,14 @@ class DB:
                 )VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
                        data.introduction, "#".join(data.coverField), data.manager,
-                       data.guandai, "#".join(data.employees), data.approver,
+                       data.guandai, data.employees, data.approver,
                        data.releaseDate, data.auditDate)
         try:
            ptr.execute(sql0)
            self.db.commit()
-        except:
+        except Exception as e:
            self.db.rollback()
-           print("ERROR: Insert info error")
+           print(e)
 
         for department in data.departments:
             sql1 =  """
@@ -159,12 +163,13 @@ class DB:
                         resposibility
                     )VALUES('%s', '%s', '%s', '%s');
                     """ % (data.fileName, department[0], "#".join(department[1]), "#".join(department[2]))
-            ptr.execute(sql1)
+            
             try:
+               ptr.execute(sql1)
                self.db.commit()
-            except:
+            except Exception as e:
                self.db.rollback()
-               print("ERROR: Insert department error")
+               print(e)
                break
 
     def loadConfig(self):
