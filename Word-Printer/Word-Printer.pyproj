@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb4300f-76d9-4524-bf19-a3f1b40736e2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>replace.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>..\Word-Printer</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>

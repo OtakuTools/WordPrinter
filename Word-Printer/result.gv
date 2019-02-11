@@ -1,8 +1,0 @@
-// Thre round Table
-digraph {
-	A [label=King]
-	B [label=Knight]
-	C [label=Solider]
-	A -> B
-	A -> C
-}

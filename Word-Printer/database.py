@@ -2,29 +2,70 @@
 import pymysql
 import json
 
+from dataStruct import userInfo
+
 class DB:
     def __init__(self):
         self.info = self.loadConfig()
         print(self.info)
-        self.db = pymysql.connect(self.info['ip'], self.info['user'], self.info['pswd'], self.info['dbname'])
-        self.search()
+        self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
+        self.createDB(self.info['dbname'])
 
     def __del__(self):
         self.db.close()
 
-    def loadConfig(self):
-        with open("dbConfig.json", "r") as f:
-            data = json.load(f)
-        return data
+    def createDB(self, dbName):
+        ptr = self.db.cursor()
+        sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
+        ptr.execute(sql)
+        self.db.close()
+        try:
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
+        except:
+            print("ERROR: Can not create DB " + dbName)
+            self.db.rollback()
+        else:
+            self.initDB()
+        
 
-    def writeConfig(self):
-        data = { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore'}
-        with open("dbConfig.json", "w") as f:
-            json.dump(data, f, sort_keys=True, indent=4, separators=(',', ': '))
-        return data
-
-    def resetConfig(self):
-        self.writeConfig()
+    def initDB(self):
+        ptr = self.db.cursor()
+        sql = ["""
+               CREATE TABLE IF NOT EXISTS info( 
+                   id NVARCHAR(20) NOT NULL, 
+                   company NVARCHAR(100) NOT NULL,
+                   address NVARCHAR(100) NOT NULL,
+                   introduction NVARCHAR(1000) NOT NULL,
+                   coverField NVARCHAR(100) NOT NULL,
+                   manager NVARCHAR(20) NOT NULL,
+                   guanDai NVARCHAR(20) NOT NULL,
+                   employees NVARCHAR(20) NOT NULL,
+                   approver NVARCHAR(20) NOT NULL,
+                   releaseDate NVARCHAR(20),
+                   auditDate NVARCHAR(20),
+                   PRIMARY KEY (id)
+               ) ENGINE=InnoDB;
+               """,
+               """
+               CREATE TABLE IF NOT EXISTS department( 
+                   refId NVARCHAR(20) NOT NULL,
+                   name NVARCHAR(20) NOT NULL,
+                   duty NVARCHAR(1500) NOT NULL,
+                   resposibility NVARCHAR(200) NOT NULL,
+                   PRIMARY KEY (refId),
+                   FOREIGN KEY (refId) REFERENCES info(id) ON UPDATE CASCADE ON DELETE CASCADE
+               ) ENGINE=InnoDB;
+               """]
+        try:
+            ptr.execute(sql[0])
+        except:
+            print("ERROR: Can not create table info")
+            self.db.rollback()
+        try:
+            ptr.execute(sql[1])
+        except:
+            print("ERROR: Can not create table department")
+            self.db.rollback()
 
     def search(self):
         ptr = self.db.cursor()
@@ -36,4 +77,107 @@ class DB:
                 print(row)
         except:
             print("error")
-        self.db.close()
+
+    def searchById(self, id):
+        ptr = self.db.cursor()
+        sql0 = """
+               SELECT *
+               FROM info
+               WHERE id = %s;
+               """ % (id)
+        sql1 = """
+               SELECT (name, duty, resposibility)
+               FROM department
+               WHERE refId = %s;
+               """ % (id)
+   
+        info = userInfo();
+        try:
+            ptr.execute(sql0)
+            results = ptr.fetchall()
+            for row in results:
+                info.fileName = row[0]
+                info.company = row[1]
+                info.address = row[2]
+                info.introduction = row[3]
+                info.coverField = row[4].split("#")
+                info.manager = row[5]
+                info.guandai = row[6]
+                info.employees = row[7].split("#")
+                info.approver = row[8]
+                info.releaseDate = row[9]
+                info.auditDate = row[10]        
+        except:
+            print("ERROR: Can not get result from info")
+
+        try:
+            ptr.execute(sql1)
+            results = ptr.fetchall()
+            for row in results:
+                dep = [rows[0]]
+                dep.append(row[1].split("#"))
+                dep.append(row[2].split("#"))
+                info.departments.append(dep)
+        except:
+            print("ERROR: Can not get result from department")
+        
+        return info
+
+    def insertData(self, data):
+        ptr = self.db.cursor()
+        sql0 =  """
+                INSERT INTO info(
+                    id, 
+                    company,
+                    address,
+                    introduction,
+                    coverField,
+                    manager,
+                    guanDai,
+                    employees,
+                    approver,
+                    releaseDate,
+                    auditDate
+                )VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
+                """ % (data.fileName, data.company, data.address,
+                       data.introduction, "#".join(data.coverField), data.manager,
+                       data.guandai, "#".join(data.employees), data.approver,
+                       data.releaseDate, data.auditDate)
+        try:
+           ptr.execute(sql0)
+           self.db.commit()
+        except:
+           self.db.rollback()
+           print("ERROR: Insert info error")
+
+        for department in data.departments:
+            sql1 =  """
+                    INSERT INTO department(
+                        refId, 
+                        name,
+                        duty,
+                        resposibility
+                    )VALUES('%s', '%s', '%s', '%s');
+                    """ % (data.fileName, department[0], "#".join(department[1]), "#".join(department[2]))
+            ptr.execute(sql1)
+            try:
+               self.db.commit()
+            except:
+               self.db.rollback()
+               print("ERROR: Insert department error")
+               break
+
+    def loadConfig(self):
+        with open("dbConfig.json", "r") as f:
+            data = json.load(f)
+        return data
+
+    def writeConfig(self):
+        data = { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore', 'port': 3306}
+        with open("dbConfig.json", "w") as f:
+            json.dump(data, f, sort_keys=True, indent=4, separators=(',', ': '))
+        return data
+
+    def resetConfig(self):
+        self.writeConfig()
+

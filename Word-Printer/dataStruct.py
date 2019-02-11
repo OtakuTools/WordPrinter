@@ -16,9 +16,9 @@ class userInfo:
     # string, array
     employees = []
     # string
-    allower = ""
+    approver = ""
     # string(Date) x年y月z日
-    announceDate = ""
+    releaseDate = ""
     # string(Date) x年y月z日
     auditDate = ""
     # structure array [name, [introduction], [function]]

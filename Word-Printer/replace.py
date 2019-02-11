@@ -70,11 +70,11 @@ def replace( src , dst , user ):
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == '000080':
-            r.text = user.allower
+            r.text = user.approver
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == '7F7F00':
-            r.text = user.announceDate
+            r.text = user.releaseDate
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == '007F7F':
@@ -99,8 +99,8 @@ if __name__ == '__main__':
     user.manager = '狗腿1号郑经理'
     user.guandai = '狗腿2号黄管代'
     user.employees = '编制人员旭某人'
-    user.allower = '批准人东某人'
-    user.announceDate = '8102年3月22日'
+    user.approver = '批准人东某人'
+    user.releaseDate = '8102年3月22日'
     user.auditDate = '9102年5月8日'
     user.picPath = 'result.gv.png'
 
