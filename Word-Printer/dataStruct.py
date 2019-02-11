@@ -17,12 +17,16 @@ class userInfo:
     employees = []
     # string
     allower = ""
-    # string(Date)
+    # string(Date) x年y月z日
     announceDate = ""
-    # string(Date)
+    # string(Date) x年y月z日
     auditDate = ""
     # structure array [name, [introduction], [function]]
     departments = []
+    # string path
+    picPath = ""
+    # string filename
+    fileName = ""
 
     def __init__(self):
         pass
