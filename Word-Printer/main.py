@@ -15,8 +15,8 @@ if __name__ == '__main__':
     user.fileName = 'ABMM'
     user.company = '黄铸韬无限公司'
     user.address = '广州市最高的那栋楼'
-    user.introduction = 'abm御用公司，简介还用写？？？'
-    user.coverField = '美利坚合众国的一切'
+    user.introduction = ['abm御用公司，简介还用写？？？']
+    user.coverField = ['美利坚合众国的一切']
     user.manager = '狗腿1号郑经理'
     user.guandai = '狗腿2号黄管代'
     user.employees = '编制人员旭某人'

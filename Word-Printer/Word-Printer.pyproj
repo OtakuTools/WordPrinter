@@ -44,8 +44,10 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dbConfig.json" />
     <Content Include="requirements.txt" />
     <Content Include="test.ui" />
+    <Content Include="替换文字样式说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -4,3 +4,5 @@
 /Word-Printer/~$demo.docx
 Word-Printer/~$SM.docx
 Word-Printer/~$sample.docx
+Word-Printer/dbConfig.json
+*.pyc

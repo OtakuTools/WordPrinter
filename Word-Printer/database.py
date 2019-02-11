@@ -20,8 +20,12 @@ class DB:
 
     def createDB(self, dbName):
         ptr = self.db.cursor()
-        sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
-        ptr.execute(sql)
+        try:
+            sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
+            ptr.execute(sql)
+        except Exception as e:
+            print(e)
+            self.db.rollback()
         self.db.close()
         try:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
@@ -56,7 +60,7 @@ class DB:
                    name NVARCHAR(20) NOT NULL,
                    duty NVARCHAR(1500) NOT NULL,
                    resposibility NVARCHAR(200) NOT NULL,
-                   PRIMARY KEY (refId),
+                   PRIMARY KEY (name),
                    FOREIGN KEY (refId) REFERENCES info(id) ON UPDATE CASCADE ON DELETE CASCADE
                ) ENGINE=InnoDB;
                """]
@@ -144,7 +148,7 @@ class DB:
                     auditDate
                 )VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
-                       data.introduction, "#".join(data.coverField), data.manager,
+                       "#".join(data.introduction), "#".join(data.coverField), data.manager,
                        data.guandai, data.employees, data.approver,
                        data.releaseDate, data.auditDate)
         try:

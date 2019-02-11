@@ -5,9 +5,9 @@ class userInfo:
     company = ""
     # string
     address = ""
-    # string
-    introduction = ""
-    # string, array
+    # array of string
+    introduction = []
+    # array of string
     coverField = []
     # string
     manager = ""
