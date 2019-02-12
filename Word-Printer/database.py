@@ -194,7 +194,9 @@ class DB:
         options = list(option_data.keys())
         print(options)
         sql = "UPDATE " + table + " SET "
+        
         if table == "info":
+            # info表
             pos = "id = '%s'" % (option_data["id"])
             options.remove("id")
             for i in range(0, len(options)):
@@ -203,12 +205,12 @@ class DB:
                     sql = sql + ", "
             sql = sql + " WHERE " + pos
         else:
-            # not test
+            # department表
             pos = "refId = '%s' and name = '%s'" % (option_data["refId"], option_data["name"])
             options.remove("refId")
             options.remove("name")
             for i in range(0, len(options)):
-                sql = sql + options[i] + " = '%s'" % (option_data[options[i]])
+                sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
                 if i < len(options)-1:
                     sql = sql + ", "
             sql = sql + " WHERE " + pos
@@ -224,8 +226,23 @@ class DB:
             return False
         return True
 
-    def delete(self, id):
+    def delete(self, table, id, department = ""):
         ptr = self.db.cursor()
+        if table not in ["info", "department"]:
+            return False
+        sql = ""
+        if table == "info":
+            sql = "DELETE FROM %s WHERE id = '%s';" % (table, id)
+        else:
+            sql = "DELETE FROM %s WHERE refId = '%s' and name = '%s';" % (table, id, department)
+        try:
+            ptr.execute(sql)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            print(e)
+            return False
+        return True
 
     def loadConfig(self):
         with open("dbConfig.json", "r") as f:

@@ -24,10 +24,12 @@ if __name__ == '__main__':
     user.releaseDate = '8102年3月22日'
     user.auditDate = '9102年5月8日'
     user.picPath = 'Graph.gv.png'
-    user.departments = [["aaa", ["hello", "world"], ["0", "1"]]]
+    user.departments = [["aaa", ["hello", "world"], ["0", "1"]], ["bbb", ["hello", "world"], ["0", "1"]]]
 
     db.insertData(user)
-    print(db.update("info", {"company" : "a", "address" : "b", "id" : "ABMM"}))
+    #print(db.update("info", {"company" : "a", "address" : "b", "id" : "ABMM"}))
+    print(db.update("department", {"name" : "aaa", "resposibility" : ["3","4"], "refId" : "ABMM"}))
+    #print(db.delete("department", "ABMM", "aaa") )
 
     #graph = drawGraph()
     #s = "总经理；\n\
