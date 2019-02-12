@@ -33,6 +33,7 @@ class DB:
             print(e)
             self.db.rollback()
         else:
+            print("SUCCESS: Create database -> " + dbName)
             self.initDB()
         
 
@@ -60,7 +61,7 @@ class DB:
                    name NVARCHAR(20) NOT NULL,
                    duty NVARCHAR(1500) NOT NULL,
                    resposibility NVARCHAR(200) NOT NULL,
-                   PRIMARY KEY (name),
+                   PRIMARY KEY (refId, name),
                    FOREIGN KEY (refId) REFERENCES info(id) ON UPDATE CASCADE ON DELETE CASCADE
                ) ENGINE=InnoDB;
                """]
@@ -69,11 +70,15 @@ class DB:
         except Exception as e:
             print(e)
             self.db.rollback()
+        else:
+            print("SUCCESS: Create table -> info")
         try:
             ptr.execute(sql[1])
         except Exception as e:
             print(e)
             self.db.rollback()
+        else:
+            print("SUCCESS: Create table -> department")
 
     def search(self):
         ptr = self.db.cursor()
@@ -157,6 +162,7 @@ class DB:
         except Exception as e:
            self.db.rollback()
            print(e)
+           return False
 
         for department in data.departments:
             sql1 =  """
@@ -174,7 +180,52 @@ class DB:
             except Exception as e:
                self.db.rollback()
                print(e)
-               break
+               return False
+        return True
+
+    def update(self, table, option_data):
+        if table not in ["info", "department"] or not option_data:
+            return False
+        if not option_data.__contains__("id") and not option_data.__contains__("refId"):
+            return False
+        if option_data.__contains__("refId") and not option_data.__contains__("name"):
+            return False
+
+        options = list(option_data.keys())
+        print(options)
+        sql = "UPDATE " + table + " SET "
+        if table == "info":
+            pos = "id = '%s'" % (option_data["id"])
+            options.remove("id")
+            for i in range(0, len(options)):
+                sql = sql + options[i] + " = '%s'" % (option_data[options[i]])
+                if i < len(options)-1:
+                    sql = sql + ", "
+            sql = sql + " WHERE " + pos
+        else:
+            # not test
+            pos = "refId = '%s' and name = '%s'" % (option_data["refId"], option_data["name"])
+            options.remove("refId")
+            options.remove("name")
+            for i in range(0, len(options)):
+                sql = sql + options[i] + " = '%s'" % (option_data[options[i]])
+                if i < len(options)-1:
+                    sql = sql + ", "
+            sql = sql + " WHERE " + pos
+        
+        print(sql)
+        ptr = self.db.cursor()
+        try:
+            ptr.execute(sql)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            print(e)
+            return False
+        return True
+
+    def delete(self, id):
+        ptr = self.db.cursor()
 
     def loadConfig(self):
         with open("dbConfig.json", "r") as f:

@@ -27,6 +27,8 @@ if __name__ == '__main__':
     user.departments = [["aaa", ["hello", "world"], ["0", "1"]]]
 
     db.insertData(user)
+    print(db.update("info", {"company" : "a", "address" : "b", "id" : "ABMM"}))
+
     #graph = drawGraph()
     #s = "总经理；\n\
     #     信息技术服务小组,管理者代表;  \n\
