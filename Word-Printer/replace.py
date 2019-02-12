@@ -34,6 +34,12 @@ def replace( src , dst , user ):
         for r in p.runs:
             if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
                 todo.append(r)
+                if str(r.font.color.rgb) == 'FF00FF':
+                    p.clear()
+                    for d in user.departments:
+                        p.insert_paragraph_before( d['name'] + ':' , 'Heading 3' )
+                        for i in d['intro']:
+                            p.insert_paragraph_before( i , 'Heading 4' )
     
     #替换
     for r in todo:
@@ -81,6 +87,7 @@ def replace( src , dst , user ):
             r.text = user.auditDate
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+
     document.save(dst)
 
     #插入图片
@@ -103,5 +110,6 @@ if __name__ == '__main__':
     user.releaseDate = '8102年1月31日'
     user.auditDate = '9102年2月28日'
     user.picPath = 'Graph.gv.png'
+    user.departments = [{'name':'很有钱的软件开发部','intro':['开','发','软','件']},{'name':'很有钱的客服','intro':['聊','天','系统集成中心是公司的直接创利部门之一，进行系统集成方面的业务开拓，实现公司要求的年度经营目标；']}]
 
     replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user )
