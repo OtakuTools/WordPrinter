@@ -50,7 +50,7 @@ def replace( src , dst , user ):
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == '0000FF':
-            r.text = user.'\n'.join(introduction)
+            r.text = '\n'.join(user.introduction)
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         if str(r.font.color.rgb) == 'FFFF00':
@@ -91,17 +91,17 @@ def replace( src , dst , user ):
 
 if __name__ == '__main__':
     user = userInfo();
-    user.fileName = 'ABMM'
-    user.company = '黄铸韬无限公司'
-    user.address = '广州市最高的那栋楼'
-    user.introduction = ['abm御用公司，简介还用写？？？']
-    user.coverField = ['美利坚合众国的一切','Evertything in America']
-    user.manager = '狗腿1号郑经理'
-    user.guandai = '狗腿2号黄管代'
-    user.employees = '编制人员旭某人'
-    user.approver = '批准人东某人'
-    user.releaseDate = '8102年3月22日'
-    user.auditDate = '9102年5月8日'
+    user.fileName = 'SAMP'
+    user.company = '很有钱有限公司'
+    user.address = '广州市某区某街道某楼某层某号'
+    user.introduction = ['这里是简介','最多只有800字','简介简介简介简介简介简介简介简介简介简介']
+    user.coverField = ['这里是管理经营范围','最多不知道多少字','也不知道能不能换行','经营范围经营范围经营范围经营范围']
+    user.manager = '经理名字某某某'
+    user.guandai = '管代名字某某某'
+    user.employees = '编制人员姓名某某人'
+    user.approver = '批准发布人某某人'
+    user.releaseDate = '8102年1月31日'
+    user.auditDate = '9102年2月28日'
     user.picPath = 'Graph.gv.png'
 
     replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user )
