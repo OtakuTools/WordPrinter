@@ -1,9 +1,10 @@
 from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
-from pictureIns import pictureIns
 from dataStruct import userInfo
 from docx.enum.text import WD_COLOR_INDEX
+from docx.shared import Cm
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json
 
 def replace( src , dst , user ):
@@ -15,11 +16,15 @@ def replace( src , dst , user ):
         for p in s.footer.paragraphs:
             for r in p.runs:
                 if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
-                    todo.append(r)
+                    r.text = user.company
+                    r.font.highlight_color = None
+                    r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         for p in s.header.paragraphs:
             for r in p.runs:
                 if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
-                    todo.append(r)
+                    r.text = user.fileName
+                    r.font.highlight_color = None
+                    r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
     #表格
     for t in document.tables:
@@ -34,79 +39,63 @@ def replace( src , dst , user ):
     for p in document.paragraphs:
         for r in p.runs:
             if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
-                todo.append(r)
+                # 部门介绍
                 if str(r.font.color.rgb) == 'FF00FF':
                     p.clear()
                     for d in user.departments:
                         p.insert_paragraph_before( d['name'] + ':' , 'Heading 3' )
                         for i in d['intro']:
                             p.insert_paragraph_before( i , 'Heading 4' )
+                # 公司简介
+                if str(r.font.color.rgb) == '0000FF':
+                    p.clear()
+                    for intro in user.introduction:
+                        p.insert_paragraph_before( intro , 'Quote' )
+                # 插入图片
+                if str(r.font.color.rgb) == '000FFF':
+                    pp = p.insert_paragraph_before()
+                    pp.add_run().add_picture( user.picPath ,Cm(16))
+                    pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                todo.append(r)
     
     #替换
     for r in todo:
+        r.font.highlight_color = None
         if str(r.font.color.rgb) == 'FFF000':
             r.text = user.fileName
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == 'FF0000':
+        elif str(r.font.color.rgb) == 'FF0000':
             r.text = user.company
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '00FF00':
+        elif str(r.font.color.rgb) == '00FF00':
             r.text = user.address
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '0000FF':
-            r.text = '\n'.join(user.introduction)
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == 'FFFF00':
+        elif str(r.font.color.rgb) == 'FFFF00':
             r.text = '\n'.join(user.coverField)
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '00FFFF':
+        elif str(r.font.color.rgb) == '00FFFF':
             r.text = user.manager
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '7F0000':
+        elif str(r.font.color.rgb) == '7F0000':
             r.text = user.guandai
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '007F00':
+        elif str(r.font.color.rgb) == '007F00':
             r.text = user.employees
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '000080':
+        elif str(r.font.color.rgb) == '000080':
             r.text = user.approver
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '7F7F00':
+        elif str(r.font.color.rgb) == '7F7F00':
             r.text = user.releaseDate
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '007F7F':
+        elif str(r.font.color.rgb) == '007F7F':
             r.text = user.auditDate
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '7F007F':
+        elif str(r.font.color.rgb) == '7F007F':
             r.text = user.zip
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == 'FFFFF0':
+        elif str(r.font.color.rgb) == 'FFFFF0':
             r.text = user.phone
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        if str(r.font.color.rgb) == '0FFFFF':
+        elif str(r.font.color.rgb) == '0FFFFF':
             r.text = user.policy
-            r.font.highlight_color = None
-            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        elif str(r.font.color.rgb) == '000FFF':
+            pass
+        else:
+            r.font.highlight_color = WD_COLOR_INDEX.YELLOW
+        r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
     document.save(dst)
-
-    #插入图片
-    pictureIns(dst,dst,user.picPath)
-
-    print('成功')
+    
+    print('成功生成 '+dst )
     pass
 
 if __name__ == '__main__':

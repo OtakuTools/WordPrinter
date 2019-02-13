@@ -25,9 +25,6 @@
     <Compile Include="dataStruct.py" />
     <Compile Include="generateGraph.py" />
     <Compile Include="main.py" />
-    <Compile Include="pictureIns.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="replace.py" />
     <Compile Include="test.py" />
     <Compile Include="Word_Printer.py" />
