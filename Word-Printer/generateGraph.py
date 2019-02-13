@@ -146,8 +146,8 @@ class drawGraph:
         print(graph.source)
         self.preview(graph)
         filename = self.genName()
-        #self.save(graph, filename)
-        return self.saveDir + filename
+        self.save(graph, filename)
+        return self.saveDir + filename + ".png"
 
 
     def testDraw(self):

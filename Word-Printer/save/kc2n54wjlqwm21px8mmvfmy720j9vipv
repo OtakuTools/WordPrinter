@@ -12,18 +12,22 @@ graph {
 		graph [center=true ordering=out rank=max rankdir=LR]
 		node [fontname=KaiTi shape=box]
 		color=black compound=true
-		"系统集成中心" [label="系统集成中心"]
+		"管理者代表" [label="管理者代表"]
 		cluster00001e [label="" color=white height=0 width=0]
-		"未来系统集成中心" [label="未来系统集成中心"]
+		"信息技术服务小组" [label="信息技术服务小组"]
 	}
 	subgraph cluster00002 {
 		graph [center=true ordering=out rank=max rankdir=LR]
 		node [fontname=KaiTi shape=box]
 		color=black compound=true
-		"未来行政中心" [label="未来行政中心"]
-		"未来中心" [label="未来中心"]
+		"财务部" [label="财务部"]
 		"行政中心" [label="行政中心"]
+		"营销管理中心" [label="营销管理中心"]
+		cluster00002e [label="" color=white height=0 width=0]
+		"客户服务中心" [label="客户服务中心"]
+		"系统集成中心" [label="系统集成中心"]
+		"软件研发中心" [label="软件研发中心"]
 	}
 	"总经理" -- cluster00001e [lhead=cluster00001 ltail=cluster00000]
-	cluster00001e -- "未来中心" [lhead=cluster00002 ltail=cluster00001]
+	cluster00001e -- cluster00002e [lhead=cluster00002 ltail=cluster00001]
 }

@@ -45,13 +45,20 @@ class DB:
                    company NVARCHAR(100) NOT NULL,
                    address NVARCHAR(100) NOT NULL,
                    introduction NVARCHAR(1000) NOT NULL,
-                   coverField NVARCHAR(100) NOT NULL,
+                   coverField NVARCHAR(1000) NOT NULL,
                    manager NVARCHAR(20) NOT NULL,
                    guanDai NVARCHAR(20) NOT NULL,
                    employees NVARCHAR(20) NOT NULL,
                    approver NVARCHAR(20) NOT NULL,
+                   audit NVARCHAR(20) NOT NULL,
+                   announcer NVARCHAR(20) NOT NULL,
                    releaseDate NVARCHAR(20),
                    auditDate NVARCHAR(20),
+                   zip NVARCHAR(6),
+                   phone NVARCHAR(11),
+                   policy NVARCHAR(200),
+                   picPath NVARCHAR(200),
+                   depStruct NVARCHAR(1000),
                    PRIMARY KEY (id)
                ) ENGINE=InnoDB;
                """,
@@ -112,14 +119,21 @@ class DB:
                 info.fileName = row[0]
                 info.company = row[1]
                 info.address = row[2]
-                info.introduction = row[3]
+                info.introduction = row[3].split("#")
                 info.coverField = row[4].split("#")
                 info.manager = row[5]
                 info.guandai = row[6]
                 info.employees = row[7]
                 info.approver = row[8]
-                info.releaseDate = row[9]
-                info.auditDate = row[10]        
+                info.audit = row[9]
+                info.announcer = row[10]
+                info.releaseDate = row[11]
+                info.auditDate = row[12]
+                info.zip = row[13]
+                info.phone = row[14]
+                info.policy = row[15]
+                info.picPath = row[16]
+                info.depStruct = row[17]
         except Exception as e:
             print(e)
 
@@ -149,13 +163,25 @@ class DB:
                     guanDai,
                     employees,
                     approver,
+                    audit,
+                    announcer,
                     releaseDate,
-                    auditDate
-                )VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
+                    auditDate,
+                    zip,
+                    phone,
+                    policy,
+                    picPath,
+                    depStruct
+                )VALUES('%s', '%s', '%s', '%s', '%s', 
+                        '%s', '%s', '%s', '%s', '%s', 
+                        '%s', '%s', '%s', '%s', '%s', 
+                        '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
                        "#".join(data.introduction), "#".join(data.coverField), data.manager,
                        data.guandai, data.employees, data.approver,
-                       data.releaseDate, data.auditDate)
+                       data.audit, data.announcer, data.releaseDate, 
+                       data.auditDate, data.zip, data.phone, data.policy,
+                       data.picPath, data.depStruct)
         try:
            ptr.execute(sql0)
            self.db.commit()
@@ -200,7 +226,10 @@ class DB:
             pos = "id = '%s'" % (option_data["id"])
             options.remove("id")
             for i in range(0, len(options)):
-                sql = sql + options[i] + " = '%s'" % (option_data[options[i]])
+                if options[i] in ["introduction", "coverField"]:
+                    sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
+                else:
+                    sql = sql + options[i] + " = '%s'" % (option_data[options[i]])
                 if i < len(options)-1:
                     sql = sql + ", "
             sql = sql + " WHERE " + pos

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 class userInfo:
+    # string filename
+    fileName = ""
     # string
     company = ""
     # string
@@ -25,6 +27,16 @@ class userInfo:
     releaseDate = ""
     # string(Date) x年y月z日
     auditDate = ""
+    # string zip code
+    zip = ""
+    # string telphone number
+    phone = ""
+    # string service policy
+    policy = ""
+    # string path
+    picPath = ""
+    # string
+    depStruct = ""
     # dict array
     """
     #[
@@ -40,17 +52,8 @@ class userInfo:
     #    }
     #]
     """
+    # array of string
     departments = []
-    # string path
-    picPath = ""
-    # string filename
-    fileName = ""
-    # string zip code
-    zip = ""
-    # string telphone number
-    phone = ""
-    # string service policy
-    policy = ""
 
     def __init__(self):
         pass

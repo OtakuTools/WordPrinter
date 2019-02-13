@@ -6,6 +6,10 @@ from docx.enum.text import WD_COLOR_INDEX
 from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json
+import time
+import threading
+
+from generateGraph import drawGraph
 
 def replace( src , dst , user ):
     document = Document(src)
@@ -53,6 +57,8 @@ def replace( src , dst , user ):
                         p.insert_paragraph_before( intro , 'Quote' )
                 # 插入图片
                 if str(r.font.color.rgb) == '000FFF':
+                    graph = drawGraph()
+                    user.picPath = graph.draw(user.depStruct)
                     pp = p.insert_paragraph_before()
                     pp.add_run().add_picture( user.picPath ,Cm(16))
                     pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -98,7 +104,9 @@ def replace( src , dst , user ):
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
     #服务管理职责分配表
+    time_start = time.time()
     table = document.tables[-1]
+    table_row_len = len(table.rows)
     for d in user.departments:
         # 表头
         column = table.add_column( Cm(1.5) )
@@ -106,16 +114,18 @@ def replace( src , dst , user ):
         cell.text = d["name"]
         cell.paragraphs[0].style = "Intense Quote"
         # 内容
-        for i in range(1, len(table.rows) ):
+        for i in range(1, table_row_len):
             cell = column.cells[i]
             if i in d["func"]:
                 cell.text = "▲"
             else:
                 cell.text = "△"
             cell.paragraphs[0].style = "Intense Quote"
-
+    time_end = time.time()
     table.style = 'Table Theme'
     table.autofit = True
+    
+    print("create table cost:", time_end-time_start)
 
     print('成功生成 '+dst )
     return document
