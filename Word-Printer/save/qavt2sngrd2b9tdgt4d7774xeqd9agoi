@@ -1,0 +1,29 @@
+// graph
+graph {
+	graph [rank=max]
+	center=true compound=true rankdir=TB
+	subgraph cluster00000 {
+		graph [center=true ordering=out rank=max rankdir=LR]
+		node [fontname=KaiTi shape=box]
+		color=black compound=true
+		"总经理" [label="总经理"]
+	}
+	subgraph cluster00001 {
+		graph [center=true ordering=out rank=max rankdir=LR]
+		node [fontname=KaiTi shape=box]
+		color=black compound=true
+		"系统集成中心" [label="系统集成中心"]
+		cluster00001e [label="" color=white height=0 width=0]
+		"未来系统集成中心" [label="未来系统集成中心"]
+	}
+	subgraph cluster00002 {
+		graph [center=true ordering=out rank=max rankdir=LR]
+		node [fontname=KaiTi shape=box]
+		color=black compound=true
+		"未来行政中心" [label="未来行政中心"]
+		"未来中心" [label="未来中心"]
+		"行政中心" [label="行政中心"]
+	}
+	"总经理" -- cluster00001e [lhead=cluster00001 ltail=cluster00000]
+	cluster00001e -- "未来中心" [lhead=cluster00002 ltail=cluster00001]
+}
