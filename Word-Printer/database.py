@@ -175,7 +175,7 @@ class DB:
                 )VALUES('%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
-                        '%s', '%s');
+                        '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
                        "#".join(data.introduction), "#".join(data.coverField), data.manager,
                        data.guandai, data.employees, data.approver,
