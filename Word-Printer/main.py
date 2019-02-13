@@ -15,9 +15,11 @@ if __name__ == '__main__':
     user = userInfo();
     with open("TestCase.json", "r" , encoding='utf-8') as f:
             data = json.load(f)
-    dict = data[0]
-    for key in dict.keys():
-        setattr( user , key , dict[key] )
+    for dict in data:
+        for key in dict.keys():
+            setattr( user , key , dict[key] )
+        docw = docWriter()
+        docw.loadAndWrite( user , "sample.docx")
 
     
     #db.insertData(user)
@@ -32,9 +34,6 @@ if __name__ == '__main__':
          #管理者代表-系统集成中心#\n\
          #信息技术服务小组-客户服务中心#"
     #graph.draw(s)
-
-    docw = docWriter()
-    docw.loadAndWrite("sample.docx")
 
     #app = QApplication(sys.argv)
     #MainWindow = QMainWindow()

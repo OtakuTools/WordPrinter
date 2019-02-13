@@ -9,7 +9,6 @@ import json
 import time
 import threading
 
-from generateGraph import drawGraph
 
 def replace( src , dst , user ):
     document = Document(src)
@@ -57,8 +56,6 @@ def replace( src , dst , user ):
                         p.insert_paragraph_before( intro , 'Quote' )
                 # 插入图片
                 if str(r.font.color.rgb) == '000FFF':
-                    graph = drawGraph()
-                    user.picPath = graph.draw(user.depStruct, dst.split(".")[0]+"_picture")
                     pp = p.insert_paragraph_before()
                     pp.add_run().add_picture( user.picPath ,Cm(16))
                     pp.alignment = WD_ALIGN_PARAGRAPH.CENTER

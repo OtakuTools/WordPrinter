@@ -5,6 +5,7 @@ import random
 import os
 import re
 import math
+from dataStruct import userInfo
 
 class drawGraph:
 
@@ -69,7 +70,9 @@ class drawGraph:
     # gramma
     # A-B;
     # @param: data(string)
-    def draw(self, data, output = ""):
+    def draw(self, user_info):
+        output = user_info.fileName + "-20000-SM-M-01_picture"
+        data = user_info.depStruct
         edgeList = []
         nodeDict = {}
         structDict = {}
@@ -143,11 +146,12 @@ class drawGraph:
             for child in children:
                 graph.edge(node, child)
 
-        print(graph.source)
-        self.preview(graph)
+        #print(graph.source)
+        #self.preview(graph)
         filename = output if output != "" else self.genName()
         self.save(graph, filename)
-        return self.saveDir + filename + ".png"
+        user_info.picPath = self.saveDir + filename + ".png"
+        return user_info
 
 
     def testDraw(self):

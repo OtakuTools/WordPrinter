@@ -5,6 +5,7 @@ import json
 
 from replace import replace
 from dataStruct import userInfo
+from generateGraph import drawGraph
 
 class docWriter:
     def __init__(self):
@@ -19,8 +20,10 @@ class docWriter:
     def saveAsPdf(self, doc):
         pass
 
-    def loadAndWrite(self, templateFile, targetFile = ""):
-        user = self.loadInfo()
+    def loadAndWrite(self, user , templateFile, targetFile = ""):
+        #user = self.loadInfo()
+        graph = drawGraph()
+        user = graph.draw(user)
         self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user)
         
     def loadInfo(self):
