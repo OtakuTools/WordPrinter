@@ -69,7 +69,7 @@ class drawGraph:
     # gramma
     # A-B;
     # @param: data(string)
-    def draw(self, data):
+    def draw(self, data, output = ""):
         edgeList = []
         nodeDict = {}
         structDict = {}
@@ -145,7 +145,7 @@ class drawGraph:
 
         print(graph.source)
         self.preview(graph)
-        filename = self.genName()
+        filename = output if output != "" else self.genName()
         self.save(graph, filename)
         return self.saveDir + filename + ".png"
 

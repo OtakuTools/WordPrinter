@@ -58,7 +58,7 @@ def replace( src , dst , user ):
                 # 插入图片
                 if str(r.font.color.rgb) == '000FFF':
                     graph = drawGraph()
-                    user.picPath = graph.draw(user.depStruct)
+                    user.picPath = graph.draw(user.depStruct, dst.split(".")[0]+"_picture")
                     pp = p.insert_paragraph_before()
                     pp.add_run().add_picture( user.picPath ,Cm(16))
                     pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
