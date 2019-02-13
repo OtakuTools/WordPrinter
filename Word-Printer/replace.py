@@ -100,9 +100,20 @@ def replace( src , dst , user ):
     #服务管理职责分配表
     table = document.tables[-1]
     for d in user.departments:
-        cell = table.add_column( Cm(1.5) ).cells[0]
+        # 表头
+        column = table.add_column( Cm(1.5) )
+        cell = column.cells[0]
         cell.text = d["name"]
         cell.paragraphs[0].style = "Intense Quote"
+        # 内容
+        for i in range(1, len(table.rows) ):
+            cell = column.cells[i]
+            if i in d["func"]:
+                cell.text = "▲"
+            else:
+                cell.text = "△"
+            cell.paragraphs[0].style = "Intense Quote"
+
     table.style = 'Table Theme'
     table.autofit = True
 
