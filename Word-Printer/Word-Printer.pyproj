@@ -47,6 +47,7 @@
     <Content Include="dbConfig.json" />
     <Content Include="requirements.txt" />
     <Content Include="test.ui" />
+    <Content Include="TestCase.json" />
     <Content Include="替换文字样式说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

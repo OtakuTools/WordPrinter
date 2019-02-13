@@ -88,6 +88,18 @@ def replace( src , dst , user ):
             r.text = user.auditDate
             r.font.highlight_color = None
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        if str(r.font.color.rgb) == '7F007F':
+            r.text = user.zip
+            r.font.highlight_color = None
+            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        if str(r.font.color.rgb) == 'FFFFF0':
+            r.text = user.phone
+            r.font.highlight_color = None
+            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        if str(r.font.color.rgb) == '0FFFFF':
+            r.text = user.policy
+            r.font.highlight_color = None
+            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
     document.save(dst)
 

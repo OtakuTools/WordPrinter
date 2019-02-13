@@ -11,3 +11,6 @@
 10、审核日期：007f7f auditDate
 11、图片路径:000fff picPath
 12、部门职责: ff00ff departments
+13、邮编： 7f007f zip
+14、联系电话：fffff0 phone
+15、服务方针：0fffff policy
