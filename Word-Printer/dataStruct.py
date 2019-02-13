@@ -5,9 +5,9 @@ class userInfo:
     company = ""
     # string
     address = ""
-    # array of string
+    # array of string ["",""]
     introduction = []
-    # array of string
+    # array of string ["",""]
     coverField = []
     # string
     manager = ""
@@ -21,12 +21,32 @@ class userInfo:
     releaseDate = ""
     # string(Date) x年y月z日
     auditDate = ""
-    # structure array [name, [introduction], [function]]
+    # dict array
+    """
+    #[
+    #    {
+    #        "name":"",
+    #        "intro":"",
+    #        "func"
+    #    },
+    #    {
+    #        "name":"",
+    #        "intro":"",
+    #        "func"
+    #    }
+    #]
+    """
     departments = []
     # string path
     picPath = ""
     # string filename
     fileName = ""
+    # string zip code
+    zip = ""
+    # string telphone number
+    phone = ""
+    # string service policy
+    policy = ""
 
     def __init__(self):
         pass

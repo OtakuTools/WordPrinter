@@ -70,7 +70,10 @@
 	    		]
 	    	}
 	    ],
-	    "picPath" : "Graph.gv.png"
+	    "picPath" : "Graph.gv.png",
+	    "zip" : "510000",
+	    "phone" : "09876543210",
+	    "policy" : "甲方就是我们爸爸"
 	},
 	{
 	    "fileName" : "ABMM",
@@ -145,6 +148,9 @@
 	    		]
 	    	}
 	    ],
-	    "picPath" : "Graph.gv.png"
+	    "picPath" : "Graph.gv.png",
+	    "zip" : "510380",
+	    "phone" : "01234567890",
+	    "policy" : "拯救秃头程序员，从我做起"
 	}
 ]
