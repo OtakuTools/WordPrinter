@@ -93,17 +93,5 @@ def replace( src , dst , user ):
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
-    document.save(dst)
-    
     print('成功生成 '+dst )
-    pass
-
-if __name__ == '__main__':
-
-    user = userInfo();
-    with open("TestCase.json", "r" , encoding='utf-8') as f:
-            data = json.load(f)
-    for dict in data:
-        for key in dict.keys():
-            setattr( user , key , dict[key] )
-        replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user )
+    return document

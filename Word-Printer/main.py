@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
+import json
 
 from test import Ui_MainWindow
 from database import DB
@@ -18,9 +19,10 @@ if __name__ == '__main__':
     for key in dict.keys():
         setattr( user , key , dict[key] )
 
-    db.insertData(user)
+    
+    #db.insertData(user)
     #print(db.update("info", {"company" : "a", "address" : "b", "id" : "ABMM"}))
-    print(db.update("department", {"name" : "aaa", "resposibility" : ["3","4"], "refId" : "ABMM"}))
+    #print(db.update("department", {"name" : "aaa", "resposibility" : ["3","4"], "refId" : "ABMM"}))
     #print(db.delete("department", "ABMM", "aaa") )
 
     #graph = drawGraph()
@@ -31,8 +33,8 @@ if __name__ == '__main__':
          #信息技术服务小组-客户服务中心#"
     #graph.draw(s)
 
-    #docw = docWriter()
-    #docw.write()
+    docw = docWriter()
+    docw.loadAndWrite("sample.docx")
 
     #app = QApplication(sys.argv)
     #MainWindow = QMainWindow()
