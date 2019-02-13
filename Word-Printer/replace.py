@@ -89,6 +89,10 @@ def replace( src , dst , user ):
             r.text = user.policy
         elif str(r.font.color.rgb) == '000FFF':
             pass
+        elif str(r.font.color.rgb) == 'FFF0FF':
+            r.text = user.audit
+        elif str(r.font.color.rgb) == 'FF0FFF':
+            r.text = user.announcer
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)

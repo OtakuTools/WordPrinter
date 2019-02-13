@@ -5,9 +5,9 @@ class userInfo:
     company = ""
     # string
     address = ""
-    # array of string ["",""]
+    # array of string ["",""] under 800
     introduction = []
-    # array of string ["",""]
+    # array of string ["",""] under 50
     coverField = []
     # string
     manager = ""
@@ -17,6 +17,10 @@ class userInfo:
     employees = ""
     # string
     approver = ""
+    # string
+    audit = ""
+    # string
+    announcer = ""
     # string(Date) x年y月z日
     releaseDate = ""
     # string(Date) x年y月z日

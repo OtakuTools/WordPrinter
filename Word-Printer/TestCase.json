@@ -19,6 +19,8 @@
 	    "guandai" : "管代名字某某某",
 	    "employees" : "编制人员姓名某某人",
 	    "approver" : "批准发布人某某人",
+	    "audit" : "审核人某某某",
+	    "announcer" : "发布人某某某",
 	    "releaseDate" : "8102年1月31日",
 	    "auditDate" : "9102年2月28日",
 	    "departments" :  [
@@ -100,6 +102,8 @@
 	    "guandai" : "黄某某管代",
 	    "employees" : "郑某某苦力",
 	    "approver" : "真某某批准人",
+	    "audit" : "审核人某某某",
+	    "announcer" : "发布人某某某",
 	    "releaseDate" : "8102年1月31日",
 	    "auditDate" : "9102年2月28日",
 	    "departments" :  [
