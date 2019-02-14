@@ -7,8 +7,6 @@ from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json
 import time
-import threading
-
 
 def replace( src , dst , user ):
     document = Document(src)
@@ -96,12 +94,15 @@ def replace( src , dst , user ):
             r.text = user.audit
         elif str(r.font.color.rgb) == 'FF0FFF':
             r.text = user.announcer
+        elif str(r.font.color.rgb) == 'F0FFFF':
+            r.text = user.modifyDate.pop(0)
+            
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
 
     #服务管理职责分配表
-    time_start = time.time()
+    #time_start = time.time()
     table = document.tables[-1]
     table_row_len = len(table.rows)
     for d in user.departments:
@@ -118,15 +119,16 @@ def replace( src , dst , user ):
             else:
                 cell.text = "△"
             cell.paragraphs[0].style = "Intense Quote"
-    time_end = time.time()
+    #time_end = time.time()
     table.style = 'Table Theme'
     table.autofit = True
     
-    print("create table cost:", time_end-time_start)
+    #print("create table cost:", time_end-time_start)
 
     print('成功生成 '+dst )
     return document
 
+from getTime import getTime
 if __name__ == '__main__':
 
     user = userInfo();
@@ -135,4 +137,6 @@ if __name__ == '__main__':
     for dict in data:
         for key in dict.keys():
             setattr( user , key , dict[key] )
+        user.picPath = "./save/" + user.fileName + "-20000-SM-M-01_picture.png"
+        user = getTime(user)
         replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user ).save(user.fileName+'-20000-SM-M-01.docx')

@@ -23,6 +23,8 @@ class userInfo:
     audit = ""
     # string
     announcer = ""
+    # array of string(Date) yyyy-mm-dd ["","","",""]
+    modifyDate = []
     # string(Date) x年y月z日
     releaseDate = ""
     # string(Date) x年y月z日

@@ -6,6 +6,7 @@ import json
 from replace import replace
 from dataStruct import userInfo
 from generateGraph import drawGraph
+from getTime import getTime
 
 class docWriter:
     def __init__(self):
@@ -24,6 +25,7 @@ class docWriter:
         #user = self.loadInfo()
         graph = drawGraph()
         user = graph.draw(user)
+        user = getTime(user)
         self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user)
         
     def loadInfo(self):
