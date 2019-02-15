@@ -7,10 +7,16 @@ from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json
 import time
+import lxml
 
 def replace( src , dst , user ):
     document = Document(src)
     todo = []
+
+    element_updatefields = lxml.etree.SubElement(
+        document.settings.element, "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"+"updateFields"
+    )
+    element_updatefields.set("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"+"val", "true")
 
     #页眉页脚
     for s in document.sections:
