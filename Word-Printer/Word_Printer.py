@@ -24,7 +24,33 @@ class docWriter:
     def loadAndWrite(self, user , templateFile, targetFile = ""):
         #user = self.loadInfo()
         graph = drawGraph()
-        user = graph.draw(user)
+        user = graph.draw("save", user, [{'nodes': {
+                                 'fontname': 'KaiTi',
+                                 'shape': 'box',
+                                 'fontcolor': 'white',
+                                 'color': 'white',
+                                 'style': 'filled',
+                                 'fillcolor': '#ffff00',
+                                },
+                                 'lineLen' : 4},
+                                {'nodes': {
+                                 'fontname': 'KaiTi',
+                                 'shape': 'box',
+                                 'fontcolor': 'white',
+                                 'color': 'white',
+                                 'style': 'filled',
+                                 'fillcolor': '#00ff00',
+                                },
+                                 'lineLen' : 6},
+                                {'nodes': {
+                                 'fontname': 'KaiTi',
+                                 'shape': 'box',
+                                 'fontcolor': 'white',
+                                 'color': 'white',
+                                 'style': 'filled',
+                                 'fillcolor': '#00ff00',
+                                },
+                                 'lineLen' : 3}])
         user = getTime(user)
         self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user)
         

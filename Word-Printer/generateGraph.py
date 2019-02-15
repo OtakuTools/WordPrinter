@@ -56,26 +56,38 @@ class drawGraph:
             res = res + s[random.randint(0, len(s)-1)]
         return res
 
-    def apply_styles(self, graph):
+    def formatContent(self, content, lineLen = 3):
+        res = ""
+        count = 1
+        for i in range(len(content)):
+            res = res + content[i]
+            if count % lineLen == 0:
+                res = res + "\n"
+                count = 0
+            count += 1
+        return res
+
+    def apply_styles(self, graph, style):
         graph.graph_attr.update(
-            ('graph' in self.styles and self.styles['graph']) or {}
+            ('graph' in style and style['graph']) or {}
         )
         graph.node_attr.update(
-            ('nodes' in self.styles and self.styles['nodes']) or {}
+            ('nodes' in style and style['nodes']) or {}
         )
         graph.edge_attr.update(
-            ('edges' in self.styles and self.styles['edges']) or {}
+            ('edges' in style and style['edges']) or {}
         )
         return graph
     # gramma
     # A-B;
     # @param: data(string)
-    def draw(self, user_info):
+    def draw(self, mode, user_info, graphStyle=[]):
         output = user_info.fileName + "-20000-SM-M-01_picture"
         data = user_info.depStruct
         edgeList = []
         nodeDict = {}
         structDict = {}
+        colorDict = {}
         # deal with data
         temp = data.splitlines()
         subCount = 0
@@ -91,9 +103,11 @@ class drawGraph:
                     for i in range(len(t)):
                         t[i] = t[i].strip(" ")
                     structDict["cluster{:0>5d}".format(subCount)] = t
+                    colorDict["cluster{:0>5d}_style".format(subCount)] = graphStyle[subCount] if subCount < len(graphStyle) else {}
                     subCount += 1;
             elif "#" in item and ";" not in item and "；" not in item:
                 temp_list1 = re.split("[#]", item)
+                temp_list1 = list(filter(lambda x: x != '' and x != ' ', temp_list1))
                 for item_t in temp_list1:
                     edge = item.replace("#","")
                     edgeList.append(edge)
@@ -114,7 +128,7 @@ class drawGraph:
             subg.attr(_attributes={'compound': 'true', 'color':'black'})
             nodes = []
             for i in range(len(content)-1, -1, -1):
-                subg.node(content[i], content[i])
+                subg.node(content[i], self.formatContent(content[i], colorDict[sub+"_style"]["lineLen"]))
                 nodes.append(content[i])
 
                 if len(content)%2 == 0 and i == len(content)/2:
@@ -126,6 +140,7 @@ class drawGraph:
                 
             #for i in range(1, len(nodes)):
                 #subg.edge(nodes[i-1], nodes[i])
+            subg = self.apply_styles(subg, colorDict[sub+"_style"])
             graph.subgraph(subg)
             subG.append(sub)
 
@@ -147,19 +162,10 @@ class drawGraph:
                 graph.edge(node, child)
 
         #print(graph.source)
-        #self.preview(graph)
-        filename = output if output != "" else self.genName()
-        self.save(graph, filename)
-        user_info.picPath = self.saveDir + filename + ".png"
+        if mode == "preview":
+            self.preview(graph)
+        else:
+            filename = output if output != "" else self.genName()
+            self.save(graph, filename)
+            user_info.picPath = self.saveDir + filename + ".png"
         return user_info
-
-
-    def testDraw(self):
-        dot = Digraph(comment="Thre round Table", format="png")
-        dot.node('A', "中文")
-        dot.node('B', 'Knight')
-        dot.node('C', 'Solider')
-        dot.edges(['AB','AC'])
-        dot = self.apply_styles(dot)
-        print(dot.source)
-        self.preview(dot)

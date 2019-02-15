@@ -13,7 +13,8 @@ class DB:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
         except Exception as e:
             print(e)
-        self.createDB(self.info['dbname'])
+        else:
+            self.createDB(self.info['dbname'])
 
     def __del__(self):
         self.db.close()
