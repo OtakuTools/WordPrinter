@@ -9,8 +9,8 @@ class userInfo:
     address = ""
     # array of string ["",""] under 800
     introduction = []
-    # array of string ["",""] under 50
-    coverField = []
+    # string under 50
+    coverField = ""
     # string
     manager = ""
     # string

@@ -121,7 +121,7 @@ class DB:
                 info.company = row[1]
                 info.address = row[2]
                 info.introduction = row[3].split("#")
-                info.coverField = row[4].split("#")
+                info.coverField = row[4]
                 info.manager = row[5]
                 info.guandai = row[6]
                 info.employees = row[7]
@@ -178,7 +178,7 @@ class DB:
                         '%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
-                       "#".join(data.introduction), "#".join(data.coverField), data.manager,
+                       "#".join(data.introduction), data.coverField, data.manager,
                        data.guandai, data.employees, data.approver,
                        data.audit, data.announcer, data.releaseDate, 
                        data.auditDate, data.zip, data.phone, data.policy,
@@ -227,7 +227,7 @@ class DB:
             pos = "id = '%s'" % (option_data["id"])
             options.remove("id")
             for i in range(0, len(options)):
-                if options[i] in ["introduction", "coverField"]:
+                if options[i] == "introduction":
                     sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
                 else:
                     sql = sql + options[i] + " = '%s'" % (option_data[options[i]])

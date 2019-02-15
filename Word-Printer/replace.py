@@ -69,7 +69,7 @@ def replace( src , dst , user ):
         elif str(r.font.color.rgb) == '00FF00':
             r.text = user.address
         elif str(r.font.color.rgb) == 'FFFF00':
-            r.text = '\n'.join(user.coverField)
+            r.text = user.coverField
         elif str(r.font.color.rgb) == '00FFFF':
             r.text = user.manager
         elif str(r.font.color.rgb) == '7F0000':

@@ -16,7 +16,10 @@ class docWriter:
         pass
 
     def saveAsDocx(self, doc, filepath):
-        doc.save(filepath)
+        try:
+            doc.save(filepath)
+        except Exception as e:
+            print(e)
 
     def saveAsPdf(self, doc):
         pass
