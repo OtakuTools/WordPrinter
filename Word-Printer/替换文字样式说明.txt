@@ -17,3 +17,9 @@
 16、审核人：fff0ff audit
 17、发布人：ff0fff announcer
 18、修改日期：f0ffff modifyDate
+
+Intense Quote ： 职责表正文
+Table Theme ： 职责表样式
+Quote ：公司简介样式
+样式1 ： 部门职责-部门名字
+No Spacing ： 部门职责-职责列表

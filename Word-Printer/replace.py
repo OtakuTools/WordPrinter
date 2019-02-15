@@ -44,9 +44,9 @@ def replace( src , dst , user ):
                 if str(r.font.color.rgb) == 'FF00FF':
                     p.clear()
                     for d in user.departments:
-                        p.insert_paragraph_before( d['name'] + ':' , 'Heading 3' )
+                        p.insert_paragraph_before( d['name'] + ':' , '样式1' )
                         for i in d['intro']:
-                            p.insert_paragraph_before( i , 'Heading 4' )
+                            p.insert_paragraph_before( i , 'No Spacing' )
                 # 公司简介
                 if str(r.font.color.rgb) == '0000FF':
                     p.clear()
