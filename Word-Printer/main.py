@@ -10,16 +10,16 @@ from Word_Printer import docWriter
 from dataStruct import userInfo
 
 if __name__ == '__main__':
-    db = DB()
+    #db = DB()
 
-    user = userInfo();
-    with open("TestCase.json", "r" , encoding='utf-8') as f:
-            data = json.load(f)
-    for dict in data:
-        for key in dict.keys():
-            setattr( user , key , dict[key] )
-        docw = docWriter()
-        docw.loadAndWrite( user , "sample.docx")
+    #user = userInfo();
+    #with open("TestCase.json", "r" , encoding='utf-8') as f:
+    #        data = json.load(f)
+    #for dict in data:
+    #    for key in dict.keys():
+    #        setattr( user , key , dict[key] )
+    #    docw = docWriter()
+    #    docw.loadAndWrite( user , "sample.docx")
 
     
     #db.insertData(user)
@@ -35,9 +35,9 @@ if __name__ == '__main__':
          #信息技术服务小组-客户服务中心#"
     #graph.draw(s)
 
-    #app = QApplication(sys.argv)
-    #MainWindow = QMainWindow()
-    #ui = Ui_MainWindow()
-    #ui.setupUi(MainWindow)
-    #MainWindow.show()
-#sys.exit(app.exec_())
+    app = QApplication(sys.argv)
+    MainWindow = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+sys.exit(app.exec_())

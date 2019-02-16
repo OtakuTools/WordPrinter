@@ -8,6 +8,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json
 import time
 import lxml
+from getTime import getTime
 
 def replace( src , dst , user ):
     document = Document(src)
@@ -134,15 +135,16 @@ def replace( src , dst , user ):
     print('成功生成 '+dst )
     return document
 
-from getTime import getTime
-if __name__ == '__main__':
 
-    user = userInfo();
-    with open("TestCase.json", "r" , encoding='utf-8') as f:
-            data = json.load(f)
-    for dict in data:
-        for key in dict.keys():
-            setattr( user , key , dict[key] )
-        user.picPath = "./save/" + user.fileName + "-20000-SM-M-01_picture.png"
-        user = getTime(user)
-        replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user ).save(user.fileName+'-20000-SM-M-01.docx')
+
+#if __name__ == '__main__':
+
+#    user = userInfo();
+#    with open("TestCase.json", "r" , encoding='utf-8') as f:
+#            data = json.load(f)
+#    for dict in data:
+#        for key in dict.keys():
+#            setattr( user , key , dict[key] )
+#        user.picPath = "./save/" + user.fileName + "-20000-SM-M-01_picture.png"
+#        user = getTime(user)
+#        replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user ).save(user.fileName+'-20000-SM-M-01.docx')
