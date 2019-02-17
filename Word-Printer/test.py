@@ -7,19 +7,15 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-# 在生成前需要保存
-from PyQt5.QtWidgets import QColorDialog , QWidget
-from PyQt5.QtGui import QColor 
-from PyQt5.QtCore import Qt 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1030, 772)
+        MainWindow.resize(1013, 757)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(30, 10, 971, 681))
+        self.tabWidget.setGeometry(QtCore.QRect(30, 30, 971, 681))
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -186,10 +182,8 @@ class Ui_MainWindow(object):
         self.pushButton_4.setStyleSheet("background-color:rgb(255, 255, 0);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
-        self.pushButton_4.clicked.connect(lambda: self.showDialogAndSet(self.pushButton_4)) 
         self.pushButton_4.setText("")
         self.pushButton_4.setObjectName("pushButton_4")
-
         self.pushButton_5 = QtWidgets.QPushButton(self.groupBox_3)
         self.pushButton_5.setGeometry(QtCore.QRect(300, 90, 21, 20))
         self.pushButton_5.setStyleSheet("background-color:rgb(255, 255, 0);\n"
@@ -280,14 +274,14 @@ class Ui_MainWindow(object):
         self.checkBox_6.setObjectName("checkBox_6")
         self.tabWidget.addTab(self.tab_2, "")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(920, 700, 75, 23))
+        self.pushButton.setGeometry(QtCore.QRect(830, 20, 75, 23))
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(840, 700, 75, 23))
+        self.pushButton_2.setGeometry(QtCore.QRect(920, 20, 75, 23))
         self.pushButton_2.setObjectName("pushButton_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1030, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1013, 23))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -351,4 +345,3 @@ class Ui_MainWindow(object):
         print(col.name(),"\n")
         if col.isValid(): 
             tar.setStyleSheet('QWidget {background-color:%s}'%col.name()) 
-

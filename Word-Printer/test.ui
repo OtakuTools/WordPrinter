@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1030</width>
-    <height>772</height>
+    <width>1013</width>
+    <height>757</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>10</y>
+      <y>30</y>
       <width>971</width>
       <height>681</height>
      </rect>
@@ -944,8 +944,8 @@ gridline-color:rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>920</x>
-      <y>700</y>
+      <x>830</x>
+      <y>20</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -957,8 +957,8 @@ gridline-color:rgb(0, 0, 0);</string>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>700</y>
+      <x>920</x>
+      <y>20</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -973,7 +973,7 @@ gridline-color:rgb(0, 0, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1030</width>
+     <width>1013</width>
      <height>23</height>
     </rect>
    </property>
