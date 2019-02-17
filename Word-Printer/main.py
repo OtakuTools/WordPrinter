@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 import json
 
 from test import Ui_MainWindow
+from colorChoose import ColorDialog
 from database import DB
 from generateGraph import drawGraph
 from Word_Printer import docWriter
@@ -40,4 +41,7 @@ if __name__ == '__main__':
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-sys.exit(app.exec_())
+
+    qb = ColorDialog() 
+    qb.show()
+    sys.exit(app.exec_())
