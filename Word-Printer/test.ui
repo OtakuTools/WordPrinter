@@ -197,7 +197,7 @@
        <property name="geometry">
         <rect>
          <x>80</x>
-         <y>310</y>
+         <y>300</y>
          <width>110</width>
          <height>22</height>
         </rect>
@@ -217,7 +217,7 @@
        <property name="geometry">
         <rect>
          <x>310</x>
-         <y>250</y>
+         <y>240</y>
          <width>110</width>
          <height>22</height>
         </rect>
@@ -266,8 +266,8 @@
       <widget class="QDateEdit" name="dateEdit_2">
        <property name="geometry">
         <rect>
-         <x>80</x>
-         <y>250</y>
+         <x>90</x>
+         <y>240</y>
          <width>110</width>
          <height>22</height>
         </rect>
@@ -319,27 +319,27 @@
       <widget class="QLabel" name="label_6">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>20</x>
          <y>40</y>
          <width>54</width>
          <height>12</height>
         </rect>
        </property>
        <property name="text">
-        <string>经理</string>
+        <string>总经理</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_7">
        <property name="geometry">
         <rect>
-         <x>240</x>
+         <x>233</x>
          <y>40</y>
-         <width>54</width>
-         <height>12</height>
+         <width>61</width>
+         <height>20</height>
         </rect>
        </property>
        <property name="text">
-        <string>管代</string>
+        <string>管理者代表</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_8">
@@ -352,7 +352,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>职员</string>
+        <string>编制人</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_9">
@@ -424,7 +424,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>250</y>
+         <y>240</y>
          <width>54</width>
          <height>21</height>
         </rect>
@@ -436,21 +436,21 @@
       <widget class="QLabel" name="label_16">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>250</y>
-         <width>54</width>
-         <height>12</height>
+         <x>10</x>
+         <y>240</y>
+         <width>81</width>
+         <height>16</height>
         </rect>
        </property>
        <property name="text">
-        <string>发布日期</string>
+        <string>发布批准日期</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_17">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>310</y>
+         <y>300</y>
          <width>54</width>
          <height>12</height>
         </rect>
