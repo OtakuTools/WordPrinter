@@ -60,17 +60,18 @@ class DB:
                    policy NVARCHAR(200),
                    picPath NVARCHAR(200),
                    depStruct NVARCHAR(1000),
-                   PRIMARY KEY (id)
+                   PRIMARY KEY (company)
                ) ENGINE=InnoDB;
                """,
                """
                CREATE TABLE IF NOT EXISTS department( 
-                   refId NVARCHAR(20) NOT NULL,
+                   refId NVARCHAR(100) NOT NULL,
+                   level INT(1) NOT NULL DEFAULT 0,
                    name NVARCHAR(20) NOT NULL,
-                   duty NVARCHAR(1500) NOT NULL,
-                   resposibility NVARCHAR(200) NOT NULL,
+                   intro NVARCHAR(1500) NOT NULL,
+                   func NVARCHAR(200) NOT NULL,
                    PRIMARY KEY (refId, name),
-                   FOREIGN KEY (refId) REFERENCES info(id) ON UPDATE CASCADE ON DELETE CASCADE
+                   FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
                ) ENGINE=InnoDB;
                """]
         try:
@@ -104,10 +105,10 @@ class DB:
         sql0 = """
                SELECT *
                FROM info
-               WHERE id = %s;
+               WHERE company = %s;
                """ % (id)
         sql1 = """
-               SELECT (name, duty, resposibility)
+               SELECT (name, level, intro, func)
                FROM department
                WHERE refId = %s;
                """ % (id)
@@ -142,9 +143,11 @@ class DB:
             ptr.execute(sql1)
             results = ptr.fetchall()
             for row in results:
-                dep = [rows[0]]
-                dep.append(row[1].split("#"))
-                dep.append(row[2].split("#"))
+                dep = {}
+                dep["name"] = rows[0]
+                dep["level"] = row[1]
+                dep["intro"] = row[2].split("#")
+                dep["func"] = row[3].split("#")
                 info.departments.append(dep)
         except Exception as e:
             print(e)
@@ -195,11 +198,12 @@ class DB:
             sql1 =  """
                     INSERT INTO department(
                         refId, 
+                        level,
                         name,
-                        duty,
-                        resposibility
-                    )VALUES('%s', '%s', '%s', '%s');
-                    """ % (data.fileName, department[0], "#".join(department[1]), "#".join(department[2]))
+                        intro,
+                        func
+                    )VALUES('%s', %d, '%s', '%s', '%s');
+                    """ % (data.company, department['name'], department["level"], "#".join(department["intro"]), "#".join(department["func"]))
             
             try:
                ptr.execute(sql1)
@@ -213,7 +217,7 @@ class DB:
     def update(self, table, option_data):
         if table not in ["info", "department"] or not option_data:
             return False
-        if not option_data.__contains__("id") and not option_data.__contains__("refId"):
+        if not option_data.__contains__("company") and not option_data.__contains__("refId"):
             return False
         if option_data.__contains__("refId") and not option_data.__contains__("name"):
             return False
@@ -224,8 +228,8 @@ class DB:
         
         if table == "info":
             # info表
-            pos = "id = '%s'" % (option_data["id"])
-            options.remove("id")
+            pos = "company = '%s'" % (option_data["company"])
+            options.remove("company")
             for i in range(0, len(options)):
                 if options[i] == "introduction":
                     sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
@@ -240,6 +244,7 @@ class DB:
             options.remove("refId")
             options.remove("name")
             for i in range(0, len(options)):
+                if options[i] == ""
                 sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
                 if i < len(options)-1:
                     sql = sql + ", "
@@ -262,7 +267,7 @@ class DB:
             return False
         sql = ""
         if table == "info":
-            sql = "DELETE FROM %s WHERE id = '%s';" % (table, id)
+            sql = "DELETE FROM %s WHERE company = '%s';" % (table, id)
         else:
             sql = "DELETE FROM %s WHERE refId = '%s' and name = '%s';" % (table, id, department)
         try:

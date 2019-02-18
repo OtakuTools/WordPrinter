@@ -44,11 +44,7 @@ class userInfo:
     #[
     #    {
     #        "name":"",
-    #        "intro":"",
-    #        "func"
-    #    },
-    #    {
-    #        "name":"",
+    #        "level": 0,
     #        "intro":"",
     #        "func"
     #    }
