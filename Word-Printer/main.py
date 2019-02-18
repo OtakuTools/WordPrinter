@@ -9,6 +9,7 @@ from database import DB
 from generateGraph import drawGraph
 from Word_Printer import docWriter
 from dataStruct import userInfo
+from UIfunc import Controller
 
 if __name__ == '__main__':
     #db = DB()
@@ -37,11 +38,13 @@ if __name__ == '__main__':
     #graph.draw(s)
 
     app = QApplication(sys.argv)
-    MainWindow = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    window = Controller()
+    window.show()
+    #MainWindow = QMainWindow()
+    #ui = Ui_MainWindow()
+    #ui.setupUi(MainWindow)
+    #MainWindow.show()
 
-    qb = ColorDialog() 
-    qb.show()
+    #qb = ColorDialog() 
+    #qb.show()
     sys.exit(app.exec_())
