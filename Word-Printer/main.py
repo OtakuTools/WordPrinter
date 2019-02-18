@@ -12,39 +12,22 @@ from dataStruct import userInfo
 from UIfunc import Controller
 
 if __name__ == '__main__':
-    #db = DB()
+    db = DB()
 
-    #user = userInfo();
-    #with open("TestCase.json", "r" , encoding='utf-8') as f:
-    #        data = json.load(f)
-    #for dict in data:
-    #    for key in dict.keys():
-    #        setattr( user , key , dict[key] )
-    #    docw = docWriter()
-    #    docw.loadAndWrite( user , "sample.docx")
+    user = userInfo();
+    with open("TestCase.json", "r" , encoding='utf-8') as f:
+            data = json.load(f)
+    for dict in data:
+        for key in dict.keys():
+            setattr( user , key , dict[key] )
+        db.insertData(user)
 
-    
-    #db.insertData(user)
-    #print(db.update("info", {"company" : "a", "address" : "b", "id" : "ABMM"}))
-    #print(db.update("department", {"name" : "aaa", "resposibility" : ["3","4"], "refId" : "ABMM"}))
+    db.searchById("广州真如信息科技有限公司")
+    print(db.update("info", {"company" : "广州真如信息科技有限公司", "address" : "b", "id" : "asdasdasd"}))
+    #print(db.update("department", {"name" : "客户服务中心", "intro":["hello", "world"], "func" : [3,4], "refId" : "广州真如信息科技有限公司"}))
     #print(db.delete("department", "ABMM", "aaa") )
 
-    #graph = drawGraph()
-    #s = "总经理；\n\
-    #     信息技术服务小组,管理者代表;  \n\
-    #     软件研发中心,系统集成中心,客户服务中心,营销管理中心,行政中心,财务部;\n"
-         #管理者代表-系统集成中心#\n\
-         #信息技术服务小组-客户服务中心#"
-    #graph.draw(s)
-
-    app = QApplication(sys.argv)
-    window = Controller()
-    window.show()
-    #MainWindow = QMainWindow()
-    #ui = Ui_MainWindow()
-    #ui.setupUi(MainWindow)
-    #MainWindow.show()
-
-    #qb = ColorDialog() 
-    #qb.show()
-    sys.exit(app.exec_())
+    #app = QApplication(sys.argv)
+    #window = Controller()
+    #window.show()
+    #sys.exit(app.exec_())

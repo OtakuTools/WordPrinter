@@ -56,7 +56,7 @@ class DB:
                    releaseDate NVARCHAR(20),
                    auditDate NVARCHAR(20),
                    zip NVARCHAR(6),
-                   phone NVARCHAR(11),
+                   phone NVARCHAR(20),
                    policy NVARCHAR(200),
                    picPath NVARCHAR(200),
                    depStruct NVARCHAR(1000),
@@ -105,12 +105,12 @@ class DB:
         sql0 = """
                SELECT *
                FROM info
-               WHERE company = %s;
+               WHERE company = '%s';
                """ % (id)
         sql1 = """
-               SELECT (name, level, intro, func)
+               SELECT name, level, intro, func
                FROM department
-               WHERE refId = %s;
+               WHERE refId = '%s';
                """ % (id)
    
         info = userInfo();
@@ -137,20 +137,21 @@ class DB:
                 info.picPath = row[16]
                 info.depStruct = row[17]
         except Exception as e:
-            print(e)
+            print("Search Info Error:",e)
 
         try:
             ptr.execute(sql1)
             results = ptr.fetchall()
             for row in results:
                 dep = {}
-                dep["name"] = rows[0]
-                dep["level"] = row[1]
+                dep["name"] = row[0]
+                dep["level"] = int(row[1])
                 dep["intro"] = row[2].split("#")
-                dep["func"] = row[3].split("#")
+                dep["func"] = self.formatFunc(list(filter(lambda x: x != '', row[3].split("#"))), "int") 
                 info.departments.append(dep)
+                #print(dep["func"])
         except Exception as e:
-            print(e)
+            print("Search Department Error:", e)
         
         return info
 
@@ -195,6 +196,7 @@ class DB:
            return False
 
         for department in data.departments:
+            
             sql1 =  """
                     INSERT INTO department(
                         refId, 
@@ -202,8 +204,8 @@ class DB:
                         level,
                         intro,
                         func
-                    )VALUES('%s', '%s', %d, '%s', '%s');
-                    """ % (data.company, department['name'], department["level"], "#".join(department["intro"]), "#".join(department["func"]))
+                    )VALUES('%s', '%s', %s, '%s', '%s');
+                    """ % (data.company, department['name'], str(department["level"]), "#".join(department["intro"]), "#".join(self.formatFunc(department["func"])))
             
             try:
                ptr.execute(sql1)
@@ -223,7 +225,7 @@ class DB:
             return False
 
         options = list(option_data.keys())
-        print(options)
+        #print(options)
         sql = "UPDATE " + table + " SET "
         
         if table == "info":
@@ -247,7 +249,7 @@ class DB:
                 if options[i] == "level":
                     sql = sql + options[i] + " = %s" % (option_data[options[i]])
                 else:
-                    sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
+                    sql = sql + options[i] + " = '%s'" % ("#".join(self.formatFunc(option_data[options[i]])))
                 if i < len(options)-1:
                     sql = sql + ", "
             sql = sql + " WHERE " + pos
@@ -280,6 +282,17 @@ class DB:
             print(e)
             return False
         return True
+
+    def formatFunc(self, func, mode="str"):
+        if not func or len(func) == 0:
+            return func
+        funcList = func
+        for i in range(len(funcList)):
+            if mode == "str":
+                funcList[i] = funcList[i] if type(funcList[i]) == "str" else str(funcList[i])
+            else:
+                funcList[i] = funcList[i] if type(funcList[i]) == "int" else int(funcList[i])
+        return funcList
 
     def loadConfig(self):
         with open("dbConfig.json", "r") as f:
