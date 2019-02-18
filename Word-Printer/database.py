@@ -198,11 +198,11 @@ class DB:
             sql1 =  """
                     INSERT INTO department(
                         refId, 
-                        level,
                         name,
+                        level,
                         intro,
                         func
-                    )VALUES('%s', %d, '%s', '%s', '%s');
+                    )VALUES('%s', '%s', %d, '%s', '%s');
                     """ % (data.company, department['name'], department["level"], "#".join(department["intro"]), "#".join(department["func"]))
             
             try:
@@ -244,8 +244,10 @@ class DB:
             options.remove("refId")
             options.remove("name")
             for i in range(0, len(options)):
-                if options[i] == ""
-                sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
+                if options[i] == "level":
+                    sql = sql + options[i] + " = %s" % (option_data[options[i]])
+                else:
+                    sql = sql + options[i] + " = '%s'" % ("#".join(option_data[options[i]]))
                 if i < len(options)-1:
                     sql = sql + ", "
             sql = sql + " WHERE " + pos
