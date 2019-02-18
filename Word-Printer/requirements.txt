@@ -1,0 +1,13 @@
+Click==7.0
+graphviz==0.10.1
+lxml==4.3.1
+Pillow==5.4.1
+pip==19.0.2
+PyMySQL==0.9.3
+PyQt5==5.11.3
+PyQt5-sip==4.19.13
+pyqt5-tools==5.11.3.1.4
+python-docx==0.8.10
+python-dotenv==0.10.1
+setuptools==40.8.0
+six==1.12.0

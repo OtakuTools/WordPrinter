@@ -1,42 +1,74 @@
 from docx import Document
 from docx.shared import Inches
+from docx.shared import RGBColor
+import json
 
-document = Document()
+from replace import replace
+from dataStruct import userInfo
+from generateGraph import drawGraph
+from getTime import getTime
 
-document.add_heading('Document Title', 0)
+class docWriter:
+    def __init__(self):
+        pass
 
-p = document.add_paragraph('A plain paragraph having some ')
-p.add_run('bold').bold = True
-p.add_run(' and some ')
-p.add_run('italic.').italic = True
+    def __del__(self):
+        pass
 
-document.add_heading('Heading, level 1', level=1)
-document.add_paragraph('Intense quote', style='Intense Quote')
+    def saveAsDocx(self, doc, filepath):
+        try:
+            doc.save(filepath)
+        except Exception as e:
+            print(e)
 
-document.add_paragraph(
-    'first item in unordered list', style='List Bullet'
-)
-document.add_paragraph(
-    'first item in ordered list', style='List Number'
-)
+    def saveAsPdf(self, doc):
+        pass
 
-records = (
-    (3, '101', 'Spam'),
-    (7, '422', 'Eggs'),
-    (4, '631', 'Spam, spam, eggs, and spam')
-)
+    def loadAndWrite(self, user , templateFile, targetFile = ""):
+        #user = self.loadInfo()
+        graph = drawGraph()
+        user = graph.draw("save", user, [{'nodes': {
+                                 'fontname': 'KaiTi',
+                                 'shape': 'box',
+                                 'fontcolor': 'white',
+                                 'color': 'white',
+                                 'style': 'filled',
+                                 'fillcolor': '#ffff00',
+                                },
+                                 'lineLen' : 4},
+                                {'nodes': {
+                                 'fontname': 'KaiTi',
+                                 'shape': 'box',
+                                 'fontcolor': 'white',
+                                 'color': 'white',
+                                 'style': 'filled',
+                                 'fillcolor': '#00ff00',
+                                },
+                                 'lineLen' : 6},
+                                {'nodes': {
+                                 'fontname': 'KaiTi',
+                                 'shape': 'box',
+                                 'fontcolor': 'white',
+                                 'color': 'white',
+                                 'style': 'filled',
+                                 'fillcolor': '#00ff00',
+                                },
+                                 'lineLen' : 3}])
+        user = getTime(user)
+        self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user)
+        
+    def loadInfo(self):
+        user = userInfo();
+        with open("TestCase.json", "r" , encoding='utf-8') as f:
+            data = json.load(f)
+            for dict in data:
+                for key in dict.keys():
+                    setattr( user , key , dict[key] )
+        return user
 
-table = document.add_table(rows=1, cols=3)
-hdr_cells = table.rows[0].cells
-hdr_cells[0].text = 'Qty'
-hdr_cells[1].text = 'Id'
-hdr_cells[2].text = 'Desc'
-for qty, id, desc in records:
-    row_cells = table.add_row().cells
-    row_cells[0].text = str(qty)
-    row_cells[1].text = id
-    row_cells[2].text = desc
-
-document.add_page_break()
-
-document.save('demo.docx')
+    def write(self, src, dst, user, mode="docx"):
+        doc = replace(src, dst, user)
+        if mode == "docx":
+            self.saveAsDocx(doc, dst)
+        else:
+            self.saveAsPdf(doc, dst)

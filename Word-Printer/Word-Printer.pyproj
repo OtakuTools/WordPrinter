@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>0eb4300f-76d9-4524-bf19-a3f1b40736e2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>..\Word-Printer</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -21,7 +21,21 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="colorChoose.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="database.py" />
+    <Compile Include="dataStruct.py" />
+    <Compile Include="generateGraph.py" />
+    <Compile Include="getTime.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py" />
+    <Compile Include="replace.py" />
     <Compile Include="test.py" />
+    <Compile Include="UIfunc.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Word_Printer.py" />
   </ItemGroup>
   <ItemGroup>
@@ -36,7 +50,11 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dbConfig.json" />
+    <Content Include="requirements.txt" />
     <Content Include="test.ui" />
+    <Content Include="TestCase.json" />
+    <Content Include="替换文字样式说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
