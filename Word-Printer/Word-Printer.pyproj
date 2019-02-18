@@ -33,6 +33,9 @@
     <Compile Include="main.py" />
     <Compile Include="replace.py" />
     <Compile Include="test.py" />
+    <Compile Include="UIfunc.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Word_Printer.py" />
   </ItemGroup>
   <ItemGroup>
