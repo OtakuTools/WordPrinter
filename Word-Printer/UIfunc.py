@@ -91,6 +91,21 @@ class Controller(QMainWindow, Ui_MainWindow):
         #
         self.user.introduction = str(self.introductionText.toPlainText()).split('\n')
 
+    def setDepStruct(self):
+        if not self.user.department or len(self.user.department) == 0:
+            self.user.depStruct = ""
+        else:
+            levelDict = {}
+            for dep in self.user.department:
+                if dep.level not in levelDict:
+                    levelDict[dep.level] = dep.name
+                else:
+                    levelDict[dep.level] = levelDict[dep.level] + "," + dep.name
+            keys = levelDict.keys()
+            keys.sort()
+            gramma = [levelDict[key] for key in keys]
+            return ";\n".join(gramma)
+
     def addDepartment(self,departmentName="部门名称"):
         self.departmentList.addItem(departmentName)
         #self.user.departments.append({"name":departmentName})
