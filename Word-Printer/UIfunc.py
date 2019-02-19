@@ -65,7 +65,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.createBotton.clicked.connect(lambda: self.depIntro.setPlainText(str(vars(self.user))))
 
     def connectList(self):
-        self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( self.departmentList.currentItem().text() ) )
+        self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr(self.departmentList.currentItem(),'text',str)() ) )#可能没选中，故用getattr确认
         # button
         self.AddDep.clicked.connect( lambda: self.addDepartment() )
         self.DeleteDep.clicked.connect( lambda: self.removeDepartment(getattr(self.departmentList.currentItem(),'text',str)() ) )#可能没选中，故用getattr确认
@@ -115,17 +115,22 @@ class Controller(QMainWindow, Ui_MainWindow):
         ],"func":[1,5,42]})
 
     def showDepartmentDetail(self,departmentName):
-        for department in self.user.departments:
-            if department['name'] == departmentName:
-                self.depName.setText( departmentName )
-                self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
-                self.depLevel.setValue( department['level'] if 'level' in department else 2 )
-                for i in ( department['func'] if 'func' in department else [] ):
-                    getattr(self,'duty_'+str(i)).setCheckState(2)
+        if departmentName == "":
+            self.depName.setText( "" )
+            self.depIntro.setPlainText( "" )
+            self.depLevel.setValue( 0 )
+            for i in range(1,43):
+                getattr(self,'duty_'+str(i)).setCheckState(0)
+        else:
+            for department in self.user.departments:
+                if department['name'] == departmentName:
+                    self.depName.setText( departmentName )
+                    self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
+                    self.depLevel.setValue( department['level'] if 'level' in department else 0 )
+                    for i in ( department['func'] if 'func' in department else [] ):
+                        getattr(self,'duty_'+str(i)).setCheckState(2)
     
     def removeDepartment(self,departmentName):
-        print( "dep:"+departmentName )
-        print( len(self.user.departments) )
         for department in self.user.departments:
             if department['name'] == departmentName:
                 self.user.departments.remove(department)
