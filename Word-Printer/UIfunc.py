@@ -165,6 +165,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             else:
                 keys = list(levelDict.keys())
                 keys.sort()
+                gramma = [levelDict[key] for key in keys]
+                self.user.depStruct = ";\n".join(gramma)
 
     def addDepartment(self,departmentName="部门名称"):
         self.departmentList.addItem(departmentName)
