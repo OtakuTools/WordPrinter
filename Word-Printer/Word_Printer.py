@@ -24,36 +24,10 @@ class docWriter:
     def saveAsPdf(self, doc):
         pass
 
-    def loadAndWrite(self, user , templateFile, targetFile = ""):
+    def loadAndWrite(self, user , templateFile, graphStyle = [], targetFile = ""):
         #user = self.loadInfo()
         graph = drawGraph()
-        user = graph.draw("save", user, [{'nodes': {
-                                 'fontname': 'KaiTi',
-                                 'shape': 'box',
-                                 'fontcolor': 'white',
-                                 'color': 'white',
-                                 'style': 'filled',
-                                 'fillcolor': '#ffff00',
-                                },
-                                 'lineLen' : 4},
-                                {'nodes': {
-                                 'fontname': 'KaiTi',
-                                 'shape': 'box',
-                                 'fontcolor': 'white',
-                                 'color': 'white',
-                                 'style': 'filled',
-                                 'fillcolor': '#00ff00',
-                                },
-                                 'lineLen' : 6},
-                                {'nodes': {
-                                 'fontname': 'KaiTi',
-                                 'shape': 'box',
-                                 'fontcolor': 'white',
-                                 'color': 'white',
-                                 'style': 'filled',
-                                 'fillcolor': '#00ff00',
-                                },
-                                 'lineLen' : 3}])
+        user = graph.draw("save", user, graphStyle)
         user = getTime(user)
         self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user)
         
