@@ -4,6 +4,43 @@ from dataStruct import userInfo
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
+    
+    graphStyle = [{ 'nodes': {
+                        'fontname': 'KaiTi',
+                        'shape': 'box',
+                        'fontcolor': 'white',
+                        'color': 'white',
+                        'style': 'filled',
+                        'fillcolor': '#ffff00',
+                    },
+                    'lineLen' : 4},
+                  { 'nodes': {
+                        'fontname': 'KaiTi',
+                        'shape': 'box',
+                        'fontcolor': 'white',
+                        'color': 'white',
+                        'style': 'filled',
+                        'fillcolor': '#00ff00',
+                    },
+                    'lineLen' : 6},
+                  { 'nodes': {
+                        'fontname': 'KaiTi',
+                        'shape': 'box',
+                        'fontcolor': 'white',
+                        'color': 'white',
+                        'style': 'filled',
+                        'fillcolor': '#00ff00',
+                    },
+                    'lineLen' : 3},
+                  { 'nodes': {
+                        'fontname': 'KaiTi',
+                        'shape': 'box',
+                        'fontcolor': 'white',
+                        'color': 'white',
+                        'style': 'filled',
+                        'fillcolor': '#00ff00',
+                    },
+                    'lineLen' : 3}]
 
     def __init__(self):
         #init
@@ -115,16 +152,19 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.user.depStruct = ""
         else:
             levelDict = {}
-            for dep in self.user.departments:
-                #if dep['level'] not in levelDict:
-                if levelDict.__contains__(dep['level']):
-                    levelDict[dep['level']] = dep['name']
-                else:
-                    levelDict[dep['level']] = levelDict[dep['level']] + "," + dep['name']
-            keys = list(levelDict.keys())
-            keys.sort()
-            gramma = [levelDict[key] for key in keys]
-            self.user.depStruct = ";\n".join(gramma)
+            try:
+                print(len(self.user.departments))
+                for dep in self.user.departments:
+                    if not levelDict.__contains__(dep['level']):
+                        levelDict[dep['level']] = dep['name']
+                    else:
+                        levelDict[dep['level']] = levelDict[dep['level']] + "," + dep['name']
+            except Exception as e:
+                print("Error:",e)
+                self.user.depStruct = ""
+            else:
+                keys = list(levelDict.keys())
+                keys.sort()
 
     def addDepartment(self,departmentName="部门名称"):
         self.departmentList.addItem(departmentName)
