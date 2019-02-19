@@ -99,6 +99,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         else:
             for department in self.user.departments:
                 if department['name'] == departmentName:
+                    self.departmentList.currentItem().setText(self.depName.text())
                     department['name'] = self.depName.text()
                     department['level'] = self.depLevel.value()
                     department['intro'] = str(self.depIntro.toPlainText()).split('\n')
@@ -115,7 +116,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         else:
             levelDict = {}
             for dep in self.user.departments:
-                if dep['level'] not in levelDict:
+                #if dep['level'] not in levelDict:
+                if levelDict.__contains__(dep['level']):
                     levelDict[dep['level']] = dep['name']
                 else:
                     levelDict[dep['level']] = levelDict[dep['level']] + "," + dep['name']
@@ -126,7 +128,8 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def addDepartment(self,departmentName="部门名称"):
         self.departmentList.addItem(departmentName)
-        #self.user.departments.append({"name":departmentName})
+        self.user.departments.append({"name":departmentName})
+        '''
         self.user.departments.append({"name":departmentName,"level":1,"intro":[
           "负责公司的整体软件开发核心技术，组织制定和实施重大技术决策和技术方案；",
           "指导、审核、制定、开发软件项目，对各项结果做最终质量评估、归档；",
@@ -146,6 +149,7 @@ class Controller(QMainWindow, Ui_MainWindow):
           "负责自主开发软件产品的销售及售前技术支持;",
           "负责推广实施软件开发文档规范化工作，管理研发产品相关文档。"
         ],"func":[1,5,42]})
+        '''
 
     def showDepartmentDetail(self,departmentName):
         if departmentName == "":
@@ -159,7 +163,7 @@ class Controller(QMainWindow, Ui_MainWindow):
                 if department['name'] == departmentName:
                     self.depName.setText( departmentName )
                     self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
-                    self.depLevel.setValue( department['level'] if 'level' in department else 0 )
+                    self.depLevel.setValue( department['level'] if 'level' in department else 1 )
                     for i in range(1,43): #clear all
                         getattr(self,'duty_'+str(i)).setCheckState(0)
                     for i in ( department['func'] if 'func' in department else [] ):
@@ -172,5 +176,5 @@ class Controller(QMainWindow, Ui_MainWindow):
         for department in self.user.departments:
             if department['name'] == departmentName:
                 self.user.departments.remove(department)
-                break
+                break #可能有bug在这里诞生
         self.departmentList.takeItem( self.departmentList.row(self.departmentList.selectedItems()[0] if len( self.departmentList.selectedItems() ) else None ) )
