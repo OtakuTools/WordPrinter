@@ -127,11 +127,6 @@ class Ui_MainWindow(object):
         self.depStructLable = QtWidgets.QLabel(self.groupBox_3)
         self.depStructLable.setGeometry(QtCore.QRect(10, 20, 54, 12))
         self.depStructLable.setObjectName("depStructLable")
-        self.previewPic = QtWidgets.QTableWidget(self.groupBox_3)
-        self.previewPic.setGeometry(QtCore.QRect(10, 40, 211, 231))
-        self.previewPic.setObjectName("previewPic")
-        self.previewPic.setColumnCount(0)
-        self.previewPic.setRowCount(0)
         self.previewButton = QtWidgets.QPushButton(self.groupBox_3)
         self.previewButton.setGeometry(QtCore.QRect(360, 240, 75, 23))
         self.previewButton.setObjectName("previewButton")
@@ -159,37 +154,45 @@ class Ui_MainWindow(object):
         self.heightLable = QtWidgets.QLabel(self.groupBox_3)
         self.heightLable.setGeometry(QtCore.QRect(400, 20, 31, 16))
         self.heightLable.setObjectName("heightLable")
-        self.level1Height = QtWidgets.QSpinBox(self.groupBox_3)
-        self.level1Height.setGeometry(QtCore.QRect(390, 50, 42, 22))
-        self.level1Height.setObjectName("level1Height")
-        self.level2Height = QtWidgets.QSpinBox(self.groupBox_3)
-        self.level2Height.setGeometry(QtCore.QRect(390, 90, 42, 22))
-        self.level2Height.setObjectName("level2Height")
-        self.level3Height = QtWidgets.QSpinBox(self.groupBox_3)
-        self.level3Height.setGeometry(QtCore.QRect(390, 130, 42, 22))
-        self.level3Height.setObjectName("level3Height")
-        self.level4Height = QtWidgets.QSpinBox(self.groupBox_3)
-        self.level4Height.setGeometry(QtCore.QRect(390, 170, 42, 22))
-        self.level4Height.setObjectName("level4Height")
+        self.level1Width = QtWidgets.QSpinBox(self.groupBox_3)
+        self.level1Width.setGeometry(QtCore.QRect(390, 50, 42, 22))
+        self.level1Width.setMinimum(1)
+        self.level1Width.setProperty("value", 3)
+        self.level1Width.setObjectName("level1Width")
+        self.level2Width = QtWidgets.QSpinBox(self.groupBox_3)
+        self.level2Width.setGeometry(QtCore.QRect(390, 90, 42, 22))
+        self.level2Width.setMinimum(1)
+        self.level2Width.setProperty("value", 3)
+        self.level2Width.setObjectName("level2Width")
+        self.level3Width = QtWidgets.QSpinBox(self.groupBox_3)
+        self.level3Width.setGeometry(QtCore.QRect(390, 130, 42, 22))
+        self.level3Width.setMinimum(1)
+        self.level3Width.setProperty("value", 3)
+        self.level3Width.setObjectName("level3Width")
+        self.level4Width = QtWidgets.QSpinBox(self.groupBox_3)
+        self.level4Width.setGeometry(QtCore.QRect(390, 170, 42, 22))
+        self.level4Width.setMinimum(1)
+        self.level4Width.setProperty("value", 3)
+        self.level4Width.setObjectName("level4Width")
         self.level1Border = QtWidgets.QPushButton(self.groupBox_3)
         self.level1Border.setGeometry(QtCore.QRect(300, 50, 21, 20))
         self.level1Border.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.level1Border.setAutoFillBackground(False)
-        self.level1Border.setStyleSheet("background-color:rgb(255, 255, 0);\n"
+        self.level1Border.setStyleSheet("background-color:rgb(0, 128, 0);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level1Border.setText("")
         self.level1Border.setObjectName("level1Border")
         self.level2Border = QtWidgets.QPushButton(self.groupBox_3)
         self.level2Border.setGeometry(QtCore.QRect(300, 90, 21, 20))
-        self.level2Border.setStyleSheet("background-color:rgb(255, 255, 0);\n"
-"border-color: rgb(0, 0, 0);\n"
+        self.level2Border.setStyleSheet("background-color:rgb(128,0, 0);\n"
+"border-color: rgb(0,0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level2Border.setText("")
         self.level2Border.setObjectName("level2Border")
         self.level3Border = QtWidgets.QPushButton(self.groupBox_3)
         self.level3Border.setGeometry(QtCore.QRect(300, 130, 21, 20))
-        self.level3Border.setStyleSheet("background-color:rgb(255, 255, 0);\n"
+        self.level3Border.setStyleSheet("background-color:rgb(0, 0, 128);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level3Border.setText("")
@@ -203,32 +206,35 @@ class Ui_MainWindow(object):
         self.level4Border.setObjectName("level4Border")
         self.level1Font = QtWidgets.QPushButton(self.groupBox_3)
         self.level1Font.setGeometry(QtCore.QRect(350, 50, 21, 20))
-        self.level1Font.setStyleSheet("background-color:rgb(255, 255, 0);\n"
+        self.level1Font.setStyleSheet("background-color:rgb(0, 0, 0);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level1Font.setText("")
         self.level1Font.setObjectName("level1Font")
         self.level2Font = QtWidgets.QPushButton(self.groupBox_3)
         self.level2Font.setGeometry(QtCore.QRect(350, 90, 21, 20))
-        self.level2Font.setStyleSheet("background-color:rgb(255, 255, 0);\n"
+        self.level2Font.setStyleSheet("background-color:rgb(0,0, 0);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level2Font.setText("")
         self.level2Font.setObjectName("level2Font")
         self.level3Font = QtWidgets.QPushButton(self.groupBox_3)
         self.level3Font.setGeometry(QtCore.QRect(350, 130, 21, 20))
-        self.level3Font.setStyleSheet("background-color:rgb(255, 255, 0);\n"
+        self.level3Font.setStyleSheet("background-color:rgb(0, 0, 0);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level3Font.setText("")
         self.level3Font.setObjectName("level3Font")
         self.level4Font = QtWidgets.QPushButton(self.groupBox_3)
         self.level4Font.setGeometry(QtCore.QRect(350, 170, 21, 20))
-        self.level4Font.setStyleSheet("background-color:rgb(255, 255, 0);\n"
+        self.level4Font.setStyleSheet("background-color:rgb(0,0, 0);\n"
 "border-color: rgb(0, 0, 0);\n"
 "gridline-color:rgb(0, 0, 0);")
         self.level4Font.setText("")
         self.level4Font.setObjectName("level4Font")
+        self.previewPic = QtWidgets.QListWidget(self.groupBox_3)
+        self.previewPic.setGeometry(QtCore.QRect(10, 40, 211, 221))
+        self.previewPic.setObjectName("previewPic")
         self.tabWidget.addTab(self.companyTab, "")
         self.departmentTab = QtWidgets.QWidget()
         self.departmentTab.setObjectName("departmentTab")

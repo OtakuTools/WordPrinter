@@ -1,6 +1,7 @@
 from test import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog
 from dataStruct import userInfo
+from generateGraph import drawGraph
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
@@ -8,37 +9,37 @@ class Controller(QMainWindow, Ui_MainWindow):
     graphStyle = [{ 'nodes': {
                         'fontname': 'KaiTi',
                         'shape': 'box',
-                        'fontcolor': 'white',
+                        'fontcolor': 'black',
                         'color': 'white',
                         'style': 'filled',
-                        'fillcolor': '#ffff00',
-                    },
-                    'lineLen' : 4},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'white',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#00ff00',
-                    },
-                    'lineLen' : 6},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'white',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#00ff00',
+                        'fillcolor': '#008000',
                     },
                     'lineLen' : 3},
                   { 'nodes': {
                         'fontname': 'KaiTi',
                         'shape': 'box',
-                        'fontcolor': 'white',
+                        'fontcolor': 'black',
                         'color': 'white',
                         'style': 'filled',
-                        'fillcolor': '#00ff00',
+                        'fillcolor': '#800000',
+                    },
+                    'lineLen' : 3},
+                  { 'nodes': {
+                        'fontname': 'KaiTi',
+                        'shape': 'box',
+                        'fontcolor': 'black',
+                        'color': 'white',
+                        'style': 'filled',
+                        'fillcolor': '#000080',
+                    },
+                    'lineLen' : 3},
+                  { 'nodes': {
+                        'fontname': 'KaiTi',
+                        'shape': 'box',
+                        'fontcolor': 'black',
+                        'color': 'white',
+                        'style': 'filled',
+                        'fillcolor': '#ffff00',
                     },
                     'lineLen' : 3}]
 
@@ -56,11 +57,18 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.connectList()
         #self.setUser()
       
-    def showDialog(self, tar): 
+    def setGraphColor(self, tar, pos, option): 
         col = QColorDialog.getColor() 
-        print(col.name(),"\n")
         if col.isValid(): 
             tar.setStyleSheet('QWidget {background-color:%s}' % col.name())
+            self.graphStyle[pos]["nodes"][option] = col.name()
+
+    def setLineWidth(self, tar, pos):
+        self.graphStyle[pos]["lineLen"] = tar.value()
+
+    def showPreviewGraph(self):
+        graph = drawGraph()
+        graph.draw("preview", self.user, self.graphStyle)
 
     def getInfo():
         return user
@@ -84,19 +92,28 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.releaseDateText.dateChanged.connect( lambda : self.setUser() )
         self.auditDateText.dateChanged.connect( lambda : self.setUser() )
 
+        # style
+        self.level1Width.valueChanged.connect(lambda: self.setLineWidth(self.level1Width, 0))
+        self.level2Width.valueChanged.connect(lambda: self.setLineWidth(self.level2Width, 1))
+        self.level3Width.valueChanged.connect(lambda: self.setLineWidth(self.level3Width, 2))
+        self.level4Width.valueChanged.connect(lambda: self.setLineWidth(self.level4Width, 3))
+
     def connectButton(self):
 
         #deStructBorderColor
-        self.level1Border.clicked.connect(lambda: self.showDialog(self.level1Border))
-        self.level2Border.clicked.connect(lambda: self.showDialog(self.level2Border))
-        self.level3Border.clicked.connect(lambda: self.showDialog(self.level3Border))
-        self.level4Border.clicked.connect(lambda: self.showDialog(self.level4Border))
+        self.level1Border.clicked.connect(lambda: self.setGraphColor(self.level1Border, 0, "fillcolor"))
+        self.level2Border.clicked.connect(lambda: self.setGraphColor(self.level2Border, 1, "fillcolor"))
+        self.level3Border.clicked.connect(lambda: self.setGraphColor(self.level3Border, 2, "fillcolor"))
+        self.level4Border.clicked.connect(lambda: self.setGraphColor(self.level4Border, 3, "fillcolor"))
 
         #deStructFontColor
-        self.level1Font.clicked.connect(lambda: self.showDialog(self.level1Font))
-        self.level2Font.clicked.connect(lambda: self.showDialog(self.level2Font))
-        self.level3Font.clicked.connect(lambda: self.showDialog(self.level3Font))
-        self.level4Font.clicked.connect(lambda: self.showDialog(self.level4Font))
+        self.level1Font.clicked.connect(lambda: self.setGraphColor(self.level1Font, 0, "fontcolor"))
+        self.level2Font.clicked.connect(lambda: self.setGraphColor(self.level2Font, 1, "fontcolor"))
+        self.level3Font.clicked.connect(lambda: self.setGraphColor(self.level3Font, 2, "fontcolor"))
+        self.level4Font.clicked.connect(lambda: self.setGraphColor(self.level4Font, 3, "fontcolor"))
+
+        #previewButton
+        self.previewButton.clicked.connect(lambda: self.showPreviewGraph())
 
         #preview
         self.createBotton.clicked.connect(lambda: self.depIntro.setPlainText(str(vars(self.user))))
@@ -157,10 +174,20 @@ class Controller(QMainWindow, Ui_MainWindow):
                 if getattr(self,'duty_'+str(i)).checkState():
                     department['func'].append(i)
         self.setDepStruct()
+    
+    def refreshGraph(self, keys, levelDict):
+        c = self.previewPic.count()
+        for i in range(self.previewPic.count()):
+            self.previewPic.takeItem(0)
+        for key in keys:
+            deps = levelDict[key].split(",")
+            for dep in deps:
+                self.previewPic.addItem("级别：" + str(key) + " | 部门： " + dep)
 
     def setDepStruct(self):
         if not self.user.departments or len(self.user.departments) == 0:
             self.user.depStruct = ""
+            self.refreshGraph([], {})
         else:
             levelDict = {}
             try:
@@ -179,6 +206,8 @@ class Controller(QMainWindow, Ui_MainWindow):
                 keys.sort()
                 gramma = [levelDict[key] for key in keys]
                 self.user.depStruct = ";\n".join(gramma)
+                self.user.depStruct = self.user.depStruct + ";"
+                self.refreshGraph(keys, levelDict)
 
     def addDepartment(self,departmentName="部门名称"):
         self.departmentList.addItem(departmentName)
@@ -248,6 +277,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         ####请勿修改顺序，takeItem在移除item前会触发itemChanged，若已删除user则导致越界错误
         index =  self.departmentList.row( self.departmentList.currentItem() )
         self.departmentList.takeItem( index )
-        self.user.departments.remove(self.user.departments[ index ])
+        del self.user.departments[ index ]
         ########
         self.setDepStruct()
