@@ -212,6 +212,8 @@ class Controller(QMainWindow, Ui_MainWindow):
     def addDepartment(self,departmentName="部门名称"):
         self.departmentList.addItem(departmentName)
         self.user.departments.append({"name":departmentName})
+        c = self.departmentList.count()
+        self.departmentList.setCurrentItem(self.departmentList.item(c-1))
         '''
         self.user.departments.append({"name":departmentName,"level":1,"intro":[
           "负责公司的整体软件开发核心技术，组织制定和实施重大技术决策和技术方案；",
