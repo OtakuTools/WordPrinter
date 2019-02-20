@@ -76,18 +76,19 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def search(self):
         searchContent = self.searchContent.text()
-        input = self.db.searchById(searchContent)
-        if input.company != "":
-            self.setInput(input)
+        user = self.db.searchById(searchContent)
+        if user.company != "":
+            self.setInput(user)
 
     def setInput(self, user):
+        #clear
         c = self.departmentList.count()
-        print("c", c)
         for i in range(c):
             self.departmentList.takeItem(0)
         c = self.previewPic.count()
         for i in range(c):
             self.previewPic.takeItem(0)
+
         #
         self.fileNameText.setText(user.fileName)
         self.companyText.setText(user.company)
@@ -116,6 +117,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         for dep in user.departments:
             self.departmentList.addItem(dep["name"])
             self.user.departments.append(dep)
+        print(self.departmentList.count())
         self.setDepStruct()
 
 
@@ -310,3 +312,4 @@ class Controller(QMainWindow, Ui_MainWindow):
         print("更新数据库成功")
         print("正在生成文档...")
         docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
+        self.depIntro.setPlainText(str(vars(self.user)))

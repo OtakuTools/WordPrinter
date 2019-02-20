@@ -143,14 +143,14 @@ class DB:
         try:
             ptr.execute(sql1)
             results = ptr.fetchall()
+            info.departments = []
             for row in results:
                 dep = {}
                 dep["name"] = row[0]
                 dep["level"] = int(row[1])
                 dep["intro"] = row[2].split("#")
-                dep["func"] = self.formatFunc(list(filter(lambda x: x != '', row[3].split("#"))), "int") 
+                dep["func"] = self.formatFunc(list(filter(lambda x: x != '', row[3].split("#"))), "int")
                 info.departments.append(dep)
-                #print(dep["func"])
         except Exception as e:
             print("Search Department Error:", e)
         
