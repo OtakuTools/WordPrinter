@@ -44,7 +44,7 @@
     <item row="1" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="companyTab">
        <attribute name="title">
@@ -754,6 +754,12 @@ gridline-color:rgb(0, 0, 0);</string>
                <width>50</width>
                <height>16777215</height>
               </size>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>4</number>
              </property>
             </widget>
            </item>

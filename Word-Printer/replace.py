@@ -14,6 +14,7 @@ def replace( src , dst , user ):
     document = Document(src)
     todo = []
 
+    #更新目录
     element_updatefields = lxml.etree.SubElement(
         document.settings.element, "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"+"updateFields"
     )
@@ -62,7 +63,17 @@ def replace( src , dst , user ):
                 # 插入图片
                 if str(r.font.color.rgb) == '000FFF':
                     pp = p.insert_paragraph_before()
-                    pp.add_run().add_picture( user.picPath ,Cm(16))
+                    #检查宽高
+                    levelDict = {}
+                    for dep in user.departments:
+                        if not levelDict.__contains__(dep['level']):
+                            levelDict[dep['level']] = 1
+                        else:
+                            levelDict[dep['level']] = levelDict[dep['level']] + 1
+                    height = len( levelDict )
+                    width = max(levelDict.values())
+                    pp.add_run().add_picture( user.picPath ,height=Cm(10)) if width < 2*height else pp.add_run().add_picture( user.picPath ,width=Cm(16))
+                    #picture = pp.add_run().add_picture( user.picPath ,height=Cm(10))
                     pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 todo.append(r)
     

@@ -375,6 +375,8 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.depLevel.sizePolicy().hasHeightForWidth())
         self.depLevel.setSizePolicy(sizePolicy)
         self.depLevel.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.depLevel.setMinimum(1)
+        self.depLevel.setMaximum(4)
         self.depLevel.setObjectName("depLevel")
         self.gridLayout_5.addWidget(self.depLevel, 0, 3, 1, 1)
         self.gridLayout_8.addWidget(self.groupBox_5, 0, 1, 1, 2)
@@ -539,7 +541,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.searchContent, self.searchButton)
         MainWindow.setTabOrder(self.searchButton, self.tabWidget)
