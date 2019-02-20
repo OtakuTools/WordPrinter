@@ -431,8 +431,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
-        self.fileNameText.textChanged['QString'].connect(self.companyText.setText)
-        self.addressText.textChanged['QString'].connect(self.coverFieldText.setText)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

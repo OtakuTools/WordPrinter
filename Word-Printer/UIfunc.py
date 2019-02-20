@@ -2,6 +2,7 @@ from test import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog
 from dataStruct import userInfo
 from generateGraph import drawGraph
+from Word_Printer import docWriter
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
@@ -115,8 +116,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         #previewButton
         self.previewButton.clicked.connect(lambda: self.showPreviewGraph())
 
-        #preview
-        self.createBotton.clicked.connect(lambda: self.depIntro.setPlainText(str(vars(self.user))))
+        # generateDoc
+        self.createBotton.clicked.connect(lambda: self.generateDoc())
 
     def connectList(self):
         self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))#可能没选中，故用getattr确认
@@ -244,18 +245,6 @@ class Controller(QMainWindow, Ui_MainWindow):
             for i in range(1,43):
                 getattr(self,'duty_'+str(i)).setCheckState(0)
         else:
-            '''
-            for department in self.user.departments:
-                if department['name'] == departmentName:
-                    self.depName.setText( departmentName )
-                    self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
-                    self.depLevel.setValue( department['level'] if 'level' in department else 1 )
-                    for i in range(1,43): #clear all
-                        getattr(self,'duty_'+str(i)).setCheckState(0)
-                    for i in ( department['func'] if 'func' in department else [] ):
-                        getattr(self,'duty_'+str(i)).setCheckState(2)
-                    break #可能有bug在这里诞生
-            '''
             department = self.user.departments[ self.departmentList.row( self.departmentList.currentItem() ) ]
             self.depName.setText( departmentName )
             self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
@@ -268,12 +257,6 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     
     def removeDepartment(self,departmentName):
-        '''
-        for department in self.user.departments:
-            if department['name'] == departmentName:
-                self.user.departments.remove(department)
-                break #可能有bug在这里诞生
-        '''
         if( departmentName == "" ):
             return
         ####请勿修改顺序，takeItem在移除item前会触发itemChanged，若已删除user则导致越界错误
@@ -282,3 +265,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         del self.user.departments[ index ]
         ########
         self.setDepStruct()
+
+    def generateDoc(self):
+        docWrt = docWriter()
+        docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
+        self.depIntro.setPlainText(str(vars(self.user)))

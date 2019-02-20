@@ -1608,38 +1608,5 @@ gridline-color:rgb(0, 0, 0);</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>fileNameText</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>companyText</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>223</x>
-     <y>125</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>224</x>
-     <y>164</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addressText</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>coverFieldText</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>374</x>
-     <y>207</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>374</x>
-     <y>247</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
