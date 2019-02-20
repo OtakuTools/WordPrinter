@@ -541,7 +541,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.searchContent, self.searchButton)
         MainWindow.setTabOrder(self.searchButton, self.tabWidget)
@@ -630,7 +630,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "文档生成器v1.0"))
         self.createBotton.setText(_translate("MainWindow", "文档生成"))
         self.cancelButton.setText(_translate("MainWindow", "放弃修改"))
         self.groupBox_3.setTitle(_translate("MainWindow", "结构图"))
