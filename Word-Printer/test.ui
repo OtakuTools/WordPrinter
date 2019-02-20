@@ -37,7 +37,7 @@
     <item row="0" column="3">
      <widget class="QPushButton" name="cancelButton">
       <property name="text">
-       <string>取消</string>
+       <string>放弃修改</string>
       </property>
      </widget>
     </item>

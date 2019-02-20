@@ -165,6 +165,7 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         #generateDoc
         self.createBotton.clicked.connect(lambda: self.generateDoc())
+        self.cancelButton.clicked.connect(lambda: self.discard() )
 
         #search
         self.searchButton.clicked.connect(lambda: self.search())
@@ -312,3 +313,38 @@ class Controller(QMainWindow, Ui_MainWindow):
         print("正在生成文档...")
         docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
         self.depIntro.setPlainText(str(vars(self.user)))
+
+    def discard(self):
+        #第一页左
+        self.fileNameText.setText("")
+        self.companyText.setText("")
+        self.addressText.setText("")
+        self.coverFieldText.setText("")
+        self.policyText.setText("")
+        self.introductionText.setPlainText("")
+        #第一页右
+        self.managerText.setText("")
+        self.guandaiText.setText("")
+        self.employeesText.setText("")
+        self.approverText.setText("")
+        self.auditText.setText("")
+        self.announcerText.setText("")
+        self.zipText.setText("")
+        self.phoneText.setText("")
+        #日期
+        pass
+        #部门结构
+        self.user.departments = []
+        #
+        c = self.departmentList.count()
+        for i in range(c):
+            self.departmentList.takeItem(0)
+        c = self.previewPic.count()
+        for i in range(c):
+            self.previewPic.takeItem(0)
+        #第二页右
+        self.depName.setText("")
+        self.depLevel.setValue(1)
+        self.depIntro.setPlainText("")
+        for i in range(1,43):
+            getattr(self,'duty_'+str(i)).setCheckState(0)

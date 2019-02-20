@@ -630,7 +630,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.createBotton.setText(_translate("MainWindow", "文档生成"))
-        self.cancelButton.setText(_translate("MainWindow", "取消"))
+        self.cancelButton.setText(_translate("MainWindow", "放弃修改"))
         self.groupBox_3.setTitle(_translate("MainWindow", "结构图"))
         self.depStructLable.setText(_translate("MainWindow", "部门结构"))
         self.previewButton.setText(_translate("MainWindow", "预览图片"))
