@@ -662,7 +662,11 @@ gridline-color:rgb(0, 0, 0);</string>
             </widget>
            </item>
            <item row="6" column="0" colspan="2">
-            <widget class="QPlainTextEdit" name="introductionText"/>
+            <widget class="QPlainTextEdit" name="introductionText">
+             <property name="tabChangesFocus">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -714,7 +718,11 @@ gridline-color:rgb(0, 0, 0);</string>
             </widget>
            </item>
            <item row="2" column="0" colspan="4">
-            <widget class="QPlainTextEdit" name="depIntro"/>
+            <widget class="QPlainTextEdit" name="depIntro">
+             <property name="tabChangesFocus">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_2">
@@ -1129,6 +1137,93 @@ gridline-color:rgb(0, 0, 0);</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>searchContent</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>companyText</tabstop>
+  <tabstop>fileNameText</tabstop>
+  <tabstop>addressText</tabstop>
+  <tabstop>coverFieldText</tabstop>
+  <tabstop>policyText</tabstop>
+  <tabstop>introductionText</tabstop>
+  <tabstop>managerText</tabstop>
+  <tabstop>guandaiText</tabstop>
+  <tabstop>employeesText</tabstop>
+  <tabstop>approverText</tabstop>
+  <tabstop>auditText</tabstop>
+  <tabstop>announcerText</tabstop>
+  <tabstop>zipText</tabstop>
+  <tabstop>phoneText</tabstop>
+  <tabstop>releaseDateText</tabstop>
+  <tabstop>auditDateText</tabstop>
+  <tabstop>level1Border</tabstop>
+  <tabstop>level1Font</tabstop>
+  <tabstop>level1Width</tabstop>
+  <tabstop>level2Border</tabstop>
+  <tabstop>level2Font</tabstop>
+  <tabstop>level2Width</tabstop>
+  <tabstop>level3Border</tabstop>
+  <tabstop>level3Font</tabstop>
+  <tabstop>level3Width</tabstop>
+  <tabstop>level4Border</tabstop>
+  <tabstop>level4Font</tabstop>
+  <tabstop>level4Width</tabstop>
+  <tabstop>previewButton</tabstop>
+  <tabstop>previewPic</tabstop>
+  <tabstop>AddDep</tabstop>
+  <tabstop>DeleteDep</tabstop>
+  <tabstop>departmentList</tabstop>
+  <tabstop>depName</tabstop>
+  <tabstop>depLevel</tabstop>
+  <tabstop>depIntro</tabstop>
+  <tabstop>duty_1</tabstop>
+  <tabstop>duty_2</tabstop>
+  <tabstop>duty_3</tabstop>
+  <tabstop>duty_4</tabstop>
+  <tabstop>duty_5</tabstop>
+  <tabstop>duty_6</tabstop>
+  <tabstop>duty_7</tabstop>
+  <tabstop>duty_8</tabstop>
+  <tabstop>duty_9</tabstop>
+  <tabstop>duty_10</tabstop>
+  <tabstop>duty_11</tabstop>
+  <tabstop>duty_12</tabstop>
+  <tabstop>duty_13</tabstop>
+  <tabstop>duty_14</tabstop>
+  <tabstop>duty_15</tabstop>
+  <tabstop>duty_16</tabstop>
+  <tabstop>duty_17</tabstop>
+  <tabstop>duty_18</tabstop>
+  <tabstop>duty_19</tabstop>
+  <tabstop>duty_20</tabstop>
+  <tabstop>duty_21</tabstop>
+  <tabstop>duty_22</tabstop>
+  <tabstop>duty_23</tabstop>
+  <tabstop>duty_24</tabstop>
+  <tabstop>duty_25</tabstop>
+  <tabstop>duty_26</tabstop>
+  <tabstop>duty_27</tabstop>
+  <tabstop>duty_28</tabstop>
+  <tabstop>duty_29</tabstop>
+  <tabstop>duty_30</tabstop>
+  <tabstop>duty_31</tabstop>
+  <tabstop>duty_32</tabstop>
+  <tabstop>duty_33</tabstop>
+  <tabstop>duty_34</tabstop>
+  <tabstop>duty_35</tabstop>
+  <tabstop>duty_36</tabstop>
+  <tabstop>duty_37</tabstop>
+  <tabstop>duty_38</tabstop>
+  <tabstop>duty_39</tabstop>
+  <tabstop>duty_40</tabstop>
+  <tabstop>duty_41</tabstop>
+  <tabstop>duty_42</tabstop>
+  <tabstop>addOrModifyDep</tabstop>
+  <tabstop>cancelDep</tabstop>
+  <tabstop>createBotton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
