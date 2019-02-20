@@ -79,6 +79,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         user = self.db.searchById(searchContent)
         if user.company != "":
             self.setInput(user)
+        self.searchContent.setText("")
 
     def setInput(self, user):
         #clear
@@ -118,6 +119,12 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.departmentList.addItem(dep["name"])
             self.user.departments.append(dep)
         self.setDepStruct()
+        #清空第二页右
+        self.depName.setText("")
+        self.depLevel.setValue(1)
+        self.depIntro.setPlainText("")
+        for i in range(1,43):
+            getattr(self,'duty_'+str(i)).setCheckState(0)
 
 
     def connectText(self):
