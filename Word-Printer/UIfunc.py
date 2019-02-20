@@ -117,7 +117,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         for dep in user.departments:
             self.departmentList.addItem(dep["name"])
             self.user.departments.append(dep)
-        print(self.departmentList.count())
         self.setDepStruct()
 
 
