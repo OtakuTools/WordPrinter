@@ -312,14 +312,18 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setDepStruct()
 
     def generateDoc(self):
-        docWrt = docWriter()
-        print("正在更新数据库...")
-        self.db.delete("info", self.user.company)
-        self.db.insertData(self.user)
-        print("更新数据库成功")
-        print("正在生成文档...")
-        docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
-        self.depIntro.setPlainText(str(vars(self.user)))
+        validMsg = self.user.validChecker()
+        if validMsg[0]:
+            docWrt = docWriter()
+            print("正在更新数据库...")
+            self.db.delete("info", self.user.company)
+            self.db.insertData(self.user)
+            print("更新数据库成功")
+            print("正在生成文档...")
+            docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
+            #self.depIntro.setPlainText(str(vars(self.user)))
+        else:
+            self.showErrorDialog(validMsg[1])
 
     def discard(self):
         #第一页左
@@ -355,3 +359,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.depIntro.setPlainText("")
         for i in range(1,43):
             getattr(self,'duty_'+str(i)).setCheckState(0)
+
+    def showErrorDialog(self, content):
+        reply = QMessageBox.critical(self, "错误信息", content, QMessageBox.Yes | QMessageBox.Cancel) 
