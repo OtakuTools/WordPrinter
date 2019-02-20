@@ -1,11 +1,14 @@
 from test import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog
+from PyQt5.QtCore import QDate
 from dataStruct import userInfo
 from generateGraph import drawGraph
 from Word_Printer import docWriter
+from database import DB
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
+    db = DB()
     
     graphStyle = [{ 'nodes': {
                         'fontname': 'KaiTi',
@@ -51,7 +54,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         #userInit
         self.user.departments = []
-        
+
         #connect
         self.connectButton()
         self.connectText()
@@ -71,8 +74,47 @@ class Controller(QMainWindow, Ui_MainWindow):
         graph = drawGraph()
         graph.draw("preview", self.user, self.graphStyle)
 
-    def getInfo():
-        return user
+    def search(self):
+        searchContent = self.searchContent.text()
+        input = self.db.searchById(searchContent)
+        if input.company != "":
+            self.setInput(input)
+
+    def setInput(self, user):
+        #
+        self.fileNameText.setText(user.fileName)
+        self.companyText.setText(user.company)
+        self.addressText.setText(user.address)
+        self.coverFieldText.setText(user.coverField)
+        self.managerText.setText(user.manager)
+        self.guandaiText.setText(user.guandai)
+        self.employeesText.setText(user.employees)
+        self.approverText.setText(user.approver)
+        self.auditText.setText(user.audit)
+        self.announcerText.setText(user.announcer)
+        self.zipText.setText(user.zip)
+        self.phoneText.setText(user.phone)
+        self.policyText.setText(user.policy)
+        #
+        date = user.releaseDate.replace("年", "-").replace("月", "-").replace("日", "")
+        date_t = date.split("-")
+        self.releaseDateText.setDate(QDate(int(date_t[0]), int(date_t[1]), int(date_t[2])))
+        date = user.auditDate.replace("年", "-").replace("月", "-").replace("日", "")
+        date_t = date.split("-")
+        self.auditDateText.setDate(QDate(int(date_t[0]), int(date_t[1]), int(date_t[2])))
+        #
+        self.introductionText.setPlainText("\n".join(user.introduction))
+
+        c = self.departmentList.count()
+        for i in range(self.previewPic.count()):
+            self.departmentList.takeItem(0)
+
+        self.user.departments = []
+        for dep in user.departments:
+            self.departmentList.addItem(dep["name"])
+            self.user.departments.append(dep)
+        self.setDepStruct()
+
 
     def connectText(self):
         self.fileNameText.textChanged.connect(lambda : self.setUser())
@@ -116,8 +158,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         #previewButton
         self.previewButton.clicked.connect(lambda: self.showPreviewGraph())
 
-        # generateDoc
+        #generateDoc
         self.createBotton.clicked.connect(lambda: self.generateDoc())
+
+        #search
+        self.searchButton.clicked.connect(lambda: self.search())
 
     def connectList(self):
         self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))#可能没选中，故用getattr确认
@@ -152,19 +197,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         if departmentName == "":
             pass
         else:
-            '''
-            for department in self.user.departments:
-                if department['name'] == departmentName:
-                    self.departmentList.currentItem().setText(self.depName.text())
-                    department['name'] = self.depName.text()
-                    department['level'] = self.depLevel.value()
-                    department['intro'] = str(self.depIntro.toPlainText()).split('\n')
-                    department['func'] = []
-                    for i in range(1,43):
-                        if getattr(self,'duty_'+str(i)).checkState():
-                            department['func'].append(i)
-                    break#可能有bug在这里诞生
-            '''
             department = self.user.departments[ self.departmentList.row( self.departmentList.currentItem() ) ]
             self.departmentList.currentItem().setText(self.depName.text())
             department['name'] = self.depName.text()

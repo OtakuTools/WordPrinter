@@ -6,23 +6,22 @@ graph {
 		graph [center=true ordering=out rank=max rankdir=LR]
 		node [color=white fillcolor="#008000" fontcolor=black fontname=KaiTi shape=box style=filled]
 		color=black compound=true
-		aaa [label=aaa
-]
+		"未来系统集成中心" [label="未来系
+统集成
+中心"]
+		cluster00000e [label="" color=white height=0 width=0]
+		"很有钱的软件开发部" [label="很有钱
+的软件
+开发部
+"]
 	}
 	subgraph cluster00001 {
 		graph [center=true ordering=out rank=max rankdir=LR]
 		node [color=white fillcolor="#800000" fontcolor=black fontname=KaiTi shape=box style=filled]
 		color=black compound=true
-		bbb [label=bbb
-]
+		"很有钱的客服" [label="很有钱
+的客服
+"]
 	}
-	subgraph cluster00002 {
-		graph [center=true ordering=out rank=max rankdir=LR]
-		node [color=white fillcolor="#000080" fontcolor=black fontname=KaiTi shape=box style=filled]
-		color=black compound=true
-		ccc [label=ccc
-]
-	}
-	aaa -- bbb [lhead=cluster00001 ltail=cluster00000]
-	bbb -- ccc [lhead=cluster00002 ltail=cluster00001]
+	cluster00000e -- "很有钱的客服" [lhead=cluster00001 ltail=cluster00000]
 }
