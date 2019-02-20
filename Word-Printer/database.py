@@ -287,7 +287,7 @@ class DB:
     def formatFunc(self, func, mode="str"):
         if not func or len(func) == 0:
             return func
-        funcList = func
+        funcList = func[:]
         for i in range(len(funcList)):
             if mode == "str":
                 funcList[i] = funcList[i] if type(funcList[i]) == "str" else str(funcList[i])

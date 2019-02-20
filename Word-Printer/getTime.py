@@ -13,14 +13,3 @@ def getTime( user_info ):
     user_info.modifyDate = modifyDate
     return user_info
 
-
-if __name__ == '__main__':
-    user = userInfo();
-    with open("TestCase.json", "r" , encoding='utf-8') as f:
-            data = json.load(f)
-    for dict in data:
-        for key in dict.keys():
-            setattr( user , key , dict[key] )
-        user.picPath = "./save/" + user.fileName + "-20000-SM-M-01_picture.png"
-        #replace('sample.docx',user.fileName+'-20000-SM-M-01.docx' , user ).save(user.fileName+'-20000-SM-M-01.docx')
-        getTime( user )

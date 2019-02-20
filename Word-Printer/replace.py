@@ -120,8 +120,8 @@ def replace( src , dst , user ):
         # 内容
         for i in range(1, table_row_len):
             cell = column.cells[i]
-            #if i in d["func"]:
-            if str(i) in d["func"]:
+            if i in d["func"]:
+            #if str(i) in d["func"]:
                 cell.text = "▲"
             else:
                 cell.text = "△"
