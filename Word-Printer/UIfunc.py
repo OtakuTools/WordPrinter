@@ -81,6 +81,13 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.setInput(input)
 
     def setInput(self, user):
+        c = self.departmentList.count()
+        print("c", c)
+        for i in range(c):
+            self.departmentList.takeItem(0)
+        c = self.previewPic.count()
+        for i in range(c):
+            self.previewPic.takeItem(0)
         #
         self.fileNameText.setText(user.fileName)
         self.companyText.setText(user.company)
@@ -105,10 +112,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         #
         self.introductionText.setPlainText("\n".join(user.introduction))
 
-        c = self.departmentList.count()
-        for i in range(self.previewPic.count()):
-            self.departmentList.takeItem(0)
-
         self.user.departments = []
         for dep in user.departments:
             self.departmentList.addItem(dep["name"])
@@ -130,6 +133,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.zipText.textChanged.connect(lambda : self.setUser())
         self.phoneText.textChanged.connect(lambda : self.setUser())
         self.policyText.textChanged.connect(lambda : self.setUser())
+        self.introductionText.textChanged.connect(lambda : self.setUser())
         #self.fileNameText.textChanged.connect( lambda : self.setUser() )
 
         self.releaseDateText.dateChanged.connect( lambda : self.setUser() )
@@ -300,5 +304,9 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def generateDoc(self):
         docWrt = docWriter()
+        print("正在更新数据库...")
+        self.db.delete("info", self.user.company)
+        self.db.insertData(self.user)
+        print("更新数据库成功")
+        print("正在生成文档...")
         docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
-        self.depIntro.setPlainText(str(vars(self.user)))

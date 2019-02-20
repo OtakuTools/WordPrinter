@@ -8,7 +8,7 @@ from dataStruct import userInfo
 class DB:
     def __init__(self):
         self.info = self.loadConfig()
-        print(self.info)
+        #print(self.info)
         try:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
         except Exception as e:
@@ -17,7 +17,8 @@ class DB:
             self.createDB(self.info['dbname'])
 
     def __del__(self):
-        self.db.close()
+        if self.db:
+            self.db.close()
 
     def createDB(self, dbName):
         ptr = self.db.cursor()
