@@ -5,6 +5,7 @@ from dataStruct import userInfo
 from generateGraph import drawGraph
 from Word_Printer import docWriter
 from database import DB
+import json
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
@@ -66,9 +67,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         if col.isValid(): 
             tar.setStyleSheet('QWidget {background-color:%s}' % col.name())
             self.graphStyle[pos]["nodes"][option] = col.name()
+        self.refreshUserColor()
 
     def setLineWidth(self, tar, pos):
         self.graphStyle[pos]["lineLen"] = tar.value()
+        self.refreshUserColor()
 
     def showPreviewGraph(self):
         graph = drawGraph()
@@ -119,6 +122,14 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.departmentList.addItem(dep["name"])
             self.user.departments.append(dep)
         self.setDepStruct()
+
+        colors = json.loads(user.color)
+        for i in range(len(colors)):
+            getattr(self, "level"+str(i+1)+"Border").setStyleSheet('QWidget {background-color:%s}' % colors[i]["nodes"]["fillcolor"])
+            getattr(self, "level"+str(i+1)+"Font").setStyleSheet('QWidget {background-color:%s}' % colors[i]["nodes"]["fontcolor"])
+            getattr(self, "level"+str(i+1)+"Width").setValue(colors[i]["lineLen"])
+        self.graphStyle = colors
+
         #清空第二页右
         self.depName.setText("")
         self.depLevel.setValue(1)
@@ -362,3 +373,6 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def showErrorDialog(self, content):
         reply = QMessageBox.critical(self, "错误信息", content, QMessageBox.Yes | QMessageBox.Cancel) 
+
+    def refreshUserColor(self):
+        self.user.color = json.dumps(self.graphStyle)

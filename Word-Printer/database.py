@@ -61,6 +61,7 @@ class DB:
                    policy NVARCHAR(200) NOT NULL,
                    picPath NVARCHAR(200) NOT NULL,
                    depStruct NVARCHAR(1000) NOT NULL,
+                   color NVARCHAR(1000) NOT NULL,
                    PRIMARY KEY (company)
                ) ENGINE=InnoDB;
                """,
@@ -137,6 +138,7 @@ class DB:
                 info.policy = row[15]
                 info.picPath = row[16]
                 info.depStruct = row[17]
+                info.color = row[18]
         except Exception as e:
             print("Search Info Error:",e)
 
@@ -177,17 +179,18 @@ class DB:
                     phone,
                     policy,
                     picPath,
-                    depStruct
+                    depStruct,
+                    color
                 )VALUES('%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
-                        '%s', '%s', '%s');
+                        '%s', '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
                        "#".join(data.introduction), data.coverField, data.manager,
                        data.guandai, data.employees, data.approver,
                        data.audit, data.announcer, data.releaseDate, 
                        data.auditDate, data.zip, data.phone, data.policy,
-                       data.picPath, data.depStruct)
+                       data.picPath, data.depStruct, data.color)
         try:
            ptr.execute(sql0)
            self.db.commit()

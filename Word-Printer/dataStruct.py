@@ -39,6 +39,8 @@ class userInfo:
     picPath = ""
     # string
     depStruct = ""
+    # string
+    color = ""
     # dict array
     """
     #[
