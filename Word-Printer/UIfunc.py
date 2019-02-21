@@ -189,6 +189,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #generateDoc
         self.createBotton.clicked.connect(lambda: self.generateDoc())
         self.cancelButton.clicked.connect(lambda: self.discard() )
+        self.saveButton.clicked.connect(lambda: self.refreshDatabase())
 
         #search
         self.searchButton.clicked.connect(lambda: self.search())
@@ -336,14 +337,17 @@ class Controller(QMainWindow, Ui_MainWindow):
         if validMsg[0]:
             docWrt = docWriter()
             print("正在更新数据库...")
-            self.db.delete("info", self.user.company)
-            self.db.insertData(self.user)
+            self.refreshDatabase()
             print("更新数据库成功")
             print("正在生成文档...")
             docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
             #self.depIntro.setPlainText(str(vars(self.user)))
         else:
             self.showErrorDialog(validMsg[1])
+
+    def refreshDatabase(self):
+        self.db.delete("info", self.user.company)
+        self.db.insertData(self.user)
 
     def discard(self):
         #第一页左
