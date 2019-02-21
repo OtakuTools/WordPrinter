@@ -57,6 +57,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         #self.user.departments = []
         self.user.resetDepartment()
         self.refreshDepartmentList()
+        if self.user.color == "":
+            self.user.color = json.dumps(self.graphStyle)
 
         #connect
         self.connectButton()

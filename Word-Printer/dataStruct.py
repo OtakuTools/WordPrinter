@@ -162,7 +162,7 @@ class userInfo:
             errMsg = errMsg + "公司缩写：必须为4位大写英文字母；\n"
             isValid = False
         #业务范围
-        if len( self.coverfield) > 50:
+        if len( self.coverField) > 50:
             errMsg = errMsg + "业务范围：50字以内\n"
             isValid = False
         #公司简介
@@ -174,7 +174,7 @@ class userInfo:
             errMsg = errMsg + "电话：请输入合法的电话\n"
             isValid = False
         #邮编
-        if ( self.zip.isdigit() ) or (not len(self.zip) == 6 ):
+        if ( not self.zip.isdigit() ) or (not len(self.zip) == 6 ):
             errMsg = errMsg + "邮编：请输入合法的邮编"
             isValid = False
         #部门简介

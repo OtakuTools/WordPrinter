@@ -72,9 +72,11 @@ class DB:
                    name NVARCHAR(20) NOT NULL,
                    intro NVARCHAR(1500) NOT NULL,
                    func NVARCHAR(200) NOT NULL,
+                   seq INT(5) NOT NULL AUTO_INCREMENT,
+                   UNIQUE SEQ (seq),
                    PRIMARY KEY (refId, name),
                    FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
-               ) ENGINE=InnoDB;
+               ) ENGINE=InnoDB, AUTO_INCREMENT = 1;
                """]
         try:
             ptr.execute(sql[0])
@@ -112,7 +114,8 @@ class DB:
         sql1 = """
                SELECT name, level, intro, func
                FROM department
-               WHERE refId = '%s';
+               WHERE refId = '%s'
+               ORDER BY seq;
                """ % (id)
    
         info = userInfo();
