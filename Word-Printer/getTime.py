@@ -22,7 +22,7 @@ def getTime( user_info ):
     now = datetime.date( int(time[0]) , int(time[1]) , int(time[2]) )
     modifyDate.append(now.strftime("%Y-%m-%d"))#1-1
     #第二行
-    now = now + datetime.timedelta(days=30)
+    now = now + datetime.timedelta(days=31)
     delta = datetime.timedelta(days=1)
     for i in range(3):
         #print( now.strftime("%Y-%m-%d") )

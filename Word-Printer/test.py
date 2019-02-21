@@ -663,7 +663,7 @@ class Ui_MainWindow(object):
         self.auditLable.setText(_translate("MainWindow", "审核人"))
         self.approverLable.setText(_translate("MainWindow", "批准人"))
         self.zipLable.setText(_translate("MainWindow", "邮编"))
-        self.auditDateLable.setText(_translate("MainWindow", "审计日期"))
+        self.auditDateLable.setText(_translate("MainWindow", "编制日期"))
         self.auditDateText.setDisplayFormat(_translate("MainWindow", "yyyy年MM月dd日"))
         self.phoneLable.setText(_translate("MainWindow", "电话"))
         self.announcerLable.setText(_translate("MainWindow", "发布人"))

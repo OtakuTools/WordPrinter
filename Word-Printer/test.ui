@@ -637,7 +637,7 @@ gridline-color:rgb(0, 0, 0);</string>
            <item row="5" column="3">
             <widget class="QLabel" name="auditDateLable">
              <property name="text">
-              <string>审计日期</string>
+              <string>编制日期</string>
              </property>
             </widget>
            </item>
