@@ -340,7 +340,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.db.insertData(self.user)
             print("更新数据库成功")
             print("正在生成文档...")
-            docWrt.loadAndWrite(self.user, "sample.docx", self.graphStyle)
+            docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
             #self.depIntro.setPlainText(str(vars(self.user)))
         else:
             self.showErrorDialog(validMsg[1])

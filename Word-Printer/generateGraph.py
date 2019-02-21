@@ -115,7 +115,7 @@ class drawGraph:
                 return ""
         edgeList = list(filter(lambda x: x != '', edgeList))
 
-        print(structDict)
+        #print(structDict)
 
         #print(nodeDict)
         # draw graph
