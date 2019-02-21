@@ -223,6 +223,8 @@ class Controller(QMainWindow, Ui_MainWindow):
     def setDepartments(self,departmentName):
         if departmentName == "":
             pass
+        elif self.depName.text() == "":
+            self.showErrorDialog("部门名称不能为空")
         else:
             department = self.user.departments[ self.departmentList.row( self.departmentList.currentItem() ) ]
             self.departmentList.currentItem().setText(self.depName.text())

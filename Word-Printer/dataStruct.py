@@ -111,6 +111,7 @@ class userInfo:
     def validChecker(self):
         errMsg = ""
         isValid = True
+        #检空
         if self.fileName == "":
             errMsg = errMsg + "公司缩写：不能为空;\n"
             isValid = False
@@ -156,6 +157,29 @@ class userInfo:
         if len(self.departments) == 0:
             errMsg = errMsg + "部门：不能为空;\n"
             isValid = False
-        if not isValid:
-            return (False, errMsg)
-        return (True, "")
+        #公司缩写
+        if ( not len( self.fileName ) == 4 ) or ( not self.fileName.isalpha() ) or ( not self.fileName.isupper() ):
+            errMsg = errMsg + "公司缩写：必须为4位大写英文字母；\n"
+            isValid = False
+        #业务范围
+        if len( self.coverfield) > 50:
+            errMsg = errMsg + "业务范围：50字以内\n"
+            isValid = False
+        #公司简介
+        if len( ''.join(self.introduction) ) > 800:
+            errMsg = errMsg + "公司简介：800字以内\n"
+            isValid = False
+        #电话格式
+        if (not self.phone.replace('-','').isnumeric()) or ( (not len(self.phone.replace('-','')) == 8 ) and (not len(self.phone.replace('-','')) == 11 ) ):
+            errMsg = errMsg + "电话：请输入合法的电话\n"
+            isValid = False
+        #邮编
+        if ( self.zip.isdigit() ) or (not len(self.zip) == 6 ):
+            errMsg = errMsg + "邮编：请输入合法的邮编"
+            isValid = False
+        #部门简介
+        for dep in self.departments:
+            if( len(dep["intro"]) == 0 ):
+                errMsg = errMsg + dep["name"] + ":部门简介不能为空"
+                isValid = False
+        return ( isValid , errMsg )
