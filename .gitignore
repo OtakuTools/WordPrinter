@@ -7,3 +7,7 @@ Word-Printer/~$sample.docx
 Word-Printer/dbConfig.json
 *.pyc
 /Word-Printer/~$MP-20000-SM-M-01.docx
+/Word-Printer/dist
+/Word-Printer/build/main
+*.spec
+/Word-Printer/save

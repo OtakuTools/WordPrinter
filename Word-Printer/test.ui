@@ -7,1569 +7,1129 @@
     <x>0</x>
     <y>0</y>
     <width>1013</width>
-    <height>757</height>
+    <height>820</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1013</width>
+    <height>820</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>文档生成器v1.0</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>971</width>
-      <height>681</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="companyTab">
-     <attribute name="title">
-      <string>公司信息</string>
-     </attribute>
-     <widget class="QGroupBox" name="basicInfo">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>431</width>
-        <height>641</height>
-       </rect>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="2">
+     <widget class="QPushButton" name="createBotton">
+      <property name="text">
+       <string>文档生成</string>
       </property>
-      <property name="title">
-       <string>基础信息</string>
-      </property>
-      <widget class="QPlainTextEdit" name="introductionText">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>260</y>
-         <width>361</width>
-         <height>361</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="coverFieldText">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>150</y>
-         <width>291</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="coverFieldLable">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>150</y>
-         <width>61</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>业务范围</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="fileNameLable">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>60</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>公司缩写</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="fileNameText">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>60</y>
-         <width>291</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="companyLable">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>20</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>公司名</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="companyText">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>20</y>
-         <width>291</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="addressLable">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>110</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>地址</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="addressText">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>110</y>
-         <width>291</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="introductionLable">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>230</y>
-         <width>81</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>公司简介</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="policyText">
-       <property name="geometry">
-        <rect>
-         <x>110</x>
-         <y>200</y>
-         <width>291</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="policyLable">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>200</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>服务方针</string>
-       </property>
-      </widget>
      </widget>
-     <widget class="QGroupBox" name="fileInfo">
-      <property name="geometry">
-       <rect>
-        <x>490</x>
-        <y>10</y>
-        <width>461</width>
-        <height>641</height>
-       </rect>
+    </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="cancelButton">
+      <property name="text">
+       <string>放弃修改</string>
       </property>
-      <property name="title">
-       <string>文档信息</string>
-      </property>
-      <widget class="QDateEdit" name="auditDateText">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>240</y>
-         <width>110</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="displayFormat">
-        <string>yyyy年MM月dd日</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="zipText">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>190</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="approverText">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>90</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="announcerText">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>140</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="employeesText">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>90</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="managerText">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>40</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QDateEdit" name="releaseDateText">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>240</y>
-         <width>110</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="displayFormat">
-        <string>yyyy年MM月dd日</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="phoneText">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>190</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="guandaiText">
-       <property name="geometry">
-        <rect>
-         <x>310</x>
-         <y>40</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="auditText">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>140</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="managerLable">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>40</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>总经理</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="guandaiLable">
-       <property name="geometry">
-        <rect>
-         <x>233</x>
-         <y>40</y>
-         <width>61</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>管理者代表</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="employeesLable">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>90</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>编制人</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="approverLable">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>90</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>批准人</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="auditLable">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>140</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>审计人</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="announcerLable">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>140</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>发布人</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="zipLable">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>190</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>邮编</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="phoneLable">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>190</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>电话</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="releaseDateLable">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>240</y>
-         <width>81</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>发布批准日期</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="auditDateLable">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>240</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>审计日期</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_3">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>340</y>
-         <width>441</width>
-         <height>291</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>结构图</string>
-       </property>
-       <widget class="QLabel" name="depStructLable">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>54</width>
-          <height>12</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>部门结构</string>
-        </property>
-       </widget>
-       <widget class="QTableWidget" name="previewPic">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>211</width>
-          <height>231</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="previewButton">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>240</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>预览图片</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="deSytle">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>20</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>样式</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="level1Lable">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>60</y>
-          <width>54</width>
-          <height>12</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>第一层</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="level2Lable">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>100</y>
-          <width>54</width>
-          <height>12</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>第二层</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="level3Lable">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>140</y>
-          <width>54</width>
-          <height>12</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>第三层</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="level4Lable">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>180</y>
-          <width>54</width>
-          <height>12</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>第四层</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="borderLable">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>20</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>边框</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="fontLable">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>20</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>字体</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="heightLable">
-        <property name="geometry">
-         <rect>
-          <x>400</x>
-          <y>20</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>行宽</string>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="level1Height">
-        <property name="geometry">
-         <rect>
-          <x>390</x>
-          <y>50</y>
-          <width>42</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="level2Height">
-        <property name="geometry">
-         <rect>
-          <x>390</x>
-          <y>90</y>
-          <width>42</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="level3Height">
-        <property name="geometry">
-         <rect>
-          <x>390</x>
-          <y>130</y>
-          <width>42</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QSpinBox" name="level4Height">
-        <property name="geometry">
-         <rect>
-          <x>390</x>
-          <y>170</y>
-          <width>42</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level1Border">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>50</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="cursor">
-         <cursorShape>ArrowCursor</cursorShape>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level2Border">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>90</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level3Border">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>130</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level4Border">
-        <property name="geometry">
-         <rect>
-          <x>300</x>
-          <y>170</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level1Font">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>50</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level2Font">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>90</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level3Font">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>130</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="level4Font">
-        <property name="geometry">
-         <rect>
-          <x>350</x>
-          <y>170</y>
-          <width>21</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 0);
-border-color: rgb(0, 0, 0);
-gridline-color:rgb(0, 0, 0);</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </widget>
      </widget>
-    </widget>
-    <widget class="QWidget" name="departmentTab">
-     <attribute name="title">
-      <string>部门信息</string>
-     </attribute>
-     <widget class="QGroupBox" name="groupBox_4">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>20</y>
-        <width>241</width>
-        <height>621</height>
-       </rect>
+    </item>
+    <item row="1" column="0" colspan="4">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <property name="title">
-       <string>部门列表</string>
-      </property>
-      <widget class="QListWidget" name="departmentList">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>221</width>
-         <height>561</height>
-        </rect>
-       </property>
+      <widget class="QWidget" name="companyTab">
+       <attribute name="title">
+        <string>公司信息</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="1" column="1">
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>结构图</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="0" column="0">
+            <widget class="QLabel" name="depStructLable">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>部门结构</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" rowspan="2">
+            <widget class="QListWidget" name="previewPic"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QPushButton" name="previewButton">
+             <property name="text">
+              <string>预览图片</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" rowspan="2">
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>样式</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_9">
+              <item row="0" column="1">
+               <widget class="QLabel" name="borderLable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>边框</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="fontLable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>字体</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="level1Lable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>第一层</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="level1Border">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(0, 128, 0);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="level1Font">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(0, 0, 0);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QSpinBox" name="level1Width">
+                <property name="minimumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="level2Lable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>第二层</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="level2Border">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(128,0, 0);
+border-color: rgb(0,0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QPushButton" name="level2Font">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(0,0, 0);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QSpinBox" name="level2Width">
+                <property name="minimumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="level3Lable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>第三层</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QPushButton" name="level3Border">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(0, 0, 128);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QPushButton" name="level3Font">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(0, 0, 0);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="3">
+               <widget class="QSpinBox" name="level3Width">
+                <property name="minimumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="level4Lable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>第四层</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QPushButton" name="level4Border">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(255, 255, 0);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="2">
+               <widget class="QPushButton" name="level4Font">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color:rgb(0,0, 0);
+border-color: rgb(0, 0, 0);
+gridline-color:rgb(0, 0, 0);</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="3">
+               <widget class="QSpinBox" name="level4Width">
+                <property name="minimumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>42</width>
+                  <height>20</height>
+                 </size>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="value">
+                 <number>3</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="heightLable">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>行宽</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="fileInfo">
+          <property name="title">
+           <string>文档信息</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="5" column="2">
+            <widget class="QDateEdit" name="releaseDateText">
+             <property name="displayFormat">
+              <string>yyyy年MM月dd日</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="releaseDateLable">
+             <property name="text">
+              <string>发布批准日期</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLabel" name="approverLable">
+             <property name="text">
+              <string>批准人</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLineEdit" name="approverText"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="managerLable">
+             <property name="text">
+              <string>总经理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLineEdit" name="employeesText"/>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="employeesLable">
+             <property name="text">
+              <string>编制人</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLineEdit" name="zipText"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="zipLable">
+             <property name="text">
+              <string>邮编</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLineEdit" name="managerText"/>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="auditText"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="auditLable">
+             <property name="text">
+              <string>审计人</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="guandaiLable">
+             <property name="text">
+              <string>管理者代表</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLineEdit" name="guandaiText"/>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLabel" name="announcerLable">
+             <property name="text">
+              <string>发布人</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLineEdit" name="announcerText"/>
+           </item>
+           <item row="4" column="3">
+            <widget class="QLabel" name="phoneLable">
+             <property name="text">
+              <string>电话</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="4">
+            <widget class="QLineEdit" name="phoneText"/>
+           </item>
+           <item row="5" column="3">
+            <widget class="QLabel" name="auditDateLable">
+             <property name="text">
+              <string>审计日期</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="4">
+            <widget class="QDateEdit" name="auditDateText">
+             <property name="displayFormat">
+              <string>yyyy年MM月dd日</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="2">
+         <widget class="QGroupBox" name="basicInfo">
+          <property name="title">
+           <string>基础信息</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="companyLable">
+             <property name="text">
+              <string>公司名</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="companyText"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="fileNameLable">
+             <property name="text">
+              <string>公司缩写</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="fileNameText"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="addressLable">
+             <property name="text">
+              <string>地址</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="addressText"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="coverFieldLable">
+             <property name="text">
+              <string>业务范围</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="coverFieldText"/>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="policyLable">
+             <property name="text">
+              <string>服务方针</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLineEdit" name="policyText"/>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QLabel" name="introductionLable">
+             <property name="text">
+              <string>公司简介</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <widget class="QPlainTextEdit" name="introductionText">
+             <property name="tabChangesFocus">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
-      <widget class="QPushButton" name="AddDep">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>590</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>添加</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="DeleteDep">
-       <property name="geometry">
-        <rect>
-         <x>160</x>
-         <y>590</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>删除</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_5">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>20</y>
-        <width>661</width>
-        <height>621</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>部门信息</string>
-      </property>
-      <widget class="QPlainTextEdit" name="depIntro">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>80</y>
-         <width>631</width>
-         <height>251</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_27">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>60</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>部门简介</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_28">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>340</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>部门职责</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_1">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>360</y>
-         <width>121</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4 管理体系要求</string>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>380</y>
-         <width>91</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.1 管理职责</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_3">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>400</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.1.1 管理承诺</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_4">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>420</y>
-         <width>131</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.1.2 服务管理方
-针</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_5">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>450</y>
-         <width>111</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.1.3 权限、职
+      <widget class="QWidget" name="departmentTab">
+       <attribute name="title">
+        <string>部门信息</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_8">
+        <item row="0" column="0" rowspan="3">
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="title">
+           <string>部门列表</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="1" column="0">
+            <widget class="QPushButton" name="AddDep">
+             <property name="text">
+              <string>添加</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="DeleteDep">
+             <property name="text">
+              <string>删除</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QListWidget" name="departmentList"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QGroupBox" name="groupBox_5">
+          <property name="title">
+           <string>部门信息</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_27">
+             <property name="text">
+              <string>部门简介</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="4">
+            <widget class="QPlainTextEdit" name="depIntro">
+             <property name="tabChangesFocus">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>部门名称</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="depName"/>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>部门级别</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QSpinBox" name="depLevel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>50</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>4</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>部门职责</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="8" column="0">
+            <widget class="QCheckBox" name="duty_5">
+             <property name="text">
+              <string>4.1.3 权限、职
 责和沟通</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_8">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>560</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.3 文件管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_7">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>520</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.2 治理由其他方
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QCheckBox" name="duty_14">
+             <property name="text">
+              <string>4.4.2 人力资源</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QCheckBox" name="duty_7">
+             <property name="text">
+              <string>4.2 治理由其他方
 运行的过程</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_10">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>360</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.3.2 文件控制</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_13">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>420</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.4.1 资源提供</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_12">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>400</y>
-         <width>91</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.4 资源管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_11">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>380</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.3.3 记录控制</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_6">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>490</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.1.4 管理者代
-表</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_16">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>520</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.1 定义范围</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_20">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>390</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.4.1 总要求</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_19">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>350</y>
-         <width>111</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.4 监视和评
-审服务管理体系
-（Check）</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_17">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>540</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.2 策划服务管理体系（Plan）</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_18">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>560</y>
-         <width>111</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.3 实施和运
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="1">
+            <widget class="QCheckBox" name="duty_18">
+             <property name="text">
+              <string>4.5.3 实施和运
 行服务管理体系
 （Do）</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_15">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>470</y>
-         <width>111</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5 建立和改进
-服务管理体系
-（SMS）</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_21">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>410</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.4.2 内部审
-核</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_25">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>530</y>
-         <width>121</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.5.2 管理改进</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_24">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>510</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.5.1 总要求</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_22">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>450</y>
-         <width>121</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.4.3 管理评审</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_23">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>470</y>
-         <width>121</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.5.5 维护和改进
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="2">
+            <widget class="QCheckBox" name="duty_23">
+             <property name="text">
+              <string>4.5.5 维护和改进
 服务管理体系
 （Act）</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_9">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>580</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.3.1 文件的建立
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QCheckBox" name="duty_6">
+             <property name="text">
+              <string>4.1.4 管理者代
+表</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="2">
+            <widget class="QCheckBox" name="duty_24">
+             <property name="text">
+              <string>4.5.5.1 总要求</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1">
+            <widget class="QCheckBox" name="duty_17">
+             <property name="text">
+              <string>4.5.2 策划服务
+管理体系（Plan）</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="0">
+            <widget class="QCheckBox" name="duty_9">
+             <property name="text">
+              <string>4.3.1 文件的建立
 和维护</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_26">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>550</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>5.1 总要求</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_41">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>510</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>9.2 变更管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_29">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>380</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>5.4 新的或变更的
-服务转换</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_27">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>570</y>
-         <width>131</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>5.2 策划新的或变
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="0">
+            <widget class="QCheckBox" name="duty_8">
+             <property name="text">
+              <string>4.3 文件管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QCheckBox" name="duty_20">
+             <property name="text">
+              <string>4.5.4.1 总要求</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="2">
+            <widget class="QCheckBox" name="duty_25">
+             <property name="text">
+              <string>4.5.5.2 管理改进</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="2">
+            <widget class="QCheckBox" name="duty_26">
+             <property name="text">
+              <string>5.1 总要求</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QCheckBox" name="duty_21">
+             <property name="text">
+              <string>4.5.4.2 内部审
+核</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QCheckBox" name="duty_13">
+             <property name="text">
+              <string>4.4.1 资源提供</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <widget class="QCheckBox" name="duty_15">
+             <property name="text">
+              <string>4.5 建立和改进
+服务管理体系
+（SMS）</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QCheckBox" name="duty_4">
+             <property name="text">
+              <string>4.1.2 服务管理方
+针</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="2">
+            <widget class="QCheckBox" name="duty_27">
+             <property name="text">
+              <string>5.2 策划新的或变
 更的服务</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_28">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>350</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>5.3 设计和开发新
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QCheckBox" name="duty_22">
+             <property name="text">
+              <string>4.5.4.3 管理评审</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
+            <widget class="QCheckBox" name="duty_16">
+             <property name="text">
+              <string>4.5.1 定义范围</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="duty_1">
+             <property name="text">
+              <string>4 管理体系要求</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QCheckBox" name="duty_10">
+             <property name="text">
+              <string>4.3.2 文件控制</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" rowspan="3">
+            <widget class="QCheckBox" name="duty_11">
+             <property name="text">
+              <string>4.3.3 记录控制</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" rowspan="3">
+            <widget class="QCheckBox" name="duty_2">
+             <property name="text">
+              <string>4.1 管理职责</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" rowspan="2">
+            <widget class="QCheckBox" name="duty_3">
+             <property name="text">
+              <string>4.1.1 管理承诺</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1" rowspan="2">
+            <widget class="QCheckBox" name="duty_12">
+             <property name="text">
+              <string>4.4 资源管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QCheckBox" name="duty_28">
+             <property name="text">
+              <string>5.3 设计和开发新
 的或变更的服务</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_14">
-       <property name="geometry">
-        <rect>
-         <x>150</x>
-         <y>450</y>
-         <width>121</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>4.4.2 人力资源</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_31">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>440</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>6.2 服务报告管
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QCheckBox" name="duty_29">
+             <property name="text">
+              <string>5.4 新的或变更的
+服务转换</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="3">
+            <widget class="QCheckBox" name="duty_30">
+             <property name="text">
+              <string>6.1 服务级别管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="3">
+            <widget class="QCheckBox" name="duty_31">
+             <property name="text">
+              <string>6.2 服务报告管
 理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_42">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>530</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>9.3 发布和部署管
-理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_34">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>540</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>6.5 能力管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_32">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>470</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>6.3 服务的连续性
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="3">
+            <widget class="QCheckBox" name="duty_32">
+             <property name="text">
+              <string>6.3 服务的连续性
 可用性管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_33">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>500</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>6.4 服务的预算和
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="3">
+            <widget class="QCheckBox" name="duty_33">
+             <property name="text">
+              <string>6.4 服务的预算和
 核算</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_30">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>420</y>
-         <width>121</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>6.1 服务级别管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_35">
-       <property name="geometry">
-        <rect>
-         <x>410</x>
-         <y>560</y>
-         <width>91</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>6.6 信息安全</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_40">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>480</y>
-         <width>101</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>9.1 配置管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_39">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>450</y>
-         <width>91</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>8.2 问题管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_36">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>360</y>
-         <width>91</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>7.1 业务关系管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_37">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>390</y>
-         <width>111</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>7.2 供应商管理</string>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="duty_38">
-       <property name="geometry">
-        <rect>
-         <x>540</x>
-         <y>410</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>8.1 事件和服务请
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="3">
+            <widget class="QCheckBox" name="duty_34">
+             <property name="text">
+              <string>6.5 能力管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="3">
+            <widget class="QCheckBox" name="duty_35">
+             <property name="text">
+              <string>6.6 信息安全</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="3">
+            <widget class="QCheckBox" name="duty_36">
+             <property name="text">
+              <string>7.1 业务关系管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QCheckBox" name="duty_37">
+             <property name="text">
+              <string>7.2 供应商管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QCheckBox" name="duty_38">
+             <property name="text">
+              <string>8.1 事件和服务请
 求管理</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>220</x>
-         <y>30</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>部门级别</string>
-       </property>
-      </widget>
-      <widget class="QSpinBox" name="depLevel">
-       <property name="geometry">
-        <rect>
-         <x>280</x>
-         <y>20</y>
-         <width>42</width>
-         <height>22</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>54</width>
-         <height>12</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>部门名称</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="depName">
-       <property name="geometry">
-        <rect>
-         <x>80</x>
-         <y>20</y>
-         <width>113</width>
-         <height>20</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="addOrModifyDep">
-       <property name="geometry">
-        <rect>
-         <x>480</x>
-         <y>590</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>保存修改</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="cancelDep">
-       <property name="geometry">
-        <rect>
-         <x>570</x>
-         <y>590</y>
-         <width>75</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>放弃修改</string>
-       </property>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="4">
+            <widget class="QCheckBox" name="duty_39">
+             <property name="text">
+              <string>8.2 问题管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="4">
+            <widget class="QCheckBox" name="duty_40">
+             <property name="text">
+              <string>9.1 配置管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="4">
+            <widget class="QCheckBox" name="duty_41">
+             <property name="text">
+              <string>9.2 变更管理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="4">
+            <widget class="QCheckBox" name="duty_42">
+             <property name="text">
+              <string>9.3 发布和部署管
+理</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="duty_19">
+             <property name="text">
+              <string>4.5.4 监视和评
+审服务管理体系
+（Check）</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QPushButton" name="addOrModifyDep">
+          <property name="text">
+           <string>保存修改</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="cancelDep">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>放弃修改</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="createBotton">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>20</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>文档生成</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="cancelButton">
-    <property name="geometry">
-     <rect>
-      <x>920</x>
-      <y>20</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>取消</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>20</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>搜索</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>20</y>
-      <width>341</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLineEdit" name="searchContent"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="searchButton">
+      <property name="text">
+       <string>搜索</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1583,39 +1143,93 @@ gridline-color:rgb(0, 0, 0);</string>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>searchContent</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>companyText</tabstop>
+  <tabstop>fileNameText</tabstop>
+  <tabstop>addressText</tabstop>
+  <tabstop>coverFieldText</tabstop>
+  <tabstop>policyText</tabstop>
+  <tabstop>introductionText</tabstop>
+  <tabstop>managerText</tabstop>
+  <tabstop>guandaiText</tabstop>
+  <tabstop>employeesText</tabstop>
+  <tabstop>approverText</tabstop>
+  <tabstop>auditText</tabstop>
+  <tabstop>announcerText</tabstop>
+  <tabstop>zipText</tabstop>
+  <tabstop>phoneText</tabstop>
+  <tabstop>releaseDateText</tabstop>
+  <tabstop>auditDateText</tabstop>
+  <tabstop>level1Border</tabstop>
+  <tabstop>level1Font</tabstop>
+  <tabstop>level1Width</tabstop>
+  <tabstop>level2Border</tabstop>
+  <tabstop>level2Font</tabstop>
+  <tabstop>level2Width</tabstop>
+  <tabstop>level3Border</tabstop>
+  <tabstop>level3Font</tabstop>
+  <tabstop>level3Width</tabstop>
+  <tabstop>level4Border</tabstop>
+  <tabstop>level4Font</tabstop>
+  <tabstop>level4Width</tabstop>
+  <tabstop>previewButton</tabstop>
+  <tabstop>previewPic</tabstop>
+  <tabstop>AddDep</tabstop>
+  <tabstop>DeleteDep</tabstop>
+  <tabstop>departmentList</tabstop>
+  <tabstop>depName</tabstop>
+  <tabstop>depLevel</tabstop>
+  <tabstop>depIntro</tabstop>
+  <tabstop>duty_1</tabstop>
+  <tabstop>duty_2</tabstop>
+  <tabstop>duty_3</tabstop>
+  <tabstop>duty_4</tabstop>
+  <tabstop>duty_5</tabstop>
+  <tabstop>duty_6</tabstop>
+  <tabstop>duty_7</tabstop>
+  <tabstop>duty_8</tabstop>
+  <tabstop>duty_9</tabstop>
+  <tabstop>duty_10</tabstop>
+  <tabstop>duty_11</tabstop>
+  <tabstop>duty_12</tabstop>
+  <tabstop>duty_13</tabstop>
+  <tabstop>duty_14</tabstop>
+  <tabstop>duty_15</tabstop>
+  <tabstop>duty_16</tabstop>
+  <tabstop>duty_17</tabstop>
+  <tabstop>duty_18</tabstop>
+  <tabstop>duty_19</tabstop>
+  <tabstop>duty_20</tabstop>
+  <tabstop>duty_21</tabstop>
+  <tabstop>duty_22</tabstop>
+  <tabstop>duty_23</tabstop>
+  <tabstop>duty_24</tabstop>
+  <tabstop>duty_25</tabstop>
+  <tabstop>duty_26</tabstop>
+  <tabstop>duty_27</tabstop>
+  <tabstop>duty_28</tabstop>
+  <tabstop>duty_29</tabstop>
+  <tabstop>duty_30</tabstop>
+  <tabstop>duty_31</tabstop>
+  <tabstop>duty_32</tabstop>
+  <tabstop>duty_33</tabstop>
+  <tabstop>duty_34</tabstop>
+  <tabstop>duty_35</tabstop>
+  <tabstop>duty_36</tabstop>
+  <tabstop>duty_37</tabstop>
+  <tabstop>duty_38</tabstop>
+  <tabstop>duty_39</tabstop>
+  <tabstop>duty_40</tabstop>
+  <tabstop>duty_41</tabstop>
+  <tabstop>duty_42</tabstop>
+  <tabstop>addOrModifyDep</tabstop>
+  <tabstop>cancelDep</tabstop>
+  <tabstop>createBotton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>fileNameText</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>companyText</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>223</x>
-     <y>125</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>224</x>
-     <y>164</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addressText</sender>
-   <signal>textChanged(QString)</signal>
-   <receiver>coverFieldText</receiver>
-   <slot>setText(QString)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>374</x>
-     <y>207</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>374</x>
-     <y>247</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
