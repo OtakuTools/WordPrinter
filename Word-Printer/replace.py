@@ -123,16 +123,22 @@ def replace( src , dst , user ):
     table = document.tables[-1]
     table_row_len = len(table.rows)
     for d in user.departments:
+        #特殊情况
+        if d["name"] == "管理者代表":
+            continue
         # 表头
         column = table.add_column( Cm(1.5) )
         cell = column.cells[0]
-        cell.text = d["name"]
+        #特别情况
+        if d["name"] == "总经理":
+            cell.text = "管理层"
+        else:
+            cell.text = d["name"]
         cell.paragraphs[0].style = "Intense Quote"
         # 内容
         for i in range(1, table_row_len):
             cell = column.cells[i]
             if i in d["func"]:
-            #if str(i) in d["func"]:
                 cell.text = "▲"
             else:
                 cell.text = "△"

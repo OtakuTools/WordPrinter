@@ -5,6 +5,7 @@ from dataStruct import userInfo
 from generateGraph import drawGraph
 from Word_Printer import docWriter
 from database import DB
+import json
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
@@ -53,7 +54,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         #userInit
-        self.user.departments = []
+        #self.user.departments = []
+        self.user.resetDepartment()
+        self.refreshDepartmentList()
 
         #connect
         self.connectButton()
@@ -66,9 +69,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         if col.isValid(): 
             tar.setStyleSheet('QWidget {background-color:%s}' % col.name())
             self.graphStyle[pos]["nodes"][option] = col.name()
+        self.refreshUserColor()
 
     def setLineWidth(self, tar, pos):
         self.graphStyle[pos]["lineLen"] = tar.value()
+        self.refreshUserColor()
 
     def showPreviewGraph(self):
         graph = drawGraph()
@@ -114,11 +119,20 @@ class Controller(QMainWindow, Ui_MainWindow):
         #
         self.introductionText.setPlainText("\n".join(user.introduction))
 
+        #数据库中有总经理等项，不需要reset
         self.user.departments = []
         for dep in user.departments:
             self.departmentList.addItem(dep["name"])
             self.user.departments.append(dep)
         self.setDepStruct()
+
+        colors = json.loads(user.color)
+        for i in range(len(colors)):
+            getattr(self, "level"+str(i+1)+"Border").setStyleSheet('QWidget {background-color:%s}' % colors[i]["nodes"]["fillcolor"])
+            getattr(self, "level"+str(i+1)+"Font").setStyleSheet('QWidget {background-color:%s}' % colors[i]["nodes"]["fontcolor"])
+            getattr(self, "level"+str(i+1)+"Width").setValue(colors[i]["lineLen"])
+        self.graphStyle = colors
+
         #清空第二页右
         self.depName.setText("")
         self.depLevel.setValue(1)
@@ -222,9 +236,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setDepStruct()
     
     def refreshGraph(self, keys, levelDict):
+        #clear
         c = self.previewPic.count()
         for i in range(self.previewPic.count()):
             self.previewPic.takeItem(0)
+        #add
         for key in keys:
             deps = levelDict[key].split(",")
             for dep in deps:
@@ -345,14 +361,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         #日期
         pass
         #部门结构
-        self.user.departments = []
-        #
-        c = self.departmentList.count()
-        for i in range(c):
-            self.departmentList.takeItem(0)
-        c = self.previewPic.count()
-        for i in range(c):
-            self.previewPic.takeItem(0)
+        #self.user.departments = []
+        self.user.resetDepartment()
+        self.refreshDepartmentList()
         #第二页右
         self.depName.setText("")
         self.depLevel.setValue(1)
@@ -361,4 +372,21 @@ class Controller(QMainWindow, Ui_MainWindow):
             getattr(self,'duty_'+str(i)).setCheckState(0)
 
     def showErrorDialog(self, content):
-        reply = QMessageBox.critical(self, "错误信息", content, QMessageBox.Yes | QMessageBox.Cancel) 
+        reply = QMessageBox.critical(self, "错误信息", content, QMessageBox.Yes | QMessageBox.Cancel)
+
+    def refreshUserColor(self):
+        self.user.color = json.dumps(self.graphStyle)
+
+    def refreshDepartmentList(self):
+        #clear list
+        c = self.departmentList.count()
+        for i in range(c):
+            self.departmentList.takeItem(0)
+        c = self.previewPic.count()
+        for i in range(c):
+            self.previewPic.takeItem(0)
+
+        #add
+        for d in self.user.departments:
+            self.departmentList.addItem(d["name"])
+            self.setDepStruct()
