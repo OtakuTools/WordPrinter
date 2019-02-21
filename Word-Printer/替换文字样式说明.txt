@@ -8,7 +8,7 @@
 7、编制人员姓名：007f00 employees
 8、批准人姓名：000080 allower
 9、发布日期:7f7f00 announceDate
-10、审核日期：007f7f auditDate
+###10、审核日期：007f7f auditDate####
 11、图片路径:000fff picPath
 12、部门职责: ff00ff departments
 13、邮编： 7f007f zip
@@ -16,7 +16,7 @@
 15、服务方针：0fffff policy
 16、审核人：fff0ff audit
 17、发布人：ff0fff announcer
-18、修改日期：f0ffff modifyDate
+18、编制日期：f0ffff modifyDate
 
 Intense Quote ： 职责表正文
 Table Theme ： 职责表样式

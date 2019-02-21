@@ -23,7 +23,7 @@ class userInfo:
     audit = ""
     # string
     announcer = ""
-    # array of string(Date) yyyy-mm-dd ["","","",""]
+    # array of string(Date) yyyy-mm-dd ["","","",""] #auditdate是表格中的首个日期，modifydate是从首个日期生成的四个日期（分别加30天和两个加一天）
     modifyDate = []
     # string(Date) x年y月z日
     releaseDate = ""
