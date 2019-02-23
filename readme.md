@@ -19,7 +19,7 @@ https://python-docx.readthedocs.io/en/latest/index.html
 
 ### PyQt5 introduction
 
-http://pyqt.sourceforge.net/Docs/PyQt5/introduction.html#pyqt5-components
+https://doc.qt.io/qt-5/classes.html
 
 
 
