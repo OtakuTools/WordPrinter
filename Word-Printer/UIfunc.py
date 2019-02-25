@@ -1,11 +1,12 @@
 from test import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox
-from PyQt5.QtCore import QDate
+from PyQt5.QtCore import QDate, QThread
 from dataStruct import userInfo
 from generateGraph import drawGraph
 from Word_Printer import docWriter
 from database import DB
 import json
+import threading
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
@@ -335,13 +336,16 @@ class Controller(QMainWindow, Ui_MainWindow):
     def generateDoc(self):
         validMsg = self.user.validChecker()
         if validMsg[0]:
-            docWrt = docWriter()
             print("正在更新数据库...")
             self.refreshDatabase()
             print("更新数据库成功")
             print("正在生成文档...")
-            docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
-            #self.depIntro.setPlainText(str(vars(self.user)))
+            # 线程优化
+            wrt_thread = WrtDocThread(self.user, "sys", self.graphStyle)
+            wrt_thread.start()
+            wrt_thread.wait()
+            #docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
+            print("finish")
         else:
             self.showErrorDialog(validMsg[1])
 
@@ -398,3 +402,19 @@ class Controller(QMainWindow, Ui_MainWindow):
         for d in self.user.departments:
             self.departmentList.addItem(d["name"])
             self.setDepStruct()
+
+class WrtDocThread(QThread):
+    
+    def __init__(self, user, sample, style):
+        super(WrtDocThread, self).__init__()
+        self.user = user
+        self.sample = sample
+        self.style = style
+
+    def __del__(self):
+        self.quit()
+        self.wait()
+
+    def run(self):
+        docWrt = docWriter()
+        docWrt.loadAndWrite(self.user, self.sample, self.style)
