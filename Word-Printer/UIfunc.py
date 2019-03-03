@@ -407,6 +407,7 @@ class WrtDocThread(QThread):
     
     def __init__(self, user, sample, style):
         super(WrtDocThread, self).__init__()
+        self.num = 1998
         self.user = user
         self.sample = sample
         self.style = style
