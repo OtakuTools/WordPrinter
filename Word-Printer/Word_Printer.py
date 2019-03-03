@@ -3,7 +3,7 @@ from docx.shared import Inches
 from docx.shared import RGBColor
 import json,os
 
-from replace import replace
+from replace import Replace
 from dataStruct import userInfo
 from generateGraph import drawGraph
 from getTime import getTime
@@ -41,7 +41,8 @@ class docWriter:
         return user
 
     def write(self, src, dst, user, mode="docx"):
-        doc = replace(src, dst, user)
+        rep = Replace()
+        doc = rep.run(src, dst, user)
         if not os.path.exists(self.saveDir):
             os.makedirs(self.saveDir)
         if mode == "docx":
