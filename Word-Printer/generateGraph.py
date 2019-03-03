@@ -35,7 +35,7 @@ class drawGraph:
         #}
     }
 
-    saveDir = "./save/"
+    saveDir = "./picture_save/"
 
     def __init__(self):
         pass

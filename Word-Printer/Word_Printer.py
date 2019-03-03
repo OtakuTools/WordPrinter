@@ -1,7 +1,7 @@
 from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
-import json
+import json,os
 
 from replace import replace
 from dataStruct import userInfo
@@ -10,7 +10,7 @@ from getTime import getTime
 
 class docWriter:
     def __init__(self):
-        pass
+        self.saveDir = "./docSave/"
 
     def __del__(self):
         pass
@@ -42,7 +42,9 @@ class docWriter:
 
     def write(self, src, dst, user, mode="docx"):
         doc = replace(src, dst, user)
+        if not os.path.exists(self.saveDir):
+            os.makedirs(self.saveDir)
         if mode == "docx":
-            self.saveAsDocx(doc, dst)
+            self.saveAsDocx(doc, self.saveDir+dst)
         else:
-            self.saveAsPdf(doc, dst)
+            self.saveAsPdf(doc, self.saveDir+dst)

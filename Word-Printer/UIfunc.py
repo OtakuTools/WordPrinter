@@ -5,12 +5,13 @@ from dataStruct import userInfo
 from generateGraph import drawGraph
 from Word_Printer import docWriter
 from database import DB
-import json
+import json, time
 import threading
 
 class Controller(QMainWindow, Ui_MainWindow):
     user = userInfo()
     db = DB()
+    sampleDir = "./samples/"
     
     graphStyle = [{ 'nodes': {
                         'fontname': 'KaiTi',
@@ -341,11 +342,10 @@ class Controller(QMainWindow, Ui_MainWindow):
             print("更新数据库成功")
             print("正在生成文档...")
             # 线程优化
-            wrt_thread = WrtDocThread(self.user, "sys", self.graphStyle)
+            wrt_thread = WrtDocThread(self.user, self.sampleDir + "sys", self.graphStyle)
             wrt_thread.start()
             wrt_thread.wait()
             #docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
-            print("finish")
         else:
             self.showErrorDialog(validMsg[1])
 
@@ -416,5 +416,8 @@ class WrtDocThread(QThread):
         self.wait()
 
     def run(self):
+        start_time = time.time()
         docWrt = docWriter()
         docWrt.loadAndWrite(self.user, self.sample, self.style)
+        end_time = time.time()
+        print("共耗时：",end_time-start_time,"秒")

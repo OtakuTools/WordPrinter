@@ -155,6 +155,7 @@ class DB:
                 dep["level"] = int(row[1])
                 dep["intro"] = row[2].split("#")
                 dep["func"] = self.formatFunc(list(filter(lambda x: x != '', row[3].split("#"))), "int")
+                dep["func"].sort()
                 info.departments.append(dep)
         except Exception as e:
             print("Search Department Error:", e)

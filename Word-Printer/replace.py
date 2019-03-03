@@ -122,6 +122,7 @@ def replace( src , dst , user ):
     #服务管理职责分配表
     table = document.tables[-1]
     table_row_len = len(table.rows)
+    #s = time.time()
     for d in user.departments:
         #特殊情况
         if d["name"] == "管理者代表":
@@ -136,17 +137,19 @@ def replace( src , dst , user ):
             cell.text = d["name"]
         cell.paragraphs[0].style = "Intense Quote"
         # 内容
+        # 优化替换速度，用set取代list，平均速度提高可达10%
+        funcSet = set(d["func"])
         for i in range(1, table_row_len):
             cell = column.cells[i]
-            if i in d["func"]:
+            if i in funcSet:
                 cell.text = "▲"
             else:
                 cell.text = "△"
             cell.paragraphs[0].style = "Intense Quote"
+    #e = time.time()
+    #print(e-s)
     table.style = 'Table Theme'
     table.autofit = True
-    
-    #print("create table cost:", time_end-time_start)
 
     print('成功生成 '+dst )
     return document
