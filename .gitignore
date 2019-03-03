@@ -11,3 +11,5 @@ Word-Printer/dbConfig.json
 /Word-Printer/build/main
 *.spec
 /Word-Printer/save
+/Word-Printer/docSave
+/Word-Printer/picture_save
