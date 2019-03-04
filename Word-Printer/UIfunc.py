@@ -1,16 +1,17 @@
 from test import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox
 from PyQt5.QtCore import QDate, QThread
+import json, time
+import threading
+
 from dataStruct import userInfo
 from generateGraph import drawGraph
 from Word_Printer import docWriter
 from database import DB
-import json, time
-import threading
+from messageDialog import MessageDialog
 
 class Controller(QMainWindow, Ui_MainWindow):
-    user = userInfo()
-    db = DB()
+
     sampleDir = "./samples/"
     
     graphStyle = [{ 'nodes': {
@@ -55,18 +56,26 @@ class Controller(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        #userInit
-        #self.user.departments = []
-        self.user.resetDepartment()
-        self.refreshDepartmentList()
-        if self.user.color == "":
-            self.user.color = json.dumps(self.graphStyle)
 
         #connect
         self.connectButton()
         self.connectText()
         self.connectList()
-        #self.setUser()
+        
+        #message dialog
+        self.msgDialog = MessageDialog()
+
+        #database
+        self.db = DB()
+        if not self.db.checkConnection():
+            self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！")
+
+        #userInit
+        self.user = userInfo()
+        self.user.resetDepartment()
+        self.refreshDepartmentList()
+        if self.user.color == "":
+            self.user.color = json.dumps(self.graphStyle)
       
     def setGraphColor(self, tar, pos, option): 
         col = QColorDialog.getColor() 
@@ -160,7 +169,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.phoneText.textChanged.connect(lambda : self.setUser())
         self.policyText.textChanged.connect(lambda : self.setUser())
         self.introductionText.textChanged.connect(lambda : self.setUser())
-        #self.fileNameText.textChanged.connect( lambda : self.setUser() )
 
         self.releaseDateText.dateChanged.connect( lambda : self.setUser() )
         self.auditDateText.dateChanged.connect( lambda : self.setUser() )
@@ -191,7 +199,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #generateDoc
         self.createBotton.clicked.connect(lambda: self.generateDoc())
         self.cancelButton.clicked.connect(lambda: self.discard() )
-        self.saveButton.clicked.connect(lambda: self.refreshDatabase())
+        self.saveButton.clicked.connect(lambda: self.saveInfoButNotGen())
 
         #search
         self.searchButton.clicked.connect(lambda: self.search())
@@ -229,7 +237,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         if departmentName == "":
             pass
         elif self.depName.text() == "":
-            self.showErrorDialog("部门名称不能为空")
+            self.msgDialog.showErrorDialog("录入信息错误", "部门名称不能为空")
         else:
             department = self.user.departments[ self.departmentList.row( self.departmentList.currentItem() ) ]
             self.departmentList.currentItem().setText(self.depName.text())
@@ -337,21 +345,31 @@ class Controller(QMainWindow, Ui_MainWindow):
     def generateDoc(self):
         validMsg = self.user.validChecker()
         if validMsg[0]:
-            print("正在更新数据库...")
             self.refreshDatabase()
-            print("更新数据库成功")
             print("正在生成文档...")
             # 线程优化
             wrt_thread = WrtDocThread(self.user, self.sampleDir + "sys", self.graphStyle)
             wrt_thread.start()
             wrt_thread.wait()
+            self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
             #docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
         else:
-            self.showErrorDialog(validMsg[1])
+            self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
+
+    def saveInfoButNotGen(self):
+        self.refreshDatabase()
 
     def refreshDatabase(self):
-        self.db.delete("info", self.user.company)
-        self.db.insertData(self.user)
+        try:
+            print("正在更新数据库...")
+            self.db.delete("info", self.user.company)
+            self.db.insertData(self.user)
+        except Exception as e:
+            print(e)
+            self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！")
+            print("更新数据库失败")
+        else:
+            print("更新数据库成功")
 
     def discard(self):
         #第一页左
@@ -383,9 +401,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         for i in range(1,43):
             getattr(self,'duty_'+str(i)).setCheckState(0)
 
-    def showErrorDialog(self, content):
-        reply = QMessageBox.critical(self, "错误信息", content, QMessageBox.Yes | QMessageBox.Cancel)
-
     def refreshUserColor(self):
         self.user.color = json.dumps(self.graphStyle)
 
@@ -407,7 +422,6 @@ class WrtDocThread(QThread):
     
     def __init__(self, user, sample, style):
         super(WrtDocThread, self).__init__()
-        self.num = 1998
         self.user = user
         self.sample = sample
         self.style = style

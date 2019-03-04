@@ -28,6 +28,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="messageDialog.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="replace.py" />
     <Compile Include="test.py" />
     <Compile Include="UIfunc.py">

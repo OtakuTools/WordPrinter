@@ -20,6 +20,9 @@ class DB:
         if self.db:
             self.db.close()
 
+    def checkConnection(self):
+        return True if self.db else False
+
     def createDB(self, dbName):
         ptr = self.db.cursor()
         try:
@@ -33,11 +36,10 @@ class DB:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
         except Exception as e:
             print(e)
-            self.db.rollback()
+            self.db = None
         else:
             print("SUCCESS: Create database -> " + dbName)
             self.initDB()
-        
 
     def initDB(self):
         ptr = self.db.cursor()
@@ -95,14 +97,16 @@ class DB:
 
     def search(self):
         ptr = self.db.cursor()
-        sql = "SELECT * FROM client"
+        sql = "SELECT company FROM info order by company;"
+        companyList = []
         try:
             ptr.execute(sql)
             results = ptr.fetchall()
             for row in results:
-                print(row)
+                companyList.append(row[0])
         except Exception as e:
             print(e)
+        return companyList
 
     def searchById(self, id):
         ptr = self.db.cursor()
