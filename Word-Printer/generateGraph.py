@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 from graphviz import Digraph
 from graphviz import Graph
-import random
-import os
-import re
-import math
+from PIL import Image
+import random, os, re, math
 from dataStruct import userInfo
 
 class drawGraph:
@@ -44,10 +42,22 @@ class drawGraph:
         pass
 
     def preview(self, graph):
-        graph.view()
+        # using cmd
+        name = self.saveDir+"prewview.dot"
+        with open(name, "w", encoding="utf-8") as f:
+            f.write(graph.source)
+        os.system("dot -Tpng -o" + self.saveDir + "preview.png " + name)
+        img = Image.open(self.saveDir+"preview.png")
+        img.show()
+        #graph.view()
 
     def save(self, graph, filename):
-        graph.render(filename=self.saveDir+filename)
+        # using cmd
+        name = self.saveDir+filename+".dot"
+        with open(name, "w", encoding="utf-8") as f:
+            f.write(graph.source)
+        os.system("dot -Tpng -o" + self.saveDir+filename + ".png " + name)
+        #graph.render(filename=self.saveDir+filename)
 
     def genName(self):
         s = "0123456789abcdefghijklmnopqrstuvwxyz"
