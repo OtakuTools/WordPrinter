@@ -1,7 +1,7 @@
 from test import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter
 from PyQt5.QtCore import QDate, QThread
-import json, time
+import json, time, re
 import threading
 
 from dataStruct import userInfo
@@ -68,7 +68,10 @@ class Controller(QMainWindow, Ui_MainWindow):
         #database
         self.db = DB()
         if not self.db.checkConnection():
-            self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！")
+            self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
+
+        # search content completer
+        self.getCompanyInfo()
 
         #userInit
         self.user = userInfo()
@@ -92,12 +95,22 @@ class Controller(QMainWindow, Ui_MainWindow):
         graph = drawGraph()
         graph.draw("preview", self.user, self.graphStyle)
 
+    def getCompanyInfo(self):
+        if self.db.checkConnection():
+            companyList = self.db.searchWithKeyword()
+            self.completer = QCompleter(companyList)
+            self.searchContent.setCompleter(self.completer)
+
     def search(self):
         searchContent = self.searchContent.text()
-        user = self.db.searchById(searchContent)
-        if user.company != "":
-            self.setInput(user)
-        self.searchContent.setText("")
+        try:
+            user = self.db.searchById(searchContent)
+        except Exception as e:
+            self.msgDialog.showErrorDialog("数据库错误","数据库发生错误！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
+        else:
+            if user.company != "":
+                self.setInput(user)
+            self.searchContent.setText("")
 
     def setInput(self, user):
         #clear
@@ -346,7 +359,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         validMsg = self.user.validChecker()
         if validMsg[0]:
             self.refreshDatabase()
-            print("正在生成文档...")
+            #print("正在生成文档...")
+            self.msgDialog.showInformationDialog("生成信息", "文档正在生成！")
             # 线程优化
             wrt_thread = WrtDocThread(self.user, self.sampleDir + "sys", self.graphStyle)
             wrt_thread.start()
@@ -361,15 +375,16 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def refreshDatabase(self):
         try:
-            print("正在更新数据库...")
+            #print("正在更新数据库...")
             self.db.delete("info", self.user.company)
             self.db.insertData(self.user)
         except Exception as e:
             print(e)
-            self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！")
-            print("更新数据库失败")
+            self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!")
+            #print("更新数据库失败")
         else:
-            print("更新数据库成功")
+            #print("更新数据库成功")
+            self.getCompanyInfo()
 
     def discard(self):
         #第一页左

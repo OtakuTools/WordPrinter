@@ -6,13 +6,17 @@ import sys
 from dataStruct import userInfo
 
 class DB:
+    db = None
+    dbException = "None"
+
     def __init__(self):
         self.info = self.loadConfig()
         #print(self.info)
         try:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
         except Exception as e:
-            print(e)
+            #print(e)
+            self.dbException = str(e)
         else:
             self.createDB(self.info['dbname'])
 
@@ -29,16 +33,18 @@ class DB:
             sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
             ptr.execute(sql)
         except Exception as e:
-            print(e)
+            #print(e)
+            self.dbException = str(e)
             self.db.rollback()
         self.db.close()
         try:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
         except Exception as e:
-            print(e)
+            #print(e)
+            self.dbException = str(e)
             self.db = None
         else:
-            print("SUCCESS: Create database -> " + dbName)
+            #print("SUCCESS: Create database -> " + dbName)
             self.initDB()
 
     def initDB(self):
@@ -83,29 +89,34 @@ class DB:
         try:
             ptr.execute(sql[0])
         except Exception as e:
-            print(e)
+            #print(e)
+            self.dbException = str(e)
             self.db.rollback()
         else:
-            print("SUCCESS: Create table -> info")
+            #print("SUCCESS: Create table -> info")
+            pass
         try:
             ptr.execute(sql[1])
         except Exception as e:
-            print(e)
+            #print(e)
+            self.dbException = str(e)
             self.db.rollback()
         else:
-            print("SUCCESS: Create table -> department")
+            #print("SUCCESS: Create table -> department")
+            pass
 
-    def search(self):
-        ptr = self.db.cursor()
-        sql = "SELECT company FROM info order by company;"
-        companyList = []
+    def searchWithKeyword(self):
         try:
+            ptr = self.db.cursor()
+            sql = "SELECT company FROM info order by company;"
+            companyList = []
             ptr.execute(sql)
             results = ptr.fetchall()
             for row in results:
                 companyList.append(row[0])
         except Exception as e:
-            print(e)
+            #print(e)
+            self.dbException = str(e)
         return companyList
 
     def searchById(self, id):
@@ -148,7 +159,7 @@ class DB:
                 info.color = row[18]
         except Exception as e:
             print("Search Info Error:",e)
-
+            self.dbException = str(e)
         try:
             ptr.execute(sql1)
             results = ptr.fetchall()
@@ -163,7 +174,7 @@ class DB:
                 info.departments.append(dep)
         except Exception as e:
             print("Search Department Error:", e)
-        
+            self.dbException = str(e)
         return info
 
     def insertData(self, data):
@@ -205,6 +216,7 @@ class DB:
         except Exception as e:
            self.db.rollback()
            print(e)
+           self.dbException = str(e)
            return False
 
         for department in data.departments:
@@ -224,7 +236,8 @@ class DB:
                self.db.commit()
             except Exception as e:
                self.db.rollback()
-               print(e)
+               #print(e)
+               self.dbException = str(e)
                return False
         return True
 
@@ -273,7 +286,8 @@ class DB:
             self.db.commit()
         except Exception as e:
             self.db.rollback()
-            print(e)
+            #print(e)
+            self.dbException = str(e)
             return False
         return True
 
@@ -291,7 +305,8 @@ class DB:
             self.db.commit()
         except Exception as e:
             self.db.rollback()
-            print(e)
+            #print(e)
+            self.dbException = str(e)
             return False
         return True
 
