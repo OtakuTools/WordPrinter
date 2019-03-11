@@ -14,4 +14,5 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Controller()
     window.show()
+    window.init_DB_user()
     sys.exit(app.exec_())

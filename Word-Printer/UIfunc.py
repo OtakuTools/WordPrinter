@@ -1,6 +1,6 @@
 from test import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter
-from PyQt5.QtCore import QDate, QThread
+from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
+from PyQt5.QtCore import QDate, QThread, Qt
 import json, time, re
 import threading
 
@@ -65,6 +65,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #message dialog
         self.msgDialog = MessageDialog()
 
+    def init_DB_user(self):
         #database
         self.db = DB()
         if not self.db.checkConnection():
@@ -360,11 +361,25 @@ class Controller(QMainWindow, Ui_MainWindow):
         if validMsg[0]:
             self.refreshDatabase()
             #print("正在生成文档...")
-            self.msgDialog.showInformationDialog("生成信息", "文档正在生成！")
+            self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！请点击“OK”开始生成。")
+            progress = QProgressDialog(self)
+            progress.setWindowTitle("请稍等")  
+            progress.setLabelText("正在生成...")
+            progress.setCancelButtonText("取消")
+            progress.setWindowModality(Qt.WindowModal);
+            progress.setRange(0,100)
+            progress.setMinimumDuration(2000)
+            progress.setValue(0)
+            for i in range(31):
+                progress.setValue(i)
+                time.sleep(0.05)
             # 线程优化
             wrt_thread = WrtDocThread(self.user, self.sampleDir + "sys", self.graphStyle)
             wrt_thread.start()
             wrt_thread.wait()
+            for i in range(31,101):
+                progress.setValue(i)
+                time.sleep(0.03)
             self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
             #docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
         else:
@@ -451,3 +466,4 @@ class WrtDocThread(QThread):
         docWrt.loadAndWrite(self.user, self.sample, self.style)
         end_time = time.time()
         print("共耗时：",end_time-start_time,"秒")
+        
