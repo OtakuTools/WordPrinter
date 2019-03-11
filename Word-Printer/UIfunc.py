@@ -372,14 +372,14 @@ class Controller(QMainWindow, Ui_MainWindow):
             progress.setValue(0)
             for i in range(31):
                 progress.setValue(i)
-                time.sleep(0.05)
+                time.sleep(0.03)
             # 线程优化
             wrt_thread = WrtDocThread(self.user, self.sampleDir + "sys", self.graphStyle)
             wrt_thread.start()
             wrt_thread.wait()
             for i in range(31,101):
                 progress.setValue(i)
-                time.sleep(0.03)
+                time.sleep(0.05)
             self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
             #docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
         else:
