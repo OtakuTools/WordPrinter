@@ -136,12 +136,12 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.phoneText.setText(user.phone)
         self.policyText.setText(user.policy)
         #
-        date = user.releaseDate.replace("年", "-").replace("月", "-").replace("日", "")
-        date_t = date.split("-")
-        self.releaseDateText.setDate(QDate(int(date_t[0]), int(date_t[1]), int(date_t[2])))
-        date = user.auditDate.replace("年", "-").replace("月", "-").replace("日", "")
-        date_t = date.split("-")
-        self.auditDateText.setDate(QDate(int(date_t[0]), int(date_t[1]), int(date_t[2])))
+        dateReg = re.compile(r"^(?P<year>\d{4})[\u4e00-\u9fa5](?P<month>\d{2})[\u4e00-\u9fa5](?P<day>\d{2})[\u4e00-\u9fa5]$")
+        date = dateReg.match(user.releaseDate)
+        self.releaseDateText.setDate(QDate(int(date.group("year")), int(date.group("month")), int(date.group("day"))))
+        date = dateReg.match(user.auditDate)
+        self.auditDateText.setDate(QDate(int(date.group("year")), int(date.group("month")), int(date.group("day"))))
+        
         #
         self.introductionText.setPlainText("\n".join(user.introduction))
 

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 
 class userInfo:
     # string filename
@@ -158,7 +159,7 @@ class userInfo:
             errMsg = errMsg + "部门：不能为空;\n"
             isValid = False
         #公司缩写
-        if ( not len( self.fileName ) == 4 ) or ( not self.fileName.isalpha() ) or ( not self.fileName.isupper() ):
+        if re.compile(r"^[A-Z]{4}$").match(self.fileName) == None:
             errMsg = errMsg + "公司缩写：必须为4位大写英文字母；\n"
             isValid = False
         #业务范围
@@ -170,11 +171,11 @@ class userInfo:
             errMsg = errMsg + "公司简介：800字以内\n"
             isValid = False
         #电话格式
-        if (not self.phone.replace('-','').isnumeric()) or ( (not len(self.phone.replace('-','')) == 8 ) and (not len(self.phone.replace('-','')) == 11 ) ):
+        if re.compile(r"^((\d{3})|(\d{3}\-))?(\d{8})$").match(self.phone) == None:
             errMsg = errMsg + "电话：请输入合法的电话\n"
             isValid = False
         #邮编
-        if ( not self.zip.isdigit() ) or (not len(self.zip) == 6 ):
+        if re.compile(r"^\d{6}$").match(self.zip) == None:
             errMsg = errMsg + "邮编：请输入合法的邮编"
             isValid = False
         #部门简介
