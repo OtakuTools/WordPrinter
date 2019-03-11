@@ -120,6 +120,7 @@ class DB:
         return companyList
 
     def searchById(self, id):
+        id = id.replace("\\",'\\\\').replace("'","\\'").replace('"','\\"')
         ptr = self.db.cursor()
         sql0 = """
                SELECT *
@@ -132,7 +133,6 @@ class DB:
                WHERE refId = '%s'
                ORDER BY seq;
                """ % (id)
-   
         info = userInfo();
         try:
             ptr.execute(sql0)
@@ -177,7 +177,27 @@ class DB:
             self.dbException = str(e)
         return info
 
-    def insertData(self, data):
+    def insertData(self, user):
+        #防注入
+        data = userInfo()
+        attrDict = vars( user )
+        for attr in attrDict:
+            setattr( data , attr , getattr(user,attr) )
+        data.fileName = data.fileName.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.company = data.company.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.address = data.address.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.coverField = data.coverField.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.manager = data.manager.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.guandai = data.guandai.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.employees = data.employees.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.approver = data.approver.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.audit = data.audit.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.announcer = data.announcer.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.zip = data.zip.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.phone = data.phone.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.policy = data.policy.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+
+        #
         ptr = self.db.cursor()
         sql0 =  """
                 INSERT INTO info(
@@ -205,7 +225,7 @@ class DB:
                         '%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
-                       "#".join(data.introduction), data.coverField, data.manager,
+                       "#".join(data.introduction).replace('\\','\\\\').replace("'","\\'").replace('"','\\"'), data.coverField, data.manager,
                        data.guandai, data.employees, data.approver,
                        data.audit, data.announcer, data.releaseDate, 
                        data.auditDate, data.zip, data.phone, data.policy,
