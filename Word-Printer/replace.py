@@ -30,7 +30,7 @@ class Replace:
         elif str(r.font.color.rgb) == '7F0000':
             r.text = self.user.guandai
         elif str(r.font.color.rgb) == '007F00':
-            r.text = self.user.employees
+            r.text = self.user.compiler
         elif str(r.font.color.rgb) == '000080':
             r.text = self.user.approver
         elif str(r.font.color.rgb) == '7F7F00':

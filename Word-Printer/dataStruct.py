@@ -17,7 +17,7 @@ class userInfo:
     # string
     guandai = ""
     # string
-    employees = ""
+    compiler = ""
     # string
     approver = ""
     # string
@@ -134,7 +134,7 @@ class userInfo:
         if self.guandai == "":
             errMsg = errMsg + "管理者代表：不能为空;\n"
             isValid = False
-        if self.employees == "":
+        if self.compiler == "":
             errMsg = errMsg + "编制人：不能为空;\n"
             isValid = False
         if self.approver == "":

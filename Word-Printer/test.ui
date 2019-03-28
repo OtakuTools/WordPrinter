@@ -28,7 +28,11 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
-     <widget class="QLineEdit" name="searchContent"/>
+     <widget class="QLineEdit" name="searchContent">
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item row="0" column="1">
      <widget class="QPushButton" name="searchButton">
@@ -120,133 +124,10 @@
             <string>公司信息</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_7">
-            <item row="0" column="1" rowspan="2">
-             <widget class="QGroupBox" name="basicInfo">
-              <property name="title">
-               <string>基础信息</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_2">
-               <item row="7" column="0" colspan="4">
-                <widget class="QLabel" name="introductionLable">
-                 <property name="text">
-                  <string>公司简介</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="fileNameLable">
-                 <property name="text">
-                  <string>公司缩写</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="companyLable">
-                 <property name="text">
-                  <string>公司名</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QLineEdit" name="companyText"/>
-               </item>
-               <item row="4" column="3">
-                <widget class="QLineEdit" name="policyText"/>
-               </item>
-               <item row="2" column="3">
-                <widget class="QLineEdit" name="addressText"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="coverFieldLable">
-                 <property name="text">
-                  <string>覆盖范围</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="label_3">
-                 <property name="text">
-                  <string>公司图标</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="addressLable">
-                 <property name="text">
-                  <string>地址</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="3">
-                <widget class="QLineEdit" name="fileNameText"/>
-               </item>
-               <item row="8" column="0" colspan="4">
-                <widget class="QPlainTextEdit" name="introductionText">
-                 <property name="tabChangesFocus">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="policyLable">
-                 <property name="text">
-                  <string>服务方针</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="3">
-                <widget class="QLineEdit" name="coverFieldText"/>
-               </item>
-               <item row="5" column="3">
-                <widget class="QPlainTextEdit" name="Logo">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="verticalScrollBarPolicy">
-                  <enum>Qt::ScrollBarAlwaysOff</enum>
-                 </property>
-                 <property name="horizontalScrollBarPolicy">
-                  <enum>Qt::ScrollBarAlwaysOff</enum>
-                 </property>
-                 <property name="undoRedoEnabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="lineWrapMode">
-                  <enum>QPlainTextEdit::WidgetWidth</enum>
-                 </property>
-                 <property name="readOnly">
-                  <bool>false</bool>
-                 </property>
-                 <property name="backgroundVisible">
-                  <bool>false</bool>
-                 </property>
-                 <property name="placeholderText">
-                  <string>请将公司图标拖拽至此</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="2">
+            <item row="3" column="2">
              <widget class="QGroupBox" name="groupBox_3">
               <property name="title">
-               <string>结构图</string>
+               <string>部门结构图</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_10">
                <item row="0" column="0">
@@ -676,51 +557,61 @@ gridline-color:rgb(0, 0, 0);</string>
             <item row="0" column="2">
              <widget class="QGroupBox" name="fileInfo">
               <property name="title">
-               <string>文档信息</string>
+               <string>公司（组织级人员）信息</string>
               </property>
               <layout class="QGridLayout" name="gridLayout">
+               <item row="3" column="4">
+                <widget class="QLineEdit" name="approverText"/>
+               </item>
+               <item row="3" column="3">
+                <widget class="QLabel" name="approverLable">
+                 <property name="text">
+                  <string>批准人</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>法人代表</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="2">
+                <widget class="QLineEdit" name="corporateText"/>
+               </item>
+               <item row="0" column="4">
                 <widget class="QLineEdit" name="managerText"/>
                </item>
                <item row="0" column="3">
+                <widget class="QLabel" name="managerLable">
+                 <property name="text">
+                  <string>总经理</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
                 <widget class="QLabel" name="guandaiLable">
                  <property name="text">
                   <string>管理者代表</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="4">
+               <item row="1" column="2">
                 <widget class="QLineEdit" name="guandaiText"/>
                </item>
-               <item row="2" column="2">
-                <widget class="QLineEdit" name="employeesText"/>
+               <item row="1" column="4">
+                <widget class="QLineEdit" name="compilerText"/>
                </item>
-               <item row="5" column="2">
-                <widget class="QDateEdit" name="releaseDateText">
-                 <property name="displayFormat">
-                  <string>yyyy年MM月dd日</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="2">
-                <widget class="QLineEdit" name="zipText"/>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLabel" name="employeesLable">
+               <item row="1" column="3">
+                <widget class="QLabel" name="compilerLable">
                  <property name="text">
                   <string>编制人</string>
                  </property>
                 </widget>
                </item>
-               <item row="5" column="1">
-                <widget class="QLabel" name="releaseDateLable">
-                 <property name="text">
-                  <string>发布批准日期</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="4">
-                <widget class="QLineEdit" name="approverText"/>
+               <item row="3" column="2">
+                <widget class="QLineEdit" name="auditText"/>
                </item>
                <item row="3" column="1">
                 <widget class="QLabel" name="auditLable">
@@ -729,61 +620,230 @@ gridline-color:rgb(0, 0, 0);</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="3">
-                <widget class="QLabel" name="approverLable">
-                 <property name="text">
-                  <string>批准人</string>
-                 </property>
-                </widget>
-               </item>
                <item row="4" column="1">
-                <widget class="QLabel" name="zipLable">
-                 <property name="text">
-                  <string>邮编</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
-                <widget class="QLineEdit" name="auditText"/>
-               </item>
-               <item row="5" column="3">
-                <widget class="QLabel" name="auditDateLable">
-                 <property name="text">
-                  <string>编制日期</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="4">
-                <widget class="QLineEdit" name="announcerText"/>
-               </item>
-               <item row="5" column="4">
-                <widget class="QDateEdit" name="auditDateText">
-                 <property name="displayFormat">
-                  <string>yyyy年MM月dd日</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="4">
-                <widget class="QLineEdit" name="phoneText"/>
-               </item>
-               <item row="4" column="3">
-                <widget class="QLabel" name="phoneLable">
-                 <property name="text">
-                  <string>电话</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="3">
                 <widget class="QLabel" name="announcerLable">
                  <property name="text">
                   <string>发布人</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="managerLable">
+               <item row="4" column="2">
+                <widget class="QLineEdit" name="announcerText"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QGroupBox" name="groupBox_7">
+              <property name="title">
+               <string>公司图标</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_13">
+               <item row="0" column="0">
+                <widget class="QGraphicsView" name="logoView">
+                 <property name="verticalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QToolButton" name="logoChooseButton">
                  <property name="text">
-                  <string>总经理</string>
+                  <string>...</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPlainTextEdit" name="Logo">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="verticalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="undoRedoEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="lineWrapMode">
+                  <enum>QPlainTextEdit::WidgetWidth</enum>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="overwriteMode">
+                  <bool>true</bool>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::TextEditorInteraction</set>
+                 </property>
+                 <property name="backgroundVisible">
+                  <bool>false</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>请将公司图标拖拽至此或点击右边的选择按钮</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="0" column="1" rowspan="4">
+             <widget class="QGroupBox" name="basicInfo">
+              <property name="title">
+               <string>公司基础信息</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="0">
+                <widget class="QLabel" name="companyLable">
+                 <property name="text">
+                  <string>公司名称</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="fileNameLable">
+                 <property name="text">
+                  <string>公司缩写</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLineEdit" name="companyText"/>
+               </item>
+               <item row="8" column="0" colspan="4">
+                <widget class="QLabel" name="introductionLable">
+                 <property name="text">
+                  <string>公司简介</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="addressLable">
+                 <property name="text">
+                  <string>通信地址</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="9" column="0" colspan="4">
+                <widget class="QPlainTextEdit" name="introductionText">
+                 <property name="tabChangesFocus">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="3">
+                <widget class="QLineEdit" name="coverFieldText"/>
+               </item>
+               <item row="3" column="0">
+                <widget class="QLabel" name="coverFieldLable">
+                 <property name="text">
+                  <string>覆盖范围</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="3">
+                <widget class="QLineEdit" name="policyText"/>
+               </item>
+               <item row="4" column="0">
+                <widget class="QLabel" name="policyLable">
+                 <property name="text">
+                  <string>服务方针</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLineEdit" name="fileNameText"/>
+               </item>
+               <item row="2" column="3">
+                <widget class="QLineEdit" name="addressText"/>
+               </item>
+               <item row="6" column="0">
+                <widget class="QLabel" name="zipLable">
+                 <property name="text">
+                  <string>公司邮编</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="0">
+                <widget class="QLabel" name="phoneLable">
+                 <property name="text">
+                  <string>公司电话</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="3">
+                <widget class="QLineEdit" name="zipText"/>
+               </item>
+               <item row="7" column="3">
+                <widget class="QLineEdit" name="phoneText"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QGroupBox" name="groupBox_6">
+              <property name="title">
+               <string>文档日期输入</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_12">
+               <item row="0" column="0">
+                <widget class="QLabel" name="auditDateLable">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>编制日期</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QDateEdit" name="auditDateText">
+                 <property name="displayFormat">
+                  <string>yyyy年MM月dd日</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="releaseDateLable">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>实施日期</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QDateEdit" name="releaseDateText">
+                 <property name="displayFormat">
+                  <string>yyyy年MM月dd日</string>
                  </property>
                 </widget>
                </item>
@@ -1280,16 +1340,7 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>coverFieldText</tabstop>
   <tabstop>policyText</tabstop>
   <tabstop>introductionText</tabstop>
-  <tabstop>managerText</tabstop>
-  <tabstop>guandaiText</tabstop>
-  <tabstop>employeesText</tabstop>
   <tabstop>approverText</tabstop>
-  <tabstop>auditText</tabstop>
-  <tabstop>announcerText</tabstop>
-  <tabstop>zipText</tabstop>
-  <tabstop>phoneText</tabstop>
-  <tabstop>releaseDateText</tabstop>
-  <tabstop>auditDateText</tabstop>
   <tabstop>level1Border</tabstop>
   <tabstop>level1Font</tabstop>
   <tabstop>level1Width</tabstop>

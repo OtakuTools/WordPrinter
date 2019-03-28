@@ -58,7 +58,7 @@ class DB:
                    coverField NVARCHAR(1000) NOT NULL,
                    manager NVARCHAR(20) NOT NULL,
                    guanDai NVARCHAR(20) NOT NULL,
-                   employees NVARCHAR(20) NOT NULL,
+                   compiler NVARCHAR(20) NOT NULL,
                    approver NVARCHAR(20) NOT NULL,
                    audit NVARCHAR(20) NOT NULL,
                    announcer NVARCHAR(20) NOT NULL,
@@ -145,7 +145,7 @@ class DB:
                 info.coverField = row[4]
                 info.manager = row[5]
                 info.guandai = row[6]
-                info.employees = row[7]
+                info.compiler = row[7]
                 info.approver = row[8]
                 info.audit = row[9]
                 info.announcer = row[10]
@@ -189,7 +189,7 @@ class DB:
         data.coverField = data.coverField.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.manager = data.manager.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.guandai = data.guandai.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
-        data.employees = data.employees.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.compiler = data.compiler.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.approver = data.approver.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.audit = data.audit.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.announcer = data.announcer.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
@@ -208,7 +208,7 @@ class DB:
                     coverField,
                     manager,
                     guanDai,
-                    employees,
+                    compiler,
                     approver,
                     audit,
                     announcer,
@@ -226,7 +226,7 @@ class DB:
                         '%s', '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
                        "#".join(data.introduction).replace('\\','\\\\').replace("'","\\'").replace('"','\\"'), data.coverField, data.manager,
-                       data.guandai, data.employees, data.approver,
+                       data.guandai, data.compiler, data.approver,
                        data.audit, data.announcer, data.releaseDate, 
                        data.auditDate, data.zip, data.phone, data.policy,
                        data.picPath, data.depStruct, data.color)
