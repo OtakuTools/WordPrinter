@@ -27,7 +27,7 @@ class pathSelection:
         if fileName == "":
             return self.samples[label]
         else:
-            return self.saveDir + "\\" + fileName + "\\" + self.levelDir[label] + "\\%s-%d-%s.docx" % (fileName, 20000, label)
+            return self.saveDir + "\\" + fileName + "\\" + self.levelDir[label] + "\\" + re.sub(r"ZRXX", fileName, self.samples[label])
 
     def getLogoPath(self, label):
         return self.logos[label]
@@ -41,7 +41,6 @@ class pathSelection:
                     reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
                     prefix = re.search(reg, os.path.splitext(file)[0], re.M|re.I)
                     if(prefix):
-                        #print(prefix.group(1))
                         label = prefix.group(1).split("-")
                         label = label[-3:len(label)]
                         self.samples["-".join(label)] = file
