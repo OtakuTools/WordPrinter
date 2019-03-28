@@ -1,7 +1,8 @@
 from test import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
+from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
 from PyQt5.QtCore import QDate, QThread, Qt
-import json, time, re
+from PyQt5.QtGui import *
+import json, time, re, os, shutil
 import threading
 
 from dataStruct import userInfo
@@ -9,6 +10,7 @@ from generateGraph import drawGraph
 from Word_Printer import docWriter
 from database import DB
 from messageDialog import MessageDialog
+from pathSelection import pathSelection
 
 class Controller(QMainWindow, Ui_MainWindow):
 
@@ -65,6 +67,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         #message dialog
         self.msgDialog = MessageDialog()
 
+        #sample dir
+        self.init_Samples()
+
     def init_DB_user(self):
         #database
         self.db = DB()
@@ -80,7 +85,100 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.refreshDepartmentList()
         if self.user.color == "":
             self.user.color = json.dumps(self.graphStyle)
-      
+
+    def init_Samples(self):
+        self.pathSelection = pathSelection()
+        self.pathSelection.autoRefresh()
+
+    def connectText(self):
+        self.fileNameText.textChanged.connect(lambda : self.setUser())
+        self.companyText.textChanged.connect(lambda : self.setUser())
+        self.addressText.textChanged.connect(lambda : self.setUser())
+        self.coverFieldText.textChanged.connect(lambda : self.setUser())
+        self.managerText.textChanged.connect(lambda : self.setUser())
+        self.guandaiText.textChanged.connect(lambda : self.setUser())
+        self.compilerText.textChanged.connect(lambda : self.setUser())
+        self.approverText.textChanged.connect(lambda : self.setUser())
+        self.auditText.textChanged.connect(lambda : self.setUser())
+        self.announcerText.textChanged.connect(lambda : self.setUser())
+        self.zipText.textChanged.connect(lambda : self.setUser())
+        self.phoneText.textChanged.connect(lambda : self.setUser())
+        self.policyText.textChanged.connect(lambda : self.setUser())
+        self.introductionText.textChanged.connect(lambda : self.setUser())
+
+        self.releaseDateText.dateChanged.connect( lambda : self.setUser() )
+        self.auditDateText.dateChanged.connect( lambda : self.setUser() )
+        # logo
+        self.Logo.textChanged.connect(lambda : self.showLogo())
+
+        # style
+        self.level1Width.valueChanged.connect(lambda: self.setLineWidth(self.level1Width, 0))
+        self.level2Width.valueChanged.connect(lambda: self.setLineWidth(self.level2Width, 1))
+        self.level3Width.valueChanged.connect(lambda: self.setLineWidth(self.level3Width, 2))
+        self.level4Width.valueChanged.connect(lambda: self.setLineWidth(self.level4Width, 3))
+
+    def connectButton(self):
+
+        #deStructBorderColor
+        self.level1Border.clicked.connect(lambda: self.setGraphColor(self.level1Border, 0, "fillcolor"))
+        self.level2Border.clicked.connect(lambda: self.setGraphColor(self.level2Border, 1, "fillcolor"))
+        self.level3Border.clicked.connect(lambda: self.setGraphColor(self.level3Border, 2, "fillcolor"))
+        self.level4Border.clicked.connect(lambda: self.setGraphColor(self.level4Border, 3, "fillcolor"))
+
+        #deStructFontColor
+        self.level1Font.clicked.connect(lambda: self.setGraphColor(self.level1Font, 0, "fontcolor"))
+        self.level2Font.clicked.connect(lambda: self.setGraphColor(self.level2Font, 1, "fontcolor"))
+        self.level3Font.clicked.connect(lambda: self.setGraphColor(self.level3Font, 2, "fontcolor"))
+        self.level4Font.clicked.connect(lambda: self.setGraphColor(self.level4Font, 3, "fontcolor"))
+
+        #DateChoose
+        self.auditDateText.setCalendarPopup(True)
+        self.releaseDateText.setCalendarPopup(True)
+        
+        #LogoChoose
+        self.logoChooseButton.clicked.connect(lambda: self.chooseLogo())
+
+        #previewButton
+        self.previewButton.clicked.connect(lambda: self.showPreviewGraph())
+
+        #generateDoc
+        self.createBotton.clicked.connect(lambda: self.generateDoc())
+        self.cancelButton.clicked.connect(lambda: self.discard() )
+        self.saveButton.clicked.connect(lambda: self.saveInfoButNotGen())
+
+        #search
+        self.searchButton.clicked.connect(lambda: self.search())
+
+    def connectList(self):
+        self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))#可能没选中，故用getattr确认
+        # button
+        self.AddDep.clicked.connect( lambda: self.addDepartment() )
+        self.DeleteDep.clicked.connect( lambda: self.removeDepartment( getattr( self.departmentList.currentItem(),'text',str)() ) )#可能没选中，故用getattr确认
+        self.cancelDep.clicked.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
+        self.addOrModifyDep.clicked.connect( lambda: self.setDepartments(getattr( self.departmentList.currentItem(),'text',str)() ) )
+
+    def chooseLogo(self):
+        fileName1, filetype = QFileDialog().getOpenFileName(self, "选取图标",".//","Images(*.png *.jpg *.jpeg *.bmp)")
+        self.Logo.setPlainText(fileName1)
+
+    def showLogo(self):
+        logoPath = self.Logo.toPlainText()
+        reg = "(file:///)?(.*)"
+        path = re.search(reg, logoPath, re.M|re.I).group(2)
+        image = QImage()
+        print(path)
+        if path and path != "" and image.load(path):
+            filepath, filename = os.path.split(path)
+            if not os.path.exists("./logoData"):
+                os.makedirs("./logoData")
+            shutil.copy(path, "./logoData/%s" %(filename))
+            image = image.scaledToHeight(self.logoView.height())
+            scene = QGraphicsScene()
+            scene.addPixmap(QPixmap.fromImage(image))
+            self.logoView.setScene(scene)
+            self.logoView.show()
+            
+
     def setGraphColor(self, tar, pos, option): 
         col = QColorDialog.getColor() 
         if col.isValid(): 
@@ -129,7 +227,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.coverFieldText.setText(user.coverField)
         self.managerText.setText(user.manager)
         self.guandaiText.setText(user.guandai)
-        self.employeesText.setText(user.employees)
+        self.compilerText.setText(user.compiler)
         self.approverText.setText(user.approver)
         self.auditText.setText(user.audit)
         self.announcerText.setText(user.announcer)
@@ -167,65 +265,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         for i in range(1,43):
             getattr(self,'duty_'+str(i)).setCheckState(0)
 
-
-    def connectText(self):
-        self.fileNameText.textChanged.connect(lambda : self.setUser())
-        self.companyText.textChanged.connect(lambda : self.setUser())
-        self.addressText.textChanged.connect(lambda : self.setUser())
-        self.coverFieldText.textChanged.connect(lambda : self.setUser())
-        self.managerText.textChanged.connect(lambda : self.setUser())
-        self.guandaiText.textChanged.connect(lambda : self.setUser())
-        self.employeesText.textChanged.connect(lambda : self.setUser())
-        self.approverText.textChanged.connect(lambda : self.setUser())
-        self.auditText.textChanged.connect(lambda : self.setUser())
-        self.announcerText.textChanged.connect(lambda : self.setUser())
-        self.zipText.textChanged.connect(lambda : self.setUser())
-        self.phoneText.textChanged.connect(lambda : self.setUser())
-        self.policyText.textChanged.connect(lambda : self.setUser())
-        self.introductionText.textChanged.connect(lambda : self.setUser())
-
-        self.releaseDateText.dateChanged.connect( lambda : self.setUser() )
-        self.auditDateText.dateChanged.connect( lambda : self.setUser() )
-
-        # style
-        self.level1Width.valueChanged.connect(lambda: self.setLineWidth(self.level1Width, 0))
-        self.level2Width.valueChanged.connect(lambda: self.setLineWidth(self.level2Width, 1))
-        self.level3Width.valueChanged.connect(lambda: self.setLineWidth(self.level3Width, 2))
-        self.level4Width.valueChanged.connect(lambda: self.setLineWidth(self.level4Width, 3))
-
-    def connectButton(self):
-
-        #deStructBorderColor
-        self.level1Border.clicked.connect(lambda: self.setGraphColor(self.level1Border, 0, "fillcolor"))
-        self.level2Border.clicked.connect(lambda: self.setGraphColor(self.level2Border, 1, "fillcolor"))
-        self.level3Border.clicked.connect(lambda: self.setGraphColor(self.level3Border, 2, "fillcolor"))
-        self.level4Border.clicked.connect(lambda: self.setGraphColor(self.level4Border, 3, "fillcolor"))
-
-        #deStructFontColor
-        self.level1Font.clicked.connect(lambda: self.setGraphColor(self.level1Font, 0, "fontcolor"))
-        self.level2Font.clicked.connect(lambda: self.setGraphColor(self.level2Font, 1, "fontcolor"))
-        self.level3Font.clicked.connect(lambda: self.setGraphColor(self.level3Font, 2, "fontcolor"))
-        self.level4Font.clicked.connect(lambda: self.setGraphColor(self.level4Font, 3, "fontcolor"))
-
-        #previewButton
-        self.previewButton.clicked.connect(lambda: self.showPreviewGraph())
-
-        #generateDoc
-        self.createBotton.clicked.connect(lambda: self.generateDoc())
-        self.cancelButton.clicked.connect(lambda: self.discard() )
-        self.saveButton.clicked.connect(lambda: self.saveInfoButNotGen())
-
-        #search
-        self.searchButton.clicked.connect(lambda: self.search())
-
-    def connectList(self):
-        self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))#可能没选中，故用getattr确认
-        # button
-        self.AddDep.clicked.connect( lambda: self.addDepartment() )
-        self.DeleteDep.clicked.connect( lambda: self.removeDepartment( getattr( self.departmentList.currentItem(),'text',str)() ) )#可能没选中，故用getattr确认
-        self.cancelDep.clicked.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
-        self.addOrModifyDep.clicked.connect( lambda: self.setDepartments(getattr( self.departmentList.currentItem(),'text',str)() ) )
-
     def setUser(self):
         #
         self.user.fileName = self.fileNameText.text()
@@ -234,7 +273,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.user.coverField = self.coverFieldText.text()
         self.user.manager = self.managerText.text()
         self.user.guandai = self.guandaiText.text()
-        self.user.employees = self.employeesText.text()
+        self.user.compiler = self.compilerText.text()
         self.user.approver = self.approverText.text()
         self.user.audit = self.auditText.text()
         self.user.announcer = self.announcerText.text()
@@ -343,8 +382,6 @@ class Controller(QMainWindow, Ui_MainWindow):
                 getattr(self,'duty_'+str(i)).setCheckState(0)
             for i in ( department['func'] if 'func' in department else [] ):
                 getattr(self,'duty_'+str(i)).setCheckState(2)
-
-
     
     def removeDepartment(self,departmentName):
         if( departmentName == "" ):
@@ -412,7 +449,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #第一页右
         self.managerText.setText("")
         self.guandaiText.setText("")
-        self.employeesText.setText("")
+        self.compilerText.setText("")
         self.approverText.setText("")
         self.auditText.setText("")
         self.announcerText.setText("")
