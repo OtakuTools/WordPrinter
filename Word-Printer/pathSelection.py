@@ -13,6 +13,12 @@ class pathSelection:
     def __del__(self):
         pass
 
+    def getSamples(self):
+        return self.samples
+    
+    def getLevelDir(self):
+        return self.levelDir
+
     def addPath(self, path):
         if os.path.exists(path) and path not in sampleDir:
             self.sampleDir.append(path)
@@ -23,11 +29,14 @@ class pathSelection:
             if os.path.exists(sdir):
                 self.searchAllSamples(sdir)
 
-    def getFilePath(self, label, fileName = ""):
+    def getFilePath(self, label, fileName = "", fullName=True):
         if fileName == "":
             return self.samples[label]
         else:
-            return self.saveDir + "\\" + fileName + "\\" + self.levelDir[label] + "\\" + re.sub(r"ZRXX", fileName, self.samples[label])
+            if not fullName:
+                return re.sub(r"ZRXX", fileName, self.samples[label])
+            else:
+                return self.saveDir + "\\" + fileName + "\\" + self.levelDir[label] + "\\" + re.sub(r"ZRXX", fileName, self.samples[label])
 
     def getLogoPath(self, label):
         return self.logos[label]
