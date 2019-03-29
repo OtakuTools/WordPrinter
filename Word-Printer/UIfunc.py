@@ -1,4 +1,5 @@
 from test import Ui_MainWindow
+from generateDocConfirm import Ui_GenerateDocConfirm
 from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
 from PyQt5.QtCore import QDate, QThread, Qt
 from PyQt5.QtGui import *
@@ -11,6 +12,7 @@ from Word_Printer import docWriter
 from database import DB
 from messageDialog import MessageDialog
 from pathSelection import pathSelection
+from WriteDocController import WriteDocController, WrtDocThread
 
 class Controller(QMainWindow, Ui_MainWindow):
 
@@ -57,6 +59,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #init
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
+        Ui_GenerateDocConfirm.__init__(self)
         self.setupUi(self)
 
         #connect
@@ -394,10 +397,15 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setDepStruct()
 
     def generateDoc(self):
+        genDocCtrl = WriteDocController(self.user.fileName)
+        genDocCtrl.show()
+        genDocCtrl.exec_()
+        for file in genDocCtrl.getAllSelectedFile():
+            print(file)
+        '''
         validMsg = self.user.validChecker()
         if validMsg[0]:
             self.refreshDatabase()
-            #print("正在生成文档...")
             self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！请点击“OK”开始生成。")
             progress = QProgressDialog(self)
             progress.setWindowTitle("请稍等")  
@@ -418,9 +426,9 @@ class Controller(QMainWindow, Ui_MainWindow):
                 progress.setValue(i)
                 time.sleep(0.05)
             self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
-            #docWrt.loadAndWrite(self.user, "sys", self.graphStyle)
         else:
             self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
+        '''
 
     def saveInfoButNotGen(self):
         self.refreshDatabase()
@@ -484,23 +492,3 @@ class Controller(QMainWindow, Ui_MainWindow):
         for d in self.user.departments:
             self.departmentList.addItem(d["name"])
             self.setDepStruct()
-
-class WrtDocThread(QThread):
-    
-    def __init__(self, user, sample, style):
-        super(WrtDocThread, self).__init__()
-        self.user = user
-        self.sample = sample
-        self.style = style
-
-    def __del__(self):
-        self.quit()
-        self.wait()
-
-    def run(self):
-        start_time = time.time()
-        docWrt = docWriter()
-        docWrt.loadAndWrite(self.user, self.sample, self.style)
-        end_time = time.time()
-        print("共耗时：",end_time-start_time,"秒")
-        
