@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="database.py" />
     <Compile Include="dataStruct.py" />
+    <Compile Include="generateDocConfirm.py" />
     <Compile Include="generateGraph.py" />
     <Compile Include="getTime.py">
       <SubType>Code</SubType>
@@ -40,6 +41,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Word_Printer.py" />
+    <Compile Include="WriteDocController.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

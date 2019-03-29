@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GenerateDocConfirm</class>
+ <widget class="QDialog" name="GenerateDocConfirm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>733</width>
+    <height>390</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>生成文档选择</string>
+  </property>
+  <widget class="QTreeWidget" name="showSamples">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>20</y>
+     <width>671</width>
+     <height>321</height>
+    </rect>
+   </property>
+   <attribute name="headerVisible">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QPushButton" name="DocConfirmButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>350</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Confirm</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
