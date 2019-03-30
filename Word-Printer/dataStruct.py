@@ -167,7 +167,7 @@ class userInfo:
             errMsg = errMsg + "业务范围：50字以内\n"
             isValid = False
         #公司简介
-        if len( ''.join(self.introduction) ) > 800:
+        if len( ':'.join(self.introduction) ) > 800:
             errMsg = errMsg + "公司简介：800字以内\n"
             isValid = False
         #电话格式
@@ -184,3 +184,26 @@ class userInfo:
                 errMsg = errMsg + dep["name"] + ":部门简介不能为空"
                 isValid = False
         return ( isValid , errMsg )
+
+
+colorStyle = {
+        'FF0000':'fileName',
+        'FE0000':'company',
+        'FD0000':'introduction',
+        'FC0000':'address',
+        'FB0000':'coverField',
+        'FA0000':'manager',
+        'F90000':'guandai',
+        'F80000':'compiler',
+        'F70000':'approver',
+        'F60000':'releaseDate',
+        'F50000':'auditDate',
+        'F40000':'zip',
+        'F30000':'phone',
+        'F20000':'policy',
+        'F10000':'audit',
+        'F00000':'announcer',
+        'EF0000':'modifyDate',
+        'EE0000':'departments',
+        'ED0000':'picPath'
+    }

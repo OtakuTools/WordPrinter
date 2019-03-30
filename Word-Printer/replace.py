@@ -17,40 +17,40 @@ class Replace:
     def replaceRules(self, r):
         #替换规则
         r.font.highlight_color = None
-        if str(r.font.color.rgb) == 'FFF000':
+        if str(r.font.color.rgb) == 'FF0000':
             r.text = self.user.fileName
-        elif str(r.font.color.rgb) == 'FF0000':
+        elif str(r.font.color.rgb) == 'FE0000':
             r.text = self.user.company
-        elif str(r.font.color.rgb) == '00FF00':
+        elif str(r.font.color.rgb) == 'FC0000':
             r.text = self.user.address
-        elif str(r.font.color.rgb) == 'FFFF00':
+        elif str(r.font.color.rgb) == 'FB0000':
             r.text = self.user.coverField
-        elif str(r.font.color.rgb) == '00FFFF':
+        elif str(r.font.color.rgb) == 'FA0000':
             r.text = self.user.manager
-        elif str(r.font.color.rgb) == '7F0000':
+        elif str(r.font.color.rgb) == 'F90000':
             r.text = self.user.guandai
-        elif str(r.font.color.rgb) == '007F00':
+        elif str(r.font.color.rgb) == 'F80000':
             r.text = self.user.compiler
-        elif str(r.font.color.rgb) == '000080':
+        elif str(r.font.color.rgb) == 'F70000':
             r.text = self.user.approver
-        elif str(r.font.color.rgb) == '7F7F00':
+        elif str(r.font.color.rgb) == 'F60000':
             r.text = self.user.releaseDate
-        elif str(r.font.color.rgb) == '007F7F':
+        elif str(r.font.color.rgb) == 'F50000':
             r.text = self.user.auditDate
-        elif str(r.font.color.rgb) == '7F007F':
+        elif str(r.font.color.rgb) == 'F40000':
             r.text = self.user.zip
-        elif str(r.font.color.rgb) == 'FFFFF0':
+        elif str(r.font.color.rgb) == 'F30000':
             r.text = self.user.phone
-        elif str(r.font.color.rgb) == '0FFFFF':
+        elif str(r.font.color.rgb) == 'F20000':
             r.text = self.user.policy
-        elif str(r.font.color.rgb) == '000FFF':
-            pass
-        elif str(r.font.color.rgb) == 'FFF0FF':
+        elif str(r.font.color.rgb) == 'F10000':
             r.text = self.user.audit
-        elif str(r.font.color.rgb) == 'FF0FFF':
+        elif str(r.font.color.rgb) == 'F00000':
             r.text = self.user.announcer
-        elif str(r.font.color.rgb) == 'F0FFFF':
+        elif str(r.font.color.rgb) == 'EF0000':
             r.text = self.user.modifyDate.pop(0)
+        elif str(r.font.color.rgb) == 'ED0000':
+            pass
             
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
@@ -93,19 +93,19 @@ class Replace:
             for r in p.runs:
                 if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
                     # 部门介绍
-                    if str(r.font.color.rgb) == 'FF00FF':
+                    if str(r.font.color.rgb) == 'EE0000':
                         p.clear()
                         for d in self.user.departments:
                             p.insert_paragraph_before( d['name'] + ':' , '样式1' )
                             for i in d['intro']:
                                 p.insert_paragraph_before( i , 'No Spacing' )
                     # 公司简介
-                    if str(r.font.color.rgb) == '0000FF':
+                    if str(r.font.color.rgb) == 'FB0000':
                         p.clear()
                         for intro in self.user.introduction:
                             p.insert_paragraph_before( intro , 'Quote' )
                     # 插入图片
-                    if str(r.font.color.rgb) == '000FFF':
+                    if str(r.font.color.rgb) == 'ED0000':
                         pp = p.insert_paragraph_before()
                         #检查宽高
                         levelDict = {}
