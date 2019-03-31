@@ -1,7 +1,7 @@
 {
     "dbname": "wordstore",
-    "ip": "120.77.172.46",
+    "ip": "localhost",
     "port": 3306,
-    "pswd": "test",
-    "user": "test"
+    "pswd": "1234",
+    "user": "root"
 }
