@@ -1319,6 +1319,7 @@ gridline-color:rgb(0, 0, 0);</string>
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -1328,8 +1329,53 @@ gridline-color:rgb(0, 0, 0);</string>
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <addaction name="actioncaidan"/>
+    <addaction name="actionmuban"/>
+    <addaction name="actionbaocunlujing"/>
+    <addaction name="separator"/>
+    <addaction name="actiontuichu_2"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actioncaidan">
+   <property name="text">
+    <string>数据库配置</string>
+   </property>
+  </action>
+  <action name="actionsetting">
+   <property name="text">
+    <string>setting</string>
+   </property>
+  </action>
+  <action name="actioncaocun">
+   <property name="text">
+    <string>caocun</string>
+   </property>
+  </action>
+  <action name="actionmuban">
+   <property name="text">
+    <string>模板选择</string>
+   </property>
+  </action>
+  <action name="actiontuichu">
+   <property name="text">
+    <string>tuichu</string>
+   </property>
+  </action>
+  <action name="actionbaocunlujing">
+   <property name="text">
+    <string>保存路径</string>
+   </property>
+  </action>
+  <action name="actiontuichu_2">
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>searchContent</tabstop>
