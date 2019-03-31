@@ -2,7 +2,7 @@
 import os, re
 class pathSelection:
     sampleDir = [".\\samples"]
-    saveDir = ".\\save"
+    saveDir = ".\\docSave"
     samples = {}
     logos = {}
     levelDir = {}
@@ -36,7 +36,10 @@ class pathSelection:
             if not fullName:
                 return re.sub(r"ZRXX", fileName, self.samples[label])
             else:
-                return self.saveDir + "\\" + fileName + "\\" + self.levelDir[label] + "\\" + re.sub(r"ZRXX", fileName, self.samples[label])
+                dir = self.saveDir + "\\" + fileName + "\\" + self.levelDir[label]
+                if not os.path.exists(dir):
+                    os.makedirs(dir)
+                return dir + "\\" + re.sub(r"ZRXX", fileName, os.path.split(self.samples[label])[1])
 
     def getLogoPath(self, label):
         return self.logos[label]
@@ -52,7 +55,7 @@ class pathSelection:
                     if(prefix):
                         label = prefix.group(1).split("-")
                         label = label[-3:len(label)]
-                        self.samples["-".join(label)] = file
+                        self.samples["-".join(label)] = os.path.join(root, file)
                         self.levelDir["-".join(label)] = level
                 elif suffix in [".jpg", ".png", ".jpeg"]:
                     self.logos[prefix] = file

@@ -43,9 +43,7 @@ class docWriter:
     def write(self, src, dst, user, mode="docx"):
         rep = Replace()
         doc = rep.run(src, dst, user)
-        if not os.path.exists(self.saveDir):
-            os.makedirs(self.saveDir)
         if mode == "docx":
-            self.saveAsDocx(doc, self.saveDir+dst)
+            self.saveAsDocx(doc, dst)
         else:
-            self.saveAsPdf(doc, self.saveDir+dst)
+            self.saveAsPdf(doc, dst)
