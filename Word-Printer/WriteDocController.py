@@ -7,6 +7,7 @@ import json, time, re, os, shutil
 import threading
 
 from pathSelection import pathSelection
+from Word_Printer import docWriter
 
 class WriteDocController(QDialog, Ui_GenerateDocConfirm):
     
@@ -55,7 +56,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
             #child.setCheckState(0, Qt.Checked);
             for val in value:
                 subchild = QTreeWidgetItem(child)
-                subchild.setText(0, self.pathSelector.getFilePath(val, fileName, False))
+                subchild.setText(0, os.path.split(self.pathSelector.getFilePath(val, fileName, False))[1])
                 subchild.setCheckState(0, Qt.Checked);
     
     def handleChanged(self, item, column):
@@ -75,11 +76,12 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
 
 class WrtDocThread(QThread):
     
-    def __init__(self, user, sample, style):
+    def __init__(self, user, sample, style, target):
         super(WrtDocThread, self).__init__()
         self.user = user
         self.sample = sample
         self.style = style
+        self.target = target
 
     def __del__(self):
         self.quit()
@@ -88,7 +90,7 @@ class WrtDocThread(QThread):
     def run(self):
         start_time = time.time()
         docWrt = docWriter()
-        docWrt.loadAndWrite(self.user, self.sample, self.style)
+        docWrt.loadAndWrite(self.user, self.sample, self.style, self.target)
         end_time = time.time()
         print("共耗时：",end_time-start_time,"秒")
         

@@ -8,7 +8,6 @@ import threading
 
 from dataStruct import userInfo
 from generateGraph import drawGraph
-from Word_Printer import docWriter
 from database import DB
 from messageDialog import MessageDialog
 from pathSelection import pathSelection
@@ -400,9 +399,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         genDocCtrl = WriteDocController(self.user.fileName)
         genDocCtrl.show()
         genDocCtrl.exec_()
-        for file in genDocCtrl.getAllSelectedFile():
-            print(file)
-        '''
+        
         validMsg = self.user.validChecker()
         if validMsg[0]:
             self.refreshDatabase()
@@ -415,20 +412,32 @@ class Controller(QMainWindow, Ui_MainWindow):
             progress.setRange(0,100)
             progress.setMinimumDuration(2000)
             progress.setValue(0)
+
+            files = genDocCtrl.getAllSelectedFile()
+            total = len(files)
+            count = 0
+            
+            for file in files:
+                # 线程优化
+                count += 1
+                wrt_thread = WrtDocThread(self.user, self.pathSelection.getFilePath(file), self.graphStyle, self.pathSelection.getFilePath(file,self.user.fileName))
+                wrt_thread.start()
+                wrt_thread.wait()
+                progress.setValue(int((float(count) / total) * 100))
+            '''
             for i in range(31):
                 progress.setValue(i)
                 time.sleep(0.03)
-            # 线程优化
-            wrt_thread = WrtDocThread(self.user, self.sampleDir + "sys", self.graphStyle)
-            wrt_thread.start()
-            wrt_thread.wait()
+            '''
+            '''
             for i in range(31,101):
                 progress.setValue(i)
                 time.sleep(0.05)
+            '''
+            progress.setValue(100)
             self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
         else:
             self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
-        '''
 
     def saveInfoButNotGen(self):
         self.refreshDatabase()
