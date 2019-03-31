@@ -57,7 +57,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
             for val in value:
                 subchild = QTreeWidgetItem(child)
                 subchild.setText(0, os.path.split(self.pathSelector.getFilePath(val, fileName, False))[1])
-                subchild.setCheckState(0, Qt.Checked);
+                subchild.setCheckState(0, Qt.Unchecked);
     
     def handleChanged(self, item, column):
         reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
