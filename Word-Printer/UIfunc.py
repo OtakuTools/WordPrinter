@@ -1,5 +1,6 @@
 from test import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
+from databaseSetting import Ui_databaseSetting
 from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
 from PyQt5.QtCore import QDate, QThread, Qt
 from PyQt5.QtGui import *
@@ -8,7 +9,7 @@ import threading
 
 from dataStruct import userInfo
 from generateGraph import drawGraph
-from database import DB
+from database import DB, DBSettingController
 from messageDialog import MessageDialog
 from pathSelection import pathSelection
 from WriteDocController import WriteDocController, WrtDocThread
@@ -59,9 +60,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         Ui_GenerateDocConfirm.__init__(self)
+        Ui_databaseSetting.__init__(self)
         self.setupUi(self)
 
         #connect
+        self.initToolBar()
         self.connectButton()
         self.connectText()
         self.connectList()
@@ -91,6 +94,12 @@ class Controller(QMainWindow, Ui_MainWindow):
     def init_Samples(self):
         self.pathSelection = pathSelection()
         self.pathSelection.autoRefresh()
+
+    def initToolBar(self):
+        tool = self.addToolBar("设置")
+        edit = QAction(QIcon(""),"数据库配置",self)
+        tool.addAction(edit) 
+        tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
         self.fileNameText.textChanged.connect(lambda : self.setUser())
@@ -151,6 +160,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #search
         self.searchButton.clicked.connect(lambda: self.search())
 
+
     def connectList(self):
         self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))#可能没选中，故用getattr确认
         # button
@@ -179,7 +189,20 @@ class Controller(QMainWindow, Ui_MainWindow):
             scene.addPixmap(QPixmap.fromImage(image))
             self.logoView.setScene(scene)
             self.logoView.show()
-            
+    
+    def toolBtnPressed(self, qaction):
+        if qaction.text() == "数据库配置":
+            self.resetDB()
+            if not self.db.checkConnection():
+                self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
+            else:
+                self.msgDialog.showInformationDialog("提示", "数据库配置更改成功！")
+
+    def resetDB(self):
+        dbSettingCtrl = DBSettingController()
+        dbSettingCtrl.show()
+        dbSettingCtrl.exec_()
+        self.db.refreshConnection()
 
     def setGraphColor(self, tar, pos, option): 
         col = QColorDialog.getColor() 

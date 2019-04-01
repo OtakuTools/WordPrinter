@@ -1,6 +1,6 @@
 from test import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
-from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate, QThread, Qt
 from PyQt5.QtGui import *
 import json, time, re, os, shutil

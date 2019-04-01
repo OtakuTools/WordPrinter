@@ -1,31 +1,91 @@
 # -*- coding: utf-8 -*-
+from test import Ui_MainWindow
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QDate, QThread, Qt
+from PyQt5.QtGui import *
+import json, time, re, os, shutil
+import threading
+
 import pymysql
 import json
 import sys
 
 from dataStruct import userInfo
+from databaseSetting import Ui_databaseSetting
+
+class DBSettingController(QDialog, Ui_databaseSetting):
+
+    info =  { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore', 'port': 3306}
+
+    def __init__(self):
+        QDialog.__init__(self)
+        Ui_databaseSetting.__init__(self)
+        self.setupUi(self)
+        self.setConnection()
+        self.initInfo()
+
+    def setConnection(self):
+        #self.dbIP.textChanged.connect(self.upgradeConnection)
+        #self.dbNAME.textChanged.connect(self.upgradeConnection)
+        #self.dbUSER.textChanged.connect(self.upgradeConnection)
+        #self.dbPSWD.textChanged.connect(self.upgradeConnection)
+        self.dbbuttonBox.accepted.connect(self.save)
+        self.dbbuttonBox.rejected.connect(self.cancel)
+
+    def save(self):
+        self.upgradeConnection()
+        with open("dbConfig.json", "w") as f:
+            json.dump(self.info, f, sort_keys=True, indent=4, separators=(',', ': '))
+        self.close()
+
+    def cancel(self):
+        self.close()
+
+    def initInfo(self):
+        with open("dbConfig.json", "r") as f:
+            self.info = json.load(f)
+        self.dbIP.setText(self.info["ip"])
+        self.dbNAME.setText(self.info["dbname"])
+        self.dbUSER.setText(self.info["user"])
+        self.dbPSWD.setText(self.info["pswd"])
+
+    def upgradeConnection(self):
+        self.info["ip"] = self.dbIP.text()
+        self.info["dbname"] = self.dbNAME.text()
+        self.info["user"] = self.dbUSER.text()
+        self.info["pswd"] = self.dbPSWD.text()
+
+    def getInfo(self):
+        return self.info
 
 class DB:
     db = None
     dbException = "None"
 
     def __init__(self):
-        self.info = self.loadConfig()
-        #print(self.info)
-        try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
-        except Exception as e:
-            #print(e)
-            self.dbException = str(e)
-        else:
-            self.createDB(self.info['dbname'])
+        self.initConnection()
 
     def __del__(self):
         if self.db:
             self.db.close()
 
+    def initConnection(self):
+        self.info = self.loadConfig()
+        try:
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
+        except Exception as e:
+            self.db = None
+            self.dbException = str(e)
+        else:
+            self.createDB(self.info['dbname'])
+
     def checkConnection(self):
         return True if self.db else False
+    
+    def refreshConnection(self):
+        #if self.db:
+        #    self.db.close()
+        self.initConnection()
 
     def createDB(self, dbName):
         ptr = self.db.cursor()
@@ -346,8 +406,8 @@ class DB:
             data = json.load(f)
         return data
 
-    def writeConfig(self):
-        data = { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore', 'port': 3306}
+    def writeConfig(self, input = {}):
+        data = input or { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore', 'port': 3306}
         with open("dbConfig.json", "w") as f:
             json.dump(data, f, sort_keys=True, indent=4, separators=(',', ': '))
         return data

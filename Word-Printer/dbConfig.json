@@ -1,5 +1,5 @@
 {
-    "dbname": "wordstore",
+    "dbname": "wordStore",
     "ip": "localhost",
     "port": 3306,
     "pswd": "1234",
