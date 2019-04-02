@@ -96,9 +96,12 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.pathSelection.autoRefresh()
 
     def initToolBar(self):
+        self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; width: 70px; }")
+        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25px !important; width: 70px !important; }")
+
         tool = self.addToolBar("设置")
         edit = QAction(QIcon(""),"数据库配置",self)
-        tool.addAction(edit) 
+        tool.addAction(edit)
         tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
