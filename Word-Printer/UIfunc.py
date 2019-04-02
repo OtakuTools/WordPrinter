@@ -1,4 +1,4 @@
-from test import Ui_MainWindow
+from MainUI import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
 from databaseSetting import Ui_databaseSetting
 from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 

@@ -1364,8 +1364,19 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>addressText</tabstop>
   <tabstop>coverFieldText</tabstop>
   <tabstop>policyText</tabstop>
+  <tabstop>zipText</tabstop>
+  <tabstop>phoneText</tabstop>
   <tabstop>introductionText</tabstop>
+  <tabstop>corporateText</tabstop>
+  <tabstop>managerText</tabstop>
+  <tabstop>guandaiText</tabstop>
+  <tabstop>compilerText</tabstop>
+  <tabstop>auditText</tabstop>
   <tabstop>approverText</tabstop>
+  <tabstop>announcerText</tabstop>
+  <tabstop>logoChooseButton</tabstop>
+  <tabstop>auditDateText</tabstop>
+  <tabstop>releaseDateText</tabstop>
   <tabstop>level1Border</tabstop>
   <tabstop>level1Font</tabstop>
   <tabstop>level1Width</tabstop>
@@ -1379,10 +1390,9 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>level4Font</tabstop>
   <tabstop>level4Width</tabstop>
   <tabstop>previewButton</tabstop>
-  <tabstop>previewPic</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>AddDep</tabstop>
   <tabstop>DeleteDep</tabstop>
-  <tabstop>departmentList</tabstop>
   <tabstop>depName</tabstop>
   <tabstop>depLevel</tabstop>
   <tabstop>depIntro</tabstop>
@@ -1430,8 +1440,14 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>duty_42</tabstop>
   <tabstop>addOrModifyDep</tabstop>
   <tabstop>cancelDep</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>saveButton</tabstop>
   <tabstop>createBotton</tabstop>
   <tabstop>cancelButton</tabstop>
+  <tabstop>previewPic</tabstop>
+  <tabstop>logoView</tabstop>
+  <tabstop>departmentList</tabstop>
+  <tabstop>Logo</tabstop>
  </tabstops>
  <resources/>
  <connections/>

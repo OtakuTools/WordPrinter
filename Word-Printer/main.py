@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow
 import json
 
-from test import Ui_MainWindow
+from MainUI import Ui_MainWindow
 from database import DB
 from generateGraph import drawGraph
 from Word_Printer import docWriter

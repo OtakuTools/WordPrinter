@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from test import Ui_MainWindow
+from MainUI import Ui_MainWindow
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate, QThread, Qt
 from PyQt5.QtGui import *
