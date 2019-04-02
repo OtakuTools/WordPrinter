@@ -87,6 +87,36 @@ class Replace:
                                 self.replaceRules(r)
                                 self.lock.release()
 
+        #服务管理职责分配表
+        table = self.document.tables[-1]
+        table_row_len = len(table.rows)
+        #s = time.time()
+        for d in self.user.departments:
+            #特殊情况
+            if d["name"] == "管理者代表":
+                continue
+            # 表头
+            column = table.add_column( Cm(1.5) )
+            cell = column.cells[0]
+            #特别情况
+            if d["name"] == "总经理":
+                cell.text = "管理层"
+            else:
+                cell.text = d["name"]
+            cell.paragraphs[0].style = "表格标记"
+            # 内容
+            # 优化替换速度，用set取代list，平均速度提高可达10%
+            funcSet = set(d["func"])
+            for i in range(1, table_row_len):
+                cell = column.cells[i]
+                if i in funcSet:
+                    cell.text = "▲"
+                else:
+                    cell.text = "△"
+                cell.paragraphs[0].style = "表格标记"
+        table.style = 'Table Theme'
+        table.autofit = True
+
     def findAndReplaceParagraphs(self):
         #正文
         for p in self.document.paragraphs:
@@ -96,14 +126,14 @@ class Replace:
                     if str(r.font.color.rgb) == 'EE0000':
                         p.clear()
                         for d in self.user.departments:
-                            p.insert_paragraph_before( d['name'] + ':' , '样式1' )
+                            p.insert_paragraph_before( d['name'] + ':' , '部门名称' )
                             for i in d['intro']:
-                                p.insert_paragraph_before( i , 'No Spacing' )
+                                p.insert_paragraph_before( i , '部门职责' )
                     # 公司简介
-                    if str(r.font.color.rgb) == 'FB0000':
+                    if str(r.font.color.rgb) == 'FD0000':
                         p.clear()
                         for intro in self.user.introduction:
-                            p.insert_paragraph_before( intro , 'Quote' )
+                            p.insert_paragraph_before( intro , '简介' )
                     # 插入图片
                     if str(r.font.color.rgb) == 'ED0000':
                         pp = p.insert_paragraph_before()
@@ -144,37 +174,8 @@ class Replace:
         for t in threadList:
             t.join()
 
-        #服务管理职责分配表
-        table = self.document.tables[-1]
-        table_row_len = len(table.rows)
-        #s = time.time()
-        for d in self.user.departments:
-            #特殊情况
-            if d["name"] == "管理者代表":
-                continue
-            # 表头
-            column = table.add_column( Cm(1.5) )
-            cell = column.cells[0]
-            #特别情况
-            if d["name"] == "总经理":
-                cell.text = "管理层"
-            else:
-                cell.text = d["name"]
-            cell.paragraphs[0].style = "Intense Quote"
-            # 内容
-            # 优化替换速度，用set取代list，平均速度提高可达10%
-            funcSet = set(d["func"])
-            for i in range(1, table_row_len):
-                cell = column.cells[i]
-                if i in funcSet:
-                    cell.text = "▲"
-                else:
-                    cell.text = "△"
-                cell.paragraphs[0].style = "Intense Quote"
         #e = time.time()
         #print(e-s)
-        table.style = 'Table Theme'
-        table.autofit = True
 
         print('成功生成 '+dst )
         return self.document
