@@ -183,7 +183,11 @@ class Controller(QMainWindow, Ui_MainWindow):
             filepath, filename = os.path.split(path)
             if not os.path.exists("./logoData"):
                 os.makedirs("./logoData")
-            shutil.copy(path, "./logoData/%s" %(filename))
+            tarDir = "./logoData/%s" %(filename)
+            try:
+                shutil.copy(path, tarDir)
+            except Exception as e:
+                self.msgDialog.showWarningDialogWithMethod("警告","发现同名文件，是否进行替换", lambda: shutil.move(path, tarDir), lambda: print("calcel"))
             image = image.scaledToHeight(self.logoView.height())
             scene = QGraphicsScene()
             scene.addPixmap(QPixmap.fromImage(image))
