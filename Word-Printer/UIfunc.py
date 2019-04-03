@@ -96,9 +96,12 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.pathSelection.autoRefresh()
 
     def initToolBar(self):
+        self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; width: 70px; }")
+        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25px !important; width: 70px !important; }")
+
         tool = self.addToolBar("设置")
         edit = QAction(QIcon(""),"数据库配置",self)
-        tool.addAction(edit) 
+        tool.addAction(edit)
         tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
@@ -183,7 +186,11 @@ class Controller(QMainWindow, Ui_MainWindow):
             filepath, filename = os.path.split(path)
             if not os.path.exists("./logoData"):
                 os.makedirs("./logoData")
-            shutil.copy(path, "./logoData/%s" %(filename))
+            tarDir = "./logoData/%s" %(filename)
+            try:
+                shutil.copy(path, tarDir)
+            except Exception as e:
+                self.msgDialog.showWarningDialogWithMethod("警告","发现同名文件，是否进行替换", lambda: shutil.move(path, tarDir), lambda: print("calcel"))
             image = image.scaledToHeight(self.logoView.height())
             scene = QGraphicsScene()
             scene.addPixmap(QPixmap.fromImage(image))

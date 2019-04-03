@@ -38,6 +38,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="replace.py" />
+    <Compile Include="StyleSheet.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UIfunc.py">
       <SubType>Code</SubType>
     </Compile>

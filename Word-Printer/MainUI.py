@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from StyleSheet import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -55,6 +56,7 @@ class Ui_MainWindow(object):
         self.cancelButton.setObjectName("cancelButton")
         self.gridLayout_3.addWidget(self.cancelButton, 0, 4, 1, 1)
         self.tabWidget_2 = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget_2.setTabBar(HorizontalTabBar())
         self.tabWidget_2.setTabPosition(QtWidgets.QTabWidget.West)
         self.tabWidget_2.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget_2.setIconSize(QtCore.QSize(16, 16))
@@ -745,7 +747,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "文档生成器v1.0"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "信息技术服务管理文件平台 v1.1"))
         self.searchButton.setText(_translate("MainWindow", "搜索"))
         self.saveButton.setText(_translate("MainWindow", "保存"))
         self.createBotton.setText(_translate("MainWindow", "文档生成"))
