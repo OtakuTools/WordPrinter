@@ -21,6 +21,8 @@ class Replace:
             r.text = self.user.fileName
         elif str(r.font.color.rgb) == 'FE0000':
             r.text = self.user.company
+        elif str(r.font.color.rgb) == 'FD0000':
+            pass#简介
         elif str(r.font.color.rgb) == 'FC0000':
             r.text = self.user.address
         elif str(r.font.color.rgb) == 'FB0000':
@@ -36,7 +38,7 @@ class Replace:
         elif str(r.font.color.rgb) == 'F60000':
             r.text = self.user.releaseDate
         elif str(r.font.color.rgb) == 'F50000':
-            r.text = self.user.auditDate
+            r.text = self.user.modifyDate.pop(0)
         elif str(r.font.color.rgb) == 'F40000':
             r.text = self.user.zip
         elif str(r.font.color.rgb) == 'F30000':
@@ -48,9 +50,9 @@ class Replace:
         elif str(r.font.color.rgb) == 'F00000':
             r.text = self.user.announcer
         elif str(r.font.color.rgb) == 'EF0000':
-            r.text = self.user.modifyDate.pop(0)
+            pass#logo
         elif str(r.font.color.rgb) == 'ED0000':
-            pass
+            pass#pic
             
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW

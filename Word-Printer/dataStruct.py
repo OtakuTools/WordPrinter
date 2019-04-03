@@ -11,33 +11,35 @@ class userInfo:
     # array of string ["",""] under 800
     introduction = []
     # string under 50
-    coverField = ""
+    coverField = ""#经营范围
     # string
-    manager = ""
+    manager = ""#总经理
     # string
-    guandai = ""
+    guandai = ""#管理者代表
     # string
-    compiler = ""
+    compiler = ""#编制人
     # string
-    approver = ""
+    approver = ""#批准人
     # string
-    audit = ""
+    audit = ""#
     # string
-    announcer = ""
-    # array of string(Date) yyyy-mm-dd ["","","",""] #auditdate是表格中的首个日期，modifydate是从首个日期生成的四个日期（分别加30天和两个加一天）
-    modifyDate = []
+    announcer = ""#发布人
     # string(Date) x年y月z日
-    releaseDate = ""
+    auditDate = "" # D1
+    # array of string(Date) yyyy-mm-dd ["","","",""] #auditdate是UI中的编制日期，modifydate是从D1到D5
+    modifyDate = [] # D1 ... D5
     # string(Date) x年y月z日
-    auditDate = ""
+    releaseDate = ""#实施日期 D6
     # string zip code
     zip = ""
     # string telphone number
     phone = ""
     # string service policy
-    policy = ""
+    policy = ""#服务方针
     # string path
     picPath = ""
+    # string path
+    logoPath = ""
     # string
     depStruct = ""
     # string
@@ -197,13 +199,13 @@ colorStyle = {
         'F80000':'compiler',
         'F70000':'approver',
         'F60000':'releaseDate',
-        'F50000':'auditDate',
+        'F50000':'modifyDate',
         'F40000':'zip',
         'F30000':'phone',
         'F20000':'policy',
         'F10000':'audit',
         'F00000':'announcer',
-        'EF0000':'modifyDate',
+        'EF0000':'logoPath',
         'EE0000':'departments',
         'ED0000':'picPath'
     }
