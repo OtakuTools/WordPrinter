@@ -4,6 +4,7 @@ from docx.enum.text import WD_COLOR_INDEX
 from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json, time, lxml, threading
+import re
 
 class Replace:
     lock = threading.RLock()
@@ -53,7 +54,8 @@ class Replace:
             pass#logo
         elif str(r.font.color.rgb) == 'ED0000':
             pass#pic
-            
+        elif str(r.font.color.rgb) == 'EC0000':
+            r.text = self.user.corporateRepresentative
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
@@ -89,6 +91,7 @@ class Replace:
                                 self.replaceRules(r)
                                 self.lock.release()
 
+    def replaceDepartmentTable(self):
         #服务管理职责分配表
         table = self.document.tables[-1]
         table_row_len = len(table.rows)
@@ -150,6 +153,16 @@ class Replace:
                         width = max(levelDict.values())
                         pp.add_run().add_picture( self.user.picPath ,height=Cm(10)) if width < 2*height else pp.add_run().add_picture( self.user.picPath ,width=Cm(16))
                         pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+                    # 插入logo
+                    if str(r.font.color.rgb) == 'EF0000':
+                        #insert logo
+                        pp = p.insert_paragraph_before()
+                        pp.add_run().add_picture( self.user.logoPath , height=Cm(4.5) )
+                        pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        #clear text
+                        p.clear()
+
                     #todo.append(r)
                     self.lock.acquire()
                     self.replaceRules(r)
@@ -170,6 +183,9 @@ class Replace:
         threadList.append(threading.Thread(target=self.findAndReplaceFootAndHead))
         threadList.append(threading.Thread(target=self.findAndReplaceTables))
         threadList.append(threading.Thread(target=self.findAndReplaceParagraphs))
+
+        if re.search( "(.*)-SM-(.*)" , src ):
+            self.replaceDepartmentTable()
 
         for t in threadList:
             t.start()

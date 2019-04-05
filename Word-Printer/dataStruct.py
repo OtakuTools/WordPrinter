@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import os
 
 class userInfo:
     # string filename
@@ -12,6 +13,8 @@ class userInfo:
     introduction = []
     # string under 50
     coverField = ""#经营范围
+    #string
+    corporateRepresentative = ""#法人代表
     # string
     manager = ""#总经理
     # string
@@ -130,6 +133,10 @@ class userInfo:
         if self.coverField == "":
             errMsg = errMsg + "经营范围：不能为空;\n"
             isValid = False
+        #法人
+        if self.corporateRepresentative == "":
+            errMsg = errMsg + "法人代表：不能为空；\n"
+            isValid = False
         if self.manager == "":
             errMsg = errMsg + "经理：不能为空;\n"
             isValid = False
@@ -178,7 +185,7 @@ class userInfo:
             isValid = False
         #邮编
         if re.compile(r"^\d{6}$").match(self.zip) == None:
-            errMsg = errMsg + "邮编：请输入合法的邮编"
+            errMsg = errMsg + "邮编：请输入合法的邮编\n"
             isValid = False
         #部门简介
         for dep in self.departments:
@@ -207,5 +214,6 @@ colorStyle = {
         'F00000':'announcer',
         'EF0000':'logoPath',
         'EE0000':'departments',
-        'ED0000':'picPath'
+        'ED0000':'picPath',
+        'EC0000':'corporateRepresentative'
     }

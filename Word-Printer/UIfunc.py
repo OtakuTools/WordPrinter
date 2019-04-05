@@ -119,6 +119,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.phoneText.textChanged.connect(lambda : self.setUser())
         self.policyText.textChanged.connect(lambda : self.setUser())
         self.introductionText.textChanged.connect(lambda : self.setUser())
+        self.corporateText.textChanged.connect( lambda : self.setUser() )
 
         self.releaseDateText.dateChanged.connect( lambda : self.setUser() )
         self.auditDateText.dateChanged.connect( lambda : self.setUser() )
@@ -181,7 +182,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         reg = "(file:///)?(.*)"
         path = re.search(reg, logoPath, re.M|re.I).group(2)
         image = QImage()
-        print(path)
+        #print(path)
         if path and path != "" and image.load(path):
             filepath, filename = os.path.split(path)
             if not os.path.exists("./logoData"):
@@ -196,6 +197,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             scene.addPixmap(QPixmap.fromImage(image))
             self.logoView.setScene(scene)
             self.logoView.show()
+            #save
+            self.user.logoPath = path
     
     def toolBtnPressed(self, qaction):
         if qaction.text() == "数据库配置":
@@ -303,6 +306,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.user.company = self.companyText.text()
         self.user.address = self.addressText.text()
         self.user.coverField = self.coverFieldText.text()
+        self.user.corporateRepresentative = self.corporateText.text()
         self.user.manager = self.managerText.text()
         self.user.guandai = self.guandaiText.text()
         self.user.compiler = self.compilerText.text()
