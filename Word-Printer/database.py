@@ -25,10 +25,6 @@ class DBSettingController(QDialog, Ui_databaseSetting):
         self.initInfo()
 
     def setConnection(self):
-        #self.dbIP.textChanged.connect(self.upgradeConnection)
-        #self.dbNAME.textChanged.connect(self.upgradeConnection)
-        #self.dbUSER.textChanged.connect(self.upgradeConnection)
-        #self.dbPSWD.textChanged.connect(self.upgradeConnection)
         self.dbbuttonBox.accepted.connect(self.save)
         self.dbbuttonBox.rejected.connect(self.cancel)
 
@@ -36,10 +32,10 @@ class DBSettingController(QDialog, Ui_databaseSetting):
         self.upgradeConnection()
         with open("dbConfig.json", "w") as f:
             json.dump(self.info, f, sort_keys=True, indent=4, separators=(',', ': '))
-        self.close()
+        self.accept()
 
     def cancel(self):
-        self.close()
+        self.reject()
 
     def initInfo(self):
         with open("dbConfig.json", "r") as f:
@@ -116,6 +112,7 @@ class DB:
                    address NVARCHAR(100) NOT NULL,
                    introduction NVARCHAR(1000) NOT NULL,
                    coverField NVARCHAR(1000) NOT NULL,
+                   corporate NVARCHAR(20) NOT NULL,
                    manager NVARCHAR(20) NOT NULL,
                    guanDai NVARCHAR(20) NOT NULL,
                    compiler NVARCHAR(20) NOT NULL,
@@ -145,25 +142,21 @@ class DB:
                    PRIMARY KEY (refId, name),
                    FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
                ) ENGINE=InnoDB, AUTO_INCREMENT = 1;
+               """,
+               """
+               CREATE TABLE IF NOT EXISTS logoStore( 
+                   refId NVARCHAR(100) NOT NULL,
+                   photo MEDIUMBLOB,
+                   PRIMARY KEY (refId),
+                   FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
+               ) ENGINE=InnoDB;
                """]
         try:
-            ptr.execute(sql[0])
+            for sentence in sql:
+                ptr.execute(sentence)
         except Exception as e:
-            #print(e)
             self.dbException = str(e)
             self.db.rollback()
-        else:
-            #print("SUCCESS: Create table -> info")
-            pass
-        try:
-            ptr.execute(sql[1])
-        except Exception as e:
-            #print(e)
-            self.dbException = str(e)
-            self.db.rollback()
-        else:
-            #print("SUCCESS: Create table -> department")
-            pass
 
     def searchWithKeyword(self):
         try:
@@ -203,20 +196,21 @@ class DB:
                 info.address = row[2]
                 info.introduction = row[3].split("#")
                 info.coverField = row[4]
-                info.manager = row[5]
-                info.guandai = row[6]
-                info.compiler = row[7]
-                info.approver = row[8]
-                info.audit = row[9]
-                info.announcer = row[10]
-                info.releaseDate = row[11]
-                info.auditDate = row[12]
-                info.zip = row[13]
-                info.phone = row[14]
-                info.policy = row[15]
-                info.picPath = row[16]
-                info.depStruct = row[17]
-                info.color = row[18]
+                info.corporateRepresentative = row[5]
+                info.manager = row[6]
+                info.guandai = row[7]
+                info.compiler = row[8]
+                info.approver = row[9]
+                info.audit = row[10]
+                info.announcer = row[11]
+                info.releaseDate = row[12]
+                info.auditDate = row[13]
+                info.zip = row[14]
+                info.phone = row[15]
+                info.policy = row[16]
+                info.picPath = row[17]
+                info.depStruct = row[18]
+                info.color = row[19]
         except Exception as e:
             print("Search Info Error:",e)
             self.dbException = str(e)
@@ -247,6 +241,7 @@ class DB:
         data.company = data.company.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.address = data.address.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.coverField = data.coverField.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
+        data.corporateRepresentative = data.corporateRepresentative.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.manager = data.manager.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.guandai = data.guandai.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.compiler = data.compiler.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
@@ -266,6 +261,7 @@ class DB:
                     address,
                     introduction,
                     coverField,
+                    corporate,
                     manager,
                     guanDai,
                     compiler,
@@ -283,9 +279,10 @@ class DB:
                 )VALUES('%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
-                        '%s', '%s', '%s', '%s');
+                        '%s', '%s', '%s', '%s', '%s');
                 """ % (data.fileName, data.company, data.address,
-                       "#".join(data.introduction).replace('\\','\\\\').replace("'","\\'").replace('"','\\"'), data.coverField, data.manager,
+                       "#".join(data.introduction).replace('\\','\\\\').replace("'","\\'").replace('"','\\"'), 
+                       data.coverField, data.corporateRepresentative, data.manager,
                        data.guandai, data.compiler, data.approver,
                        data.audit, data.announcer, data.releaseDate, 
                        data.auditDate, data.zip, data.phone, data.policy,

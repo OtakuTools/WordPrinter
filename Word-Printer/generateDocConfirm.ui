@@ -25,18 +25,23 @@
    <attribute name="headerVisible">
     <bool>false</bool>
    </attribute>
+   <column>
+    <property name="text">
+     <string notr="true">1</string>
+    </property>
+   </column>
   </widget>
-  <widget class="QPushButton" name="DocConfirmButton">
+  <widget class="QDialogButtonBox" name="confirmBox">
    <property name="geometry">
     <rect>
-     <x>630</x>
+     <x>550</x>
      <y>350</y>
-     <width>75</width>
+     <width>156</width>
      <height>23</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Confirm</string>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
  </widget>

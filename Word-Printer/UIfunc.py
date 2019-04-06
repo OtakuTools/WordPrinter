@@ -202,17 +202,17 @@ class Controller(QMainWindow, Ui_MainWindow):
     
     def toolBtnPressed(self, qaction):
         if qaction.text() == "数据库配置":
-            self.resetDB()
-            if not self.db.checkConnection():
-                self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
-            else:
-                self.msgDialog.showInformationDialog("提示", "数据库配置更改成功！")
+            if self.resetDB():
+                self.db.refreshConnection()
+                if self.db.checkConnection():
+                    self.msgDialog.showInformationDialog("提示", "数据库配置更改成功！")
+                else:
+                    self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
 
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
         dbSettingCtrl.show()
-        dbSettingCtrl.exec_()
-        self.db.refreshConnection()
+        return dbSettingCtrl.exec_() == QDialog.Accepted
 
     def setGraphColor(self, tar, pos, option): 
         col = QColorDialog.getColor() 
@@ -260,6 +260,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.companyText.setText(user.company)
         self.addressText.setText(user.address)
         self.coverFieldText.setText(user.coverField)
+        self.corporateText.setText(user.corporateRepresentative)
         self.managerText.setText(user.manager)
         self.guandaiText.setText(user.guandai)
         self.compilerText.setText(user.compiler)
@@ -432,46 +433,35 @@ class Controller(QMainWindow, Ui_MainWindow):
     def generateDoc(self):
         genDocCtrl = WriteDocController(self.user.fileName)
         genDocCtrl.show()
-        genDocCtrl.exec_()
-        
-        validMsg = self.user.validChecker()
-        if validMsg[0]:
-            self.refreshDatabase()
-            self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！请点击“OK”开始生成。")
-            progress = QProgressDialog(self)
-            progress.setWindowTitle("请稍等")  
-            progress.setLabelText("正在生成...")
-            progress.setCancelButtonText("取消")
-            progress.setWindowModality(Qt.WindowModal);
-            progress.setRange(0,100)
-            progress.setMinimumDuration(2000)
-            progress.setValue(0)
+        if genDocCtrl.exec_() == QDialog.Accepted:
+            validMsg = self.user.validChecker()
+            if validMsg[0]:
+                self.refreshDatabase()
+                self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！请点击“OK”开始生成。")
+                progress = QProgressDialog(self)
+                progress.setWindowTitle("请稍等")  
+                progress.setLabelText("正在生成...")
+                progress.setCancelButtonText("取消")
+                progress.setWindowModality(Qt.WindowModal);
+                progress.setRange(0,100)
+                progress.setMinimumDuration(2000)
+                progress.setValue(0)
 
-            files = genDocCtrl.getAllSelectedFile()
-            total = len(files)
-            count = 0
+                files = genDocCtrl.getAllSelectedFile()
+                total = len(files)
+                count = 0
             
-            for file in files:
-                # 线程优化
-                count += 1
-                wrt_thread = WrtDocThread(self.user, self.pathSelection.getFilePath(file), self.graphStyle, self.pathSelection.getFilePath(file,self.user.fileName))
-                wrt_thread.start()
-                wrt_thread.wait()
-                progress.setValue(int((float(count) / total) * 100))
-            '''
-            for i in range(31):
-                progress.setValue(i)
-                time.sleep(0.03)
-            '''
-            '''
-            for i in range(31,101):
-                progress.setValue(i)
-                time.sleep(0.05)
-            '''
-            progress.setValue(100)
-            self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
-        else:
-            self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
+                for file in files:
+                    # 线程优化
+                    count += 1
+                    wrt_thread = WrtDocThread(self.user, self.pathSelection.getFilePath(file), self.graphStyle, self.pathSelection.getFilePath(file,self.user.fileName))
+                    wrt_thread.start()
+                    wrt_thread.wait()
+                    progress.setValue(int((float(count) / total) * 100))
+                progress.setValue(100)
+                self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
+            else:
+                self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
 
     def saveInfoButNotGen(self):
         self.refreshDatabase()

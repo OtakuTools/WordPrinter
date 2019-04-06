@@ -15,10 +15,12 @@ class Ui_GenerateDocConfirm(object):
         self.showSamples = QtWidgets.QTreeWidget(GenerateDocConfirm)
         self.showSamples.setGeometry(QtCore.QRect(30, 20, 671, 321))
         self.showSamples.setObjectName("showSamples")
+        self.showSamples.headerItem().setText(0, "1")
         self.showSamples.header().setVisible(False)
-        self.DocConfirmButton = QtWidgets.QPushButton(GenerateDocConfirm)
-        self.DocConfirmButton.setGeometry(QtCore.QRect(630, 350, 75, 23))
-        self.DocConfirmButton.setObjectName("DocConfirmButton")
+        self.confirmBox = QtWidgets.QDialogButtonBox(GenerateDocConfirm)
+        self.confirmBox.setGeometry(QtCore.QRect(550, 350, 156, 23))
+        self.confirmBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.confirmBox.setObjectName("confirmBox")
 
         self.retranslateUi(GenerateDocConfirm)
         QtCore.QMetaObject.connectSlotsByName(GenerateDocConfirm)
@@ -26,5 +28,4 @@ class Ui_GenerateDocConfirm(object):
     def retranslateUi(self, GenerateDocConfirm):
         _translate = QtCore.QCoreApplication.translate
         GenerateDocConfirm.setWindowTitle(_translate("GenerateDocConfirm", "生成文档选择"))
-        self.DocConfirmButton.setText(_translate("GenerateDocConfirm", "Confirm"))
 

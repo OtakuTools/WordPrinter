@@ -30,12 +30,16 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
         self.setupSample(fileName)
 
     def setConnect(self):
-        self.DocConfirmButton.clicked.connect(lambda: self.closeWindow())
+        self.confirmBox.accepted.connect(lambda: self.confirm())
+        self.confirmBox.rejected.connect(lambda: self.cancel())
         self.showSamples.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.showSamples.itemChanged.connect(self.handleChanged)
 
-    def closeWindow(self):
-        self.close()
+    def confirm(self):
+        self.accept()
+
+    def cancel(self):
+        self.reject()
 
     def setupSample(self, fileName):
         level = self.pathSelector.getLevelDir()
