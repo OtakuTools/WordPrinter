@@ -146,7 +146,8 @@ class DB:
                """
                CREATE TABLE IF NOT EXISTS logoStore( 
                    refId NVARCHAR(100) NOT NULL,
-                   photo MEDIUMBLOB,
+                   logopath NVARCHAR(200),
+                   photo MEDIUMBLOB DEFAULT NULL,
                    PRIMARY KEY (refId),
                    FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
                ) ENGINE=InnoDB;
@@ -185,6 +186,11 @@ class DB:
                FROM department
                WHERE refId = '%s'
                ORDER BY seq;
+               """ % (id)
+        sql2 = """
+               SELECT logopath
+               FROM logoStore
+               WHERE refId = '%s';
                """ % (id)
         info = userInfo();
         try:
@@ -228,6 +234,14 @@ class DB:
                 info.departments.append(dep)
         except Exception as e:
             print("Search Department Error:", e)
+            self.dbException = str(e)
+        try:
+            ptr.execute(sql2)
+            results = ptr.fetchall()
+            for row in results:
+                info.logoPath = row[0]
+        except Exception as e:
+            print("Search Logo Error:", e)
             self.dbException = str(e)
         return info
 
@@ -295,6 +309,15 @@ class DB:
            print(e)
            self.dbException = str(e)
            return False
+
+        try:
+            ptr.execute("INSERT INTO logoStore(refId,logopath) VALUES('%s','%s');" % (data.company, data.logoPath))
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            print(e)
+            self.dbException = str(e)
+            return False
 
         for department in data.departments:
             

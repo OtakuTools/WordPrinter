@@ -187,7 +187,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             filepath, filename = os.path.split(path)
             if not os.path.exists("./logoData"):
                 os.makedirs("./logoData")
-            tarDir = "./logoData/%s" %(filename)
+            tarDir = "./logoData/%s_%s" %(self.user.company, filename)
             try:
                 shutil.copy(path, tarDir)
             except Exception as e:
@@ -198,7 +198,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.logoView.setScene(scene)
             self.logoView.show()
             #save
-            self.user.logoPath = path
+            self.user.logoPath = tarDir
     
     def toolBtnPressed(self, qaction):
         if qaction.text() == "数据库配置":
@@ -270,6 +270,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.zipText.setText(user.zip)
         self.phoneText.setText(user.phone)
         self.policyText.setText(user.policy)
+        self.Logo.setPlainText(user.logoPath)
         #
         dateReg = re.compile(r"^(?P<year>\d{4})[\u4e00-\u9fa5](?P<month>\d{2})[\u4e00-\u9fa5](?P<day>\d{2})[\u4e00-\u9fa5]$")
         date = dateReg.match(user.releaseDate)
