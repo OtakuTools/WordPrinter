@@ -5,6 +5,7 @@ from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json, time, lxml, threading
 import re
+from getTime import getTime
 
 class Replace:
     lock = threading.RLock()
@@ -170,6 +171,7 @@ class Replace:
 
     def run(self, src , dst , user):
         self.document = Document(src)
+        user = getTime(user)
         self.user = user
         #todo = []
 
