@@ -93,7 +93,7 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def init_Samples(self):
         self.pathSelection = pathSelection()
-        self.pathSelection.autoRefresh()
+        #self.pathSelection.autoRefresh()
 
     def initToolBar(self):
         self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; width: 70px; }")
@@ -187,7 +187,9 @@ class Controller(QMainWindow, Ui_MainWindow):
             filepath, filename = os.path.split(path)
             if not os.path.exists("./logoData"):
                 os.makedirs("./logoData")
-            tarDir = "./logoData/%s_%s" %(self.user.company, filename)
+            tarDir = "./logoData/" + filename
+            if not os.path.exists(tarDir):
+                tarDir = "./logoData/%s_%s" %(self.user.company, filename)
             try:
                 shutil.copy(path, tarDir)
             except Exception as e:

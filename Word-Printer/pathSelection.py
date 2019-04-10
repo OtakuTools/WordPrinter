@@ -8,7 +8,7 @@ class pathSelection:
     levelDir = {}
 
     def __init__(self):
-        pass
+        self.autoRefresh()
     
     def __del__(self):
         pass
@@ -19,12 +19,18 @@ class pathSelection:
     def getLevelDir(self):
         return self.levelDir
 
+    def reset(self):
+        self.samples = {}
+        self.logos = {}
+        self.levelDir = {}
+
     def addPath(self, path):
         if os.path.exists(path) and path not in sampleDir:
             self.sampleDir.append(path)
             self.autoRefresh()
 
     def autoRefresh(self):
+        self.reset()
         for sdir in self.sampleDir:
             if os.path.exists(sdir):
                 self.searchAllSamples(sdir)
