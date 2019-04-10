@@ -102,7 +102,7 @@ class Replace:
             if d["name"] == "管理者代表":
                 continue
             # 表头
-            column = table.add_column( Cm(1.5) )
+            column = table.add_column( Cm(3) )
             cell = column.cells[0]
             #特别情况
             if d["name"] == "总经理":
