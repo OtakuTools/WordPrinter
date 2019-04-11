@@ -36,7 +36,8 @@ class drawGraph:
     saveDir = "./picture_save/"
 
     def __init__(self):
-        pass
+        if not os.path.exists(self.saveDir):
+            os.makedirs(self.saveDir)
 
     def __del__(self):
         pass
