@@ -96,8 +96,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         #self.pathSelection.autoRefresh()
 
     def initToolBar(self):
-        self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; width: 70px; }")
-        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25px !important; width: 70px !important; }")
+        self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; min-width: 70px; }")
+        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25px !important; min-width: 70px !important; }")
 
         tool = self.addToolBar("设置")
         edit = QAction(QIcon(""),"数据库配置",self)
