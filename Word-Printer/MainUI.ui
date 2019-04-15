@@ -124,7 +124,7 @@
             <string>公司信息</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_7">
-            <item row="3" column="2">
+            <item row="4" column="2">
              <widget class="QGroupBox" name="groupBox_3">
               <property name="title">
                <string>部门结构图</string>
@@ -633,7 +633,7 @@ gridline-color:rgb(0, 0, 0);</string>
               </layout>
              </widget>
             </item>
-            <item row="1" column="2">
+            <item row="2" column="2">
              <widget class="QGroupBox" name="groupBox_7">
               <property name="title">
                <string>公司图标</string>
@@ -708,7 +708,7 @@ gridline-color:rgb(0, 0, 0);</string>
               </layout>
              </widget>
             </item>
-            <item row="0" column="1" rowspan="4">
+            <item row="0" column="1" rowspan="5">
              <widget class="QGroupBox" name="basicInfo">
               <property name="title">
                <string>公司基础信息</string>
@@ -801,7 +801,7 @@ gridline-color:rgb(0, 0, 0);</string>
               </layout>
              </widget>
             </item>
-            <item row="2" column="2">
+            <item row="1" column="2">
              <widget class="QGroupBox" name="groupBox_6">
               <property name="title">
                <string>文档日期输入</string>
@@ -1304,6 +1304,29 @@ gridline-color:rgb(0, 0, 0);</string>
        <attribute name="title">
         <string>二层文件</string>
        </attribute>
+       <layout class="QGridLayout" name="gridLayout_15">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="level2">
+          <property name="title">
+           <string>二层文件列表</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_14">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="level2_fileList">
+             <attribute name="headerVisible">
+              <bool>false</bool>
+             </attribute>
+             <column>
+              <property name="text">
+               <string notr="true">1</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">

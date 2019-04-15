@@ -2,7 +2,7 @@ from MainUI import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
 from databaseSetting import Ui_databaseSetting
 from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
-from PyQt5.QtCore import QDate, QThread, Qt
+from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import json, time, re, os, shutil
 import threading
@@ -18,6 +18,8 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     sampleDir = "./samples/"
     
+    currentSelectedFile = set()
+
     graphStyle = [{ 'nodes': {
                         'fontname': 'KaiTi',
                         'shape': 'box',
@@ -79,7 +81,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         #database
         self.db = DB()
         if not self.db.checkConnection():
-            self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
+            self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" 
+                                           + self.db.dbException 
+                                           + "\n您做的任何变动将无法存入数据库!" )
 
         # search content completer
         self.getCompanyInfo()
@@ -90,21 +94,28 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.refreshDepartmentList()
         if self.user.color == "":
             self.user.color = json.dumps(self.graphStyle)
+        self.setupLevel2FileList()
 
     def init_Samples(self):
-        self.pathSelection = pathSelection()
-        #self.pathSelection.autoRefresh()
+        self.pathSelector = pathSelection()
+        #self.pathSelector.autoRefresh()
 
     def initToolBar(self):
         self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; min-width: 70px; }")
         self.tabWidget.setStyleSheet("QTabBar::tab { height: 25px !important; min-width: 70px !important; }")
 
         tool = self.addToolBar("设置")
-        edit = QAction(QIcon(""),"数据库配置",self)
-        tool.addAction(edit)
+        edit0 = QAction(QIcon(""),"数据库配置",self)
+        tool.addAction(edit0)
+        edit1 = QAction(QIcon(""),"更新模板文件",self)
+        tool.addAction(edit1)
         tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
+        self.Page_level1_ConnectText()
+        self.Page_level2_ConnectText()
+
+    def Page_level1_ConnectText(self):
         self.fileNameText.textChanged.connect(lambda : self.setUser())
         self.companyText.textChanged.connect(lambda : self.setUser())
         self.addressText.textChanged.connect(lambda : self.setUser())
@@ -132,8 +143,12 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.level3Width.valueChanged.connect(lambda: self.setLineWidth(self.level3Width, 2))
         self.level4Width.valueChanged.connect(lambda: self.setLineWidth(self.level4Width, 3))
 
-    def connectButton(self):
+    def Page_level2_ConnectText(self):
+        self.level2_fileList.setAnimated(True)
+        self.level2_fileList.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.level2_fileList.itemChanged.connect(self.level2FileChangeHandler)
 
+    def connectButton(self):
         #deStructBorderColor
         self.level1Border.clicked.connect(lambda: self.setGraphColor(self.level1Border, 0, "fillcolor"))
         self.level2Border.clicked.connect(lambda: self.setGraphColor(self.level2Border, 1, "fillcolor"))
@@ -166,10 +181,12 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 
     def connectList(self):
-        self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))#可能没选中，故用getattr确认
+        #可能没选中，故用getattr确认
+        self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
         # button
         self.AddDep.clicked.connect( lambda: self.addDepartment() )
-        self.DeleteDep.clicked.connect( lambda: self.removeDepartment( getattr( self.departmentList.currentItem(),'text',str)() ) )#可能没选中，故用getattr确认
+        #可能没选中，故用getattr确认
+        self.DeleteDep.clicked.connect( lambda: self.removeDepartment( getattr( self.departmentList.currentItem(),'text',str)() ) )
         self.cancelDep.clicked.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
         self.addOrModifyDep.clicked.connect( lambda: self.setDepartments(getattr( self.departmentList.currentItem(),'text',str)() ) )
 
@@ -209,7 +226,11 @@ class Controller(QMainWindow, Ui_MainWindow):
                 if self.db.checkConnection():
                     self.msgDialog.showInformationDialog("提示", "数据库配置更改成功！")
                 else:
-                    self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
+                    self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" 
+                                                   + self.db.dbException 
+                                                   + "\n您做的任何变动将无法存入数据库!" )
+        elif qaction.text() == "更新模板文件":
+            self.updateLevel2FileList()
 
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
@@ -242,7 +263,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         try:
             user = self.db.searchById(searchContent)
         except Exception as e:
-            self.msgDialog.showErrorDialog("数据库错误","数据库发生错误！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!" )
+            self.msgDialog.showErrorDialog("数据库错误","数据库发生错误！\n异常信息为：" 
+                                           + self.db.dbException 
+                                           + "\n您做的任何变动将无法存入数据库!" )
         else:
             if user.company != "":
                 self.setInput(user)
@@ -384,27 +407,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.user.departments.append({"name":departmentName})
         c = self.departmentList.count()
         self.departmentList.setCurrentItem(self.departmentList.item(c-1))
-        '''
-        self.user.departments.append({"name":departmentName,"level":1,"intro":[
-          "负责公司的整体软件开发核心技术，组织制定和实施重大技术决策和技术方案；",
-          "指导、审核、制定、开发软件项目，对各项结果做最终质量评估、归档；",
-          "设计、开发、维护、管理软件项目及软件产品。",
-          "完善部门发展规划，组织审定部门各项技术标准，编制完善软件开发流程；",
-          "完善与其他部门的沟通与协作；",
-          "协助参与公司项目的招投标软件接口等资料的编写和策划；",
-          "制定技术方案，根据项目类型提成准确的需求，制定项目进度计划表，负责验收工作；",
-          "填写测试报告，编写相关操作手册文档；",
-          "关注最新技术动态，组织内部技术交流与技术传递。",
-          "负责公司内外部软件开发项目的需求调查、方案制定、软件编程、成果申报等组织实施工作;",
-          "负责对自行开发、合作开发以及外购软件的安装、测试、培训、系统维护和售后服务等工作。",
-          "负责与开发部配合根据需求说明书制订《项目测试方案》，编写《测试用例》，建立测试环境；",
-          "负责软件产品开发过程和投入运营之前的新增软件和修改升级软件的模块测试和系统测试；",
-          "负责软件问题解决过程跟踪记录。",
-          "负责对软件行业信息的收集、整理、研究及利用;",
-          "负责自主开发软件产品的销售及售前技术支持;",
-          "负责推广实施软件开发文档规范化工作，管理研发产品相关文档。"
-        ],"func":[1,5,42]})
-        '''
 
     def showDepartmentDetail(self,departmentName):
         if departmentName == "":
@@ -434,10 +436,13 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setDepStruct()
 
     def generateDoc(self):
-        genDocCtrl = WriteDocController(self.user.fileName)
+        genDocCtrl = WriteDocController(self.user.fileName, self.currentSelectedFile)
         genDocCtrl.show()
         if genDocCtrl.exec_() == QDialog.Accepted:
             validMsg = self.user.validChecker()
+            files = genDocCtrl.getAllSelectedFile()
+            self.currentSelectedFile = genDocCtrl.getAllSelectedFile()
+            self.updateLevel2FileList()
             if validMsg[0]:
                 self.refreshDatabase()
                 self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！请点击“OK”开始生成。")
@@ -450,14 +455,13 @@ class Controller(QMainWindow, Ui_MainWindow):
                 progress.setMinimumDuration(2000)
                 progress.setValue(0)
 
-                files = genDocCtrl.getAllSelectedFile()
                 total = len(files)
                 count = 0
             
                 for file in files:
                     # 线程优化
                     count += 1
-                    wrt_thread = WrtDocThread(self.user, self.pathSelection.getFilePath(file), self.graphStyle, self.pathSelection.getFilePath(file,self.user.fileName))
+                    wrt_thread = WrtDocThread(self.user, self.pathSelector.getFilePath(file), self.graphStyle, self.pathSelector.getFilePath(file,self.user.fileName))
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
@@ -475,9 +479,11 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.db.delete("info", self.user.company)
             self.db.insertData(self.user)
         except Exception as e:
-            print(e)
-            self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！\n异常信息为：" + self.db.dbException + "\n您做的任何变动将无法存入数据库!")
             #print("更新数据库失败")
+            print(e)
+            self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！\n异常信息为：" 
+                                           + self.db.dbException 
+                                           + "\n您做的任何变动将无法存入数据库!")
         else:
             #print("更新数据库成功")
             self.getCompanyInfo()
@@ -528,3 +534,60 @@ class Controller(QMainWindow, Ui_MainWindow):
         for d in self.user.departments:
             self.departmentList.addItem(d["name"])
             self.setDepStruct()
+
+    # level 2 file list
+    def getLevelFiles(self, LEVEL_NAME):
+        self.pathSelector.autoRefresh()
+        level = self.pathSelector.getLevelDir()
+        tree = {}
+        for key,value in level.items():
+            if value in tree:
+                tree[value].append(key)
+            else:
+                tree[value] = [key]
+
+        for key in list(tree.keys()):
+            if key != LEVEL_NAME:
+                tree.pop(key)
+        return tree
+
+    def setupLevel2FileList(self):
+        self.level2_fileList.takeTopLevelItem(0)
+        root = QTreeWidgetItem(self.level2_fileList)
+        root.setText(0, '二层文件模板目录')  # 设置根节点的名称
+        self.level2_fileList.addTopLevelItem(root)
+        self.level2_fileList.reset()
+
+        temp = self.currentSelectedFile
+        self.currentSelectedFile = set()
+
+        tree = self.getLevelFiles("Level2")
+
+        for key, value in tree.items():
+            for val in value:
+                child = QTreeWidgetItem(root)
+                child.setText(0, os.path.split(self.pathSelector.getFilePath(val, self.user.fileName, False))[1])
+                if val in temp:
+                    child.setCheckState(0, Qt.Checked)
+                else:
+                    child.setCheckState(0, Qt.Unchecked)
+        self.level2_fileList.sortItems(0, Qt.AscendingOrder)
+        self.level2_fileList.expandAll()
+
+    def updateLevel2FileList(self):
+        self.setupLevel2FileList()
+
+    def getLable(self, name):
+        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
+        prefix = re.search(reg, name, re.M|re.I)
+        label = []
+        if(prefix):
+            label = prefix.group(1).split("-")
+            label = label[-3:len(label)]
+        return "-".join(label)
+
+    def level2FileChangeHandler(self, item, column):
+        if item.checkState(column) == Qt.Checked:
+            self.currentSelectedFile.add(self.getLable(item.text(column)))
+        elif item.checkState(column) == Qt.Unchecked:
+            self.currentSelectedFile.discard(self.getLable(item.text(column)))

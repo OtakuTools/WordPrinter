@@ -20,14 +20,14 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
 
     selectedItem = set()
 
-    def __init__(self, fileName):
+    def __init__(self, fileName, selectedFile = None):
         QDialog.__init__(self)
         Ui_GenerateDocConfirm.__init__(self)
         self.setupUi(self)
         self.setConnect()
         self.pathSelector = pathSelection()
 
-        self.setupSample(fileName)
+        self.setupSample(fileName, selectedFile)
 
     def setConnect(self):
         self.confirmBox.accepted.connect(lambda: self.confirm())
@@ -41,7 +41,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
     def cancel(self):
         self.reject()
 
-    def setupSample(self, fileName):
+    def setupSample(self, fileName, selectedFile):
         level = self.pathSelector.getLevelDir()
         tree = {}
         for key,value in level.items():
@@ -49,7 +49,8 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
                 tree[value].append(key)
             else:
                 tree[value] = [key]
-        
+
+        self.showSamples.setAnimated(True)
         root = QTreeWidgetItem(self.showSamples)
         root.setText(0, '模板目录')  # 设置根节点的名称
         self.showSamples.addTopLevelItem(root)
@@ -57,11 +58,14 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
         for key,value in tree.items():
             child = QTreeWidgetItem(root)
             child.setText(0, self.translate[key])
-            #child.setCheckState(0, Qt.Checked);
             for val in value:
                 subchild = QTreeWidgetItem(child)
                 subchild.setText(0, os.path.split(self.pathSelector.getFilePath(val, fileName, False))[1])
-                subchild.setCheckState(0, Qt.Unchecked);
+                if val in selectedFile:
+                    subchild.setCheckState(0, Qt.Checked)
+                else:
+                    subchild.setCheckState(0, Qt.Unchecked)
+        self.showSamples.expandAll()
     
     def handleChanged(self, item, column):
         reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
