@@ -270,6 +270,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             if user.company != "":
                 self.setInput(user)
             self.searchContent.setText("")
+            self.currentSelectedFile = set()
+            self.updateLevel2FileList()
 
     def setInput(self, user):
         #clear
