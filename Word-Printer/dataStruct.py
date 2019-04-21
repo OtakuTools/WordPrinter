@@ -328,24 +328,25 @@ class userInfo:
 
 
 colorStyle = {
-        'FF0000':'fileName',
-        'FE0000':'company',
-        'FD0000':'introduction',
-        'FC0000':'address',
-        'FB0000':'coverField',
-        'FA0000':'manager',
-        'F90000':'guandai',
-        'F80000':'compiler',
-        'F70000':'approver',
-        'F60000':'releaseDate',
-        'F50000':'modifyDate',
-        'F40000':'zip',
-        'F30000':'phone',
-        'F20000':'policy',
-        'F10000':'audit',
-        'F00000':'announcer',
-        'EF0000':'logoPath',
-        'EE0000':'departments',
-        'ED0000':'picPath',
-        'EC0000':'corporateRepresentative'
+        #RGB(Hex):key           #RGB(Dem)
+        'FF0000':'fileName',    #(255,0,0)
+        'FE0000':'company',     #(254,0,0)
+        'FD0000':'introduction',#(253,0,0)
+        'FC0000':'address',     #(252,0,0)
+        'FB0000':'coverField',  #(251,0,0)
+        'FA0000':'manager',     #(250,0,0)
+        'F90000':'guandai',     #(249,0,0)
+        'F80000':'compiler',    #(248,0,0)
+        'F70000':'approver',    #(247,0,0)
+        'F60000':'releaseDate', #(246,0,0)
+        'F50000':'modifyDate',  #(245,0,0)
+        'F40000':'zip',         #(244,0,0)
+        'F30000':'phone',       #(243,0,0)
+        'F20000':'policy',      #(242,0,0)
+        'F10000':'audit',       #(241,0,0)
+        'F00000':'announcer',   #(240,0,0)
+        'EF0000':'logoPath',    #(239,0,0)
+        'EE0000':'departments', #(238,0,0)
+        'ED0000':'picPath',     #(237,0,0)
+        'EC0000':'corporateRepresentative' #(236,0,0)
     }
