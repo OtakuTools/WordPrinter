@@ -19,6 +19,7 @@ class Controller(QMainWindow, Ui_MainWindow):
     sampleDir = "./samples/"
     
     currentSelectedFile = set()
+    currentSelectedFile_temp = set()
 
     graphStyle = [{ 'nodes': {
                         'fontname': 'KaiTi',
@@ -94,7 +95,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.refreshDepartmentList()
         if self.user.color == "":
             self.user.color = json.dumps(self.graphStyle)
-        self.setupLevel2FileList()
+        self.setupLevelFileList()
 
     def init_Samples(self):
         self.pathSelector = pathSelection()
@@ -114,6 +115,7 @@ class Controller(QMainWindow, Ui_MainWindow):
     def connectText(self):
         self.Page_level1_ConnectText()
         self.Page_level2_ConnectText()
+        self.Page_level3_ConnectText()
 
     def Page_level1_ConnectText(self):
         self.fileNameText.textChanged.connect(lambda : self.setUser())
@@ -147,6 +149,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.level2_fileList.setAnimated(True)
         self.level2_fileList.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.level2_fileList.itemChanged.connect(self.level2FileChangeHandler)
+
+    def Page_level3_ConnectText(self):
+        self.level3_fileList.setAnimated(True)
+        self.level3_fileList.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.level3_fileList.itemChanged.connect(self.level3FileChangeHandler)
 
     def connectButton(self):
         #deStructBorderColor
@@ -231,7 +238,7 @@ class Controller(QMainWindow, Ui_MainWindow):
                                                    + self.db.dbException 
                                                    + "\n您做的任何变动将无法存入数据库!" )
         elif qaction.text() == "更新模板文件":
-            self.updateLevel2FileList()
+            self.updateLevelFileList()
 
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
@@ -272,7 +279,7 @@ class Controller(QMainWindow, Ui_MainWindow):
                 self.setInput(user)
             self.searchContent.setText("")
             self.currentSelectedFile = set()
-            self.updateLevel2FileList()
+            self.updateLevelFileList()
 
     def setInput(self, user):
         #clear
@@ -445,10 +452,10 @@ class Controller(QMainWindow, Ui_MainWindow):
             validMsg = self.user.validChecker()
             files = genDocCtrl.getAllSelectedFile()
             self.currentSelectedFile = genDocCtrl.getAllSelectedFile()
-            self.updateLevel2FileList()
+            self.updateLevelFileList()
             if validMsg[0]:
                 self.refreshDatabase()
-                self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！请点击“OK”开始生成。")
+                self.msgDialog.showInformationDialog("生成信息", "文档已准备就绪！共有%d份文档，请点击“OK”开始生成。" % len(files))
                 progress = QProgressDialog(self)
                 progress.setWindowTitle("请稍等")  
                 progress.setLabelText("正在生成...")
@@ -538,7 +545,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.departmentList.addItem(d["name"])
             self.setDepStruct()
 
-    # level 2 file list
+    # level 2 / 3 file list
     def getLevelFiles(self, LEVEL_NAME):
         self.pathSelector.autoRefresh()
         level = self.pathSelector.getLevelDir()
@@ -554,31 +561,34 @@ class Controller(QMainWindow, Ui_MainWindow):
                 tree.pop(key)
         return tree
 
-    def setupLevel2FileList(self):
-        self.level2_fileList.takeTopLevelItem(0)
-        root = QTreeWidgetItem(self.level2_fileList)
-        root.setText(0, '二层文件模板目录')  # 设置根节点的名称
-        self.level2_fileList.addTopLevelItem(root)
-        self.level2_fileList.reset()
-
-        temp = self.currentSelectedFile
+    def setupLevelFileList(self):
+        self.currentSelectedFile_temp = self.currentSelectedFile
         self.currentSelectedFile = set()
+        self.setupLevelFileList_level(self.level2_fileList, "Level2", '二层文件模板目录')
+        self.setupLevelFileList_level(self.level3_fileList, "Level3", '三层文件模板目录')
 
-        tree = self.getLevelFiles("Level2")
+    def setupLevelFileList_level(self, fileList_item, levelstr, rootname):
+        fileList_item.takeTopLevelItem(0)
+        root = QTreeWidgetItem(fileList_item)
+        root.setText(0,  rootname) # 设置根节点的名称
+        fileList_item.addTopLevelItem(root)
+        fileList_item.reset()
+
+        tree = self.getLevelFiles(levelstr)
 
         for key, value in tree.items():
             for val in value:
                 child = QTreeWidgetItem(root)
                 child.setText(0, os.path.split(self.pathSelector.getFilePath(val, self.user.fileName, False))[1])
-                if val in temp:
+                if val in self.currentSelectedFile_temp:
                     child.setCheckState(0, Qt.Checked)
                 else:
                     child.setCheckState(0, Qt.Unchecked)
-        self.level2_fileList.sortItems(0, Qt.AscendingOrder)
-        self.level2_fileList.expandAll()
+        fileList_item.sortItems(0, Qt.AscendingOrder)
+        fileList_item.expandAll()
 
-    def updateLevel2FileList(self):
-        self.setupLevel2FileList()
+    def updateLevelFileList(self):
+        self.setupLevelFileList()
 
     def getLable(self, name):
         reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
@@ -590,6 +600,12 @@ class Controller(QMainWindow, Ui_MainWindow):
         return "-".join(label)
 
     def level2FileChangeHandler(self, item, column):
+        if item.checkState(column) == Qt.Checked:
+            self.currentSelectedFile.add(self.getLable(item.text(column)))
+        elif item.checkState(column) == Qt.Unchecked:
+            self.currentSelectedFile.discard(self.getLable(item.text(column)))
+
+    def level3FileChangeHandler(self, item, column):
         if item.checkState(column) == Qt.Checked:
             self.currentSelectedFile.add(self.getLable(item.text(column)))
         elif item.checkState(column) == Qt.Unchecked:
