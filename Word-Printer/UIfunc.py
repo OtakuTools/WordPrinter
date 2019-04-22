@@ -225,6 +225,7 @@ class Controller(QMainWindow, Ui_MainWindow):
                 self.db.refreshConnection()
                 if self.db.checkConnection():
                     self.msgDialog.showInformationDialog("提示", "数据库配置更改成功！")
+                    self.getCompanyInfo()
                 else:
                     self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" 
                                                    + self.db.dbException 
