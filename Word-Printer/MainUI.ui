@@ -889,38 +889,21 @@ gridline-color:rgb(0, 0, 0);</string>
                <string>部门信息</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_27">
+               <item row="0" column="4">
+                <widget class="QLabel" name="label_5">
                  <property name="text">
-                  <string>部门简介</string>
+                  <string>经办人</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0" colspan="4">
-                <widget class="QPlainTextEdit" name="depIntro">
-                 <property name="tabChangesFocus">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_2">
-                 <property name="text">
-                  <string>部门名称</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="depName"/>
-               </item>
-               <item row="0" column="2">
+               <item row="0" column="6">
                 <widget class="QLabel" name="label">
                  <property name="text">
                   <string>部门级别</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="3">
+               <item row="0" column="7">
                 <widget class="QSpinBox" name="depLevel">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -941,6 +924,43 @@ gridline-color:rgb(0, 0, 0);</string>
                   <number>4</number>
                  </property>
                 </widget>
+               </item>
+               <item row="2" column="0" colspan="8">
+                <widget class="QPlainTextEdit" name="depIntro">
+                 <property name="tabChangesFocus">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>部门名称</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_27">
+                 <property name="text">
+                  <string>部门简介</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="depName"/>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>负责人</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLineEdit" name="leader"/>
+               </item>
+               <item row="0" column="5">
+                <widget class="QLineEdit" name="Operator"/>
                </item>
               </layout>
              </widget>

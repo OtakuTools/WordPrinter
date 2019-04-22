@@ -217,7 +217,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             try:
                 shutil.copy(path, tarDir)
             except Exception as e:
-                self.msgDialog.showWarningDialogWithMethod("警告","发现同名文件，是否进行替换", lambda: shutil.move(path, tarDir), lambda: print("calcel"))
+                #self.msgDialog.showWarningDialogWithMethod("警告","发现同名图片文件，是否进行替换？", lambda: shutil.move(path, tarDir), lambda: print("calcel"))
+                shutil.move(path, tarDir)
             image = image.scaledToHeight(self.logoView.height())
             scene = QGraphicsScene()
             scene.addPixmap(QPixmap.fromImage(image))
