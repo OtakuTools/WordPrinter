@@ -372,6 +372,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             department['level'] = self.depLevel.value()
             department['intro'] = str(self.depIntro.toPlainText()).split('\n')
             department['func'] = []
+            department['leader'] = self.leader.text()
+            department['operator'] = self.Operator.text()
             for i in range(1,43):
                 if getattr(self,'duty_'+str(i)).checkState():
                     department['func'].append(i)
@@ -424,6 +426,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.depName.setText( "" )
             self.depIntro.setPlainText( "" )
             self.depLevel.setValue( 0 )
+            self.leader.setText("")
+            self.Operator.setText("")
             for i in range(1,43):
                 getattr(self,'duty_'+str(i)).setCheckState(0)
         else:
@@ -431,6 +435,17 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.depName.setText( departmentName )
             self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
             self.depLevel.setValue( department['level'] if 'level' in department else 1 )
+            self.leader.setText( department['leader'] ) if 'leader' in department else ""
+            self.Operator.setText( department['operator'] ) if 'operator' in department else ""
+
+            #特别情况
+            if departmentName == "总经理" or departmentName == "管理者代表":
+                self.leader.setEnabled(False)
+                self.Operator.setEnabled(False)
+            else:
+                self.leader.setEnabled(True)
+                self.Operator.setEnabled(True)
+            
             for i in range(1,43): #clear all
                 getattr(self,'duty_'+str(i)).setCheckState(0)
             for i in ( department['func'] if 'func' in department else [] ):
