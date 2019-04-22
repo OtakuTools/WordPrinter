@@ -25,7 +25,7 @@ class userInfo:
     # string
     approver = ""#批准人
     # string
-    audit = ""#
+    audit = ""#审核人
     # string
     announcer = ""#发布人
     # string(Date) x年y月z日
@@ -54,8 +54,10 @@ class userInfo:
     #    {
     #        "name":"",
     #        "level": 0,
-    #        "intro":"",
-    #        "func"
+    #        "intro":[""],
+    #        "func":[],
+    #        "leader":"",#部门负责人
+    #        "operator":""#部门经办人
     #    }
     #]
     """
