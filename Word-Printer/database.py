@@ -135,13 +135,14 @@ class DB:
                    refId NVARCHAR(100) NOT NULL,
                    level INT(1) NOT NULL DEFAULT 0,
                    name NVARCHAR(20) NOT NULL,
+                   leader NVARCHAR(20) NOT NULL,
+                   operator NVARCHAR(20) NOT NULL,
                    intro NVARCHAR(1500) NOT NULL,
                    func NVARCHAR(200) NOT NULL,
-                   seq INT(5) NOT NULL AUTO_INCREMENT,
-                   UNIQUE SEQ (seq),
+                   seq INT(5) NOT NULL,
                    PRIMARY KEY (refId, name),
                    FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
-               ) ENGINE=InnoDB, AUTO_INCREMENT = 1;
+               ) ENGINE=InnoDB;
                """,
                """
                CREATE TABLE IF NOT EXISTS logoStore( 
@@ -182,7 +183,7 @@ class DB:
                WHERE company = '%s';
                """ % (id)
         sql1 = """
-               SELECT name, level, intro, func
+               SELECT name, leader, operator, level, intro, func
                FROM department
                WHERE refId = '%s'
                ORDER BY seq;
@@ -227,9 +228,11 @@ class DB:
             for row in results:
                 dep = {}
                 dep["name"] = row[0]
-                dep["level"] = int(row[1])
-                dep["intro"] = row[2].split("#")
-                dep["func"] = self.formatFunc(list(filter(lambda x: x != '', row[3].split("#"))), "int")
+                dep["leader"] = row[1]
+                dep["operator"] = row[2]
+                dep["level"] = int(row[3])
+                dep["intro"] = row[4].split("#")
+                dep["func"] = self.formatFunc(list(filter(lambda x: x != '', row[5].split("#"))), "int")
                 dep["func"].sort()
                 info.departments.append(dep)
         except Exception as e:
@@ -319,17 +322,24 @@ class DB:
             self.dbException = str(e)
             return False
 
+        seq = 0
         for department in data.departments:
-            
+            seq += 1
             sql1 =  """
                     INSERT INTO department(
                         refId, 
                         name,
+                        leader,
+                        operator,
                         level,
                         intro,
-                        func
-                    )VALUES('%s', '%s', %s, '%s', '%s');
-                    """ % (data.company, department['name'], str(department["level"]), "#".join(department["intro"]), "#".join(self.formatFunc(department["func"])))
+                        func,
+                        seq
+                    )VALUES('%s', '%s', '%s', '%s', %s, '%s', '%s', %d);
+                    """ % (data.company, department['name'], 
+                           department["leader"], department["operator"],
+                           str(department["level"]), "#".join(department["intro"]), 
+                           "#".join(self.formatFunc(department["func"])), seq)
             
             try:
                ptr.execute(sql1)
