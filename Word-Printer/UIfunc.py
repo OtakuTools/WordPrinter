@@ -18,6 +18,7 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     sampleDir = "./samples/"
     
+    writeDocLock = threading.RLock()
     currentSelectedFile = set()
     currentSelectedFile_temp = set()
 
@@ -486,11 +487,13 @@ class Controller(QMainWindow, Ui_MainWindow):
             
                 for file in files:
                     # 线程优化
+                    self.writeDocLock.acquire()
                     count += 1
                     wrt_thread = WrtDocThread(self.user, self.pathSelector.getFilePath(file), self.graphStyle, self.pathSelector.getFilePath(file,self.user.fileName))
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
+                    self.writeDocLock.release()
                 progress.setValue(100)
                 self.msgDialog.showInformationDialog("生成信息", "文档成功生成！")
             else:
