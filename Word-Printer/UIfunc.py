@@ -435,8 +435,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.depName.setText( departmentName )
             self.depIntro.setPlainText( '\n'.join(department['intro']) if 'intro' in department else "" )
             self.depLevel.setValue( department['level'] if 'level' in department else 1 )
-            self.leader.setText( department['leader'] ) if 'leader' in department else ""
-            self.Operator.setText( department['operator'] ) if 'operator' in department else ""
+            self.leader.setText( department['leader'] if 'leader' in department else "" )
+            self.Operator.setText( department['operator'] if 'operator' in department else "" )
 
             #特别情况
             if departmentName == "总经理" or departmentName == "管理者代表":
