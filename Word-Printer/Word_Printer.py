@@ -1,16 +1,15 @@
 from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
-import json
+import json,os
 
-from replace import replace
+from replace import Replace
 from dataStruct import userInfo
 from generateGraph import drawGraph
-from getTime import getTime
 
 class docWriter:
     def __init__(self):
-        pass
+        self.saveDir = "./docSave/"
 
     def __del__(self):
         pass
@@ -28,7 +27,6 @@ class docWriter:
         #user = self.loadInfo()
         graph = drawGraph()
         user = graph.draw("save", user, graphStyle)
-        user = getTime(user)
         self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user)
         
     def loadInfo(self):
@@ -41,7 +39,8 @@ class docWriter:
         return user
 
     def write(self, src, dst, user, mode="docx"):
-        doc = replace(src, dst, user)
+        rep = Replace()
+        doc = rep.run(src, dst, user)
         if mode == "docx":
             self.saveAsDocx(doc, dst)
         else:
