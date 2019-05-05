@@ -158,9 +158,10 @@ class Replace:
                     # 插入logo
                     if str(r.font.color.rgb) == 'EF0000':
                         #insert logo
-                        pp = p.insert_paragraph_before()
-                        pp.add_run().add_picture( self.user.logoPath , height=Cm(4.5) )
-                        pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        if(self.user.logoPath != '' and os.path.exists(self.user.logoPath)):
+                            pp = p.insert_paragraph_before()
+                            pp.add_run().add_picture( self.user.logoPath , height=Cm(4.5) )
+                            pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
                         #clear text
                         p.clear()
 
