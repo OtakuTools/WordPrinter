@@ -73,7 +73,7 @@ class userInfo:
     def resetDepartment(self):
         self.departments = []
         try:
-            with open('preset.json', 'r', encoding="utf8") as f:
+            with open('./config/preset.json', 'r', encoding="utf8") as f:
                 deps = json.load(f)
             for dep in deps:
                 self.departments.append( dict(dep) )

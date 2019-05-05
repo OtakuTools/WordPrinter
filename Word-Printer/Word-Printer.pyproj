@@ -61,7 +61,6 @@
     </Interpreter>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dbConfig.json" />
     <Content Include="MainUI.ui" />
     <Content Include="requirements.txt" />
     <Content Include="TestCase.json" />

@@ -30,7 +30,7 @@ class DBSettingController(QDialog, Ui_databaseSetting):
 
     def save(self):
         self.upgradeConnection()
-        with open("dbConfig.json", "w") as f:
+        with open("./config/dbConfig.json", "w") as f:
             json.dump(self.info, f, sort_keys=True, indent=4, separators=(',', ': '))
         self.accept()
 
@@ -38,7 +38,7 @@ class DBSettingController(QDialog, Ui_databaseSetting):
         self.reject()
 
     def initInfo(self):
-        with open("dbConfig.json", "r") as f:
+        with open("./config/dbConfig.json", "r") as f:
             self.info = json.load(f)
         self.dbIP.setText(self.info["ip"])
         self.dbNAME.setText(self.info["dbname"])
@@ -432,13 +432,13 @@ class DB:
         return funcList
 
     def loadConfig(self):
-        with open("dbConfig.json", "r") as f:
+        with open("./config/dbConfig.json", "r") as f:
             data = json.load(f)
         return data
 
     def writeConfig(self, input = {}):
         data = input or { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore', 'port': 3306}
-        with open("dbConfig.json", "w") as f:
+        with open("./config/dbConfig.json", "w") as f:
             json.dump(data, f, sort_keys=True, indent=4, separators=(',', ': '))
         return data
 
