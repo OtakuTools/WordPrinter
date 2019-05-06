@@ -81,9 +81,8 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
                         subsubchild.setCheckState(0, Qt.Checked)
                     else:
                         subsubchild.setCheckState(0, Qt.Unchecked)
-
-
-        self.showSamples.expandAll()
+        self.showSamples.expandItem(root)
+        #self.showSamples.expandAll()
     
     def handleChanged(self, item, column):
         reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
