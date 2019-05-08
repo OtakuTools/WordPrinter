@@ -4,7 +4,7 @@ from docx.enum.text import WD_COLOR_INDEX
 from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json, time, lxml, threading
-import re
+import re, os
 from getTime import getTime
 
 class Replace:

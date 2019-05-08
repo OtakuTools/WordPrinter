@@ -500,13 +500,15 @@ class Controller(QMainWindow, Ui_MainWindow):
                 self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
 
     def saveInfoButNotGen(self):
-        self.refreshDatabase()
+        self.refreshDatabase(True)
 
-    def refreshDatabase(self):
+    def refreshDatabase(self, isSave = False):
         try:
             #print("正在更新数据库...")
             self.db.delete("info", self.user.company)
             self.db.insertData(self.user)
+            if(isSave):
+                self.msgDialog.showInformationDialog("提示","文档信息已保存到数据库")
         except Exception as e:
             #print("更新数据库失败")
             print(e)
