@@ -85,7 +85,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
         #self.showSamples.expandAll()
     
     def handleChanged(self, item, column):
-        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
+        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})(.*)(.docx|.doc|.xls|.xlsx)"
         prefix = re.search(reg, item.text(column), re.M|re.I)
         label = []
         if(prefix):
