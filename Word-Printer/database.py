@@ -57,6 +57,7 @@ class DBSettingController(QDialog, Ui_databaseSetting):
 class DB:
     db = None
     dbException = "None"
+    _conn_timeout = 3
 
     def __init__(self):
         self.initConnection()
@@ -68,10 +69,11 @@ class DB:
     def initConnection(self):
         self.info = self.loadConfig()
         try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'], connect_timeout=self._conn_timeout)
         except Exception as e:
             self.db = None
             self.dbException = str(e)
+            return
         else:
             self.createDB(self.info['dbname'])
 
@@ -84,8 +86,8 @@ class DB:
         self.initConnection()
 
     def createDB(self, dbName):
-        ptr = self.db.cursor()
         try:
+            ptr = self.db.cursor()
             sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
             ptr.execute(sql)
         except Exception as e:
@@ -94,7 +96,7 @@ class DB:
             self.db.rollback()
         self.db.close()
         try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'], connect_timeout=self._conn_timeout)
         except Exception as e:
             #print(e)
             self.dbException = str(e)
