@@ -27,9 +27,4 @@ class HorizontalTabBar(QtWidgets.QTabBar):
             painter.translate(-c)
             painter.drawControl(QtWidgets.QStyle.CE_TabBarTabLabel, option)
             painter.restore()
-            '''
-            tabRect = self.tabRect(index)
-            tabRect.moveLeft(10)
-            painter.drawText(tabRect, QtCore.Qt.AlignVCenter | QtCore.Qt.TextDontClip, self.tabText(index))
-            '''
         painter.end()

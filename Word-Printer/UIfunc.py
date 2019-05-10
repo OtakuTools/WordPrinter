@@ -103,8 +103,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         #self.pathSelector.autoRefresh()
 
     def initToolBar(self):
-        self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 30px; min-width: 70px; }")
-        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25px !important; min-width: 70px !important; }")
+        self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 50px; width: 120px; font-size: 9pt;}")
+        self.tabWidget.setStyleSheet("QTabBar::tab { height: 28px !important; width: 110px !important; }")
 
         tool = self.addToolBar("设置")
         edit0 = QAction(QIcon(""),"数据库配置",self)
@@ -500,13 +500,15 @@ class Controller(QMainWindow, Ui_MainWindow):
                 self.msgDialog.showErrorDialog("录入信息错误" ,validMsg[1])
 
     def saveInfoButNotGen(self):
-        self.refreshDatabase()
+        self.refreshDatabase(True)
 
-    def refreshDatabase(self):
+    def refreshDatabase(self, isSave = False):
         try:
             #print("正在更新数据库...")
             self.db.delete("info", self.user.company)
             self.db.insertData(self.user)
+            if(isSave):
+                self.msgDialog.showInformationDialog("提示","文档信息已保存到数据库")
         except Exception as e:
             #print("更新数据库失败")
             print(e)

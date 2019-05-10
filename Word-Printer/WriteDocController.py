@@ -59,16 +59,33 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
             child = QTreeWidgetItem(root)
             child.setText(0, self.translate[key])
             for val in value:
-                subchild = QTreeWidgetItem(child)
-                subchild.setText(0, os.path.split(self.pathSelector.getFilePath(val, fileName, False))[1])
-                if val in selectedFile:
-                    subchild.setCheckState(0, Qt.Checked)
+                fPath = os.path.split(self.pathSelector.getFilePath(val, fileName, False))
+                prefix = fPath[0].split("\\")[-1]
+                if prefix == key:
+                    subchild = QTreeWidgetItem(child)
+                    subchild.setText(0, fPath[1])
+                    if val in selectedFile:
+                        subchild.setCheckState(0, Qt.Checked)
+                    else:
+                        subchild.setCheckState(0, Qt.Unchecked)
                 else:
-                    subchild.setCheckState(0, Qt.Unchecked)
-        self.showSamples.expandAll()
+                    subchild_vec = self.showSamples.findItems(prefix, Qt.MatchExactly | Qt.MatchRecursive, 0)
+                    if len(subchild_vec) == 0:
+                        subchild = QTreeWidgetItem(child)
+                        subchild.setText(0, prefix)
+                    else:
+                        subchild = subchild_vec[0]
+                    subsubchild = QTreeWidgetItem(subchild)
+                    subsubchild.setText(0, fPath[1])
+                    if val in selectedFile:
+                        subsubchild.setCheckState(0, Qt.Checked)
+                    else:
+                        subsubchild.setCheckState(0, Qt.Unchecked)
+        self.showSamples.expandItem(root)
+        #self.showSamples.expandAll()
     
     def handleChanged(self, item, column):
-        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
+        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})(.*)(.docx|.doc|.xls|.xlsx)"
         prefix = re.search(reg, item.text(column), re.M|re.I)
         label = []
         if(prefix):

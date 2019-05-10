@@ -4,7 +4,7 @@ from docx.enum.text import WD_COLOR_INDEX
 from docx.shared import Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json, time, lxml, threading
-import re
+import re, os
 from getTime import getTime
 
 class Replace:
@@ -158,9 +158,10 @@ class Replace:
                     # 插入logo
                     if str(r.font.color.rgb) == 'EF0000':
                         #insert logo
-                        pp = p.insert_paragraph_before()
-                        pp.add_run().add_picture( self.user.logoPath , height=Cm(4.5) )
-                        pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                        if(self.user.logoPath != '' and os.path.exists(self.user.logoPath)):
+                            pp = p.insert_paragraph_before()
+                            pp.add_run().add_picture( self.user.logoPath , height=Cm(4.5) )
+                            pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
                         #clear text
                         p.clear()
 

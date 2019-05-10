@@ -30,7 +30,7 @@ class DBSettingController(QDialog, Ui_databaseSetting):
 
     def save(self):
         self.upgradeConnection()
-        with open("dbConfig.json", "w") as f:
+        with open("./config/dbConfig.json", "w") as f:
             json.dump(self.info, f, sort_keys=True, indent=4, separators=(',', ': '))
         self.accept()
 
@@ -38,7 +38,7 @@ class DBSettingController(QDialog, Ui_databaseSetting):
         self.reject()
 
     def initInfo(self):
-        with open("dbConfig.json", "r") as f:
+        with open("./config/dbConfig.json", "r") as f:
             self.info = json.load(f)
         self.dbIP.setText(self.info["ip"])
         self.dbNAME.setText(self.info["dbname"])
@@ -57,6 +57,7 @@ class DBSettingController(QDialog, Ui_databaseSetting):
 class DB:
     db = None
     dbException = "None"
+    _conn_timeout = 3
 
     def __init__(self):
         self.initConnection()
@@ -68,10 +69,11 @@ class DB:
     def initConnection(self):
         self.info = self.loadConfig()
         try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'])
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'], connect_timeout=self._conn_timeout)
         except Exception as e:
             self.db = None
             self.dbException = str(e)
+            return
         else:
             self.createDB(self.info['dbname'])
 
@@ -84,8 +86,8 @@ class DB:
         self.initConnection()
 
     def createDB(self, dbName):
-        ptr = self.db.cursor()
         try:
+            ptr = self.db.cursor()
             sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
             ptr.execute(sql)
         except Exception as e:
@@ -94,7 +96,7 @@ class DB:
             self.db.rollback()
         self.db.close()
         try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'])
+            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'], connect_timeout=self._conn_timeout)
         except Exception as e:
             #print(e)
             self.dbException = str(e)
@@ -432,13 +434,13 @@ class DB:
         return funcList
 
     def loadConfig(self):
-        with open("dbConfig.json", "r") as f:
+        with open("./config/dbConfig.json", "r") as f:
             data = json.load(f)
         return data
 
     def writeConfig(self, input = {}):
         data = input or { 'ip' : 'localhost', 'user' : 'root', 'pswd' : '1234', 'dbname' : 'wordStore', 'port': 3306}
-        with open("dbConfig.json", "w") as f:
+        with open("./config/dbConfig.json", "w") as f:
             json.dump(data, f, sort_keys=True, indent=4, separators=(',', ': '))
         return data
 
