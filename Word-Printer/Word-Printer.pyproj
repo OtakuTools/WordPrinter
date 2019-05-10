@@ -24,6 +24,9 @@
     <Compile Include="database.py" />
     <Compile Include="databaseSetting.py" />
     <Compile Include="dataStruct.py" />
+    <Compile Include="excel.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="generateDocConfirm.py" />
     <Compile Include="generateGraph.py" />
     <Compile Include="getTime.py">
