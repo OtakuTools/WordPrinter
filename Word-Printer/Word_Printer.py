@@ -8,6 +8,7 @@ from excel import excel
 import xlwt
 import re
 from dataStruct import userInfo
+import time
 
 class docWriter:
     def __init__(self):
@@ -17,19 +18,13 @@ class docWriter:
         pass
 
     def saveAsDocx(self, doc, filepath):
-        try:
-            doc.save(filepath)
-        except Exception as e:
-            print(e)
+        doc.save(filepath)
 
     def saveAsPdf(self, doc):
         pass
 
     def saveAsExcel( self , xls , dst ):
-        try:
-            xls.save(dst)
-        except Exception as e:
-            print(e)
+        xls.save(dst)
 
     def loadAndWrite(self, user , templateFile, graphStyle = [], targetFile = ""):
         mode = templateFile.split('.')[-1]
@@ -45,17 +40,27 @@ class docWriter:
         return user
 
     def write(self, src, dst, user, mode="docx"):
-        if mode == "docx":
-            rep = Replace()
-            doc = rep.run(src, dst, user)
-            self.saveAsDocx(doc, dst)
-        elif mode == "xls":
-            xls = excel()
-            reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
-            prefix = re.search(reg, dst, re.M|re.I).group(1)
-            print( prefix )
-            xlsx = xls.title( src , dst , str(prefix) )
-            self.saveAsExcel( xlsx , dst )
-
-        else:
-            self.saveAsPdf(doc, dst)
+        try:
+            if mode == "docx":
+                rep = Replace()
+                doc = rep.run(src, dst, user)
+                self.saveAsDocx(doc, dst)
+            elif mode == "xls" or mode == 'xlsx':
+                xls = excel()
+                reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
+                prefix = re.search(reg, dst, re.M|re.I).group(1)
+                xlsx = xls.title( src , dst , str(prefix) )
+                self.saveAsExcel( xlsx , dst )
+            else:
+                rep = Replace()
+                doc = rep.run(src, dst, user)
+                self.saveAsPdf(doc, dst)
+        except Exception as e:
+            if not os.path.exists( './logging/' ):
+                os.mkdir( './logging/' )
+            stamp = time.strftime('%Y-%m-%d-%H-%M',time.localtime(time.time()))
+            file = './logging/debug ' + stamp + '.log'
+            log = open( file , 'a' )
+            log.write( str(e) + '\n' )
+            log.close()
+            print('err')
