@@ -484,6 +484,10 @@ class Controller(QMainWindow, Ui_MainWindow):
 
                 total = len(files)
                 count = 0
+
+                #生成并保存部门结构图
+                graph = drawGraph()
+                self.user = graph.draw("save", self.user, self.graphStyle)
             
                 for file in files:
                     # 线程优化
