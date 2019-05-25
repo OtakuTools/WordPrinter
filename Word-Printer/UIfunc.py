@@ -105,6 +105,8 @@ class Controller(QMainWindow, Ui_MainWindow):
     def initToolBar(self):
         self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 50px; width: 120px; font-size: 9pt;}")
         self.tabWidget.setStyleSheet("QTabBar::tab { height: 28px !important; width: 110px !important; }")
+        self.tabWidget_3.setStyleSheet("QTabBar::tab { height: 28px !important; width: 110px !important; }")
+        self.tabWidget_4.setStyleSheet("QTabBar::tab { height: 28px !important; width: 150px !important; }")
 
         tool = self.addToolBar("设置")
         edit0 = QAction(QIcon(""),"数据库配置",self)
