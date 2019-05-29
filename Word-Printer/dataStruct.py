@@ -13,33 +13,33 @@ class userInfo:
     # array of string ["",""] under 800
     introduction = []
     # string under 50
-    coverField = ""#经营范围
+    coverField = "" # 经营范围
     #string
-    corporateRepresentative = ""#法人代表
+    corporateRepresentative = "" # 法人代表
     # string
-    manager = ""#总经理
+    manager = "" # 总经理
     # string
-    guandai = ""#管理者代表
+    guandai = "" # 管理者代表
     # string
-    compiler = ""#编制人
+    compiler = "" # 编制人
     # string
-    approver = ""#批准人
+    approver = "" # 批准人
     # string
-    audit = ""#审核人
+    audit = "" # 审核人
     # string
-    announcer = ""#发布人
+    announcer = "" # 发布人
     # string(Date) x年y月z日
-    auditDate = "" # D1
+    auditDate = "" #  D1
     # array of string(Date) yyyy-mm-dd ["","","",""] #auditdate是UI中的编制日期，modifydate是从D1到D5
     modifyDate = [] # D1 ... D5
     # string(Date) x年y月z日
-    releaseDate = ""#实施日期 D6
+    releaseDate = "" # 实施日期 D6
     # string zip code
     zip = ""
     # string telphone number
     phone = ""
     # string service policy
-    policy = ""#服务方针
+    policy = "" # 服务方针
     # string path
     picPath = ""
     # string path
@@ -57,7 +57,7 @@ class userInfo:
     #        "intro":[""],
     #        "func":[],
     #        "leader":"",#部门负责人
-    #        "operator":""#部门经办人
+    #        "operator":"" # 部门经办人
     #    }
     #]
     """
@@ -375,42 +375,123 @@ colorStyle = {
 class Project:
     class PartyA:
         def __init__(self):
-            self.projectName = ""
-            self.company = ""
-            self.name = "??"
-            self.phone = ""
-            self.address = ""
-
+            self.projectName = "" # 项目名称
+            self.company = "" # 甲方名称
+            self.name = "" # 甲方联系人姓名
+            self.phone = "" # 甲方联系电话
+            self.address = "" # 甲方地址
     class PartyB:
         def __init__(self):
-            self.contactName = ""
-            self.serviceName = ""
-            self.serviceMail = ""
-            self.servicePhone = ""
-            self.complainName = ""
-            self.complainMail = ""
-            self.complainPhone = ""
+            self.contactName = "" # 乙方联系人姓名
+            self.serviceName = "" # 乙方服务联系人姓名
+            self.serviceMail = "" # 乙方服务联系人邮箱
+            self.servicePhone = "" # 乙方服务联系人手机
+            self.complainName = "" # 乙方服务投诉人姓名
+            self.complainMail = "" # 乙方服务投诉人邮箱
+            self.complainPhone = "" # 乙方服务投诉人手机
 
     class Detail:
         def __init__(self):
-            self.amount = ""
-            self.period = ""
-            self.config = ""
-            self.name = ""
-            self.level = ""
-            self.details = ""
-            self.demand = ""
-            self.ddl = ""
+            self.amount = "" # 项目金额
+            self.period = "" # 项目有效期
+            self.config = "" # 服务配置项
+            self.name = "" # 服务名称
+            self.level = "" # 服务级别
+            self.details = "" # 服务内容
+            self.demand = "" # 服务要求
+            self.ddl = "" # 服务时间要求
 
     class Team:
         def __init__(self):
-            self.startTime = ""
-            self.require = ""
-            self.PM = ""
-            self.TM = ""
+            self.startTime = "" # 项目启动时间
+            self.require = "" # 项目需求分析
+            self.PM = "" # 项目经理
+            self.TM = "" # 项目技术经理
 
     def __init__(self):
         self.A = self.PartyA()
         self.B = self.PartyB()
         self.detail = self.Detail()
         self.team = self.Team()
+
+
+class Service:
+    class Report:
+        def __init__(self):
+            self.time = "" # 服务报告期
+            self.keypoint = "" # 下阶段重点工作内容
+            self.revisit = "" # 服务回访日期
+    class Event:
+        def __init__(self):
+            self.eventManager = "" # 事件管理经理
+            self.issueManager = "" # 问题管理经理
+            self.level = "" # 受理事件等级
+            self.accepted = 0 # 受理事件数
+            self.closed = 0 # 关闭事件数
+            self.transformed = 0 # 转化为问题的事件数
+            self.summarized = 0 # 汇总问题数
+    class Config:
+        def __init__(self):
+            self.modifyManager = "" # 变更经理
+            self.configManager = "" # 配置经理
+            self.releaseManager = "" # 发布经理
+            self.relatedManager = "" # 关系经理
+            self.configVersion = "" # 配置版本
+            self.configReleaseDate = "" # 配置发布日期
+            self.changes = 0 # 变更数量
+            self.releases = 0 # 发布总数量
+            self.releaseDate = "" # 发布日期
+            self.preReleaseDate = "" # 预发布日期
+            self.applicationDate = "" # 发布申请时间
+            self.SN = "" # 发布单号
+            self.target = "" # 发布目标
+            self.item = "" # 发布交付物
+            self.releaseVersion = "" # 发布版本
+    class Continuity:
+        def __init__(self):
+            self.process = "" # 连续性测试经过内容
+            self.result = "" # 连续性测试结果内容
+            self.date = "" # 连续性测试日期
+            self.technicist = "" # 可用性技术人员
+            self.approver = "" # 可用性审批人员
+            self.compileDate = "" # 记录编制时间
+            self.auditDate = "" # 记录审核时间
+    class Audit:
+        def __init__(self):
+            self.planDate = "" # 内审计划时间
+            self.auditDate = "" # 内审审核执行时间
+            self.auditLeader = "" # 审核组长
+            self.audit1 = "" # 审核员1
+            self.audit2 = "" # 审核员2
+            self.audit3 = "" # 审核员3
+            self.reviewDate = "" # 预期管理评审时间
+            self.scheduleDate = "" # 管评计划时间
+            self.excuteDate = "" # 管理评审执行日期
+            self.reportDate = "" # 管评实施报告日期
+            self.compiler = "" # 审核编制人
+            self.audit = "" # 审核审批人
+            self.compileDate = "" # 审核编制日期
+            self.approveDate = "" # 审核审批时间
+    class Record:
+        def __init__(self):
+            self.target = "" # 审计对象
+            self.time = "" # 审计时间
+            self.staff = "" # 审计人员
+            self.arrange = "" # 审计安排
+            self.content = "" # 文件审批内容
+            self.fileName = "" # 审批文件名称
+            self.auditContent = "" # 审批文件审核内容
+            self.auditProcess = "" # 审批文件过程简述
+            self.audit = "" # 文件审批人
+            self.auditDate = "" # 文件审批日期
+            self.approver = "" # 文件批准人
+            self.approveDate = "" # 文件批准日期
+            self.provider = "" # 文件发放人
+
+    def __init__(self):
+        self.report = Report()
+        self.event = Event()
+        self.config = Config()
+        self.continuity = Continuity()
+        self.audit = Audit()
+        self.record = Record()
