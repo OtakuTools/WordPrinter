@@ -370,3 +370,47 @@ colorStyle = {
         'ED0000':'picPath',     #(237,0,0)
         'EC0000':'corporateRepresentative' #(236,0,0)
     }
+
+
+class Project:
+    class PartyA:
+        def __init__(self):
+            self.projectName = ""
+            self.company = ""
+            self.name = "??"
+            self.phone = ""
+            self.address = ""
+
+    class PartyB:
+        def __init__(self):
+            self.contactName = ""
+            self.serviceName = ""
+            self.serviceMail = ""
+            self.servicePhone = ""
+            self.complainName = ""
+            self.complainMail = ""
+            self.complainPhone = ""
+
+    class Detail:
+        def __init__(self):
+            self.amount = ""
+            self.period = ""
+            self.config = ""
+            self.name = ""
+            self.level = ""
+            self.details = ""
+            self.demand = ""
+            self.ddl = ""
+
+    class Team:
+        def __init__(self):
+            self.startTime = ""
+            self.require = ""
+            self.PM = ""
+            self.TM = ""
+
+    def __init__(self):
+        self.A = self.PartyA()
+        self.B = self.PartyB()
+        self.detail = self.Detail()
+        self.team = self.Team()
