@@ -5,7 +5,6 @@ import json,os
 
 from replace import Replace
 from excel import excel
-import xlwt
 import re
 from dataStruct import userInfo
 import time
@@ -45,7 +44,7 @@ class docWriter:
                 rep = Replace()
                 doc = rep.run(src, dst, user)
                 self.saveAsDocx(doc, dst)
-            elif mode == "xls" or mode == 'xlsx':
+            elif mode == 'xlsx':
                 xls = excel()
                 reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
                 prefix = re.search(reg, dst, re.M|re.I).group(1)
