@@ -682,6 +682,9 @@ gridline-color:rgb(0, 0, 0);</string>
                  <property name="horizontalScrollBarPolicy">
                   <enum>Qt::ScrollBarAlwaysOff</enum>
                  </property>
+                 <property name="tabChangesFocus">
+                  <bool>true</bool>
+                 </property>
                  <property name="undoRedoEnabled">
                   <bool>false</bool>
                  </property>
@@ -1728,7 +1731,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QTextEdit" name="reportTimeText"/>
+                    <widget class="QTextEdit" name="reportTimeText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="2" column="0">
                     <widget class="QLabel" name="keypointLabel">
@@ -1738,7 +1745,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QTextEdit" name="keypointText"/>
+                    <widget class="QTextEdit" name="keypointText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="4" column="0">
                     <widget class="QLabel" name="revisitLabel">
@@ -1916,7 +1927,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="1" column="0" colspan="3">
-                    <widget class="QTextEdit" name="processText"/>
+                    <widget class="QTextEdit" name="processText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="2" column="0" colspan="3">
                     <widget class="QLabel" name="resultLabel">
@@ -1926,7 +1941,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="3" column="0" colspan="3">
-                    <widget class="QTextEdit" name="resultText"/>
+                    <widget class="QTextEdit" name="resultText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="4" column="0">
                     <widget class="QLabel" name="ContinuityDateLabel">
@@ -2297,7 +2316,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="5" column="0" colspan="2">
-                    <widget class="QTextEdit" name="RecordContentText"/>
+                    <widget class="QTextEdit" name="RecordContentText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="6" column="0">
                     <widget class="QLabel" name="RecordFileNameLabel">
@@ -2317,7 +2340,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="8" column="0" colspan="2">
-                    <widget class="QTextEdit" name="auditContentText"/>
+                    <widget class="QTextEdit" name="auditContentText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="9" column="0">
                     <widget class="QLabel" name="auditProcessLabel">
@@ -2327,7 +2354,11 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="10" column="0" colspan="2">
-                    <widget class="QTextEdit" name="auditProcessText"/>
+                    <widget class="QTextEdit" name="auditProcessText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="11" column="0">
                     <widget class="QLabel" name="RecordAuditLabel">
@@ -2441,6 +2472,8 @@ gridline-color:rgb(0, 0, 0);</string>
  <tabstops>
   <tabstop>searchContent</tabstop>
   <tabstop>searchButton</tabstop>
+  <tabstop>tabWidget_2</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>companyText</tabstop>
   <tabstop>fileNameText</tabstop>
   <tabstop>addressText</tabstop>
@@ -2472,7 +2505,6 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>level4Font</tabstop>
   <tabstop>level4Width</tabstop>
   <tabstop>previewButton</tabstop>
-  <tabstop>tabWidget</tabstop>
   <tabstop>AddDep</tabstop>
   <tabstop>DeleteDep</tabstop>
   <tabstop>depName</tabstop>
@@ -2522,14 +2554,104 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>duty_42</tabstop>
   <tabstop>addOrModifyDep</tabstop>
   <tabstop>cancelDep</tabstop>
-  <tabstop>tabWidget_2</tabstop>
-  <tabstop>saveButton</tabstop>
-  <tabstop>createBotton</tabstop>
-  <tabstop>cancelButton</tabstop>
   <tabstop>previewPic</tabstop>
   <tabstop>logoView</tabstop>
   <tabstop>departmentList</tabstop>
   <tabstop>Logo</tabstop>
+  <tabstop>leader</tabstop>
+  <tabstop>Operator</tabstop>
+  <tabstop>level2_fileList</tabstop>
+  <tabstop>level3_fileList</tabstop>
+  <tabstop>tabWidget_3</tabstop>
+  <tabstop>listWidget</tabstop>
+  <tabstop>AddDep_2</tabstop>
+  <tabstop>AddDep_3</tabstop>
+  <tabstop>tabWidget_4</tabstop>
+  <tabstop>AprojectNameText</tabstop>
+  <tabstop>AcompanyText</tabstop>
+  <tabstop>AnameText</tabstop>
+  <tabstop>AphoneText</tabstop>
+  <tabstop>AaddressText</tabstop>
+  <tabstop>BcontactNameText</tabstop>
+  <tabstop>BserviceNameText</tabstop>
+  <tabstop>BserviceMailText</tabstop>
+  <tabstop>BservicePhoneText</tabstop>
+  <tabstop>BcomplainNameText</tabstop>
+  <tabstop>BcomplainMailText</tabstop>
+  <tabstop>BcomplainPhoneText</tabstop>
+  <tabstop>amountText</tabstop>
+  <tabstop>periodText</tabstop>
+  <tabstop>configText</tabstop>
+  <tabstop>detailNameText</tabstop>
+  <tabstop>detailLevelText</tabstop>
+  <tabstop>detailsText</tabstop>
+  <tabstop>demandText</tabstop>
+  <tabstop>ddlText</tabstop>
+  <tabstop>startTimeText</tabstop>
+  <tabstop>requireText</tabstop>
+  <tabstop>PMText</tabstop>
+  <tabstop>TMText</tabstop>
+  <tabstop>reportTimeText</tabstop>
+  <tabstop>keypointText</tabstop>
+  <tabstop>revisitText</tabstop>
+  <tabstop>processText</tabstop>
+  <tabstop>resultText</tabstop>
+  <tabstop>ContinuityDateText</tabstop>
+  <tabstop>technicistText</tabstop>
+  <tabstop>ContinuityApproverText</tabstop>
+  <tabstop>ContinuityCompileDateText</tabstop>
+  <tabstop>ContinuityAuditDateText</tabstop>
+  <tabstop>modifyManagerText</tabstop>
+  <tabstop>configManagerText</tabstop>
+  <tabstop>releaseManagerText</tabstop>
+  <tabstop>relatedManagerText</tabstop>
+  <tabstop>configVersionText</tabstop>
+  <tabstop>configReleaseDateText</tabstop>
+  <tabstop>changesText</tabstop>
+  <tabstop>releasesText</tabstop>
+  <tabstop>ConfigReleaseDateText</tabstop>
+  <tabstop>applicationDateText</tabstop>
+  <tabstop>SNText</tabstop>
+  <tabstop>targetText</tabstop>
+  <tabstop>itemText</tabstop>
+  <tabstop>releaseVersionText</tabstop>
+  <tabstop>eventManagerText</tabstop>
+  <tabstop>issueManagerText</tabstop>
+  <tabstop>eventLevelText</tabstop>
+  <tabstop>acceptedText</tabstop>
+  <tabstop>closedText</tabstop>
+  <tabstop>transformedText</tabstop>
+  <tabstop>summarizedText</tabstop>
+  <tabstop>planDateText</tabstop>
+  <tabstop>AuditAuditDateText</tabstop>
+  <tabstop>auditLeaderText</tabstop>
+  <tabstop>audit1Text</tabstop>
+  <tabstop>audit2Text</tabstop>
+  <tabstop>audit3Text</tabstop>
+  <tabstop>reviewDateText</tabstop>
+  <tabstop>scheduleDateText</tabstop>
+  <tabstop>excuteDateText</tabstop>
+  <tabstop>reportDateText</tabstop>
+  <tabstop>AuditCompilerText</tabstop>
+  <tabstop>AuditAuditText</tabstop>
+  <tabstop>AuditCompileDateText</tabstop>
+  <tabstop>AuditApproveDateText</tabstop>
+  <tabstop>RecordTargetText</tabstop>
+  <tabstop>RecordTimeText</tabstop>
+  <tabstop>RecordStaffText</tabstop>
+  <tabstop>RecordArrangeText</tabstop>
+  <tabstop>RecordContentText</tabstop>
+  <tabstop>RecordFileNameText</tabstop>
+  <tabstop>auditContentText</tabstop>
+  <tabstop>auditProcessText</tabstop>
+  <tabstop>RecordAuditText</tabstop>
+  <tabstop>RecordAuditDateText</tabstop>
+  <tabstop>RecordApproverText</tabstop>
+  <tabstop>RecordApproveDateText</tabstop>
+  <tabstop>providerText</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>createBotton</tabstop>
+  <tabstop>cancelButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>
