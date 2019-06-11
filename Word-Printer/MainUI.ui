@@ -1428,277 +1428,281 @@ gridline-color:rgb(0, 0, 0);</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_21">
                 <item row="0" column="0">
-                 <widget class="QGroupBox" name="groupBox_9">
+                 <widget class="QGroupBox" name="PartyA">
                   <property name="title">
                    <string>甲方信息</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_18">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_6">
+                    <widget class="QLabel" name="AprojectNameLabel">
                      <property name="text">
                       <string>项目名称</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit"/>
+                    <widget class="QLineEdit" name="AprojectNameText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_7">
+                    <widget class="QLabel" name="AcompanyLabel">
                      <property name="text">
                       <string>甲方名称</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_2"/>
+                    <widget class="QLineEdit" name="AcompanyText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_9">
+                    <widget class="QLabel" name="AnameText_2">
                      <property name="text">
                       <string>联系人姓名</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_3"/>
+                    <widget class="QLineEdit" name="AnameText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_8">
+                    <widget class="QLabel" name="AphoneLabel">
                      <property name="text">
                       <string>联系电话</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_4"/>
+                    <widget class="QLineEdit" name="AphoneText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_10">
+                    <widget class="QLabel" name="AaddressLabel">
                      <property name="text">
                       <string>联系地址</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QLineEdit" name="lineEdit_5"/>
+                    <widget class="QLineEdit" name="AaddressText">
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QGroupBox" name="groupBox_10">
+                 <widget class="QGroupBox" name="PartyB">
                   <property name="title">
                    <string>乙方信息</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_3">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_11">
+                    <widget class="QLabel" name="BcontactNameLabel">
                      <property name="text">
                       <string>联系人姓名</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit_6"/>
+                    <widget class="QLineEdit" name="BcontactNameText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_12">
+                    <widget class="QLabel" name="BserviceNameLabel">
                      <property name="text">
                       <string>服务联系人姓名</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_7"/>
+                    <widget class="QLineEdit" name="BserviceNameText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_13">
+                    <widget class="QLabel" name="BserviceMailLabel">
                      <property name="text">
                       <string>服务联系人邮箱</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_8"/>
+                    <widget class="QLineEdit" name="BserviceMailText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_15">
+                    <widget class="QLabel" name="BservicePhoneLabel">
                      <property name="text">
                       <string>服务联系人手机</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_9"/>
+                    <widget class="QLineEdit" name="BservicePhoneText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_14">
+                    <widget class="QLabel" name="BcomplainNameLabel">
                      <property name="text">
                       <string>服务投诉人姓名</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QLineEdit" name="lineEdit_10"/>
+                    <widget class="QLineEdit" name="BcomplainNameText"/>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLabel" name="label_17">
+                    <widget class="QLabel" name="BcomplainMailLabel">
                      <property name="text">
                       <string>服务投诉人邮箱</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="1">
-                    <widget class="QLineEdit" name="lineEdit_11"/>
+                    <widget class="QLineEdit" name="BcomplainMailText"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_16">
+                    <widget class="QLabel" name="BcomplainPhoneLabel">
                      <property name="text">
                       <string>服务投诉人手机</string>
                      </property>
                     </widget>
                    </item>
                    <item row="6" column="1">
-                    <widget class="QLineEdit" name="lineEdit_12"/>
+                    <widget class="QLineEdit" name="BcomplainPhoneText"/>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QGroupBox" name="groupBox_11">
+                 <widget class="QGroupBox" name="Detail">
                   <property name="title">
                    <string>项目服务内容信息</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_19">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_18">
+                    <widget class="QLabel" name="amountLabel">
                      <property name="text">
                       <string>项目金额</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit_17"/>
+                    <widget class="QLineEdit" name="amountText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_19">
+                    <widget class="QLabel" name="periodLabel">
                      <property name="text">
                       <string>项目有效期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_18"/>
+                    <widget class="QLineEdit" name="periodText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_20">
+                    <widget class="QLabel" name="configLabel">
                      <property name="text">
                       <string>服务配置项</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_19"/>
+                    <widget class="QLineEdit" name="configText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_22">
+                    <widget class="QLabel" name="detailNameLabel">
                      <property name="text">
                       <string>服务名称</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_20"/>
+                    <widget class="QLineEdit" name="detailNameText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_21">
+                    <widget class="QLabel" name="detailLevelLabel">
                      <property name="text">
                       <string>服务级别</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QLineEdit" name="lineEdit_21"/>
+                    <widget class="QLineEdit" name="detailLevelText"/>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLabel" name="label_23">
+                    <widget class="QLabel" name="detailsLabel">
                      <property name="text">
                       <string>服务内容</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="1">
-                    <widget class="QLineEdit" name="lineEdit_22"/>
+                    <widget class="QLineEdit" name="detailsText"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_25">
+                    <widget class="QLabel" name="demandLabel">
                      <property name="text">
                       <string>服务要求</string>
                      </property>
                     </widget>
                    </item>
                    <item row="6" column="1">
-                    <widget class="QLineEdit" name="lineEdit_23"/>
+                    <widget class="QLineEdit" name="demandText"/>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_24">
+                    <widget class="QLabel" name="ddlLabel">
                      <property name="text">
                       <string>服务时间要求</string>
                      </property>
                     </widget>
                    </item>
                    <item row="7" column="1">
-                    <widget class="QLineEdit" name="lineEdit_24"/>
+                    <widget class="QLineEdit" name="ddlText"/>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QGroupBox" name="groupBox_12">
+                 <widget class="QGroupBox" name="Team">
                   <property name="title">
                    <string>项目服务团队信息</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_20">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_26">
+                    <widget class="QLabel" name="startTimeLabel">
                      <property name="text">
                       <string>项目启动时间</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit_13"/>
+                    <widget class="QLineEdit" name="startTimeText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_28">
+                    <widget class="QLabel" name="requireLabel">
                      <property name="text">
                       <string>项目需求分析</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_14"/>
+                    <widget class="QLineEdit" name="requireText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_29">
+                    <widget class="QLabel" name="PMLabel">
                      <property name="text">
                       <string>项目经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_15"/>
+                    <widget class="QLineEdit" name="PMText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_30">
+                    <widget class="QLabel" name="TMLabel">
                      <property name="text">
                       <string>项目技术经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_16"/>
+                    <widget class="QLineEdit" name="TMText"/>
                    </item>
                   </layout>
                  </widget>
@@ -1711,304 +1715,307 @@ gridline-color:rgb(0, 0, 0);</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_33">
                 <item row="0" column="0">
-                 <widget class="QGroupBox" name="groupBox_13">
+                 <widget class="QGroupBox" name="Report">
                   <property name="title">
                    <string>服务报告</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_27">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_31">
+                    <widget class="QLabel" name="reportTimeLabel">
                      <property name="text">
                       <string>服务报告期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QTextEdit" name="textEdit"/>
+                    <widget class="QTextEdit" name="reportTimeText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_32">
+                    <widget class="QLabel" name="keypointLabel">
                      <property name="text">
                       <string>下阶段重点工作内容</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QTextEdit" name="textEdit_2"/>
+                    <widget class="QTextEdit" name="keypointText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_33">
+                    <widget class="QLabel" name="revisitLabel">
                      <property name="text">
                       <string>服务回访日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLineEdit" name="lineEdit_25"/>
+                    <widget class="QLineEdit" name="revisitText"/>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="0" column="1" rowspan="2">
-                 <widget class="QGroupBox" name="groupBox_15">
+                 <widget class="QGroupBox" name="Config">
                   <property name="title">
                    <string>配置、变更、发布管理</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_22">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_41">
+                    <widget class="QLabel" name="modifyManagerLabel">
                      <property name="text">
                       <string>变更经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit_28"/>
+                    <widget class="QLineEdit" name="modifyManagerText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_42">
+                    <widget class="QLabel" name="configManagerLabel">
                      <property name="text">
                       <string>配置经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_29"/>
+                    <widget class="QLineEdit" name="configManagerText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_43">
+                    <widget class="QLabel" name="releaseManagerLabel">
                      <property name="text">
                       <string>发布经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_30"/>
+                    <widget class="QLineEdit" name="releaseManagerText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_44">
+                    <widget class="QLabel" name="relatedManagerLabel">
                      <property name="text">
                       <string>关系经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_31"/>
+                    <widget class="QLineEdit" name="relatedManagerText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_45">
+                    <widget class="QLabel" name="configVersionLabel">
                      <property name="text">
                       <string>配置版本</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QLineEdit" name="lineEdit_32"/>
+                    <widget class="QLineEdit" name="configVersionText"/>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLabel" name="label_46">
+                    <widget class="QLabel" name="configReleaseDateLabel">
                      <property name="text">
                       <string>配置发布日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="1">
-                    <widget class="QLineEdit" name="lineEdit_33"/>
+                    <widget class="QLineEdit" name="configReleaseDateText"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_47">
+                    <widget class="QLabel" name="changesLabel">
                      <property name="text">
                       <string>变更数量</string>
                      </property>
                     </widget>
                    </item>
                    <item row="6" column="1">
-                    <widget class="QLineEdit" name="lineEdit_34"/>
+                    <widget class="QLineEdit" name="changesText"/>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_48">
+                    <widget class="QLabel" name="releasesLabel">
                      <property name="text">
                       <string>发布总数量</string>
                      </property>
                     </widget>
                    </item>
                    <item row="7" column="1">
-                    <widget class="QLineEdit" name="lineEdit_35"/>
+                    <widget class="QLineEdit" name="releasesText"/>
                    </item>
                    <item row="8" column="0">
-                    <widget class="QLabel" name="label_49">
+                    <widget class="QLabel" name="ConfigReleaseDateLabel">
                      <property name="text">
                       <string>发布日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="8" column="1">
-                    <widget class="QLineEdit" name="lineEdit_36"/>
+                    <widget class="QLineEdit" name="ConfigReleaseDateText"/>
                    </item>
                    <item row="9" column="0">
-                    <widget class="QLabel" name="label_50">
+                    <widget class="QLabel" name="applicationDateLabel">
                      <property name="text">
                       <string>发布申请日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="9" column="1">
-                    <widget class="QLineEdit" name="lineEdit_37"/>
+                    <widget class="QLineEdit" name="applicationDateText"/>
                    </item>
                    <item row="10" column="0">
-                    <widget class="QLabel" name="label_51">
+                    <widget class="QLabel" name="SNLabel">
                      <property name="text">
                       <string>发布单号</string>
                      </property>
                     </widget>
                    </item>
                    <item row="10" column="1">
-                    <widget class="QLineEdit" name="lineEdit_38"/>
+                    <widget class="QLineEdit" name="SNText"/>
                    </item>
                    <item row="11" column="0">
-                    <widget class="QLabel" name="label_52">
+                    <widget class="QLabel" name="targetLabel">
                      <property name="text">
                       <string>发布目标</string>
                      </property>
                     </widget>
                    </item>
                    <item row="11" column="1">
-                    <widget class="QLineEdit" name="lineEdit_39"/>
+                    <widget class="QLineEdit" name="targetText"/>
                    </item>
                    <item row="12" column="0">
-                    <widget class="QLabel" name="label_53">
+                    <widget class="QLabel" name="itemLabel">
                      <property name="text">
                       <string>发布交付物</string>
                      </property>
                     </widget>
                    </item>
                    <item row="12" column="1">
-                    <widget class="QLineEdit" name="lineEdit_40"/>
+                    <widget class="QLineEdit" name="itemText"/>
                    </item>
                    <item row="13" column="0">
-                    <widget class="QLabel" name="label_54">
+                    <widget class="QLabel" name="releaseVersionLabel">
                      <property name="text">
                       <string>发布版本</string>
                      </property>
                     </widget>
                    </item>
                    <item row="13" column="1">
-                    <widget class="QLineEdit" name="lineEdit_41"/>
+                    <widget class="QLineEdit" name="releaseVersionText"/>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="1" column="0" rowspan="2">
-                 <widget class="QGroupBox" name="groupBox_19">
+                 <widget class="QGroupBox" name="Continuity">
                   <property name="title">
                    <string>连续性管理</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_26">
-                   <item row="0" column="0" colspan="2">
-                    <widget class="QLabel" name="label_89">
+                   <item row="0" column="0" colspan="3">
+                    <widget class="QLabel" name="processLabel">
                      <property name="text">
                       <string>连续性测试经过内容</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0" colspan="2">
-                    <widget class="QTextEdit" name="textEdit_8"/>
+                   <item row="1" column="0" colspan="3">
+                    <widget class="QTextEdit" name="processText"/>
                    </item>
-                   <item row="2" column="0" colspan="2">
-                    <widget class="QLabel" name="label_90">
+                   <item row="2" column="0" colspan="3">
+                    <widget class="QLabel" name="resultLabel">
                      <property name="text">
                       <string>连续性测试结果内容</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="0" colspan="2">
-                    <widget class="QTextEdit" name="textEdit_9"/>
+                   <item row="3" column="0" colspan="3">
+                    <widget class="QTextEdit" name="resultText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_91">
+                    <widget class="QLabel" name="ContinuityDateLabel">
                      <property name="text">
                       <string>测试日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLabel" name="label_92">
+                    <widget class="QLabel" name="technicistLabel">
                      <property name="text">
                       <string>可用性技术人员</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
-                    <widget class="QLineEdit" name="lineEdit_55"/>
+                   <item row="5" column="2">
+                    <widget class="QLineEdit" name="technicistText"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_93">
+                    <widget class="QLabel" name="ContinuityApproverLabel">
                      <property name="text">
                       <string>可用性审批人员</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="1">
-                    <widget class="QLineEdit" name="lineEdit_56"/>
+                   <item row="6" column="2">
+                    <widget class="QLineEdit" name="ContinuityApproverText"/>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_94">
+                    <widget class="QLabel" name="ContinuityCompileDateLabel">
                      <property name="text">
                       <string>记录编制时间</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="1">
-                    <widget class="QLineEdit" name="lineEdit_57"/>
+                   <item row="7" column="2">
+                    <widget class="QLineEdit" name="ContinuityCompileDateText"/>
                    </item>
                    <item row="8" column="0">
-                    <widget class="QLabel" name="label_95">
+                    <widget class="QLabel" name="ContinuityAuditDateLabel">
                      <property name="text">
                       <string>记录审核时间</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="8" column="1">
-                    <widget class="QLineEdit" name="lineEdit_58"/>
+                   <item row="8" column="2">
+                    <widget class="QLineEdit" name="ContinuityAuditDateText"/>
+                   </item>
+                   <item row="4" column="2">
+                    <widget class="QLineEdit" name="ContinuityDateText"/>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QGroupBox" name="groupBox_14">
+                 <widget class="QGroupBox" name="Event">
                   <property name="title">
                    <string>事件与问题管理</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_23">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_34">
+                    <widget class="QLabel" name="eventManagerLabel">
                      <property name="text">
                       <string>事件管理经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1" colspan="3">
-                    <widget class="QLineEdit" name="lineEdit_27"/>
+                    <widget class="QLineEdit" name="eventManagerText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_35">
+                    <widget class="QLabel" name="issueManagerLabel">
                      <property name="text">
                       <string>问题管理经理</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1" colspan="3">
-                    <widget class="QLineEdit" name="lineEdit_26"/>
+                    <widget class="QLineEdit" name="issueManagerText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_36">
+                    <widget class="QLabel" name="eventLevelLabel">
                      <property name="text">
                       <string>受理事件等级</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1" colspan="2">
-                    <widget class="QComboBox" name="comboBox">
+                    <widget class="QComboBox" name="eventLevelText">
                      <property name="editable">
                       <bool>false</bool>
                      </property>
@@ -2038,44 +2045,44 @@ gridline-color:rgb(0, 0, 0);</string>
                     </widget>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_37">
+                    <widget class="QLabel" name="acceptedLabel">
                      <property name="text">
                       <string>受理事件件数</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1" colspan="2">
-                    <widget class="QSpinBox" name="spinBox"/>
+                    <widget class="QSpinBox" name="acceptedText"/>
                    </item>
                    <item row="3" column="3">
-                    <widget class="QLabel" name="label_38">
+                    <widget class="QLabel" name="closedLabel">
                      <property name="text">
                       <string>关闭事件件数</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="4">
-                    <widget class="QSpinBox" name="spinBox_2"/>
+                    <widget class="QSpinBox" name="closedText"/>
                    </item>
                    <item row="4" column="0" colspan="2">
-                    <widget class="QLabel" name="label_39">
+                    <widget class="QLabel" name="transformedLabel">
                      <property name="text">
                       <string>转化为问题的事件件数</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="2">
-                    <widget class="QSpinBox" name="spinBox_3"/>
+                    <widget class="QSpinBox" name="transformedText"/>
                    </item>
                    <item row="4" column="3">
-                    <widget class="QLabel" name="label_40">
+                    <widget class="QLabel" name="summarizedLabel">
                      <property name="text">
                       <string>汇总问题件数</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="4">
-                    <widget class="QSpinBox" name="spinBox_4"/>
+                    <widget class="QSpinBox" name="summarizedText"/>
                    </item>
                   </layout>
                  </widget>
@@ -2088,289 +2095,289 @@ gridline-color:rgb(0, 0, 0);</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_32">
                 <item row="0" column="0">
-                 <widget class="QGroupBox" name="groupBox_17">
+                 <widget class="QGroupBox" name="Audit">
                   <property name="title">
                    <string>审核管理</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_24">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_75">
+                    <widget class="QLabel" name="planDateLabel">
                      <property name="text">
                       <string>内审计划时间</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit_46"/>
+                    <widget class="QLineEdit" name="planDateText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_76">
+                    <widget class="QLabel" name="AuditAuditDateLabel">
                      <property name="text">
                       <string>内审审核执行日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_53"/>
+                    <widget class="QLineEdit" name="AuditAuditDateText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_77">
+                    <widget class="QLabel" name="auditLeaderLabel">
                      <property name="text">
                       <string>审核组长</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_54"/>
+                    <widget class="QLineEdit" name="auditLeaderText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_78">
+                    <widget class="QLabel" name="audit1Label">
                      <property name="text">
                       <string>审核员1</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_59"/>
+                    <widget class="QLineEdit" name="audit1Text"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_79">
+                    <widget class="QLabel" name="audit2Label">
                      <property name="text">
                       <string>审核员2</string>
                      </property>
                     </widget>
                    </item>
                    <item row="4" column="1">
-                    <widget class="QLineEdit" name="lineEdit_60"/>
+                    <widget class="QLineEdit" name="audit2Text"/>
                    </item>
                    <item row="5" column="0">
-                    <widget class="QLabel" name="label_80">
+                    <widget class="QLabel" name="audit3Label">
                      <property name="text">
                       <string>审核员3</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="1">
-                    <widget class="QLineEdit" name="lineEdit_61"/>
+                    <widget class="QLineEdit" name="audit3Text"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_81">
+                    <widget class="QLabel" name="reviewDateLabel">
                      <property name="text">
                       <string>预期管理评审日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="6" column="1">
-                    <widget class="QLineEdit" name="lineEdit_62"/>
+                    <widget class="QLineEdit" name="reviewDateText"/>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_82">
+                    <widget class="QLabel" name="scheduleDateLabel">
                      <property name="text">
                       <string>管评计划时间</string>
                      </property>
                     </widget>
                    </item>
                    <item row="7" column="1">
-                    <widget class="QLineEdit" name="lineEdit_63"/>
+                    <widget class="QLineEdit" name="scheduleDateText"/>
                    </item>
                    <item row="8" column="0">
-                    <widget class="QLabel" name="label_83">
+                    <widget class="QLabel" name="excuteDateLabel">
                      <property name="text">
                       <string>管理评审执行日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="8" column="1">
-                    <widget class="QLineEdit" name="lineEdit_64"/>
+                    <widget class="QLineEdit" name="excuteDateText"/>
                    </item>
                    <item row="9" column="0">
-                    <widget class="QLabel" name="label_84">
+                    <widget class="QLabel" name="reportDateLabel">
                      <property name="text">
                       <string>管评实施报告日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="9" column="1">
-                    <widget class="QLineEdit" name="lineEdit_65"/>
+                    <widget class="QLineEdit" name="reportDateText"/>
                    </item>
                    <item row="10" column="0">
-                    <widget class="QLabel" name="label_85">
+                    <widget class="QLabel" name="AuditCompilerLabel">
                      <property name="text">
                       <string>审核编制人</string>
                      </property>
                     </widget>
                    </item>
                    <item row="10" column="1">
-                    <widget class="QLineEdit" name="lineEdit_66"/>
+                    <widget class="QLineEdit" name="AuditCompilerText"/>
                    </item>
                    <item row="11" column="0">
-                    <widget class="QLabel" name="label_86">
+                    <widget class="QLabel" name="AuditAuditLabel">
                      <property name="text">
                       <string>审核审批人</string>
                      </property>
                     </widget>
                    </item>
                    <item row="11" column="1">
-                    <widget class="QLineEdit" name="lineEdit_67"/>
+                    <widget class="QLineEdit" name="AuditAuditText"/>
                    </item>
                    <item row="12" column="0">
-                    <widget class="QLabel" name="label_87">
+                    <widget class="QLabel" name="AuditCompileDateLabel">
                      <property name="text">
                       <string>审核编制日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="12" column="1">
-                    <widget class="QLineEdit" name="lineEdit_68"/>
+                    <widget class="QLineEdit" name="AuditCompileDateText"/>
                    </item>
                    <item row="13" column="0">
-                    <widget class="QLabel" name="label_88">
+                    <widget class="QLabel" name="AuditApproveDateLabel">
                      <property name="text">
-                      <string>审核审批人</string>
+                      <string>审核审批时间</string>
                      </property>
                     </widget>
                    </item>
                    <item row="13" column="1">
-                    <widget class="QLineEdit" name="lineEdit_69"/>
+                    <widget class="QLineEdit" name="AuditApproveDateText"/>
                    </item>
                   </layout>
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QGroupBox" name="groupBox_18">
+                 <widget class="QGroupBox" name="Record">
                   <property name="title">
                    <string>文件与记录管理</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_25">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_62">
+                    <widget class="QLabel" name="RecordTargetLabel">
                      <property name="text">
                       <string>审计对象</string>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QLineEdit" name="lineEdit_42"/>
+                    <widget class="QLineEdit" name="RecordTargetText"/>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QLabel" name="label_63">
+                    <widget class="QLabel" name="RecordTimeLabel">
                      <property name="text">
                       <string>审计时间</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="lineEdit_43"/>
+                    <widget class="QLineEdit" name="RecordTimeText"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QLabel" name="label_64">
+                    <widget class="QLabel" name="RecordStaffLabel">
                      <property name="text">
                       <string>审计人员</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QLineEdit" name="lineEdit_44"/>
+                    <widget class="QLineEdit" name="RecordStaffText"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QLabel" name="label_65">
+                    <widget class="QLabel" name="RecordArrangeLabel">
                      <property name="text">
                       <string>审计安排</string>
                      </property>
                     </widget>
                    </item>
                    <item row="3" column="1">
-                    <widget class="QLineEdit" name="lineEdit_45"/>
+                    <widget class="QLineEdit" name="RecordArrangeText"/>
                    </item>
                    <item row="4" column="0">
-                    <widget class="QLabel" name="label_66">
+                    <widget class="QLabel" name="RecordContentLabel">
                      <property name="text">
                       <string>文件审批内容</string>
                      </property>
                     </widget>
                    </item>
                    <item row="5" column="0" colspan="2">
-                    <widget class="QTextEdit" name="textEdit_7"/>
+                    <widget class="QTextEdit" name="RecordContentText"/>
                    </item>
                    <item row="6" column="0">
-                    <widget class="QLabel" name="label_67">
+                    <widget class="QLabel" name="RecordFileNameLabel">
                      <property name="text">
                       <string>审批文件名称</string>
                      </property>
                     </widget>
                    </item>
                    <item row="6" column="1">
-                    <widget class="QLineEdit" name="lineEdit_47"/>
+                    <widget class="QLineEdit" name="RecordFileNameText"/>
                    </item>
                    <item row="7" column="0">
-                    <widget class="QLabel" name="label_68">
+                    <widget class="QLabel" name="auditContentLabel">
                      <property name="text">
                       <string>审批文件审核内容</string>
                      </property>
                     </widget>
                    </item>
                    <item row="8" column="0" colspan="2">
-                    <widget class="QTextEdit" name="textEdit_5"/>
+                    <widget class="QTextEdit" name="auditContentText"/>
                    </item>
                    <item row="9" column="0">
-                    <widget class="QLabel" name="label_69">
+                    <widget class="QLabel" name="auditProcessLabel">
                      <property name="text">
                       <string>审批文件过程简述</string>
                      </property>
                     </widget>
                    </item>
                    <item row="10" column="0" colspan="2">
-                    <widget class="QTextEdit" name="textEdit_6"/>
+                    <widget class="QTextEdit" name="auditProcessText"/>
                    </item>
                    <item row="11" column="0">
-                    <widget class="QLabel" name="label_70">
+                    <widget class="QLabel" name="RecordAuditLabel">
                      <property name="text">
                       <string>文件审批人</string>
                      </property>
                     </widget>
                    </item>
                    <item row="11" column="1">
-                    <widget class="QLineEdit" name="lineEdit_48"/>
+                    <widget class="QLineEdit" name="RecordAuditText"/>
                    </item>
                    <item row="12" column="0">
-                    <widget class="QLabel" name="label_71">
+                    <widget class="QLabel" name="RecordAuditDateLabel">
                      <property name="text">
                       <string>文件审批日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="12" column="1">
-                    <widget class="QLineEdit" name="lineEdit_49"/>
+                    <widget class="QLineEdit" name="RecordAuditDateText"/>
                    </item>
                    <item row="13" column="0">
-                    <widget class="QLabel" name="label_72">
+                    <widget class="QLabel" name="RecordApproverLabel">
                      <property name="text">
                       <string>文件批准人</string>
                      </property>
                     </widget>
                    </item>
                    <item row="13" column="1">
-                    <widget class="QLineEdit" name="lineEdit_50"/>
+                    <widget class="QLineEdit" name="RecordApproverText"/>
                    </item>
                    <item row="14" column="0">
-                    <widget class="QLabel" name="label_73">
+                    <widget class="QLabel" name="RecordApproveDateLabel">
                      <property name="text">
                       <string>文件批准日期</string>
                      </property>
                     </widget>
                    </item>
                    <item row="14" column="1">
-                    <widget class="QLineEdit" name="lineEdit_51"/>
+                    <widget class="QLineEdit" name="RecordApproveDateText"/>
                    </item>
                    <item row="15" column="0">
-                    <widget class="QLabel" name="label_74">
+                    <widget class="QLabel" name="providerLabel">
                      <property name="text">
                       <string>文件发放人</string>
                      </property>
                     </widget>
                    </item>
                    <item row="15" column="1">
-                    <widget class="QLineEdit" name="lineEdit_52"/>
+                    <widget class="QLineEdit" name="providerText"/>
                    </item>
                   </layout>
                  </widget>
