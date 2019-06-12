@@ -63,6 +63,10 @@ class userInfo:
     """
     # array of string
     departments = []
+    # array of project
+    projects = []
+    # service object
+    service = {}
 
     def __init__(self):
         pass
