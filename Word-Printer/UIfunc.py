@@ -200,6 +200,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.cancelDep.clicked.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
         self.addOrModifyDep.clicked.connect( lambda: self.setDepartments(getattr( self.departmentList.currentItem(),'text',str)() ) )
 
+        #
+        self.connectProjectList()
+
     def chooseLogo(self):
         fileName1, filetype = QFileDialog().getOpenFileName(self, "选取图标",".//","Images(*.png *.jpg *.jpeg *.bmp)")
         self.Logo.setPlainText(fileName1)
