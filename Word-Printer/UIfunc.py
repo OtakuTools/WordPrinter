@@ -7,7 +7,7 @@ from PyQt5.QtGui import *
 import json, time, re, os, shutil
 import threading
 
-from dataStruct import userInfo
+from dataStruct import userInfo,Project
 from generateGraph import drawGraph
 from database import DB, DBSettingController
 from messageDialog import MessageDialog
@@ -637,3 +637,94 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.currentSelectedFile.add(self.getLable(item.text(column)))
         elif item.checkState(column) == Qt.Unchecked:
             self.currentSelectedFile.discard(self.getLable(item.text(column)))
+
+    #四层页面
+    def connectProjectList( self ):
+        #可能没选中，用attr确认
+        #选中时为 projectList.currentItem().text() ,否则为 str()
+        self.projectList.currentItemChanged.connect( lambda: self.showProjectDetail( getattr(self,projectList.currentItem(),'text',str)() ) )
+        self.AddProject.clicked.connect( lambda: self.addProject() )
+        self.DeleteProject.clicked.connect( lambda: self.removeProject( getattr(self,projectList.currentItem(),'text',str)() ) )
+        self.cancelProject.clicked.connect( lambda: self.showProjectDetail( getattr(self,projectList.currentItem(),'text',str)() ) )
+        self.saveProject.clicked.connect( lambda: self.setProject( getattr(self,projectList.currentItem(),'text',str)() ) )
+
+    def addProject( self , projectName="项目名称" ):
+        self.projectList.addItem( projectName )
+        self.user.projects.append( Project(projectName) )
+        self.projectList.setCurrentItem( self.projectList.item( self.projectList.count()-1 )  )
+
+    def removeProject( self , projectName="" ):
+        if( projectName == "" ):
+            return
+        else:
+            ### critical ###
+            index = self.projectList.row( self.projectList.currentItem() )
+            self.connectProjectList.takeItem( index )
+            del self.user.projects[ index ]
+            ### end Critical ###
+
+    def setProject( self , projectName ):
+        self.setA()
+        self.setB()
+        self.setDetail()
+        self.setReport()
+        self.setTeam()
+        self.setEvent()
+        self.setConfig()
+        self.setContinuity()
+        self.setAudit()
+        self.setRecord()
+
+    def showProjectDetail( self, projectName ):
+        self.showA()
+        self.showB()
+        self.showDetail()
+        self.showReport()
+        self.showTeam()
+        self.showEvent()
+        self.showConfig()
+        self.showContinuity()
+        self.showAudit()
+        self.showRecord()
+
+    def setA(self):
+        pass
+    def setB(self):
+        pass
+    def setDetail(self):
+        pass
+    def setTeam(self):
+        pass
+    def setReport(self):
+        pass
+    def setEvent(self):
+        pass
+    def setConfig(self):
+        pass
+    def setContinuity(self):
+        pass
+    def setAudit(self):
+        pass
+    def setRecord(self):
+        pass
+
+    def showA(self):
+        pass
+    def showB(self):
+        pass
+    def showDetail(self):
+        pass
+    def showTeam(self):
+        pass
+    def showReport(self):
+        pass
+    def showEvent(self):
+        pass
+    def showConfig(self):
+        pass
+    def showContinuity(self):
+        pass
+    def showAudit(self):
+        pass
+    def showRecord(self):
+        pass

@@ -95,7 +95,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="iconSize">
        <size>
@@ -117,7 +117,7 @@
         <item row="0" column="0">
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="companyTab">
            <attribute name="title">
@@ -1401,17 +1401,31 @@ gridline-color:rgb(0, 0, 0);</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_29">
                <item row="0" column="0" colspan="2">
-                <widget class="QListWidget" name="listWidget"/>
+                <widget class="QListWidget" name="projectList"/>
                </item>
                <item row="1" column="0">
-                <widget class="QPushButton" name="AddDep_2">
+                <widget class="QPushButton" name="saveProject">
+                 <property name="text">
+                  <string>保存修改</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="cancelProject">
+                 <property name="text">
+                  <string>放弃修改</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QPushButton" name="AddProcject">
                  <property name="text">
                   <string>添加</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="AddDep_3">
+               <item row="2" column="1">
+                <widget class="QPushButton" name="DeleteProject">
                  <property name="text">
                   <string>删除</string>
                  </property>
@@ -2563,9 +2577,9 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>level2_fileList</tabstop>
   <tabstop>level3_fileList</tabstop>
   <tabstop>tabWidget_3</tabstop>
-  <tabstop>listWidget</tabstop>
-  <tabstop>AddDep_2</tabstop>
-  <tabstop>AddDep_3</tabstop>
+  <tabstop>projectList</tabstop>
+  <tabstop>AddProcject</tabstop>
+  <tabstop>DeleteProject</tabstop>
   <tabstop>tabWidget_4</tabstop>
   <tabstop>AprojectNameText</tabstop>
   <tabstop>AcompanyText</tabstop>

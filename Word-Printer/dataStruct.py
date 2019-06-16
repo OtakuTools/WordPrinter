@@ -61,12 +61,10 @@ class userInfo:
     #    }
     #]
     """
-    # array of string
+    # array of {"name":departmentName,...}
     departments = []
     # array of project
     projects = []
-    # service object
-    service = {}
 
     def __init__(self):
         pass
@@ -378,8 +376,8 @@ colorStyle = {
 
 class Project:
     class PartyA:
-        def __init__(self):
-            self.projectName = "" # 项目名称
+        def __init__(self,projectName=""):
+            self.projectName = projectName # 项目名称
             self.company = "" # 甲方名称
             self.name = "" # 甲方联系人姓名
             self.phone = "" # 甲方联系电话
@@ -412,14 +410,6 @@ class Project:
             self.PM = "" # 项目经理
             self.TM = "" # 项目技术经理
 
-    def __init__(self):
-        self.A = self.PartyA()
-        self.B = self.PartyB()
-        self.detail = self.Detail()
-        self.team = self.Team()
-
-
-class Service:
     class Report:
         def __init__(self):
             self.time = "" # 服务报告期
@@ -492,7 +482,11 @@ class Service:
             self.approveDate = "" # 文件批准日期
             self.provider = "" # 文件发放人
 
-    def __init__(self):
+    def __init__(self, projectName):
+        self.A = self.PartyA(projectName)
+        self.B = self.PartyB()
+        self.detail = self.Detail()
+        self.team = self.Team()
         self.report = Report()
         self.event = Event()
         self.config = Config()
