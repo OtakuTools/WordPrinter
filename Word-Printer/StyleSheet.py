@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+#from StyleSheet import *
 #self.tabWidget_2.setTabBar(HorizontalTabBar())
 class HorizontalTabBar(QtWidgets.QTabBar):
     

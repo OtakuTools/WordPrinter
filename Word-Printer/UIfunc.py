@@ -100,7 +100,6 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def init_Samples(self):
         self.pathSelector = pathSelection()
-        #self.pathSelector.autoRefresh()
 
     def initToolBar(self):
         self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 50px; width: 120px; font-size: 9pt;}")
@@ -645,18 +644,20 @@ class Controller(QMainWindow, Ui_MainWindow):
     def connectProjectList( self ):
         #可能没选中，用attr确认
         #选中时为 projectList.currentItem().text() ,否则为 str()
-        self.projectList.currentItemChanged.connect( lambda: self.showProjectDetail( getattr(self,projectList.currentItem(),'text',str)() ) )
-        self.AddProject.clicked.connect( lambda: self.addProject() )
-        self.DeleteProject.clicked.connect( lambda: self.removeProject( getattr(self,projectList.currentItem(),'text',str)() ) )
-        self.cancelProject.clicked.connect( lambda: self.showProjectDetail( getattr(self,projectList.currentItem(),'text',str)() ) )
-        self.saveProject.clicked.connect( lambda: self.setProject( getattr(self,projectList.currentItem(),'text',str)() ) )
+        self.projectList.currentItemChanged.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
+        #self.AddProject.clicked.connect( lambda: self.addProject() )
+        self.DeleteProject.clicked.connect( lambda: self.removeProject( getattr(self.projectList.currentItem(),'text',str)() ) )
+        self.cancelProject.clicked.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
+        self.saveProject.clicked.connect( lambda: self.setProject( getattr(self.projectList.currentItem(),'text',str)() ) )
 
     def addProject( self , projectName="项目名称" ):
+        return
         self.projectList.addItem( projectName )
         self.user.projects.append( Project(projectName) )
         self.projectList.setCurrentItem( self.projectList.item( self.projectList.count()-1 )  )
 
     def removeProject( self , projectName="" ):
+        return
         if( projectName == "" ):
             return
         else:
@@ -666,7 +667,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             del self.user.projects[ index ]
             ### end Critical ###
 
-    def setProject( self , projectName ):
+    def setProject( self , projectName="" ):
         self.setA()
         self.setB()
         self.setDetail()
@@ -678,13 +679,13 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setAudit()
         self.setRecord()
 
-    def showProjectDetail( self, projectName ):
+    def showProjectDetail( self, projectName="" ):
         self.showA()
         self.showB()
         self.showDetail()
         self.showReport()
         self.showTeam()
-        self.showEvent()
+        self.showProjectEvent()
         self.showConfig()
         self.showContinuity()
         self.showAudit()
@@ -721,7 +722,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         pass
     def showReport(self):
         pass
-    def showEvent(self):
+    def showProjectEvent(self):
         pass
     def showConfig(self):
         pass
