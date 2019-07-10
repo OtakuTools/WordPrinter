@@ -12,6 +12,7 @@ import sys
 
 from dataStruct import userInfo
 from databaseSetting import Ui_databaseSetting
+from databaseTableConfig import databaseTableConfig
 
 class DBSettingController(QDialog, Ui_databaseSetting):
 
@@ -91,180 +92,26 @@ class DB:
             sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
             ptr.execute(sql)
         except Exception as e:
-            #print(e)
             self.dbException = str(e)
             self.db.rollback()
         self.db.close()
         try:
             self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'], connect_timeout=self._conn_timeout)
         except Exception as e:
-            #print(e)
             self.dbException = str(e)
             self.db = None
         else:
-            #print("SUCCESS: Create database -> " + dbName)
             self.initDB()
 
     def initDB(self):
         ptr = self.db.cursor()
-        sql = ["""
-               CREATE TABLE IF NOT EXISTS info( 
-                   id NVARCHAR(20) NOT NULL, 
-                   company NVARCHAR(100) NOT NULL,
-                   address NVARCHAR(100) NOT NULL,
-                   introduction NVARCHAR(1000) NOT NULL,
-                   coverField NVARCHAR(1000) NOT NULL,
-                   corporate NVARCHAR(20) NOT NULL,
-                   manager NVARCHAR(20) NOT NULL,
-                   guanDai NVARCHAR(20) NOT NULL,
-                   compiler NVARCHAR(20) NOT NULL,
-                   approver NVARCHAR(20) NOT NULL,
-                   audit NVARCHAR(20) NOT NULL,
-                   announcer NVARCHAR(20) NOT NULL,
-                   releaseDate NVARCHAR(20) NOT NULL,
-                   auditDate NVARCHAR(20) NOT NULL,
-                   zip NVARCHAR(6) NOT NULL,
-                   phone NVARCHAR(20) NOT NULL,
-                   policy NVARCHAR(200) NOT NULL,
-                   picPath NVARCHAR(200) NOT NULL,
-                   depStruct NVARCHAR(1000) NOT NULL,
-                   color NVARCHAR(1000) NOT NULL,
-                   PRIMARY KEY (company)
-               ) ENGINE=InnoDB;
-               """,
-               """
-               CREATE TABLE IF NOT EXISTS department( 
-                   refId NVARCHAR(100) NOT NULL,
-                   level INT(1) NOT NULL DEFAULT 0,
-                   name NVARCHAR(20) NOT NULL,
-                   leader NVARCHAR(20) NOT NULL,
-                   operator NVARCHAR(20) NOT NULL,
-                   intro NVARCHAR(1500) NOT NULL,
-                   func NVARCHAR(200) NOT NULL,
-                   seq INT(5) NOT NULL,
-                   PRIMARY KEY (refId, name),
-                   FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
-               ) ENGINE=InnoDB;
-               """,
-               """
-               CREATE TABLE IF NOT EXISTS logoStore( 
-                   refId NVARCHAR(100) NOT NULL,
-                   logopath NVARCHAR(200),
-                   photo MEDIUMBLOB DEFAULT NULL,
-                   PRIMARY KEY (refId),
-                   FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
-               ) ENGINE=InnoDB;
-               """,
-               """
-               CREATE TABLE IF NOT EXISTS companyProjects(
-                   refId NVARCHAR(100) NOT NULL,
-                   projectID int(10) NOT NULL,
-                   seq INT(5) NOT NULL,
-                   PRIMARY KEY (refId, projectId),
-                   FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE,
-                   FOREIGN KEY (projectId) REFERENCES project(projectId) ON UPDATE CASCADE ON DELETE CASCADE
-               ) ENGINE=InnoDB;
-               """,
-               """
-               CREATE TABLE IF NOT EXISTS project(
-                   projectId int(10) auto_increment,
-                   AprojectName nvarchar(100),
-                   Acompany nvarchar(50),
-                   Aname nvarchar(30),
-                   Aphone nvarchar(15),
-                   Aaddress nvarchar(100),
-                   BcontactName nvarchar(30),
-                   BserviceName nvarchar(30),
-                   BserviceMail nvarchar(30),
-                   BservicePhone nvarchar(15),
-                   BcomplainName nvarchar(30),
-                   BcomplainMail nvarchar(30),
-                   BcomplainPhone nvarchar(15),
-                   Damount nvarchar(15),
-                   Dperiod nvarchar(30),
-                   Dconfig nvarchar(100),
-                   Dname nvarchar(30),
-                   Dlevel nvarchar(3),
-                   Ddetails nvarchar(300),
-                   Ddemand varchar(300),
-                   Dddl nvarchar(300),
-                   TstartTime nvarchar(30),
-                   Trequire nvarchar(300),
-                   TPM nvarchar(30),
-                   TTM nvarchar(30),
-                   PRIMARY KEY (projectId)
-               ) ENGINE=InnoDB, auto_increment=1;
-               """,
-               """
-               CREATE TABLE IF NOT EXISTS service(
-                   refId  NVARCHAR(100) NOT NULL,
-                   RepTime nvarchar(30),
-                   RepKeypoint nvarchar(300),
-                   RepRevisit nvarchar(30),
-                   EveEventManager nvarchar(30),
-                   EveIssueManager nvarcahr(30),
-                   EveLevel nvarchar(3),
-                   EveAccepted int,
-                   EveClosed int,
-                   EveTransformed int,
-                   EveSummarized int,
-                   CofModifyManager nvarchar(30),
-                   CofConfigManager nvarchar(30),
-                   CofReleaseManager nvarchar(30),
-                   CofRelatedManager nvarchar(30),
-                   CofConfigVersion nvarchar(30),
-                   CofConfigReleaseDate nvarchar(30),
-                   CofChanges int,
-                   CofReleases int,
-                   CofReleaseDate nvarchar(30),
-                   CofPreReleaseDate nvarchar(30),
-                   CofApplicationDate nvarchar(30),
-                   CofSN nvarchar(50),
-                   CofTarget nvarchar(50),
-                   CofItem nvarchar(50),
-                   CofReleaseVersion nvarchar(30),
-                   CotProcess nvarchar(100),
-                   CotResult nvarchar(100),
-                   CotDate nvarchar(30),
-                   CotTechnicist nvarchar(30),
-                   CotApprover nvarchar(30),
-                   CotCompileDate nvarchar(30),
-                   CotAuditDate nvarchar(30),
-                   AudPlanDate nvarchar(30),
-                   AudAuditDate nvarchar(30),
-                   AudAuditLeader nvarchar(30),
-                   AudAudit1 nvarchar(30),
-                   AudAudit2 nvarchar(30),
-                   AudAudit3 nvarchar(30),
-                   AudReviewDate nvarchar(30),
-                   AudScheduleDate nvarchar(30),
-                   AudExcuteDate nvarchar(30),
-                   AudReportDate nvarchar(30),
-                   AudCompiler nvarcahr(30),
-                   AudAudit nvarchar(30),
-                   AudCompileDate nvarchar(30),
-                   AudApproveDate nvarchar(30),
-                   RecTarget nvarchar(30),
-                   RecTime nvarchar(30),
-                   RecStaff nvarchar(30),
-                   RecArrange nvarchar(30),
-                   RecContent nvarchar(300),
-                   RecFileName nvarchar(100),
-                   RecAuditContent nvarchar(100),
-                   RecAuditProcess nvarchar(100),
-                   RecAudit nvarchar(30),
-                   RecAuditDate nvarchar(30),
-                   RecApprover nvarchar(30),
-                   RecApproveDate nvarchar(30),
-                   RecProvider nvarchar(30),
-                   PRIMARY KEY (refId),
-                   FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
-               ) ENGINE=InnoDB;
-               """]
+        tableConfig = databaseTableConfig()
+        sql = tableConfig.getTables()
         try:
             for sentence in sql:
                 ptr.execute(sentence)
         except Exception as e:
+            #print(e)
             self.dbException = str(e)
             self.db.rollback()
 
@@ -377,7 +224,7 @@ class DB:
         data.phone = data.phone.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
         data.policy = data.policy.replace('\\','\\\\').replace("'","\\'").replace('"','\\"')
 
-        #
+        # 公司基础信息
         ptr = self.db.cursor()
         sql0 =  """
                 INSERT INTO info(
@@ -430,33 +277,78 @@ class DB:
             self.dbException = str(e)
             return False
 
+        # 公司部门信息
         seq = 0
+        sql1 = """
+                INSERT INTO department(
+                    refId, 
+                    name,
+                    leader,
+                    operator,
+                    level,
+                    intro,
+                    func,
+                    seq
+                ) VALUES
+               """
+        depNum = len(data.departments)
         for department in data.departments:
+            sql1 += "('%s', '%s', '%s', '%s', %s, '%s', '%s', %d)" \
+                    % (data.company, department['name'], \
+                       department["leader"], department["operator"],\
+                       str(department["level"]), "#".join(department["intro"]),\
+                       "#".join(self.formatFunc(department["func"])), seq)
+            if seq < depNum-1:
+                sql1 += ","
+            else:
+                sql1 += ";"
             seq += 1
-            sql1 =  """
-                    INSERT INTO department(
-                        refId, 
-                        name,
-                        leader,
-                        operator,
-                        level,
-                        intro,
-                        func,
-                        seq
-                    )VALUES('%s', '%s', '%s', '%s', %s, '%s', '%s', %d);
-                    """ % (data.company, department['name'], 
-                           department["leader"], department["operator"],
-                           str(department["level"]), "#".join(department["intro"]), 
-                           "#".join(self.formatFunc(department["func"])), seq)
-            
-            try:
-               ptr.execute(sql1)
-               self.db.commit()
-            except Exception as e:
-               self.db.rollback()
-               #print(e)
-               self.dbException = str(e)
-               return False
+
+        try:
+            ptr.execute(sql1)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            print(e)
+            self.dbException = str(e)
+            return False
+
+        # 公司项目信息
+        for project in data.projects:
+            sql2 = """
+                INSERT INTO department(
+                    AprojectName,
+                    Acompany,
+                    Aname,
+                    Aphone,
+                    Aaddress,
+                    BcontactName,
+                    BserviceName,
+                    BserviceMail,
+                    BservicePhone,
+                    BcomplainName,
+                    BcomplainMail,
+                    BcomplainPhone,
+                    Damount,
+                    Dperiod,
+                    Dconfig,
+                    Dname,
+                    Dlevel,
+                    Ddetails,
+                    Ddemand,
+                    Dddl,
+                    TstartTime,
+                    Trequire,
+                    TPM,
+                    TTM
+                ) VALUES (
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s');
+               """
         return True
 
     def update(self, table, option_data):
