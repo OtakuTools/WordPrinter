@@ -50,9 +50,8 @@ class databaseTableConfig:
         """,
         """
         CREATE TABLE IF NOT EXISTS projectInfo(
-            projectId int(10) auto_increment,
-            AprojectName nvarchar(100),
-            Acompany nvarchar(50),
+            AprojectName nvarchar(100) NOT NULL,
+            Acompany nvarchar(50) NOT NULL,
             Aname nvarchar(30),
             Aphone nvarchar(15),
             Aaddress nvarchar(100),
@@ -75,12 +74,16 @@ class databaseTableConfig:
             Trequire nvarchar(300),
             TPM nvarchar(30),
             TTM nvarchar(30),
-            PRIMARY KEY (projectId)
-        ) ENGINE=InnoDB, AUTO_INCREMENT=1;
+            seq int,
+            PRIMARY KEY (Acompany, AprojectName),
+            INDEX(Acompany),
+            INDEX(AprojectName)
+        ) ENGINE=InnoDB;
         """,
         """
         CREATE TABLE IF NOT EXISTS serviceProcess(
-            serviceId int(10) auto_increment,
+            refAprojectName nvarchar(100) NOT NULL,
+            refAcompany nvarchar(50) NOT NULL,
             RepTime nvarchar(30),
             RepKeypoint nvarchar(300),
             RepRevisit nvarchar(30),
@@ -140,20 +143,9 @@ class databaseTableConfig:
             RecApprover nvarchar(30),
             RecApproveDate nvarchar(30),
             RecProvider nvarchar(30),
-            PRIMARY KEY (serviceId)
-        ) ENGINE=InnoDB, AUTO_INCREMENT=1;
-        """,
-        """
-        CREATE TABLE IF NOT EXISTS companyProject(
-            refId nvarchar(100) NOT NULL,
-            projectId int(10) NOT NULL,
-            serviceId int(10) NOT NULL,
-            seq int(5) NOT NULL,
-            PRIMARY KEY (refId, projectId, serviceId),
-            UNIQUE KEY (projectId, serviceId),
-            FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE,
-            FOREIGN KEY (projectId) REFERENCES projectInfo(projectId) ON UPDATE CASCADE ON DELETE CASCADE,
-            FOREIGN KEY (serviceId) REFERENCES serviceProcess(serviceId) ON UPDATE CASCADE ON DELETE CASCADE
+            PRIMARY KEY (refAcompany, refAprojectName),
+            FOREIGN KEY (refAcompany) REFERENCES projectInfo(Acompany) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (refAprojectName) REFERENCES projectInfo(AprojectName) ON UPDATE CASCADE ON DELETE CASCADE
         ) ENGINE=InnoDB;
         """]
 

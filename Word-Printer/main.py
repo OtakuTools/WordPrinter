@@ -15,4 +15,5 @@ if __name__ == '__main__':
     window = Controller()
     window.show()
     window.init_DB_user()
-    sys.exit(app.exec_())
+
+sys.exit(app.exec_())

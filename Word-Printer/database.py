@@ -67,23 +67,49 @@ class DB:
         if self.db:
             self.db.close()
 
-    def initConnection(self):
-        self.info = self.loadConfig()
+    def setupConnectionThread_host(self):
         try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], port=self.info['port'], connect_timeout=self._conn_timeout)
+            self.db = pymysql.connect(host=self.info['ip'], 
+                                      user=self.info['user'], 
+                                      password=self.info['pswd'], 
+                                      port=self.info['port'], 
+                                      connect_timeout=self._conn_timeout)
         except Exception as e:
             self.db = None
             self.dbException = str(e)
             return
-        else:
-            self.createDB(self.info['dbname'])
+
+    def setupConnectionThread_db(self):
+        try:
+            self.db = pymysql.connect(host=self.info['ip'], 
+                                      user=self.info['user'], 
+                                      password=self.info['pswd'], 
+                                      port=self.info['port'], 
+                                      database=self.info['dbname'],
+                                      connect_timeout=self._conn_timeout)
+        except Exception as e:
+            self.db = None
+            self.dbException = str(e)
+            return
+
+    def initConnection(self):
+        self.info = self.loadConfig()
+        try:
+            t = threading.Thread(target=self.setupConnectionThread_host)
+            t.start()
+            t.join(5)
+            if t.isAlive() or not self.checkConnection():
+                raise Exception(self.dbException)
+        except Exception as e:
+            self.db = None
+            return
+
+        self.createDB(self.info['dbname'])
 
     def checkConnection(self):
         return True if self.db else False
     
     def refreshConnection(self):
-        #if self.db:
-        #    self.db.close()
         self.initConnection()
 
     def createDB(self, dbName):
@@ -92,16 +118,21 @@ class DB:
             sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
             ptr.execute(sql)
         except Exception as e:
+            print(e)
             self.dbException = str(e)
             self.db.rollback()
         self.db.close()
         try:
-            self.db = pymysql.connect(host=self.info['ip'], user=self.info['user'], password=self.info['pswd'], database=self.info['dbname'], port=self.info['port'], connect_timeout=self._conn_timeout)
+            t = threading.Thread(target=self.setupConnectionThread_db)
+            t.start()
+            t.join(5)
+            if t.isAlive() or not self.checkConnection():
+                raise Exception(self.dbException)
         except Exception as e:
             self.dbException = str(e)
             self.db = None
-        else:
-            self.initDB()
+            return
+        self.initDB()
 
     def initDB(self):
         ptr = self.db.cursor()
@@ -228,26 +259,10 @@ class DB:
         ptr = self.db.cursor()
         sql0 =  """
                 INSERT INTO info(
-                    id, 
-                    company,
-                    address,
-                    introduction,
-                    coverField,
-                    corporate,
-                    manager,
-                    guanDai,
-                    compiler,
-                    approver,
-                    audit,
-                    announcer,
-                    releaseDate,
-                    auditDate,
-                    zip,
-                    phone,
-                    policy,
-                    picPath,
-                    depStruct,
-                    color
+                    id, company, address, introduction, coverField,
+                    corporate, manager, guanDai, compiler, approver,
+                    audit, announcer, releaseDate, auditDate, zip,
+                    phone, policy, picPath, depStruct, color
                 )VALUES('%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
                         '%s', '%s', '%s', '%s', '%s', 
@@ -281,14 +296,8 @@ class DB:
         seq = 0
         sql1 = """
                 INSERT INTO department(
-                    refId, 
-                    name,
-                    leader,
-                    operator,
-                    level,
-                    intro,
-                    func,
-                    seq
+                    refId, name, leader, operator, level,
+                    intro, func, seq
                 ) VALUES
                """
         depNum = len(data.departments)
@@ -314,41 +323,157 @@ class DB:
             return False
 
         # 公司项目信息
+        seq = 0
         for project in data.projects:
             sql2 = """
-                INSERT INTO department(
-                    AprojectName,
-                    Acompany,
-                    Aname,
-                    Aphone,
-                    Aaddress,
-                    BcontactName,
-                    BserviceName,
-                    BserviceMail,
-                    BservicePhone,
-                    BcomplainName,
-                    BcomplainMail,
-                    BcomplainPhone,
-                    Damount,
-                    Dperiod,
-                    Dconfig,
-                    Dname,
-                    Dlevel,
-                    Ddetails,
-                    Ddemand,
-                    Dddl,
-                    TstartTime,
-                    Trequire,
-                    TPM,
-                    TTM
+                INSERT INTO projectInfo(
+                    AprojectName, Acompany, Aname, Aphone, Aaddress,
+                    BcontactName, BserviceName, BserviceMail, BservicePhone, BcomplainName,
+                    BcomplainMail, BcomplainPhone, Damount, Dperiod, Dconfig,
+                    Dname, Dlevel, Ddetails, Ddemand, Dddl,
+                    TstartTime, Trequire, TPM, TTM, seq
                 ) VALUES (
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s');
-               """
+                 '%s', '%s', '%s', '%s',  %d);
+               """ % (project.BasicInfo.PartyA.projectName, 
+                      project.BasicInfo.PartyA.company,
+                      project.BasicInfo.PartyA.name,
+                      project.BasicInfo.PartyA.phone,
+                      project.BasicInfo.PartyA.address,
+                      project.BasicInfo.PartyB.contactName,
+                      project.BasicInfo.PartyB.serviceName,
+                      project.BasicInfo.PartyB.serviceMail,
+                      project.BasicInfo.PartyB.servicePhone,
+                      project.BasicInfo.PartyB.complainName,
+                      project.BasicInfo.PartyB.complainMail,
+                      project.BasicInfo.PartyB.complainPhone,
+                      project.BasicInfo.Detail.amount,
+                      project.BasicInfo.Detail.period,
+                      project.BasicInfo.Detail.config,
+                      project.BasicInfo.Detail.name,
+                      project.BasicInfo.Detail.level,
+                      project.BasicInfo.Detail.details,
+                      project.BasicInfo.Detail.demand,
+                      project.BasicInfo.Detail.ddl,
+                      project.BasicInfo.Team.startTime,
+                      project.BasicInfo.Team.require,
+                      project.BasicInfo.Team.PM,
+                      project.BasicInfo.Team.TM,
+                      seq)
+
+            sql3 = """
+                INSERT INTO projectInfo(
+                    refAprojectName, refAcompany, RepTime, RepKeypoint, RepRevisit,
+                    EveEventManager, EveIssueManager, EveLevel, EveAccepted, EveClosed,
+                    EveTransformed, EveSummarized, CofModifyManager, CofConfigManager, CofReleaseManager,
+                    CofRelatedManager, CofConfigVersion, CofConfigReleaseDate, CofChanges, CofReleases,
+                    CofReleaseDate, CofPreReleaseDate, CofApplicationDate, CofSN, CofTarget,
+                    CofItem, CofReleaseVersion, CotProcess, CotResult, CotDate,
+                    CotTechnicist, CotApprover, CotCompileDate, CotAuditDate, AudPlanDate,
+                    AudAuditDate, AudAuditLeader, AudAudit1, AudAudit2, AudAudit3,
+                    AudReviewDate, AudScheduleDate, AudExcuteDate, AudReportDate, AudCompiler,
+                    AudAudit, AudCompileDate, AudApproveDate, RecTarget, RecTime,
+                    RecStaff, RecArrange, RecContent, RecFileName, RecAuditContent,
+                    RecAuditProcess, RecAudit, RecAuditDate, RecApprover, RecApproveDate,
+                    RecProvider
+                ) VALUES (
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s',  %d ,  %d ,
+                  %d ,  %d , '%s', '%s', '%s',
+                 '%s', '%s', '%s',  %d ,  %d ,
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s');
+               """ % (project.BasicInfo.PartyA.projectName, 
+                      project.BasicInfo.PartyA.company,
+                      project.ServiceProcess.Report.time,
+                      project.ServiceProcess.Report.keypoint,
+                      project.ServiceProcess.Report.revisit,
+                      project.ServiceProcess.Event.eventManager,
+                      project.ServiceProcess.Event.issueManager,
+                      project.ServiceProcess.Event.level,
+                      project.ServiceProcess.Event.accepted,
+                      project.ServiceProcess.Event.closed,
+                      project.ServiceProcess.Event.transformed,
+                      project.ServiceProcess.Event.summarized,
+                      project.ServiceProcess.Config.modifyManager,
+                      project.ServiceProcess.Config.configManager,
+                      project.ServiceProcess.Config.releaseManager,
+                      project.ServiceProcess.Config.relatedManager,
+                      project.ServiceProcess.Config.configVersion,
+                      project.ServiceProcess.Config.configReleaseDate,
+                      project.ServiceProcess.Config.changes,
+                      project.ServiceProcess.Config.releases,
+                      project.ServiceProcess.Config.releaseDate,
+                      project.ServiceProcess.Config.preReleaseDate,
+                      project.ServiceProcess.Config.applicationDate,
+                      project.ServiceProcess.Config.SN,
+                      project.ServiceProcess.Config.target,
+                      project.ServiceProcess.Config.item,
+                      project.ServiceProcess.Config.releaseVersion,
+                      project.ServiceProcess.Continuity.process,
+                      project.ServiceProcess.Continuity.result,
+                      project.ServiceProcess.Continuity.date,
+                      project.ServiceProcess.Continuity.technicist,
+                      project.ServiceProcess.Continuity.approver,
+                      project.ServiceProcess.Continuity.compileDate,
+                      project.ServiceProcess.Continuity.auditDate,
+                      project.ServiceProcess.Audit.planDate,
+                      project.ServiceProcess.Audit.auditDate,
+                      project.ServiceProcess.Audit.auditLeader,
+                      project.ServiceProcess.Audit.audit1,
+                      project.ServiceProcess.Audit.audit2,
+                      project.ServiceProcess.Audit.audit3,
+                      project.ServiceProcess.Audit.reviewDate,
+                      project.ServiceProcess.Audit.scheduleDate,
+                      project.ServiceProcess.Audit.excuteDate,
+                      project.ServiceProcess.Audit.reportDate,
+                      project.ServiceProcess.Audit.compiler,
+                      project.ServiceProcess.Audit.audit,
+                      project.ServiceProcess.Audit.compileDate,
+                      project.ServiceProcess.Audit.approveDate,
+                      project.ServiceProcess.Record.target,
+                      project.ServiceProcess.Record.time,
+                      project.ServiceProcess.Record.staff,
+                      project.ServiceProcess.Record.arrange,
+                      project.ServiceProcess.Record.content,
+                      project.ServiceProcess.Record.fileName,
+                      project.ServiceProcess.Record.auditContent,
+                      project.ServiceProcess.Record.auditProcess,
+                      project.ServiceProcess.Record.audit,
+                      project.ServiceProcess.Record.auditDate,
+                      project.ServiceProcess.Record.approver,
+                      project.ServiceProcess.Record.approveDate,
+                      project.ServiceProcess.Record.provider)
+            try:
+                ptr.execute(sql2)
+                self.db.commit()
+            except Exception as e:
+                self.db.rollback()
+                print(e)
+                self.dbException = str(e)
+                return False
+            try:
+                ptr.execute(sql3)
+                self.db.commit()
+            except Exception as e:
+                self.db.rollback()
+                print(e)
+                self.dbException = str(e)
+                return False
+            seq += 1
+            
         return True
 
     def update(self, table, option_data):
