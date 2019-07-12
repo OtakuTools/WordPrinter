@@ -13,6 +13,7 @@ from database import DB, DBSettingController
 from messageDialog import MessageDialog
 from pathSelection import pathSelection
 from WriteDocController import WriteDocController, WrtDocThread
+from presetData import *
 
 class Controller(QMainWindow, Ui_MainWindow):
 
@@ -40,48 +41,10 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.init_Samples()
 
     def setupVars(self):
-
         self.writeDocLock = threading.RLock()
         self.currentSelectedFile = set()
         self.currentSelectedFile_temp = set()
-
-        self.graphStyle = [
-            { 'nodes': {
-                'fontname': 'KaiTi',
-                'shape': 'box',
-                'fontcolor': 'black',
-                'color': 'white',
-                'style': 'filled',
-                'fillcolor': '#008000',
-                },
-                'lineLen' : 3},
-            { 'nodes': {
-                'fontname': 'KaiTi',
-                'shape': 'box',
-                'fontcolor': 'black',
-                'color': 'white',
-                'style': 'filled',
-                'fillcolor': '#800000',
-                },
-                'lineLen' : 3},
-            { 'nodes': {
-                'fontname': 'KaiTi',
-                'shape': 'box',
-                'fontcolor': 'black',
-                'color': 'white',
-                'style': 'filled',
-                'fillcolor': '#000080',
-                },
-                'lineLen' : 3},
-            { 'nodes': {
-                'fontname': 'KaiTi',
-                'shape': 'box',
-                'fontcolor': 'black',
-                'color': 'white',
-                'style': 'filled',
-                'fillcolor': '#ffff00',
-                },
-                'lineLen' : 3}]
+        self.graphStyle = getGraphStyle()
 
     def init_DB_user(self):
         #database
