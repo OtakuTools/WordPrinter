@@ -1,7 +1,7 @@
 from MainUI import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
 from databaseSetting import Ui_databaseSetting
-from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import json, time, re, os, shutil
@@ -15,49 +15,6 @@ from pathSelection import pathSelection
 from WriteDocController import WriteDocController, WrtDocThread
 
 class Controller(QMainWindow, Ui_MainWindow):
-
-    sampleDir = "./samples/"
-    
-    writeDocLock = threading.RLock()
-    currentSelectedFile = set()
-    currentSelectedFile_temp = set()
-
-    graphStyle = [{ 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#008000',
-                    },
-                    'lineLen' : 3},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#800000',
-                    },
-                    'lineLen' : 3},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#000080',
-                    },
-                    'lineLen' : 3},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#ffff00',
-                    },
-                    'lineLen' : 3}]
 
     def __init__(self):
         #init
@@ -76,8 +33,55 @@ class Controller(QMainWindow, Ui_MainWindow):
         #message dialog
         self.msgDialog = MessageDialog()
 
+        #graph style
+        self.setupVars()
+
         #sample dir
         self.init_Samples()
+
+    def setupVars(self):
+
+        self.writeDocLock = threading.RLock()
+        self.currentSelectedFile = set()
+        self.currentSelectedFile_temp = set()
+
+        self.graphStyle = [
+            { 'nodes': {
+                'fontname': 'KaiTi',
+                'shape': 'box',
+                'fontcolor': 'black',
+                'color': 'white',
+                'style': 'filled',
+                'fillcolor': '#008000',
+                },
+                'lineLen' : 3},
+            { 'nodes': {
+                'fontname': 'KaiTi',
+                'shape': 'box',
+                'fontcolor': 'black',
+                'color': 'white',
+                'style': 'filled',
+                'fillcolor': '#800000',
+                },
+                'lineLen' : 3},
+            { 'nodes': {
+                'fontname': 'KaiTi',
+                'shape': 'box',
+                'fontcolor': 'black',
+                'color': 'white',
+                'style': 'filled',
+                'fillcolor': '#000080',
+                },
+                'lineLen' : 3},
+            { 'nodes': {
+                'fontname': 'KaiTi',
+                'shape': 'box',
+                'fontcolor': 'black',
+                'color': 'white',
+                'style': 'filled',
+                'fillcolor': '#ffff00',
+                },
+                'lineLen' : 3}]
 
     def init_DB_user(self):
         #database
@@ -222,7 +226,6 @@ class Controller(QMainWindow, Ui_MainWindow):
             try:
                 shutil.copy(path, tarDir)
             except Exception as e:
-                #self.msgDialog.showWarningDialogWithMethod("警告","发现同名图片文件，是否进行替换？", lambda: shutil.move(path, tarDir), lambda: print("calcel"))
                 shutil.move(path, tarDir)
             image = image.scaledToHeight(self.logoView.height())
             scene = QGraphicsScene()
@@ -497,7 +500,8 @@ class Controller(QMainWindow, Ui_MainWindow):
                     # 线程优化
                     self.writeDocLock.acquire()
                     count += 1
-                    wrt_thread = WrtDocThread(self.user, self.pathSelector.getFilePath(file), self.graphStyle, self.pathSelector.getFilePath(file,self.user.fileName))
+                    wrt_thread = WrtDocThread(self.user, self.pathSelector.getFilePath(file),
+                                              self.graphStyle, self.pathSelector.getFilePath(file,self.user.fileName))
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
@@ -651,13 +655,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.saveProject.clicked.connect( lambda: self.setProject( getattr(self.projectList.currentItem(),'text',str)() ) )
 
     def addProject( self , projectName="项目名称" ):
-        return
         self.projectList.addItem( projectName )
         self.user.projects.append( Project(projectName) )
         self.projectList.setCurrentItem( self.projectList.item( self.projectList.count()-1 )  )
 
     def removeProject( self , projectName="" ):
-        return
         if( projectName == "" ):
             return
         else:
