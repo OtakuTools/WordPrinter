@@ -161,9 +161,14 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         # 右键写字板
         editSearch = QAction(QIcon(""), "打开写字板", self)
-        editSearch.triggered.connect(lambda: self.openWordPad(self.searchContent))
+        editSearch.triggered.connect(lambda: self.openWordPad("searchContent"))
         self.searchContent.addAction(editSearch)
         self.searchContent.setContextMenuPolicy(Qt.ActionsContextMenu)
+
+        editIntro = QAction(QIcon(""), "打开写字板", self)
+        editIntro.triggered.connect(lambda: self.openWordPad("introductionText"))
+        self.introductionText.addAction(editIntro)
+        self.introductionText.setContextMenuPolicy(Qt.ActionsContextMenu)
 
     def connectList(self):
         #可能没选中，故用getattr确认
@@ -221,17 +226,21 @@ class Controller(QMainWindow, Ui_MainWindow):
         elif qaction.text() == "更新模板文件":
             self.updateLevelFileList()
 
-    def openWordPad(self, obj):
+    def openWordPad(self, objName):
         self.wpc = WordPadController() if self.wpc is None else self.wpc
-        if isinstance(obj, QLineEdit):
-            self.wpc.initInfo(obj.text())
-        elif isinstance(obj, QPlainTextEdit):
-            self.wpc.initInfo(obj.toPlainText())
+        if isinstance(self.__dict__[objName], QLineEdit):
+            self.wpc.initInfo(self.__dict__[objName].text())
+        elif isinstance(self.__dict__[objName], QPlainTextEdit):
+            self.wpc.initInfo(self.__dict__[objName].toPlainText())
         else:
             self.msgDialog.showErrorDialog("出错", "该项暂不支持写字板输入")
             return
         if self.wpc.exec_() == QDialog.Accepted:
-            self.searchContent.setText(self.wpc.getInfo())
+            if isinstance(self.__dict__[objName], QLineEdit):
+                self.__dict__[objName].setText(self.wpc.getInfo())
+            elif isinstance(self.__dict__[objName], QPlainTextEdit):
+                self.__dict__[objName].setPlainText(self.wpc.getInfo())
+
 
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
