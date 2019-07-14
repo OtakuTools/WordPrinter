@@ -1,6 +1,7 @@
 from MainUI import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
 from databaseSetting import Ui_databaseSetting
+from WordPad import Ui_WordPad
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -13,6 +14,7 @@ from database import DB, DBSettingController
 from messageDialog import MessageDialog
 from pathSelection import pathSelection
 from WriteDocController import WriteDocController, WrtDocThread
+from WordPadController import WordPadController
 from presetData import *
 
 class Controller(QMainWindow, Ui_MainWindow):
@@ -23,6 +25,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         Ui_GenerateDocConfirm.__init__(self)
         Ui_databaseSetting.__init__(self)
+        Ui_WordPad.__init__(self)
         self.setupUi(self)
 
         #connect
@@ -45,6 +48,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.currentSelectedFile = set()
         self.currentSelectedFile_temp = set()
         self.graphStyle = getGraphStyle()
+        self.wpc = None
 
     def init_DB_user(self):
         #database
@@ -155,6 +159,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         #search
         self.searchButton.clicked.connect(lambda: self.search())
 
+        # 右键写字板
+        editSearch = QAction(QIcon(""), "打开写字板", self)
+        editSearch.triggered.connect(lambda: self.openWordPad(self.searchContent))
+        self.searchContent.addAction(editSearch)
+        self.searchContent.setContextMenuPolicy(Qt.ActionsContextMenu)
 
     def connectList(self):
         #可能没选中，故用getattr确认
@@ -212,9 +221,21 @@ class Controller(QMainWindow, Ui_MainWindow):
         elif qaction.text() == "更新模板文件":
             self.updateLevelFileList()
 
+    def openWordPad(self, obj):
+        self.wpc = WordPadController() if self.wpc == None else self.wpc
+        if isinstance(obj, QLineEdit):
+            self.wpc.initInfo(obj.text())
+        elif isinstance(obj, QPlainTextEdit):
+            self.wpc.initInfo(obj.toPlainText())
+        else:
+            self.msgDialog.showErrorDialog("出错", "该项暂不支持写字板输入")
+            return
+        if self.wpc.exec_() == QDialog.Accepted:
+            self.searchContent.setText(self.wpc.getInfo())
+
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
-        dbSettingCtrl.show()
+        #dbSettingCtrl.show()
         return dbSettingCtrl.exec_() == QDialog.Accepted
 
     def setGraphColor(self, tar, pos, option): 
@@ -434,7 +455,7 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def generateDoc(self):
         genDocCtrl = WriteDocController(self.user.fileName, self.currentSelectedFile)
-        genDocCtrl.show()
+        #genDocCtrl.show()
         if genDocCtrl.exec_() == QDialog.Accepted:
             validMsg = self.user.validChecker()
             files = genDocCtrl.getAllSelectedFile()
