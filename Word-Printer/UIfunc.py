@@ -222,7 +222,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.updateLevelFileList()
 
     def openWordPad(self, obj):
-        self.wpc = WordPadController() if self.wpc == None else self.wpc
+        self.wpc = WordPadController() if self.wpc is None else self.wpc
         if isinstance(obj, QLineEdit):
             self.wpc.initInfo(obj.text())
         elif isinstance(obj, QPlainTextEdit):
