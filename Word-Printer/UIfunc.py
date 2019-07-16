@@ -536,7 +536,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             #print("更新数据库失败")
             print(e)
             self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！\n异常信息为：" 
-                                           + self.db.dbException 
+                                           + self.db.dbException
                                            + "\n您做的任何变动将无法存入数据库!")
         else:
             #print("更新数据库成功")

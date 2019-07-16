@@ -86,15 +86,25 @@ class DB:
             self.dbException = str(e)
             return
 
+    def dbOperation_threading(self, sql):
+        try:
+            ptr = self.db.cursor()
+            ptr.execute(sql)
+        except Exception as e:
+            self.dbException = str(e)
+            self.db.rollback()
+            return
+
     def initConnection(self):
         self.info = self.loadConfig()
         try:
             t = threading.Thread(target=self.setupConnectionThread_host)
             t.start()
-            t.join(5)
+            t.join(self._conn_timeout)
             if t.isAlive() or not self.checkConnection():
-                raise Exception(self.dbException)
+                raise Exception("连接超时")
         except Exception as e:
+            self.dbException = str(e)
             self.db = None
             return
 
@@ -107,26 +117,31 @@ class DB:
         self.initConnection()
 
     def createDB(self, dbName):
+        sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
         try:
-            ptr = self.db.cursor()
-            sql = "CREATE DATABASE IF NOT EXISTS " + dbName + " DEFAULT CHARACTER SET utf8;"
-            ptr.execute(sql)
-        except Exception as e:
-            print(e)
-            self.dbException = str(e)
-            self.db.rollback()
-        self.db.close()
-        try:
-            t = threading.Thread(target=self.setupConnectionThread_db)
+            t = threading.Thread(target=self.dbOperation_threading, args=(sql,))
             t.start()
-            t.join(5)
+            t.join(self._conn_timeout)
             if t.isAlive() or not self.checkConnection():
-                raise Exception(self.dbException)
+                raise Exception("连接超时")
         except Exception as e:
             self.dbException = str(e)
             self.db = None
             return
-        self.initDB()
+
+        if self.db:
+            self.db.close()
+            try:
+                t = threading.Thread(target=self.setupConnectionThread_db)
+                t.start()
+                t.join(self._conn_timeout)
+                if t.isAlive() or not self.checkConnection():
+                    raise Exception("连接超时")
+            except Exception as e:
+                self.dbException = str(e)
+                self.db = None
+                return
+            self.initDB()
 
     def initDB(self):
         ptr = self.db.cursor()
