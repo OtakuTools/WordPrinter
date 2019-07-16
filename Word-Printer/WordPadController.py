@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QDate, QThread, Qt
 from PyQt5.QtGui import *
+import json
 
 from WordPad import Ui_WordPad
 
@@ -11,6 +11,10 @@ class WordPadController(QDialog, Ui_WordPad):
         Ui_WordPad.__init__(self)
         self.setupUi(self)
         self.setConnection()
+        try:
+            self.loadConfig()
+        except Exception as e:
+            self.saveConfig()
         self.initInfo(input)
 
     def setConnection(self):
@@ -36,6 +40,7 @@ class WordPadController(QDialog, Ui_WordPad):
         font.setFamily(self.wp_fontType.currentFont().family())
         font.setPointSize(self.wp_fontSize.value())
         self.wp_textContent.setFont(font)
+        self.saveConfig()
 
     def initInfo(self, txt):
         self.originText = txt
@@ -52,3 +57,19 @@ class WordPadController(QDialog, Ui_WordPad):
     def cancel(self):
         self.finalText = self.originText
         self.reject()
+
+    def saveConfig(self):
+        self.style = {
+            "fontType" : self.wp_fontType.currentFont().family(),
+            "fontSize" : self.wp_fontSize.value()
+        }
+        with open("./config/wpConfig.json", "w") as f:
+            json.dump(self.style, f, sort_keys=True, indent=4, separators=(',', ': '))
+
+    def loadConfig(self):
+        with open("./config/wpConfig.json", "r") as f:
+            self.style = json.load(f)
+        font = QFont()
+        font.setFamily(self.style["fontType"])
+        self.wp_fontType.setCurrentFont(font)
+        self.wp_fontSize.setValue(self.style["fontSize"])

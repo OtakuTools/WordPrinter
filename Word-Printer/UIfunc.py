@@ -40,6 +40,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         #graph style
         self.setupVars()
 
+        # use wordPad
+        self.connectWordPad()
+
         #sample dir
         self.init_Samples()
 
@@ -159,16 +162,16 @@ class Controller(QMainWindow, Ui_MainWindow):
         #search
         self.searchButton.clicked.connect(lambda: self.search())
 
-        # 右键写字板
-        editSearch = QAction(QIcon(""), "打开写字板", self)
-        editSearch.triggered.connect(lambda: self.openWordPad("searchContent"))
-        self.searchContent.addAction(editSearch)
-        self.searchContent.setContextMenuPolicy(Qt.ActionsContextMenu)
+    def openPadAction(self, name):
+        action = QAction(QIcon(""), "打开写字板", self)
+        action.triggered.connect(lambda: self.openWordPad(name))
+        return action
 
-        editIntro = QAction(QIcon(""), "打开写字板", self)
-        editIntro.triggered.connect(lambda: self.openWordPad("introductionText"))
-        self.introductionText.addAction(editIntro)
-        self.introductionText.setContextMenuPolicy(Qt.ActionsContextMenu)
+    def connectWordPad(self):
+        for k,v in self.__dict__.items():
+            if isinstance(v, QLineEdit) or isinstance(v, QPlainTextEdit):
+                self.__dict__[k].addAction(self.openPadAction(k))
+                self.__dict__[k].setContextMenuPolicy(Qt.ActionsContextMenu)
 
     def connectList(self):
         #可能没选中，故用getattr确认
@@ -228,6 +231,7 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def openWordPad(self, objName):
         self.wpc = WordPadController() if self.wpc is None else self.wpc
+        #print(objName)
         if isinstance(self.__dict__[objName], QLineEdit):
             self.wpc.initInfo(self.__dict__[objName].text())
         elif isinstance(self.__dict__[objName], QPlainTextEdit):
