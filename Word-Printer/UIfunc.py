@@ -689,11 +689,11 @@ class Controller(QMainWindow, Ui_MainWindow):
             project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
             self.projectList.currentItem().setText( self.AprojectNameText.text() )
             self.setA(project)
-            '''
             self.setB(project)
             self.setDetail(project)
-            self.setReport(project)
             self.setTeam(project)
+            '''
+            self.setReport(project)
             self.setEvent(project)
             self.setConfig(project)
             self.setContinuity(project)
@@ -707,16 +707,16 @@ class Controller(QMainWindow, Ui_MainWindow):
         else:
             project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
             self.showA(project)
+            self.showB(project)
+            self.showDetail(project)
+            self.showTeam(project)
         '''
-        self.showB()
-        self.showDetail()
-        self.showReport()
-        self.showTeam()
-        self.showProjectEvent()
-        self.showConfig()
-        self.showContinuity()
-        self.showAudit()
-        self.showRecord()
+            self.showReport()
+            self.showProjectEvent()
+            self.showConfig()
+            self.showContinuity()
+            self.showAudit()
+            self.showRecord()
         '''
 
     def setA(self,project):
@@ -727,18 +727,28 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.BasicInfo.PartyA.address = self.AaddressText.text()
 
     def setB(self,project):
-        project.BasicInfo.PratyB.contactName = self.BcontactNameText.text()
-        project.BasicInfo.PratyB.serviceName = self.BserviceNameText.text()
-        project.BasicInfo.PratyB.serviceMail = self.BserviceMailText.text()
-        project.BasicInfo.PratyB.servicePhone = self.BservicePhoneText.text()
-        project.BasicInfo.PratyB.complainName = self.BcomplainNameText.text()
-        project.BasicInfo.PratyB.complainMail = self.BcomplainMailText.text()
-        project.BasicInfo.PratyB.complainPhone = self.BcomplainPhoneText.text()
+        project.BasicInfo.PartyB.contactName = self.BcontactNameText.text()
+        project.BasicInfo.PartyB.serviceName = self.BserviceNameText.text()
+        project.BasicInfo.PartyB.serviceMail = self.BserviceMailText.text()
+        project.BasicInfo.PartyB.servicePhone = self.BservicePhoneText.text()
+        project.BasicInfo.PartyB.complainName = self.BcomplainNameText.text()
+        project.BasicInfo.PartyB.complainMail = self.BcomplainMailText.text()
+        project.BasicInfo.PartyB.complainPhone = self.BcomplainPhoneText.text()
 
     def setDetail(self,project):
-        pass
+         project.BasicInfo.Detail.amount = self.amountText.text()
+         project.BasicInfo.Detail.period = self.periodText.text()
+         project.BasicInfo.Detail.config = self.configText.text()
+         project.BasicInfo.Detail.name = self.detailNameText.text()
+         project.BasicInfo.Detail.level = self.detailLevelText.text()
+         project.BasicInfo.Detail.details = self.detailsText.text()
+         project.BasicInfo.Detail.demand = self.demandText.text()
+         project.BasicInfo.Detail.ddl = self.ddlText.text()
     def setTeam(self,project):
-        pass
+        project.BasicInfo.Team.startTime = self.startTimeText.text()
+        project.BasicInfo.Team.require = self.requireText.text()
+        project.BasicInfo.Team.PM = self.PMText.text()
+        project.BasicInfo.Team.TM = self.TMText.text()
     def setReport(self,project):
         pass
     def setEvent(self,project):
@@ -760,21 +770,43 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.AnameText.setText(project.BasicInfo.PartyA.name)
         self.AphoneText.setText(project.BasicInfo.PartyA.phone)
         self.AaddressText.setText(project.BasicInfo.PartyA.address)
-    def showB(self,project):
+    def showB(self,project=""):
+        if project == "":
+            project = Project("")
+        self.BcontactNameText.setText(project.BasicInfo.PartyB.contactName)
+        self.BserviceNameText.setText(project.BasicInfo.PartyB.serviceName)
+        self.BserviceMailText.setText(project.BasicInfo.PartyB.serviceMail)
+        self.BservicePhoneText.setText(project.BasicInfo.PartyB.servicePhone)
+        self.BcomplainNameText.setText(project.BasicInfo.PartyB.complainName)
+        self.BcomplainMailText.setText(project.BasicInfo.PartyB.complainMail)
+        self.BcomplainPhoneText.setText(project.BasicInfo.PartyB.complainPhone)
+    def showDetail(self,project=""):
+        if project == "":
+            project = Project("")
+        self.amountText.setText(project.BasicInfo.Detail.amount)
+        self.periodText.setText(project.BasicInfo.Detail.period)
+        self.configText.setText(project.BasicInfo.Detail.config)
+        self.detailNameText.setText(project.BasicInfo.Detail.name)
+        self.detailLevelText.setText(project.BasicInfo.Detail.level)
+        self.detailsText.setText(project.BasicInfo.Detail.details)
+        self.demandText.setText(project.BasicInfo.Detail.demand)
+        self.ddlText.setText(project.BasicInfo.Detail.ddl)
+    def showTeam(self,project=""):
+        if project == "":
+            project = Project("")
+        self.startTimeText.setText(project.BasicInfo.Team.startTime)
+        self.requireText.setText(project.BasicInfo.Team.require)
+        self.PMText.setText(project.BasicInfo.Team.PM)
+        self.TMText.setText(project.BasicInfo.Team.TM)
+    def showReport(self,project=""):
         pass
-    def showDetail(self,project):
+    def showProjectEvent(self=""):
         pass
-    def showTeam(self,project):
+    def showConfig(self,project=""):
         pass
-    def showReport(self,project):
+    def showContinuity(self,project=""):
         pass
-    def showProjectEvent(self):
+    def showAudit(self,project=""):
         pass
-    def showConfig(self,project):
-        pass
-    def showContinuity(self,project):
-        pass
-    def showAudit(self,project):
-        pass
-    def showRecord(self,project):
+    def showRecord(self,project=""):
         pass
