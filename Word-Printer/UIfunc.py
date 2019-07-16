@@ -163,14 +163,28 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.searchButton.clicked.connect(lambda: self.search())
 
     def openPadAction(self, name):
-        action = QAction(QIcon(""), "打开写字板", self)
-        action.triggered.connect(lambda: self.openWordPad(name))
-        return action
+        wordpad = QAction(QIcon(""), "打开写字板", self)
+        wordpad.triggered.connect(lambda: self.openWordPad(name))
+        ctrlC = QAction(QIcon(""), "复制", self)
+        ctrlC.setShortcut("Ctrl+C")
+        ctrlC.triggered.connect(self.__dict__[name].copy)
+        ctrlV = QAction(QIcon(""), "粘贴", self)
+        ctrlV.setShortcut("Ctrl+V")
+        ctrlV.triggered.connect(self.__dict__[name].paste)
+        ctrlX = QAction(QIcon(""), "剪切", self)
+        ctrlX.setShortcut("Ctrl+X")
+        ctrlX.triggered.connect(self.__dict__[name].cut)
+        ctrlA = QAction(QIcon(""), "全选", self)
+        ctrlA.setShortcut("Ctrl+A")
+        ctrlA.triggered.connect(self.__dict__[name].selectAll)
+        return [wordpad, ctrlC, ctrlV, ctrlX,ctrlA]
 
     def connectWordPad(self):
         for k,v in self.__dict__.items():
             if isinstance(v, QLineEdit) or isinstance(v, QPlainTextEdit):
-                self.__dict__[k].addAction(self.openPadAction(k))
+                actionList = self.openPadAction(k)
+                for act in actionList:
+                    self.__dict__[k].addAction(act)
                 self.__dict__[k].setContextMenuPolicy(Qt.ActionsContextMenu)
 
     def connectList(self):
@@ -670,7 +684,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         if projectName == "":
             pass
         elif self.AprojectNameText.text() == "":
-            self.msgDialog,showErrorDialog("录入信息错误","项目名称不能为空")
+            self.msgDialog.showErrorDialog("录入信息错误","项目名称不能为空")
         else:
             project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
             self.projectList.currentItem().setText( self.AprojectNameText.text() )
