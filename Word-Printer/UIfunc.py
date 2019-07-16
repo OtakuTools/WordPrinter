@@ -646,7 +646,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         #可能没选中，用attr确认
         #选中时为 projectList.currentItem().text() ,否则为 str()
         self.projectList.currentItemChanged.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
-        #self.AddProject.clicked.connect( lambda: self.addProject() )
+        self.AddProject.clicked.connect( lambda: self.addProject() )
         self.DeleteProject.clicked.connect( lambda: self.removeProject( getattr(self.projectList.currentItem(),'text',str)() ) )
         self.cancelProject.clicked.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
         self.saveProject.clicked.connect( lambda: self.setProject( getattr(self.projectList.currentItem(),'text',str)() ) )
@@ -662,24 +662,38 @@ class Controller(QMainWindow, Ui_MainWindow):
         else:
             ### critical ###
             index = self.projectList.row( self.projectList.currentItem() )
-            self.connectProjectList.takeItem( index )
+            self.projectList.takeItem( index )
             del self.user.projects[ index ]
             ### end Critical ###
 
-    def setProject( self , projectName="" ):
-        self.setA()
-        self.setB()
-        self.setDetail()
-        self.setReport()
-        self.setTeam()
-        self.setEvent()
-        self.setConfig()
-        self.setContinuity()
-        self.setAudit()
-        self.setRecord()
+    def setProject( self , projectName ):
+        if projectName == "":
+            pass
+        elif self.AprojectNameText.text() == "":
+            self.msgDialog,showErrorDialog("录入信息错误","项目名称不能为空")
+        else:
+            project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
+            self.projectList.currentItem().setText( self.AprojectNameText.text() )
+            self.setA(project)
+            '''
+            self.setB(project)
+            self.setDetail(project)
+            self.setReport(project)
+            self.setTeam(project)
+            self.setEvent(project)
+            self.setConfig(project)
+            self.setContinuity(project)
+            self.setAudit(project)
+            self.setRecord(project)
+            '''
 
-    def showProjectDetail( self, projectName="" ):
-        self.showA()
+    def showProjectDetail( self, projectName ):
+        if projectName == "":
+            self.showA()
+        else:
+            project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
+            self.showA(project)
+        '''
         self.showB()
         self.showDetail()
         self.showReport()
@@ -689,45 +703,64 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.showContinuity()
         self.showAudit()
         self.showRecord()
+        '''
 
-    def setA(self):
+    def setA(self,project):
+        project.BasicInfo.PartyA.projectName = self.AprojectNameText.text()
+        project.BasicInfo.PartyA.company = self.AcompanyText.text()
+        project.BasicInfo.PartyA.name = self.AnameText.text()
+        project.BasicInfo.PartyA.phone = self.AphoneText.text()
+        project.BasicInfo.PartyA.address = self.AaddressText.text()
+
+    def setB(self,project):
+        project.BasicInfo.PratyB.contactName = self.BcontactNameText.text()
+        project.BasicInfo.PratyB.serviceName = self.BserviceNameText.text()
+        project.BasicInfo.PratyB.serviceMail = self.BserviceMailText.text()
+        project.BasicInfo.PratyB.servicePhone = self.BservicePhoneText.text()
+        project.BasicInfo.PratyB.complainName = self.BcomplainNameText.text()
+        project.BasicInfo.PratyB.complainMail = self.BcomplainMailText.text()
+        project.BasicInfo.PratyB.complainPhone = self.BcomplainPhoneText.text()
+
+    def setDetail(self,project):
         pass
-    def setB(self):
+    def setTeam(self,project):
         pass
-    def setDetail(self):
+    def setReport(self,project):
         pass
-    def setTeam(self):
+    def setEvent(self,project):
         pass
-    def setReport(self):
+    def setConfig(self,project):
         pass
-    def setEvent(self):
+    def setContinuity(self,project):
         pass
-    def setConfig(self):
+    def setAudit(self,project):
         pass
-    def setContinuity(self):
-        pass
-    def setAudit(self):
-        pass
-    def setRecord(self):
+    def setRecord(self,project):
         pass
 
-    def showA(self):
+    def showA(self,project=""):
+        if project == "":
+            project = Project("")
+        self.AprojectNameText.setText(project.BasicInfo.PartyA.projectName)
+        self.AcompanyText.setText(project.BasicInfo.PartyA.company)
+        self.AnameText.setText(project.BasicInfo.PartyA.name)
+        self.AphoneText.setText(project.BasicInfo.PartyA.phone)
+        self.AaddressText.setText(project.BasicInfo.PartyA.address)
+    def showB(self,project):
         pass
-    def showB(self):
+    def showDetail(self,project):
         pass
-    def showDetail(self):
+    def showTeam(self,project):
         pass
-    def showTeam(self):
-        pass
-    def showReport(self):
+    def showReport(self,project):
         pass
     def showProjectEvent(self):
         pass
-    def showConfig(self):
+    def showConfig(self,project):
         pass
-    def showContinuity(self):
+    def showContinuity(self,project):
         pass
-    def showAudit(self):
+    def showAudit(self,project):
         pass
-    def showRecord(self):
+    def showRecord(self,project):
         pass
