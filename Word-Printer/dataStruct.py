@@ -231,7 +231,7 @@ class Project():
             "Event" : {
                 "eventManager" : "" , # 事件管理经理
                 "issueManager" : "" , # 问题管理经理
-                "level" : "" , # 受理事件等级
+                "level" : "S1" , # 受理事件等级
                 "accepted" : 0 , # 受理事件数
                 "closed" : 0 , # 关闭事件数
                 "transformed" : 0 , # 转化为问题的事件数
