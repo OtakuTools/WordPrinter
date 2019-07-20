@@ -348,6 +348,10 @@ class DB:
         except Exception as e1:
             print("Search Project Error:", e1)
             self.dbException = str(e1)
+        
+        # 测试语句
+        # with open("projectOutTest.json", "w") as f:
+        #     json.dump(info.projects[0].Info, f, indent=4)
         return info
 
     def insertData(self, user):
