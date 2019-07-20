@@ -190,9 +190,9 @@ class DB:
                """ % (id)
         sql3 = """
                SELECT projectInfo.*, serviceProcess.*
-               FROM projectInfo left join serviceProcess on projectInfo.AprojectName = serviceProcess.refAprojectName 
-               and projectInfo.Acompany = serviceProcess.refAcompany
-               WHERE projectInfo.AprojectName = '%s'
+               FROM projectInfo left join serviceProcess on (projectInfo.AprojectName = serviceProcess.refAprojectName 
+               and projectInfo.refId = serviceProcess.refId)
+               WHERE projectInfo.refId = '%s'
                ORDER BY projectInfo.seq;
                """ % (id)
         info = userInfo()
@@ -253,92 +253,94 @@ class DB:
             ptr.execute(sql3)
             results = ptr.fetchall()
             for row in results:
-                assert(len(row) == 86)
-                project = Project(row[0])
+                assert(len(row) == 87)
+                project = Project()
+                firstIndex = 1
                 try:
-                    project.BasicInfo.PartyA.company = row[1]
-                    project.BasicInfo.PartyA.name = row[2]
-                    project.BasicInfo.PartyA.phone = row[3]
-                    project.BasicInfo.PartyA.address = row[4]
-                    project.BasicInfo.PartyB.contactName = row[5]
-                    project.BasicInfo.PartyB.serviceName = row[6]
-                    project.BasicInfo.PartyB.serviceMail = row[7]
-                    project.BasicInfo.PartyB.servicePhone = row[8]
-                    project.BasicInfo.PartyB.complainName = row[9]
-                    project.BasicInfo.PartyB.complainMail = row[10]
-                    project.BasicInfo.PartyB.complainPhone = row[11]
-                    project.BasicInfo.Detail.amount = row[12]
-                    project.BasicInfo.Detail.period = row[13]
-                    project.BasicInfo.Detail.config = row[14]
-                    project.BasicInfo.Detail.name = row[15]
-                    project.BasicInfo.Detail.level = row[16]
-                    project.BasicInfo.Detail.details = row[17]
-                    project.BasicInfo.Detail.demand = row[18]
-                    project.BasicInfo.Detail.ddl = row[19]
-                    project.BasicInfo.Team.startTime = row[20]
-                    project.BasicInfo.Team.require = row[21]
-                    project.BasicInfo.Team.PM = row[22]
-                    project.BasicInfo.Team.TM = row[23]
+                    project.BasicInfo.PartyA.projectName = row[firstIndex + 0]
+                    project.BasicInfo.PartyA.company = row[firstIndex + 1]
+                    project.BasicInfo.PartyA.name = row[firstIndex + 2]
+                    project.BasicInfo.PartyA.phone = row[firstIndex + 3]
+                    project.BasicInfo.PartyA.address = row[firstIndex + 4]
+                    project.BasicInfo.PartyB.contactName = row[firstIndex + 5]
+                    project.BasicInfo.PartyB.serviceName = row[firstIndex + 6]
+                    project.BasicInfo.PartyB.serviceMail = row[firstIndex + 7]
+                    project.BasicInfo.PartyB.servicePhone = row[firstIndex + 8]
+                    project.BasicInfo.PartyB.complainName = row[firstIndex + 9]
+                    project.BasicInfo.PartyB.complainMail = row[firstIndex + 10]
+                    project.BasicInfo.PartyB.complainPhone = row[firstIndex + 11]
+                    project.BasicInfo.Detail.amount = row[firstIndex + 12]
+                    project.BasicInfo.Detail.period = row[firstIndex + 13]
+                    project.BasicInfo.Detail.config = row[firstIndex + 14]
+                    project.BasicInfo.Detail.name = row[firstIndex + 15]
+                    project.BasicInfo.Detail.level = row[firstIndex + 16]
+                    project.BasicInfo.Detail.details = row[firstIndex + 17]
+                    project.BasicInfo.Detail.demand = row[firstIndex + 18]
+                    project.BasicInfo.Detail.ddl = row[firstIndex + 19]
+                    project.BasicInfo.Team.startTime = row[firstIndex + 20]
+                    project.BasicInfo.Team.require = row[firstIndex + 21]
+                    project.BasicInfo.Team.PM = row[firstIndex + 22]
+                    project.BasicInfo.Team.TM = row[firstIndex + 23]
                     # 24,25,26跳过
-                    project.ServiceProcess.Report.time = row[27]
-                    project.ServiceProcess.Report.keypoint = row[28]
-                    project.ServiceProcess.Report.revisit = row[29]
-                    project.ServiceProcess.Event.eventManager = row[30]
-                    project.ServiceProcess.Event.issueManager = row[31]
-                    project.ServiceProcess.Event.level = row[32]
-                    project.ServiceProcess.Event.accepted = row[33]
-                    project.ServiceProcess.Event.closed = row[34]
-                    project.ServiceProcess.Event.transformed = row[35]
-                    project.ServiceProcess.Event.summarized = row[36]
-                    project.ServiceProcess.Config.modifyManager = row[37]
-                    project.ServiceProcess.Config.configManager = row[38]
-                    project.ServiceProcess.Config.releaseManager = row[39]
-                    project.ServiceProcess.Config.relatedManager = row[40]
-                    project.ServiceProcess.Config.configVersion = row[41]
-                    project.ServiceProcess.Config.configReleaseDate = row[42]
-                    project.ServiceProcess.Config.changes = row[43]
-                    project.ServiceProcess.Config.releases = row[44]
-                    project.ServiceProcess.Config.releaseDate = row[45]
-                    project.ServiceProcess.Config.preReleaseDate = row[46]
-                    project.ServiceProcess.Config.applicationDate = row[47]
-                    project.ServiceProcess.Config.SN = row[48]
-                    project.ServiceProcess.Config.target = row[49]
-                    project.ServiceProcess.Config.item = row[50]
-                    project.ServiceProcess.Config.releaseVersion = row[51]
-                    project.ServiceProcess.Continuity.process = row[52]
-                    project.ServiceProcess.Continuity.result = row[53]
-                    project.ServiceProcess.Continuity.date = row[54]
-                    project.ServiceProcess.Continuity.technicist = row[55]
-                    project.ServiceProcess.Continuity.approver = row[56]
-                    project.ServiceProcess.Continuity.compileDate = row[57]
-                    project.ServiceProcess.Continuity.auditDate = row[58]
-                    project.ServiceProcess.Audit.planDate = row[59]
-                    project.ServiceProcess.Audit.auditDate = row[60]
-                    project.ServiceProcess.Audit.auditLeader = row[61]
-                    project.ServiceProcess.Audit.audit1 = row[62]
-                    project.ServiceProcess.Audit.audit2 = row[63]
-                    project.ServiceProcess.Audit.audit3 = row[64]
-                    project.ServiceProcess.Audit.reviewDate = row[65]
-                    project.ServiceProcess.Audit.scheduleDate = row[66]
-                    project.ServiceProcess.Audit.excuteDate = row[67]
-                    project.ServiceProcess.Audit.reportDate = row[68]
-                    project.ServiceProcess.Audit.compiler = row[69]
-                    project.ServiceProcess.Audit.audit = row[70]
-                    project.ServiceProcess.Audit.compileDate = row[71]
-                    project.ServiceProcess.Audit.approveDate = row[72]
-                    project.ServiceProcess.Record.target = row[73]
-                    project.ServiceProcess.Record.time = row[74]
-                    project.ServiceProcess.Record.staff = row[75]
-                    project.ServiceProcess.Record.arrange = row[76]
-                    project.ServiceProcess.Record.content = row[77]
-                    project.ServiceProcess.Record.fileName = row[78]
-                    project.ServiceProcess.Record.auditContent = row[79]
-                    project.ServiceProcess.Record.auditProcess = row[80]
-                    project.ServiceProcess.Record.audit = row[81]
-                    project.ServiceProcess.Record.auditDate = row[82]
-                    project.ServiceProcess.Record.approver = row[83]
-                    project.ServiceProcess.Record.approveDate = row[84]
-                    project.ServiceProcess.Record.provider= row[85]
+                    project.ServiceProcess.Report.time = row[firstIndex+27].split("#")
+                    project.ServiceProcess.Report.keypoint = row[firstIndex+28].split("#")
+                    project.ServiceProcess.Report.revisit = row[firstIndex+29]
+                    project.ServiceProcess.Event.eventManager = row[firstIndex+30]
+                    project.ServiceProcess.Event.issueManager = row[firstIndex+31]
+                    project.ServiceProcess.Event.level = row[firstIndex+32]
+                    project.ServiceProcess.Event.accepted = row[firstIndex+33]
+                    project.ServiceProcess.Event.closed = row[firstIndex+34]
+                    project.ServiceProcess.Event.transformed = row[firstIndex+35]
+                    project.ServiceProcess.Event.summarized = row[firstIndex+36]
+                    project.ServiceProcess.Config.modifyManager = row[firstIndex+37]
+                    project.ServiceProcess.Config.configManager = row[firstIndex+38]
+                    project.ServiceProcess.Config.releaseManager = row[firstIndex+39]
+                    project.ServiceProcess.Config.relatedManager = row[firstIndex+40]
+                    project.ServiceProcess.Config.configVersion = row[firstIndex+41]
+                    project.ServiceProcess.Config.configReleaseDate = row[firstIndex+42]
+                    project.ServiceProcess.Config.changes = row[firstIndex+43]
+                    project.ServiceProcess.Config.releases = row[firstIndex+44]
+                    project.ServiceProcess.Config.releaseDate = row[firstIndex+45]
+                    project.ServiceProcess.Config.preReleaseDate = row[firstIndex+46]
+                    project.ServiceProcess.Config.applicationDate = row[firstIndex+47]
+                    project.ServiceProcess.Config.SN = row[firstIndex+48]
+                    project.ServiceProcess.Config.target = row[firstIndex+49]
+                    project.ServiceProcess.Config.item = row[firstIndex+50]
+                    project.ServiceProcess.Config.releaseVersion = row[firstIndex+51]
+                    project.ServiceProcess.Continuity.process = row[firstIndex+52].split("#")
+                    project.ServiceProcess.Continuity.result = row[firstIndex+53].split("#")
+                    project.ServiceProcess.Continuity.date = row[firstIndex+54]
+                    project.ServiceProcess.Continuity.technicist = row[firstIndex+55]
+                    project.ServiceProcess.Continuity.approver = row[firstIndex+56]
+                    project.ServiceProcess.Continuity.compileDate = row[firstIndex+57]
+                    project.ServiceProcess.Continuity.auditDate = row[firstIndex+58]
+                    project.ServiceProcess.Audit.planDate = row[firstIndex+59]
+                    project.ServiceProcess.Audit.auditDate = row[firstIndex+60]
+                    project.ServiceProcess.Audit.auditLeader = row[firstIndex+61]
+                    project.ServiceProcess.Audit.audit1 = row[firstIndex+62]
+                    project.ServiceProcess.Audit.audit2 = row[firstIndex+63]
+                    project.ServiceProcess.Audit.audit3 = row[firstIndex+64]
+                    project.ServiceProcess.Audit.reviewDate = row[firstIndex+65]
+                    project.ServiceProcess.Audit.scheduleDate = row[firstIndex+66]
+                    project.ServiceProcess.Audit.excuteDate = row[firstIndex+67]
+                    project.ServiceProcess.Audit.reportDate = row[firstIndex+68]
+                    project.ServiceProcess.Audit.compiler = row[firstIndex+69]
+                    project.ServiceProcess.Audit.audit = row[firstIndex+70]
+                    project.ServiceProcess.Audit.compileDate = row[firstIndex+71]
+                    project.ServiceProcess.Audit.approveDate = row[firstIndex+72]
+                    project.ServiceProcess.Record.target = row[firstIndex+73]
+                    project.ServiceProcess.Record.time = row[firstIndex+74]
+                    project.ServiceProcess.Record.staff = row[firstIndex+75]
+                    project.ServiceProcess.Record.arrange = row[firstIndex+76]
+                    project.ServiceProcess.Record.content = row[firstIndex+77].split("#")
+                    project.ServiceProcess.Record.fileName = row[firstIndex+78]
+                    project.ServiceProcess.Record.auditContent = row[firstIndex+79].split("#")
+                    project.ServiceProcess.Record.auditProcess = row[firstIndex+80].split("#")
+                    project.ServiceProcess.Record.audit = row[firstIndex+81]
+                    project.ServiceProcess.Record.auditDate = row[firstIndex+82]
+                    project.ServiceProcess.Record.approver = row[firstIndex+83]
+                    project.ServiceProcess.Record.approveDate = row[firstIndex+84]
+                    project.ServiceProcess.Record.provider= row[firstIndex+85]
                 except Exception as e:
                     print("Get Project Error:",e)
                     continue
@@ -346,7 +348,6 @@ class DB:
         except Exception as e1:
             print("Search Project Error:", e1)
             self.dbException = str(e1)
-
         return info
 
     def insertData(self, user):
@@ -442,18 +443,20 @@ class DB:
         for project in data.projects:
             sql2 = """
                 INSERT INTO projectInfo(
-                    AprojectName, Acompany, Aname, Aphone, Aaddress,
-                    BcontactName, BserviceName, BserviceMail, BservicePhone, BcomplainName,
-                    BcomplainMail, BcomplainPhone, Damount, Dperiod, Dconfig,
-                    Dname, Dlevel, Ddetails, Ddemand, Dddl,
-                    TstartTime, Trequire, TPM, TTM, seq
+                    refId, AprojectName, Acompany, Aname, Aphone, 
+                    Aaddress, BcontactName, BserviceName, BserviceMail, BservicePhone, 
+                    BcomplainName, BcomplainMail, BcomplainPhone, Damount, Dperiod, 
+                    Dconfig, Dname, Dlevel, Ddetails, Ddemand,
+                    Dddl, TstartTime, Trequire, TPM, TTM, seq
                 ) VALUES (
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s',  %d);
-               """ % (project.BasicInfo.PartyA.projectName, 
+                 '%s', '%s', '%s', '%s', '%s',
+                  %d );
+               """ % (data.company,
+                      project.BasicInfo.PartyA.projectName, 
                       project.BasicInfo.PartyA.company,
                       project.BasicInfo.PartyA.name,
                       project.BasicInfo.PartyA.phone,
@@ -481,7 +484,7 @@ class DB:
 
             sql3 = """
                 INSERT INTO serviceProcess(
-                    refAprojectName, refAcompany, RepTime, RepKeypoint, RepRevisit,
+                    refId, refAprojectName, RepTime, RepKeypoint, RepRevisit,
                     EveEventManager, EveIssueManager, EveLevel, EveAccepted, EveClosed,
                     EveTransformed, EveSummarized, CofModifyManager, CofConfigManager, CofReleaseManager,
                     CofRelatedManager, CofConfigVersion, CofConfigReleaseDate, CofChanges, CofReleases,
@@ -508,10 +511,10 @@ class DB:
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s');
-               """ % (project.BasicInfo.PartyA.projectName, 
-                      project.BasicInfo.PartyA.company,
-                      project.ServiceProcess.Report.time,
-                      project.ServiceProcess.Report.keypoint,
+               """ % (data.company,
+                      project.BasicInfo.PartyA.projectName, 
+                      "#".join(project.ServiceProcess.Report.time),
+                      "#".join(project.ServiceProcess.Report.keypoint),
                       project.ServiceProcess.Report.revisit,
                       project.ServiceProcess.Event.eventManager,
                       project.ServiceProcess.Event.issueManager,
@@ -535,8 +538,8 @@ class DB:
                       project.ServiceProcess.Config.target,
                       project.ServiceProcess.Config.item,
                       project.ServiceProcess.Config.releaseVersion,
-                      project.ServiceProcess.Continuity.process,
-                      project.ServiceProcess.Continuity.result,
+                      "#".join(project.ServiceProcess.Continuity.process),
+                      "#".join(project.ServiceProcess.Continuity.result),
                       project.ServiceProcess.Continuity.date,
                       project.ServiceProcess.Continuity.technicist,
                       project.ServiceProcess.Continuity.approver,
@@ -560,10 +563,10 @@ class DB:
                       project.ServiceProcess.Record.time,
                       project.ServiceProcess.Record.staff,
                       project.ServiceProcess.Record.arrange,
-                      project.ServiceProcess.Record.content,
+                      "#".join(project.ServiceProcess.Record.content),
                       project.ServiceProcess.Record.fileName,
-                      project.ServiceProcess.Record.auditContent,
-                      project.ServiceProcess.Record.auditProcess,
+                      "#".join(project.ServiceProcess.Record.auditContent),
+                      "#".join(project.ServiceProcess.Record.auditProcess),
                       project.ServiceProcess.Record.audit,
                       project.ServiceProcess.Record.auditDate,
                       project.ServiceProcess.Record.approver,
@@ -653,7 +656,7 @@ class DB:
             if option:
                 sql = "DELETE FROM %s WHERE Acompany = '%s' and AprojectName = '%s';" % (table, id, option)
             else:
-                sql = "DELETE FROM %s WHERE Acompany = '%s';" % (table, id)
+                sql = "DELETE FROM %s WHERE refId = '%s';" % (table, id)
         try:
             ptr.execute(sql)
             self.db.commit()

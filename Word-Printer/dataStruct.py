@@ -301,7 +301,7 @@ class Project():
         }
     }
 
-    def __init__(self, projectName):
+    def __init__(self, projectName=""):
         self.Info["BasicInfo"]["PartyA"]["projectName"] = projectName
         self.__dict__ = DotDict.toDotDict(self.Info)
 

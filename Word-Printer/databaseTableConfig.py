@@ -50,6 +50,7 @@ class databaseTableConfig:
         """,
         """
         CREATE TABLE IF NOT EXISTS projectInfo(
+            refId NVARCHAR(100) NOT NULL,
             AprojectName nvarchar(100) NOT NULL,
             Acompany nvarchar(50) NOT NULL,
             Aname nvarchar(30),
@@ -75,15 +76,15 @@ class databaseTableConfig:
             TPM nvarchar(30),
             TTM nvarchar(30),
             seq int,
-            PRIMARY KEY (Acompany, AprojectName),
-            INDEX(Acompany),
-            INDEX(AprojectName)
+            PRIMARY KEY (refId, AprojectName),
+            INDEX(AprojectName),
+            FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
         ) ENGINE=InnoDB;
         """,
         """
         CREATE TABLE IF NOT EXISTS serviceProcess(
+            refId NVARCHAR(100) NOT NULL,
             refAprojectName nvarchar(100) NOT NULL,
-            refAcompany nvarchar(50) NOT NULL,
             RepTime nvarchar(30),
             RepKeypoint nvarchar(300),
             RepRevisit nvarchar(30),
@@ -143,8 +144,8 @@ class databaseTableConfig:
             RecApprover nvarchar(30),
             RecApproveDate nvarchar(30),
             RecProvider nvarchar(30),
-            PRIMARY KEY (refAcompany, refAprojectName),
-            FOREIGN KEY (refAcompany) REFERENCES projectInfo(Acompany) ON UPDATE CASCADE ON DELETE CASCADE,
+            PRIMARY KEY (refId, refAprojectName),
+            FOREIGN KEY (refId) REFERENCES projectInfo(refId) ON UPDATE CASCADE ON DELETE CASCADE,
             FOREIGN KEY (refAprojectName) REFERENCES projectInfo(AprojectName) ON UPDATE CASCADE ON DELETE CASCADE
         ) ENGINE=InnoDB;
         """]

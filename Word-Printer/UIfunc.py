@@ -740,15 +740,18 @@ class Controller(QMainWindow, Ui_MainWindow):
          project.BasicInfo.Detail.details = self.detailsText.text()
          project.BasicInfo.Detail.demand = self.demandText.text()
          project.BasicInfo.Detail.ddl = self.ddlText.text()
+
     def setTeam(self,project):
         project.BasicInfo.Team.startTime = self.startTimeText.text()
         project.BasicInfo.Team.require = self.requireText.text()
         project.BasicInfo.Team.PM = self.PMText.text()
         project.BasicInfo.Team.TM = self.TMText.text()
+
     def setReport(self,project):
         project.ServiceProcess.Report.time = str(self.reportTimeText.toPlainText()).split('\n')
         project.ServiceProcess.Report.keypoint = str(self.keypointText.toPlainText()).split('\n')
         project.ServiceProcess.Report.revisit = self.revisitText.text()
+
     def setProjectEvent(self,project):
         project.ServiceProcess.Event.eventManager = self.eventManagerText.text()
         project.ServiceProcess.Event.issueManager = self.issueManagerText.text()
@@ -757,6 +760,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Event.closed = self.closedText.value()
         project.ServiceProcess.Event.transformed = self.transformedText.value()
         project.ServiceProcess.Event.summarized = self.summarizedText.value()
+
     def setConfig(self,project):
         project.ServiceProcess.Config.modifyManager = self.modifyManagerText.text()
         project.ServiceProcess.Config.configManager = self.configManagerText.text()
@@ -773,6 +777,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Config.target = self.targetText.text()
         project.ServiceProcess.Config.item = self.itemText.text()
         project.ServiceProcess.Config.releaseVersion = self.releaseVersionText.text()
+
     def setContinuity(self,project):
         project.ServiceProcess.Continuity.process = str(self.processText.toPlainText()).split('\n')
         project.ServiceProcess.Continuity.result = str(self.resultText.toPlainText()).split('\n')
@@ -781,6 +786,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Continuity.approver = self.ContinuityApproverText.text()
         project.ServiceProcess.Continuity.compileDate = self.ContinuityCompileDateText.text()
         project.ServiceProcess.Continuity.auditDate = self.ContinuityAuditDateText.text()
+
     def setAudit(self,project):
         project.ServiceProcess.Audit.planDate = self.planDateText.text()
         project.ServiceProcess.Audit.auditDate = self.AuditAuditDateText.text()
@@ -796,6 +802,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Audit.audit = self.AuditAuditText.text()
         project.ServiceProcess.Audit.compileDate = self.AuditCompileDateText.text()
         project.ServiceProcess.Audit.approveDate = self.AuditApproveDateText.text()
+    
     def setRecord(self,project):
         project.ServiceProcess.Record.target = self.RecordTargetText.text()
         project.ServiceProcess.Record.time = self.RecordTimeText.text()
@@ -819,6 +826,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.AnameText.setText(project.BasicInfo.PartyA.name)
         self.AphoneText.setText(project.BasicInfo.PartyA.phone)
         self.AaddressText.setText(project.BasicInfo.PartyA.address)
+    
     def showB(self,project=""):
         if project == "":
             project = Project("")
@@ -829,6 +837,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.BcomplainNameText.setText(project.BasicInfo.PartyB.complainName)
         self.BcomplainMailText.setText(project.BasicInfo.PartyB.complainMail)
         self.BcomplainPhoneText.setText(project.BasicInfo.PartyB.complainPhone)
+    
     def showDetail(self,project=""):
         if project == "":
             project = Project("")
@@ -840,6 +849,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.detailsText.setText(project.BasicInfo.Detail.details)
         self.demandText.setText(project.BasicInfo.Detail.demand)
         self.ddlText.setText(project.BasicInfo.Detail.ddl)
+    
     def showTeam(self,project=""):
         if project == "":
             project = Project("")
@@ -847,12 +857,14 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.requireText.setText(project.BasicInfo.Team.require)
         self.PMText.setText(project.BasicInfo.Team.PM)
         self.TMText.setText(project.BasicInfo.Team.TM)
+    
     def showReport(self,project=""):
         if project == "":
             project = Project("")
         self.reportTimeText.setPlainText( "\n".join(project.ServiceProcess.Report.time) )
         self.keypointText.setPlainText( "\n".join(project.ServiceProcess.Report.keypoint) )
         self.revisitText.setText(project.ServiceProcess.Report.revisit)
+    
     def showProjectEvent(self,project=""):
         if project == "":
             project = Project("")
@@ -863,6 +875,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.closedText.setValue(project.ServiceProcess.Event.closed)
         self.transformedText.setValue(project.ServiceProcess.Event.transformed)
         self.summarizedText.setValue(project.ServiceProcess.Event.summarized)
+    
     def showConfig(self,project=""):
         if project == "":
             project = Project("")
@@ -881,6 +894,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.targetText.setText(project.ServiceProcess.Config.target)
         self.itemText.setText(project.ServiceProcess.Config.item)
         self.releaseVersionText.setText(project.ServiceProcess.Config.releaseVersion)
+    
     def showContinuity(self,project=""):
         if project == "":
             project = Project("")
@@ -891,6 +905,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.ContinuityApproverText.setText(project.ServiceProcess.Continuity.approver)
         self.ContinuityCompileDateText.setText(project.ServiceProcess.Continuity.compileDate)
         self.ContinuityAuditDateText.setText(project.ServiceProcess.Continuity.auditDate)
+    
     def showAudit(self,project=""):
         if project == "":
             project = Project("")
@@ -908,6 +923,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.AuditAuditText.setText(project.ServiceProcess.Audit.audit)
         self.AuditCompileDateText.setText(project.ServiceProcess.Audit.compileDate)
         self.AuditApproveDateText.setText(project.ServiceProcess.Audit.approveDate)
+    
     def showRecord(self,project=""):
         if project == "":
             project = Project("")
