@@ -309,6 +309,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         c = self.previewPic.count()
         for i in range(c):
             self.previewPic.takeItem(0)
+        c = self.projectList.count()
+        for i in range(c):
+            self.projectList.takeItem(0)
 
         #
         self.fileNameText.setText(user.fileName)
@@ -356,6 +359,12 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.depIntro.setPlainText("")
         for i in range(1,43):
             getattr(self,'duty_'+str(i)).setCheckState(0)
+
+        #四层
+        self.user.projects = []
+        for proj in user.projects:
+            self.projectList.addItem( proj.BasicInfo.PartyA.projectName )
+            self.user.projects.append( proj )
 
     def setUser(self):
         #
@@ -667,7 +676,8 @@ class Controller(QMainWindow, Ui_MainWindow):
 
     def addProject( self , projectName="项目名称" ):
         self.projectList.addItem( projectName )
-        self.user.projects.append( Project(projectName) )
+        new = Project(projectName)
+        self.user.projects.append( new )
         self.projectList.setCurrentItem( self.projectList.item( self.projectList.count()-1 )  )
 
     def removeProject( self , projectName="" ):
@@ -702,6 +712,15 @@ class Controller(QMainWindow, Ui_MainWindow):
     def showProjectDetail( self, projectName ):
         if projectName == "":
             self.showA()
+            self.showB()
+            self.showDetail()
+            self.showTeam()
+            self.showReport()
+            self.showProjectEvent()
+            self.showConfig()
+            self.showContinuity()
+            self.showAudit()
+            self.showRecord()
         else:
             project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
             self.showA(project)

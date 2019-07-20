@@ -182,126 +182,125 @@ class DotDict(dict):
         return DotDict(data)
 
 class Project():
-    Info = {
-        "BasicInfo" : {
-            "PartyA" : {
-                "projectName" : "", # 项目名称
-                "company" : "", # 甲方名称
-                "name" : "", # 甲方联系人姓名
-                "phone" : "", # 甲方联系电话
-                "address" : "" # 甲方地址
-            },
-
-            "PartyB" : {
-                "contactName" : "" , # 乙方联系人姓名
-                "serviceName" : "" , # 乙方服务联系人姓名
-                "serviceMail" : "" , # 乙方服务联系人邮箱
-                "servicePhone" : "" , # 乙方服务联系人手机
-                "complainName" : "" , # 乙方服务投诉人姓名
-                "complainMail" : "" , # 乙方服务投诉人邮箱
-                "complainPhone" : "" # 乙方服务投诉人手机
-            },
-
-            "Detail" : {
-                "amount" : "" , # 项目金额
-                "period" : "" , # 项目有效期
-                "config" : "" , # 服务配置项
-                "name" : "" , # 服务名称
-                "level" : "" , # 服务级别
-                "details" : "" , # 服务内容
-                "demand" : "" , # 服务要求
-                "ddl" : ""  # 服务时间要求
-            },
-            "Team" :{
-                "startTime" : "" , # 项目启动时间
-                "require" : "" , # 项目需求分析
-                "PM" : "" , # 项目经理
-                "TM" : "" , # 项目技术经理
-            }
-        },
-
-        "ServiceProcess" : {
-
-            "Report" : {
-                "time" : "" , # 服务报告期
-                "keypoint" : "" , # 下阶段重点工作内容
-                "revisit" : "" , # 服务回访日期
-            },
-            
-            "Event" : {
-                "eventManager" : "" , # 事件管理经理
-                "issueManager" : "" , # 问题管理经理
-                "level" : "S1" , # 受理事件等级
-                "accepted" : 0 , # 受理事件数
-                "closed" : 0 , # 关闭事件数
-                "transformed" : 0 , # 转化为问题的事件数
-                "summarized" : 0 , # 汇总问题数
-            },
-
-            "Config" : {
-                "modifyManager" : "" , # 变更经理
-                "configManager" : "" , # 配置经理
-                "releaseManager" : "" , # 发布经理
-                "relatedManager" : "" , # 关系经理
-                "configVersion" : "" , # 配置版本
-                "configReleaseDate" : "" , # 配置发布日期
-                "changes" : 0 , # 变更数量
-                "releases" : 0 , # 发布总数量
-                "releaseDate" : "" , # 发布日期
-                "preReleaseDate" : "" , # 预发布日期
-                "applicationDate" : "" , # 发布申请时间
-                "SN" : "" , # 发布单号
-                "target" : "" , # 发布目标
-                "item" : "" , # 发布交付物
-                "releaseVersion" : "" , # 发布版本
-            },
-
-            "Continuity" : {
-                "process" : "" , # 连续性测试经过内容
-                "result" : "" , # 连续性测试结果内容
-                "date" : "" , # 连续性测试日期
-                "technicist" : "" , # 可用性技术人员
-                "approver" : "" , # 可用性审批人员
-                "compileDate" : "" , # 记录编制时间
-                "auditDate" : "" , # 记录审核时间
-            },
-    
-            "Audit" : {
-                "planDate" : "" , # 内审计划时间
-                "auditDate" : "" , # 内审审核执行时间
-                "auditLeader" : "" , # 审核组长
-                "audit1" : "" , # 审核员1
-                "audit2" : "" , # 审核员2
-                "audit3" : "" , # 审核员3
-                "reviewDate" : "" , # 预期管理评审时间
-                "scheduleDate" : "" , # 管评计划时间
-                "excuteDate" : "" , # 管理评审执行日期
-                "reportDate" : "" , # 管评实施报告日期
-                "compiler" : "" , # 审核编制人
-                "audit" : "" , # 审核审批人
-                "compileDate" : "" , # 审核编制日期
-                "approveDate" : "" , # 审核审批时间
-            },
-
-            "Record" : {
-                "target" : "" , # 审计对象
-                "time" : "" , # 审计时间
-                "staff" : "" , # 审计人员
-                "arrange" : "" , # 审计安排
-                "content" : "" , # 文件审批内容
-                "fileName" : "" , # 审批文件名称
-                "auditContent" : "" , # 审批文件审核内容
-                "auditProcess" : "" , # 审批文件过程简述
-                "audit" : "" , # 文件审批人
-                "auditDate" : "" , # 文件审批日期
-                "approver" : "" , # 文件批准人
-                "approveDate" : "" , # 文件批准日期
-                "provider" : "" , # 文件发放人
-            } 
-        }
-    }
-
     def __init__(self, projectName=""):
+        self.Info = {
+            "BasicInfo" : {
+                "PartyA" : {
+                    "projectName" : "", # 项目名称
+                    "company" : "", # 甲方名称
+                    "name" : "", # 甲方联系人姓名
+                    "phone" : "", # 甲方联系电话
+                    "address" : "" # 甲方地址
+                },
+
+                "PartyB" : {
+                    "contactName" : "" , # 乙方联系人姓名
+                    "serviceName" : "" , # 乙方服务联系人姓名
+                    "serviceMail" : "" , # 乙方服务联系人邮箱
+                    "servicePhone" : "" , # 乙方服务联系人手机
+                    "complainName" : "" , # 乙方服务投诉人姓名
+                    "complainMail" : "" , # 乙方服务投诉人邮箱
+                    "complainPhone" : "" # 乙方服务投诉人手机
+                },
+
+                "Detail" : {
+                    "amount" : "" , # 项目金额
+                    "period" : "" , # 项目有效期
+                    "config" : "" , # 服务配置项
+                    "name" : "" , # 服务名称
+                    "level" : "" , # 服务级别
+                    "details" : "" , # 服务内容
+                    "demand" : "" , # 服务要求
+                    "ddl" : ""  # 服务时间要求
+                },
+                "Team" :{
+                    "startTime" : "" , # 项目启动时间
+                    "require" : "" , # 项目需求分析
+                    "PM" : "" , # 项目经理
+                    "TM" : "" , # 项目技术经理
+                }
+            },
+
+            "ServiceProcess" : {
+
+                "Report" : {
+                    "time" : "" , # 服务报告期
+                    "keypoint" : "" , # 下阶段重点工作内容
+                    "revisit" : "" , # 服务回访日期
+                },
+            
+                "Event" : {
+                    "eventManager" : "" , # 事件管理经理
+                    "issueManager" : "" , # 问题管理经理
+                    "level" : "S1" , # 受理事件等级
+                    "accepted" : 0 , # 受理事件数
+                    "closed" : 0 , # 关闭事件数
+                    "transformed" : 0 , # 转化为问题的事件数
+                    "summarized" : 0 , # 汇总问题数
+                },
+
+                "Config" : {
+                    "modifyManager" : "" , # 变更经理
+                    "configManager" : "" , # 配置经理
+                    "releaseManager" : "" , # 发布经理
+                    "relatedManager" : "" , # 关系经理
+                    "configVersion" : "" , # 配置版本
+                    "configReleaseDate" : "" , # 配置发布日期
+                    "changes" : 0 , # 变更数量
+                    "releases" : 0 , # 发布总数量
+                    "releaseDate" : "" , # 发布日期
+                    "preReleaseDate" : "" , # 预发布日期
+                    "applicationDate" : "" , # 发布申请时间
+                    "SN" : "" , # 发布单号
+                    "target" : "" , # 发布目标
+                    "item" : "" , # 发布交付物
+                    "releaseVersion" : "" , # 发布版本
+                },
+
+                "Continuity" : {
+                    "process" : "" , # 连续性测试经过内容
+                    "result" : "" , # 连续性测试结果内容
+                    "date" : "" , # 连续性测试日期
+                    "technicist" : "" , # 可用性技术人员
+                    "approver" : "" , # 可用性审批人员
+                    "compileDate" : "" , # 记录编制时间
+                    "auditDate" : "" , # 记录审核时间
+                },
+    
+                "Audit" : {
+                    "planDate" : "" , # 内审计划时间
+                    "auditDate" : "" , # 内审审核执行时间
+                    "auditLeader" : "" , # 审核组长
+                    "audit1" : "" , # 审核员1
+                    "audit2" : "" , # 审核员2
+                    "audit3" : "" , # 审核员3
+                    "reviewDate" : "" , # 预期管理评审时间
+                    "scheduleDate" : "" , # 管评计划时间
+                    "excuteDate" : "" , # 管理评审执行日期
+                    "reportDate" : "" , # 管评实施报告日期
+                    "compiler" : "" , # 审核编制人
+                    "audit" : "" , # 审核审批人
+                    "compileDate" : "" , # 审核编制日期
+                    "approveDate" : "" , # 审核审批时间
+                },
+
+                "Record" : {
+                    "target" : "" , # 审计对象
+                    "time" : "" , # 审计时间
+                    "staff" : "" , # 审计人员
+                    "arrange" : "" , # 审计安排
+                    "content" : "" , # 文件审批内容
+                    "fileName" : "" , # 审批文件名称
+                    "auditContent" : "" , # 审批文件审核内容
+                    "auditProcess" : "" , # 审批文件过程简述
+                    "audit" : "" , # 文件审批人
+                    "auditDate" : "" , # 文件审批日期
+                    "approver" : "" , # 文件批准人
+                    "approveDate" : "" , # 文件批准日期
+                    "provider" : "" , # 文件发放人
+                } 
+            }
+        }
         self.Info["BasicInfo"]["PartyA"]["projectName"] = projectName
         self.__dict__ = DotDict.toDotDict(self.Info)
 
