@@ -43,6 +43,7 @@
     <Compile Include="pathSelection.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="presetData.py" />
     <Compile Include="replace.py" />
     <Compile Include="StyleSheet.py">
       <SubType>Code</SubType>
