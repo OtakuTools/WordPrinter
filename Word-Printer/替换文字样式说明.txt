@@ -1,0 +1,25 @@
+0、文件名称: fff000 fileName
+1、公司名称：ff0000 company
+2、公司地址：00ff00 address
+3、公司简介：0000ff introduction
+4、覆盖范围：ffff00 coverField
+5、总经理姓名：00ffff manager
+6、管代姓名：7f0000 guandai
+7、编制人员姓名：007f00 compiler
+8、批准人姓名：000080 allower
+9、发布日期:7f7f00 announceDate
+###10、审核日期：007f7f auditDate####
+11、图片路径:000fff picPath
+12、部门职责: ff00ff departments
+13、邮编： 7f007f zip
+14、联系电话：fffff0 phone
+15、服务方针：0fffff policy
+16、审核人：fff0ff audit
+17、发布人：ff0fff announcer
+18、编制日期：f0ffff modifyDate
+
+Intense Quote ： 职责表正文
+Table Theme ： 职责表样式
+Quote ：公司简介样式
+样式1 ： 部门职责-部门名字
+No Spacing ： 部门职责-职责列表
