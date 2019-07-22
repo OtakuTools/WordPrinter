@@ -20,7 +20,18 @@ def getColorStyle():
         'EF0000':'logoPath',    #(239,0,0)
         'EE0000':'departments', #(238,0,0)
         'ED0000':'picPath',     #(237,0,0)
-        'EC0000':'corporateRepresentative' #(236,0,0)
+        'EC0000':'corporateRepresentative', #(236,0,0)
+        'EB0000':'auditLeader', #(235,0,0)
+        'EA0000':'audit1',      #(234,0,0)
+        'E90000':'audit2',      #(233,0,0)
+        'E80000':'audit3',      #(232,0,0)
+        'E70000':'planDate',    #(231,0,0)
+        'E60000':'auditDate',   #(230,0,0)
+        'E50000':'scheduleDate',#(229,0,0)
+        'E40000':'compiler',    #(228,0,0)
+        'E30000':'compileDate', #(227,0,0)
+        'E20000':'audit',       #(226,0,0)
+        'E10000':'approveDate'  #(225,0,0)
     }
 
 def getGraphStyle():
