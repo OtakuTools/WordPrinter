@@ -61,11 +61,9 @@ class pathSelection:
     def searchAllSamples(self, path):
         self.isLevel4 = False
         for (root, dirs, files) in os.walk(path):
-            reg_dir0 = "(Level\d{1})"
-            reg_dir1 = "(四层项目|四层组织)"
-            prefix0 = re.search(reg_dir0, root, re.M|re.I)
-            prefix1 = re.search(reg_dir1, root, re.M|re.I)
-            if prefix0:
+            reg_dir = "(Level\d{1})"
+            prefix = re.search(reg_dir, root, re.M|re.I)
+            if prefix:
                 level = prefix.group(1)
                 for file in files:
                     suffix = os.path.splitext(file)[1]
@@ -80,7 +78,5 @@ class pathSelection:
                             self.docType["-".join(label)] = suffix
                     elif suffix in [".jpg", ".png", ".jpeg"]:
                         self.logos[prefix] = file
-            elif prefix1:
-
             for dir in dirs:
                 self.searchAllSamples(dir)
