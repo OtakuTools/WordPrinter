@@ -314,6 +314,7 @@ class DB:
                     project.ServiceProcess.Continuity.approver = row[firstIndex+56]
                     project.ServiceProcess.Continuity.compileDate = row[firstIndex+57]
                     project.ServiceProcess.Continuity.auditDate = row[firstIndex+58]
+                    '''
                     project.ServiceProcess.Audit.planDate = row[firstIndex+59]
                     project.ServiceProcess.Audit.auditDate = row[firstIndex+60]
                     project.ServiceProcess.Audit.auditLeader = row[firstIndex+61]
@@ -341,6 +342,7 @@ class DB:
                     project.ServiceProcess.Record.approver = row[firstIndex+83]
                     project.ServiceProcess.Record.approveDate = row[firstIndex+84]
                     project.ServiceProcess.Record.provider= row[firstIndex+85]
+                    '''
                 except Exception as e:
                     print("Get Project Error:",e)
                     continue
