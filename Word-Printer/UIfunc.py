@@ -364,11 +364,14 @@ class Controller(QMainWindow, Ui_MainWindow):
         for i in range(1,43):
             getattr(self,'duty_'+str(i)).setCheckState(0)
 
-        #四层
+        #四层项目
         self.user.projects = []
         for proj in user.projects:
             self.projectList.addItem( proj.BasicInfo.PartyA.projectName )
             self.user.projects.append( proj )
+        #四层组织
+        self.user.organization = user.organization
+        self.showOrganization()
 
     def setUser(self):
         #
