@@ -188,6 +188,13 @@ class Controller(QMainWindow, Ui_MainWindow):
                 self.__dict__[k].setContextMenuPolicy(Qt.ActionsContextMenu)
 
     def connectList(self):
+        #连接一层department列表
+        self.connectDepartmentList()
+
+        #连接四层project列表
+        self.connectProjectList()
+
+    def connectDepartmentList(self):
         #可能没选中，故用getattr确认
         self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
         # button
@@ -196,9 +203,6 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.DeleteDep.clicked.connect( lambda: self.removeDepartment( getattr( self.departmentList.currentItem(),'text',str)() ) )
         self.cancelDep.clicked.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
         self.addOrModifyDep.clicked.connect( lambda: self.setDepartments(getattr( self.departmentList.currentItem(),'text',str)() ) )
-
-        #
-        self.connectProjectList()
 
     def chooseLogo(self):
         fileName1, filetype = QFileDialog().getOpenFileName(self, "选取图标",".//","Images(*.png *.jpg *.jpeg *.bmp)")
@@ -673,6 +677,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.DeleteProject.clicked.connect( lambda: self.removeProject( getattr(self.projectList.currentItem(),'text',str)() ) )
         self.cancelProject.clicked.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
         self.saveProject.clicked.connect( lambda: self.setProject( getattr(self.projectList.currentItem(),'text',str)() ) )
+        #四层组织
+        self.saveOrgan.clicked.connect( lambda: self.setOrganization() )
+        self.discardOrgan.clicked.connect( lambda: self.showOrganization() )
 
     def addProject( self , projectName="项目名称" ):
         self.projectList.addItem( projectName )
@@ -706,8 +713,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.setProjectEvent(project)
             self.setConfig(project)
             self.setContinuity(project)
-            self.setAudit(project)
-            self.setRecord(project)
+            #self.setAudit(project)
+            #self.setRecord(project)
 
     def showProjectDetail( self, projectName ):
         if projectName == "":
@@ -719,8 +726,8 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.showProjectEvent()
             self.showConfig()
             self.showContinuity()
-            self.showAudit()
-            self.showRecord()
+            #self.showAudit()
+            #self.showRecord()
         else:
             project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
             self.showA(project)
@@ -731,8 +738,18 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.showProjectEvent(project)
             self.showConfig(project)
             self.showContinuity(project)
-            self.showAudit(project)
-            self.showRecord(project)
+            #self.showAudit(project)
+            #self.showRecord(project)
+
+    def setOrganization(self):
+        self.setAudit()
+        self.setRecord()
+        #
+        self.showOrganization()
+
+    def showOrganization(self):
+        self.showAudit()
+        self.showRecord()
 
     def setA(self,project):
         project.BasicInfo.PartyA.projectName = self.AprojectNameText.text()
@@ -790,7 +807,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Config.changes = int(self.changesText.text())
         project.ServiceProcess.Config.releases = int(self.releasesText.text())
         project.ServiceProcess.Config.releaseDate = self.ConfigReleaseDateText.text()
-        project.ServiceProcess.Config.preReleaseDate = ""################################
+        project.ServiceProcess.Config.preReleaseDate = self.ConfigPreReleaseDateText.text()
         project.ServiceProcess.Config.applicationDate = self.applicationDateText.text()
         project.ServiceProcess.Config.SN = self.SNText.text()
         project.ServiceProcess.Config.target = self.targetText.text()
@@ -806,36 +823,36 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Continuity.compileDate = self.ContinuityCompileDateText.text()
         project.ServiceProcess.Continuity.auditDate = self.ContinuityAuditDateText.text()
 
-    def setAudit(self,project):
-        project.ServiceProcess.Audit.planDate = self.planDateText.text()
-        project.ServiceProcess.Audit.auditDate = self.AuditAuditDateText.text()
-        project.ServiceProcess.Audit.auditLeader = self.auditLeaderText.text()
-        project.ServiceProcess.Audit.audit1 = self.audit1Text.text()
-        project.ServiceProcess.Audit.audit2 = self.audit2Text.text()
-        project.ServiceProcess.Audit.audit3 = self.audit3Text.text()
-        project.ServiceProcess.Audit.reviewDate = self.reviewDateText.text()
-        project.ServiceProcess.Audit.scheduleDate = self.scheduleDateText.text()
-        project.ServiceProcess.Audit.excuteDate = self.excuteDateText.text()
-        project.ServiceProcess.Audit.reportDate = self.reportDateText.text()
-        project.ServiceProcess.Audit.compiler = self.AuditCompilerText.text()
-        project.ServiceProcess.Audit.audit = self.AuditAuditText.text()
-        project.ServiceProcess.Audit.compileDate = self.AuditCompileDateText.text()
-        project.ServiceProcess.Audit.approveDate = self.AuditApproveDateText.text()
+    def setAudit(self):
+        self.user.organization.Audit.planDate = self.planDateText.text()
+        self.user.organization.Audit.auditDate = self.AuditAuditDateText.text()
+        self.user.organization.Audit.auditLeader = self.auditLeaderText.text()
+        self.user.organization.Audit.audit1 = self.audit1Text.text()
+        self.user.organization.Audit.audit2 = self.audit2Text.text()
+        self.user.organization.Audit.audit3 = self.audit3Text.text()
+        self.user.organization.Audit.reviewDate = self.reviewDateText.text()
+        self.user.organization.Audit.scheduleDate = self.scheduleDateText.text()
+        self.user.organization.Audit.excuteDate = self.excuteDateText.text()
+        self.user.organization.Audit.reportDate = self.reportDateText.text()
+        self.user.organization.Audit.compiler = self.AuditCompilerText.text()
+        self.user.organization.Audit.audit = self.AuditAuditText.text()
+        self.user.organization.Audit.compileDate = self.AuditCompileDateText.text()
+        self.user.organization.Audit.approveDate = self.AuditApproveDateText.text()
     
-    def setRecord(self,project):
-        project.ServiceProcess.Record.target = self.RecordTargetText.text()
-        project.ServiceProcess.Record.time = self.RecordTimeText.text()
-        project.ServiceProcess.Record.staff = self.RecordStaffText.text()
-        project.ServiceProcess.Record.arrange = self.RecordArrangeText.text()
-        project.ServiceProcess.Record.content = str(self.RecordContentText.toPlainText()).split('\n')
-        project.ServiceProcess.Record.fileName = self.RecordFileNameText.text()
-        project.ServiceProcess.Record.auditContent = str(self.auditContentText.toPlainText()).split('\n')
-        project.ServiceProcess.Record.auditProcess = str(self.auditProcessText.toPlainText()).split('\n')
-        project.ServiceProcess.Record.audit = self.RecordAuditText.text()
-        project.ServiceProcess.Record.auditDate = self.RecordAuditDateText.text()
-        project.ServiceProcess.Record.approver = self.RecordApproverText.text()
-        project.ServiceProcess.Record.approveDate = self.RecordApproveDateText.text()
-        project.ServiceProcess.Record.provider = self.providerText.text()
+    def setRecord(self):
+        self.user.organization.Record.target = self.RecordTargetText.text()
+        self.user.organization.Record.time = self.RecordTimeText.text()
+        self.user.organization.Record.staff = self.RecordStaffText.text()
+        self.user.organization.Record.arrange = self.RecordArrangeText.text()
+        self.user.organization.Record.content = str(self.RecordContentText.toPlainText()).split('\n')
+        self.user.organization.Record.fileName = self.RecordFileNameText.text()
+        self.user.organization.Record.auditContent = str(self.auditContentText.toPlainText()).split('\n')
+        self.user.organization.Record.auditProcess = str(self.auditProcessText.toPlainText()).split('\n')
+        self.user.organization.Record.audit = self.RecordAuditText.text()
+        self.user.organization.Record.auditDate = self.RecordAuditDateText.text()
+        self.user.organization.Record.approver = self.RecordApproverText.text()
+        self.user.organization.Record.approveDate = self.RecordApproveDateText.text()
+        self.user.organization.Record.provider = self.providerText.text()
 
     def showA(self,project=""):
         if project == "":
@@ -907,7 +924,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.changesText.setText(str(project.ServiceProcess.Config.changes))
         self.releasesText.setText(str(project.ServiceProcess.Config.releases))
         self.ConfigReleaseDateText.setText(project.ServiceProcess.Config.releaseDate)
-        project.ServiceProcess.Config.preReleaseDate = ""################################
+        self.ConfigPreReleaseDateText.setText(project.ServiceProcess.Config.preReleaseDate)
         self.applicationDateText.setText(project.ServiceProcess.Config.applicationDate)
         self.SNText.setText(project.ServiceProcess.Config.SN)
         self.targetText.setText(project.ServiceProcess.Config.target)
@@ -925,37 +942,33 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.ContinuityCompileDateText.setText(project.ServiceProcess.Continuity.compileDate)
         self.ContinuityAuditDateText.setText(project.ServiceProcess.Continuity.auditDate)
     
-    def showAudit(self,project=""):
-        if project == "":
-            project = Project("")
-        self.planDateText.setText(project.ServiceProcess.Audit.planDate)
-        self.AuditAuditDateText.setText(project.ServiceProcess.Audit.auditDate)
-        self.auditLeaderText.setText(project.ServiceProcess.Audit.auditLeader)
-        self.audit1Text.setText(project.ServiceProcess.Audit.audit1)
-        self.audit2Text.setText(project.ServiceProcess.Audit.audit2)
-        self.audit3Text.setText(project.ServiceProcess.Audit.audit3)
-        self.reviewDateText.setText(project.ServiceProcess.Audit.reviewDate)
-        self.scheduleDateText.setText(project.ServiceProcess.Audit.scheduleDate)
-        self.excuteDateText.setText(project.ServiceProcess.Audit.excuteDate)
-        self.reportDateText.setText(project.ServiceProcess.Audit.reportDate)
-        self.AuditCompilerText.setText(project.ServiceProcess.Audit.compiler)
-        self.AuditAuditText.setText(project.ServiceProcess.Audit.audit)
-        self.AuditCompileDateText.setText(project.ServiceProcess.Audit.compileDate)
-        self.AuditApproveDateText.setText(project.ServiceProcess.Audit.approveDate)
+    def showAudit(self):
+        self.planDateText.setText(self.user.organization.Audit.planDate)
+        self.AuditAuditDateText.setText(self.user.organization.Audit.auditDate)
+        self.auditLeaderText.setText(self.user.organization.Audit.auditLeader)
+        self.audit1Text.setText(self.user.organization.Audit.audit1)
+        self.audit2Text.setText(self.user.organization.Audit.audit2)
+        self.audit3Text.setText(self.user.organization.Audit.audit3)
+        self.reviewDateText.setText(self.user.organization.Audit.reviewDate)
+        self.scheduleDateText.setText(self.user.organization.Audit.scheduleDate)
+        self.excuteDateText.setText(self.user.organization.Audit.excuteDate)
+        self.reportDateText.setText(self.user.organization.Audit.reportDate)
+        self.AuditCompilerText.setText(self.user.organization.Audit.compiler)
+        self.AuditAuditText.setText(self.user.organization.Audit.audit)
+        self.AuditCompileDateText.setText(self.user.organization.Audit.compileDate)
+        self.AuditApproveDateText.setText(self.user.organization.Audit.approveDate)
     
-    def showRecord(self,project=""):
-        if project == "":
-            project = Project("")
-        self.RecordTargetText.setText(project.ServiceProcess.Record.target)
-        self.RecordTimeText.setText(project.ServiceProcess.Record.time)
-        self.RecordStaffText.setText(project.ServiceProcess.Record.staff)
-        self.RecordArrangeText.setText(project.ServiceProcess.Record.arrange)
-        self.RecordContentText.setPlainText("\n".join(project.ServiceProcess.Record.content))
-        self.RecordFileNameText.setText(project.ServiceProcess.Record.fileName)
-        self.auditContentText.setPlainText("\n".join(project.ServiceProcess.Record.auditContent))
-        self.auditProcessText.setPlainText("\n".join(project.ServiceProcess.Record.auditProcess))
-        self.RecordAuditText.setText(project.ServiceProcess.Record.audit)
-        self.RecordAuditDateText.setText(project.ServiceProcess.Record.auditDate)
-        self.RecordApproverText.setText(project.ServiceProcess.Record.approver)
-        self.RecordApproveDateText.setText(project.ServiceProcess.Record.approveDate)
-        self.providerText.setText(project.ServiceProcess.Record.provider)
+    def showRecord(self):
+        self.RecordTargetText.setText(self.user.organization.Record.target)
+        self.RecordTimeText.setText(self.user.organization.Record.time)
+        self.RecordStaffText.setText(self.user.organization.Record.staff)
+        self.RecordArrangeText.setText(self.user.organization.Record.arrange)
+        self.RecordContentText.setPlainText("\n".join(self.user.organization.Record.content))
+        self.RecordFileNameText.setText(self.user.organization.Record.fileName)
+        self.auditContentText.setPlainText("\n".join(self.user.organization.Record.auditContent))
+        self.auditProcessText.setPlainText("\n".join(self.user.organization.Record.auditProcess))
+        self.RecordAuditText.setText(self.user.organization.Record.audit)
+        self.RecordAuditDateText.setText(self.user.organization.Record.auditDate)
+        self.RecordApproverText.setText(self.user.organization.Record.approver)
+        self.RecordApproveDateText.setText(self.user.organization.Record.approveDate)
+        self.providerText.setText(self.user.organization.Record.provider)

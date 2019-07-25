@@ -5,6 +5,61 @@ import json
 
 from presetData import *
 
+class DotDict(dict):
+    def __init__(self, *args, **kwargs):
+        dict.__init__(self, *args, **kwargs)
+        self.__dict__ = self
+
+    def toDotDict(data):
+        if isinstance(data, dict):
+            for k, v in data.items():
+                if isinstance(v, dict):
+                    data[k] = DotDict(v)
+                    DotDict.toDotDict(data[k])
+        else:
+            return data
+
+        return DotDict(data)
+
+class Organization():
+    def __init__(self):
+        self.Info = {
+            "Audit" : {
+                "planDate" : "" , # 内审计划时间
+                "auditDate" : "" , # 内审审核执行时间
+                "auditLeader" : "" , # 审核组长
+                "audit1" : "" , # 审核员1
+                "audit2" : "" , # 审核员2
+                "audit3" : "" , # 审核员3
+                "reviewDate" : "" , # 预期管理评审时间
+                "scheduleDate" : "" , # 管评计划时间
+                "excuteDate" : "" , # 管理评审执行日期
+                "reportDate" : "" , # 管评实施报告日期
+                "compiler" : "" , # 审核编制人
+                "audit" : "" , # 审核审批人
+                "compileDate" : "" , # 审核编制日期
+                "approveDate" : "" , # 审核审批时间
+            },
+
+            "Record" : {
+                "target" : "" , # 审计对象
+                "time" : "" , # 审计时间
+                "staff" : "" , # 审计人员
+                "arrange" : "" , # 审计安排
+                "content" : "" , # 文件审批内容
+                "fileName" : "" , # 审批文件名称
+                "auditContent" : "" , # 审批文件审核内容
+                "auditProcess" : "" , # 审批文件过程简述
+                "audit" : "" , # 文件审批人
+                "auditDate" : "" , # 文件审批日期
+                "approver" : "" , # 文件批准人
+                "approveDate" : "" , # 文件批准日期
+                "provider" : "" , # 文件发放人
+            }
+        }
+        self.__dict__ = DotDict.toDotDict(self.Info)
+
+
 class userInfo:
     # string filename
     fileName = ""
@@ -67,6 +122,8 @@ class userInfo:
     departments = []
     # array of project
     projects = []
+    # instance of organization
+    organization = Organization()
 
     def __init__(self):
         pass
@@ -165,22 +222,6 @@ class userInfo:
                 isValid = False
         return ( isValid , errMsg )
 
-class DotDict(dict):
-    def __init__(self, *args, **kwargs):
-        dict.__init__(self, *args, **kwargs)
-        self.__dict__ = self
-
-    def toDotDict(data):
-        if isinstance(data, dict):
-            for k, v in data.items():
-                if isinstance(v, dict):
-                    data[k] = DotDict(v)
-                    DotDict.toDotDict(data[k])
-        else:
-            return data
-
-        return DotDict(data)
-
 class Project():
     def __init__(self, projectName=""):
         self.Info = {
@@ -265,44 +306,12 @@ class Project():
                     "approver" : "" , # 可用性审批人员
                     "compileDate" : "" , # 记录编制时间
                     "auditDate" : "" , # 记录审核时间
-                },
-    
-                "Audit" : {
-                    "planDate" : "" , # 内审计划时间
-                    "auditDate" : "" , # 内审审核执行时间
-                    "auditLeader" : "" , # 审核组长
-                    "audit1" : "" , # 审核员1
-                    "audit2" : "" , # 审核员2
-                    "audit3" : "" , # 审核员3
-                    "reviewDate" : "" , # 预期管理评审时间
-                    "scheduleDate" : "" , # 管评计划时间
-                    "excuteDate" : "" , # 管理评审执行日期
-                    "reportDate" : "" , # 管评实施报告日期
-                    "compiler" : "" , # 审核编制人
-                    "audit" : "" , # 审核审批人
-                    "compileDate" : "" , # 审核编制日期
-                    "approveDate" : "" , # 审核审批时间
-                },
-
-                "Record" : {
-                    "target" : "" , # 审计对象
-                    "time" : "" , # 审计时间
-                    "staff" : "" , # 审计人员
-                    "arrange" : "" , # 审计安排
-                    "content" : "" , # 文件审批内容
-                    "fileName" : "" , # 审批文件名称
-                    "auditContent" : "" , # 审批文件审核内容
-                    "auditProcess" : "" , # 审批文件过程简述
-                    "audit" : "" , # 文件审批人
-                    "auditDate" : "" , # 文件审批日期
-                    "approver" : "" , # 文件批准人
-                    "approveDate" : "" , # 文件批准日期
-                    "provider" : "" , # 文件发放人
                 } 
             }
         }
         self.Info["BasicInfo"]["PartyA"]["projectName"] = projectName
         self.__dict__ = DotDict.toDotDict(self.Info)
+
 
 if __name__ == "__main__":
     test = Project("aaa")
