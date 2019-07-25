@@ -57,6 +57,34 @@ class Replace:
             pass#pic
         elif str(r.font.color.rgb) == 'EC0000':
             r.text = self.user.corporateRepresentative
+        elif str(r.font.color.rgb) == 'EB0000':
+            r.text = self.user.organization.Audit.auditLeader
+        elif str(r.font.color.rgb) == 'EA0000':
+            r.text = self.user.organization.Audit.audit1
+        elif str(r.font.color.rgb) == 'E90000':
+            r.text = self.user.organization.Audit.audit2
+        elif str(r.font.color.rgb) == 'E80000':
+            r.text = self.user.organization.Audit.audit3
+        elif str(r.font.color.rgb) == 'E70000':
+            r.text = self.user.organization.Audit.planDate
+        elif str(r.font.color.rgb) == 'E60000':
+            r.text = self.user.organization.Audit.auditDate
+        elif str(r.font.color.rgb) == 'E50000':
+            r.text = self.user.organization.Audit.scheduleDate
+        elif str(r.font.color.rgb) == 'E40000':
+            r.text = self.user.organization.Audit.compiler
+        elif str(r.font.color.rgb) == 'E30000':
+            r.text = self.user.organization.Audit.compileDate
+        elif str(r.font.color.rgb) == 'E20000':
+            r.text = self.user.organization.Audit.audit
+        elif str(r.font.color.rgb) == 'E10000':
+            r.text = self.user.organization.Audit.approveDate
+        elif str(r.font.color.rgb) == 'E00000':
+            r.text = self.user.organization.Audit.reviewDate
+        elif str(r.font.color.rgb) == 'DF0000':
+            r.text = self.user.organization.Audit.excuteDate
+        elif str(r.font.color.rgb) == 'DE0000':
+            r.text = self.user.organization.Audit.reportDate
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)

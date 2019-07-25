@@ -31,7 +31,10 @@ def getColorStyle():
         'E40000':'compiler',    #(228,0,0)
         'E30000':'compileDate', #(227,0,0)
         'E20000':'audit',       #(226,0,0)
-        'E10000':'approveDate'  #(225,0,0)
+        'E10000':'approveDate', #(225,0,0)
+        'E00000':'reviewDate',  #(224,0,0)
+        'DF0000':'excuteDate',  #(223,0,0)
+        'DE0000':'reportDate',  #(222,0,0)
     }
 
 def getGraphStyle():
