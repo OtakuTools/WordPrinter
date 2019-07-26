@@ -35,6 +35,14 @@ def getColorStyle():
         'E00000':'reviewDate',  #(224,0,0)
         'DF0000':'excuteDate',  #(223,0,0)
         'DE0000':'reportDate',  #(222,0,0)
+        'DD0000':'fileName',    #(221,0,0)
+        'DC0000':'auditContent',#(220,0,0)
+        'DB0000':'auditProcess',#(219,0,0)
+        'DA0000':'audit',       #(218,0,0)
+        'D90000':'auditDate',   #(217,0,0)
+        'D80000':'approver',    #(216,0,0)
+        'D70000':'approveDate', #(215,0,0)
+        'D60000':'provider',    #(214,0,0)
     }
 
 def getGraphStyle():

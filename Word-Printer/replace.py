@@ -88,6 +88,22 @@ class Replace:
             r.text = self.user.organization.Audit.excuteDate
         elif str(r.font.color.rgb) == 'DE0000':
             r.text = self.user.organization.Audit.reportDate
+        elif str(r.font.color.rgb) == 'DD0000':
+            r.text = self.user.organization.Record.fileName
+        elif str(r.font.color.rgb) == 'DC0000':
+            r.text = '\n'.join(self.user.organization.Record.auditContent)
+        elif str(r.font.color.rgb) == 'DB0000':
+            r.text = '\n'.join(self.user.organization.Record.auditProcess)
+        elif str(r.font.color.rgb) == 'DA0000':
+            r.text = self.user.organization.Record.audit
+        elif str(r.font.color.rgb) == 'D90000':
+            r.text = self.user.organization.Record.auditDate
+        elif str(r.font.color.rgb) == 'D80000':
+            r.text = self.user.organization.Record.approver
+        elif str(r.font.color.rgb) == 'D70000':
+            r.text = self.user.organization.Record.approveDate
+        elif str(r.font.color.rgb) == 'D60000':
+            r.text = self.user.organization.Record.provider
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
