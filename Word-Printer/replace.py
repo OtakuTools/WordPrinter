@@ -11,7 +11,7 @@ class Replace:
     lock = threading.RLock()
 
     def __init__(self):
-        pass
+        self.timeCount = 0
 
     def __del__(self):
         pass
@@ -40,7 +40,10 @@ class Replace:
         elif str(r.font.color.rgb) == 'F60000':
             r.text = self.user.releaseDate
         elif str(r.font.color.rgb) == 'F50000':
-            r.text = self.user.modifyDate.pop(0)
+            r.text = self.user.modifyDate[ self.timeCount%5 ]
+            self.timeCount+=1
+        elif str(r.font.color.rgb) >= 'F50001' and str(r.font.color.rgb) <= 'F50005':
+            r.text = self.user.modifyDate[ r.font.color.rgb[2]-1 ]
         elif str(r.font.color.rgb) == 'F40000':
             r.text = self.user.zip
         elif str(r.font.color.rgb) == 'F30000':

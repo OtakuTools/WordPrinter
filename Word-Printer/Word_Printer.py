@@ -47,7 +47,7 @@ class docWriter:
             elif mode == 'xlsx':
                 xls = excel()
                 reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
-                prefix = re.search(reg, dst, re.M|re.I).group(1)
+                prefix = re.search(reg, dst.split('\\')[-1], re.M|re.I).group(1)
                 xlsx = xls.title( src , dst , str(prefix) )
                 self.saveAsExcel( xlsx , dst )
             else:
