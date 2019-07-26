@@ -117,6 +117,14 @@ class databaseTableConfig:
             CotApprover nvarchar(30),
             CotCompileDate nvarchar(30),
             CotAuditDate nvarchar(30),
+            PRIMARY KEY (refId, refAprojectName),
+            FOREIGN KEY (refId) REFERENCES projectInfo(refId) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (refAprojectName) REFERENCES projectInfo(AprojectName) ON UPDATE CASCADE ON DELETE CASCADE
+        ) ENGINE=InnoDB;
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS organization(
+            refId NVARCHAR(100) NOT NULL,
             AudPlanDate nvarchar(30),
             AudAuditDate nvarchar(30),
             AudAuditLeader nvarchar(30),
@@ -144,9 +152,8 @@ class databaseTableConfig:
             RecApprover nvarchar(30),
             RecApproveDate nvarchar(30),
             RecProvider nvarchar(30),
-            PRIMARY KEY (refId, refAprojectName),
-            FOREIGN KEY (refId) REFERENCES projectInfo(refId) ON UPDATE CASCADE ON DELETE CASCADE,
-            FOREIGN KEY (refAprojectName) REFERENCES projectInfo(AprojectName) ON UPDATE CASCADE ON DELETE CASCADE
+            PRIMARY KEY (refId),
+            FOREIGN KEY (refId) REFERENCES info(company) ON UPDATE CASCADE ON DELETE CASCADE
         ) ENGINE=InnoDB;
         """]
 

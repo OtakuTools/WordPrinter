@@ -4,7 +4,7 @@ import threading
 import pymysql
 import json
 
-from dataStruct import userInfo, Project
+from dataStruct import userInfo, Project, Organization
 from databaseSetting import Ui_databaseSetting
 from databaseTableConfig import databaseTableConfig
 
@@ -195,6 +195,12 @@ class DB:
                WHERE projectInfo.refId = '%s'
                ORDER BY projectInfo.seq;
                """ % (id)
+        sql4 = """
+               SELECT *
+               FROM organization
+               WHERE organization.refId = '%s';
+               """ % (id)
+
         info = userInfo()
         try:
             ptr.execute(sql0)
@@ -253,7 +259,6 @@ class DB:
             ptr.execute(sql3)
             results = ptr.fetchall()
             for row in results:
-                assert(len(row) == 87)
                 project = Project()
                 firstIndex = 1
                 try:
@@ -314,35 +319,6 @@ class DB:
                     project.ServiceProcess.Continuity.approver = row[firstIndex+56]
                     project.ServiceProcess.Continuity.compileDate = row[firstIndex+57]
                     project.ServiceProcess.Continuity.auditDate = row[firstIndex+58]
-                    '''
-                    project.ServiceProcess.Audit.planDate = row[firstIndex+59]
-                    project.ServiceProcess.Audit.auditDate = row[firstIndex+60]
-                    project.ServiceProcess.Audit.auditLeader = row[firstIndex+61]
-                    project.ServiceProcess.Audit.audit1 = row[firstIndex+62]
-                    project.ServiceProcess.Audit.audit2 = row[firstIndex+63]
-                    project.ServiceProcess.Audit.audit3 = row[firstIndex+64]
-                    project.ServiceProcess.Audit.reviewDate = row[firstIndex+65]
-                    project.ServiceProcess.Audit.scheduleDate = row[firstIndex+66]
-                    project.ServiceProcess.Audit.excuteDate = row[firstIndex+67]
-                    project.ServiceProcess.Audit.reportDate = row[firstIndex+68]
-                    project.ServiceProcess.Audit.compiler = row[firstIndex+69]
-                    project.ServiceProcess.Audit.audit = row[firstIndex+70]
-                    project.ServiceProcess.Audit.compileDate = row[firstIndex+71]
-                    project.ServiceProcess.Audit.approveDate = row[firstIndex+72]
-                    project.ServiceProcess.Record.target = row[firstIndex+73]
-                    project.ServiceProcess.Record.time = row[firstIndex+74]
-                    project.ServiceProcess.Record.staff = row[firstIndex+75]
-                    project.ServiceProcess.Record.arrange = row[firstIndex+76]
-                    project.ServiceProcess.Record.content = row[firstIndex+77].split("#")
-                    project.ServiceProcess.Record.fileName = row[firstIndex+78]
-                    project.ServiceProcess.Record.auditContent = row[firstIndex+79].split("#")
-                    project.ServiceProcess.Record.auditProcess = row[firstIndex+80].split("#")
-                    project.ServiceProcess.Record.audit = row[firstIndex+81]
-                    project.ServiceProcess.Record.auditDate = row[firstIndex+82]
-                    project.ServiceProcess.Record.approver = row[firstIndex+83]
-                    project.ServiceProcess.Record.approveDate = row[firstIndex+84]
-                    project.ServiceProcess.Record.provider= row[firstIndex+85]
-                    '''
                 except Exception as e:
                     print("Get Project Error:",e)
                     continue
@@ -351,6 +327,43 @@ class DB:
             print("Search Project Error:", e1)
             self.dbException = str(e1)
         
+        try:
+            ptr.execute(sql4)
+            results = ptr.fetchall()
+            organization = Organization()
+            firstIndex = 1
+            for row in results:
+                organization.Audit.planDate = row[firstIndex+0]
+                organization.Audit.auditDate = row[firstIndex+1]
+                organization.Audit.auditLeader = row[firstIndex+2]
+                organization.Audit.audit1 = row[firstIndex+3]
+                organization.Audit.audit2 = row[firstIndex+4]
+                organization.Audit.audit3 = row[firstIndex+5]
+                organization.Audit.reviewDate = row[firstIndex+6]
+                organization.Audit.scheduleDate = row[firstIndex+7]
+                organization.Audit.excuteDate = row[firstIndex+8]
+                organization.Audit.reportDate = row[firstIndex+9]
+                organization.Audit.compiler = row[firstIndex+10]
+                organization.Audit.audit = row[firstIndex+11]
+                organization.Audit.compileDate = row[firstIndex+12]
+                organization.Audit.approveDate = row[firstIndex+13]
+                organization.Record.target = row[firstIndex+14]
+                organization.Record.time = row[firstIndex+15]
+                organization.Record.staff = row[firstIndex+16]
+                organization.Record.arrange = row[firstIndex+17]
+                organization.Record.content = row[firstIndex+18].split("#")
+                organization.Record.fileName = row[firstIndex+19]
+                organization.Record.auditContent = row[firstIndex+20].split("#")
+                organization.Record.auditProcess = row[firstIndex+21].split("#")
+                organization.Record.audit = row[firstIndex+22]
+                organization.Record.auditDate = row[firstIndex+23]
+                organization.Record.approver = row[firstIndex+24]
+                organization.Record.approveDate = row[firstIndex+25]
+                organization.Record.provider= row[firstIndex+26]
+            info.organization = organization
+        except Exception as e:
+            print("Search Organization Error:", e)
+            self.dbException = str(e)
         # 测试语句
         # with open("projectOutTest.json", "w") as f:
         #     json.dump(info.projects[0].Info, f, indent=4)
@@ -496,13 +509,7 @@ class DB:
                     CofRelatedManager, CofConfigVersion, CofConfigReleaseDate, CofChanges, CofReleases,
                     CofReleaseDate, CofPreReleaseDate, CofApplicationDate, CofSN, CofTarget,
                     CofItem, CofReleaseVersion, CotProcess, CotResult, CotDate,
-                    CotTechnicist, CotApprover, CotCompileDate, CotAuditDate, AudPlanDate,
-                    AudAuditDate, AudAuditLeader, AudAudit1, AudAudit2, AudAudit3,
-                    AudReviewDate, AudScheduleDate, AudExcuteDate, AudReportDate, AudCompiler,
-                    AudAudit, AudCompileDate, AudApproveDate, RecTarget, RecTime,
-                    RecStaff, RecArrange, RecContent, RecFileName, RecAuditContent,
-                    RecAuditProcess, RecAudit, RecAuditDate, RecApprover, RecApproveDate,
-                    RecProvider
+                    CotTechnicist, CotApprover, CotCompileDate, CotAuditDate
                 ) VALUES (
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s',  %d ,  %d ,
@@ -510,13 +517,7 @@ class DB:
                  '%s', '%s', '%s',  %d ,  %d ,
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
-                 '%s');
+                 '%s', '%s', '%s', '%s');
                """ % (data.company,
                       project.BasicInfo.PartyA.projectName, 
                       "#".join(project.ServiceProcess.Report.time),
@@ -550,34 +551,7 @@ class DB:
                       project.ServiceProcess.Continuity.technicist,
                       project.ServiceProcess.Continuity.approver,
                       project.ServiceProcess.Continuity.compileDate,
-                      project.ServiceProcess.Continuity.auditDate,
-                      project.ServiceProcess.Audit.planDate,
-                      project.ServiceProcess.Audit.auditDate,
-                      project.ServiceProcess.Audit.auditLeader,
-                      project.ServiceProcess.Audit.audit1,
-                      project.ServiceProcess.Audit.audit2,
-                      project.ServiceProcess.Audit.audit3,
-                      project.ServiceProcess.Audit.reviewDate,
-                      project.ServiceProcess.Audit.scheduleDate,
-                      project.ServiceProcess.Audit.excuteDate,
-                      project.ServiceProcess.Audit.reportDate,
-                      project.ServiceProcess.Audit.compiler,
-                      project.ServiceProcess.Audit.audit,
-                      project.ServiceProcess.Audit.compileDate,
-                      project.ServiceProcess.Audit.approveDate,
-                      project.ServiceProcess.Record.target,
-                      project.ServiceProcess.Record.time,
-                      project.ServiceProcess.Record.staff,
-                      project.ServiceProcess.Record.arrange,
-                      "#".join(project.ServiceProcess.Record.content),
-                      project.ServiceProcess.Record.fileName,
-                      "#".join(project.ServiceProcess.Record.auditContent),
-                      "#".join(project.ServiceProcess.Record.auditProcess),
-                      project.ServiceProcess.Record.audit,
-                      project.ServiceProcess.Record.auditDate,
-                      project.ServiceProcess.Record.approver,
-                      project.ServiceProcess.Record.approveDate,
-                      project.ServiceProcess.Record.provider)
+                      project.ServiceProcess.Continuity.auditDate)
             try:
                 ptr.execute(sql2)
                 self.db.commit()
@@ -595,7 +569,60 @@ class DB:
                 self.dbException = str(e)
                 return False
             seq += 1
-            
+        
+        sql4 = """
+                INSERT INTO organization(
+                    refId, AudPlanDate,
+                    AudAuditDate, AudAuditLeader, AudAudit1, AudAudit2, AudAudit3,
+                    AudReviewDate, AudScheduleDate, AudExcuteDate, AudReportDate, AudCompiler,
+                    AudAudit, AudCompileDate, AudApproveDate, RecTarget, RecTime,
+                    RecStaff, RecArrange, RecContent, RecFileName, RecAuditContent,
+                    RecAuditProcess, RecAudit, RecAuditDate, RecApprover, RecApproveDate,
+                    RecProvider
+                ) VALUES (
+                 '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s',
+                 '%s');
+               """ % (data.company,
+                      data.organization.Audit.planDate,
+                      data.organization.Audit.auditDate,
+                      data.organization.Audit.auditLeader,
+                      data.organization.Audit.audit1,
+                      data.organization.Audit.audit2,
+                      data.organization.Audit.audit3,
+                      data.organization.Audit.reviewDate,
+                      data.organization.Audit.scheduleDate,
+                      data.organization.Audit.excuteDate,
+                      data.organization.Audit.reportDate,
+                      data.organization.Audit.compiler,
+                      data.organization.Audit.audit,
+                      data.organization.Audit.compileDate,
+                      data.organization.Audit.approveDate,
+                      data.organization.Record.target,
+                      data.organization.Record.time,
+                      data.organization.Record.staff,
+                      data.organization.Record.arrange,
+                      "#".join(data.organization.Record.content),
+                      data.organization.Record.fileName,
+                      "#".join(data.organization.Record.auditContent),
+                      "#".join(data.organization.Record.auditProcess),
+                      data.organization.Record.audit,
+                      data.organization.Record.auditDate,
+                      data.organization.Record.approver,
+                      data.organization.Record.approveDate,
+                      data.organization.Record.provider)
+        try:
+            ptr.execute(sql4)
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            print(e)
+            self.dbException = str(e)
+            return False
         return True
 
     def update(self, table, option_data):

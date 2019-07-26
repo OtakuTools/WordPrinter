@@ -89,8 +89,8 @@ class pathSelection_v2:
         self.autoRefresh()
 
     def initArgs(self):
-        self.sampleDir = ".\\samples"
-        self.saveDir = ".\\docSave"
+        self.sampleDir = "./samples"
+        self.saveDir = "./docSave"
         self.reg_file = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
         self.reg_proj = "([A-Z]{3}[项目|组织])"
 
@@ -98,9 +98,11 @@ class pathSelection_v2:
         self.fileTree = {}
         self.customFileTree = {}
 
-    def autoRefresh(self):
+    def autoRefresh(self, company=None, projects=None):
         self.reset()
         self.searchAllFiles(self.sampleDir, self.fileTree)
+        if company and projects:
+            self.customizeFilePath(self.fileTree, self.customFileTree, company, projects)
 
     def customizeFilePath(self, originFileTree, targetFileTree, company, projects, projIndex=-1):
         for k, v in originFileTree.items():
@@ -128,15 +130,24 @@ class pathSelection_v2:
                 filePath = re.sub(r"ZRXX", company, v[1])
                 filePath = re.sub(r"(XXX|XXXX)", projects[projIndex], filePath)
                 samplePath = PurePath(filePath).parts
-                targetFileTree[temp_k] = [v[0],
-                                          filePath,
-                                          "/".join([self.saveDir, company] + list(samplePath[1:]))]
-    '''
-    def getFilePath(self, label, fileName = "", fullName=True):
+                targetFileTree[temp_k] = {
+                    "type" : v[0],
+                    "spath": filePath,
+                    "tpath": "/".join([self.saveDir, company] + list(samplePath[1:]))
+                }
 
+    # 输入格式：xxx/xxx/xxx
+    def getFileInfo(self, label):
+        sPath = PurePath(label).parts
+        temp_tree = self.customFileTree[self.sampleDir]
+        for p in sPath:
+            if p in temp_tree:
+                temp_tree = temp_tree[p]
+        return temp_tree
 
-    def getLogoPath(self, label):
-    '''
+    # 输入格式：图片名称
+    def getLogoInfo(self, label):
+        return self.customFileTree[self.sampleDir]["logo"][label]
 
     def searchAllFiles(self, path, fileTree={}, initial=True):
         if initial:
@@ -148,20 +159,17 @@ class pathSelection_v2:
         dirs = [x for x in p.iterdir() if x.is_dir()]
         files = [x for x in p.iterdir() if x.is_file()]
         for file in files:
-            fileTree[file.name] = [file.suffix, file.as_posix()]
+            fileTree[file.name] = [file.suffix, './' + file.as_posix()]
         for dir in dirs:
             fileTree[str(dir.parts[-1])] = {}
             self.searchAllFiles(dir, fileTree[str(dir.parts[-1])], initial)
 
 if __name__ == "__main__":
     ps = pathSelection_v2()
-    #print(ps.testFileList)
-    t = {}
-    t_c = {}
-    ps.searchAllFiles("./samples", t)
-    ps.customizeFilePath(t, t_c, "AAAA", ["PROJECT1", "PROJECT2"])
+    ps.autoRefresh("AAAA", ["PROJECT1", "PROJECT2"])
     with open("File.json", "w") as f:
-        json.dump(t, f, indent=4, ensure_ascii=False)
+        json.dump(ps.fileTree, f, indent=4, ensure_ascii=False)
     with open("File_cus.json", "w") as f:
-        json.dump(t_c, f, indent=4, ensure_ascii=False)
-    #print(ps.testFileList)
+        json.dump(ps.customFileTree, f, indent=4, ensure_ascii=False)
+
+    print(ps.getFileInfo("Level1/AAAA-20000-SM-M-01 IT服务管理手册.docx"))
