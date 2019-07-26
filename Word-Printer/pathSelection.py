@@ -130,11 +130,11 @@ class pathSelection_v2:
                 filePath = re.sub(r"ZRXX", company, v[1])
                 filePath = re.sub(r"(XXX|XXXX)", projects[projIndex], filePath)
                 samplePath = PurePath(filePath).parts
-                targetFileTree[temp_k] = {
+                targetFileTree[temp_k] = [{
                     "type" : v[0],
-                    "spath": filePath,
+                    "spath": v[1],
                     "tpath": "/".join([self.saveDir, company] + list(samplePath[1:]))
-                }
+                }]
 
     # 输入格式：xxx/xxx/xxx
     def getFileInfo(self, label):
@@ -143,7 +143,7 @@ class pathSelection_v2:
         for p in sPath:
             if p in temp_tree:
                 temp_tree = temp_tree[p]
-        return temp_tree
+        return temp_tree[0] if isinstance(temp_tree, list) else {}
 
     # 输入格式：图片名称
     def getLogoInfo(self, label):
@@ -171,5 +171,5 @@ if __name__ == "__main__":
         json.dump(ps.fileTree, f, indent=4, ensure_ascii=False)
     with open("File_cus.json", "w") as f:
         json.dump(ps.customFileTree, f, indent=4, ensure_ascii=False)
-
+    print(ps.customFileTree[ps.sampleDir])
     print(ps.getFileInfo("Level1/AAAA-20000-SM-M-01 IT服务管理手册.docx"))
