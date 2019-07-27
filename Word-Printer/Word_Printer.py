@@ -2,7 +2,7 @@ from docx import Document
 from docx.shared import Inches
 from docx.shared import RGBColor
 import json,os
-
+from pathlib import Path
 from replace import Replace
 from excel import excel
 import re
@@ -19,18 +19,17 @@ class docWriter:
     def saveAsDocx(self, doc, filepath):
         doc.save(filepath)
 
-    def saveAsPdf(self, doc):
+    def saveAsPdf(self, doc, filepath):
         pass
 
     def saveAsExcel( self , xls , dst ):
         xls.save(dst)
 
-    def loadAndWrite(self, user , templateFile, graphStyle = [], targetFile = ""):
-        mode = templateFile.split('.')[-1]
-        self.write(templateFile, targetFile if targetFile != "" else user.fileName+'-20000-SM-M-01.docx', user, mode)
+    def loadAndWrite(self, user , templateFile, targetFile, mode=".docx"):
+        self.write(templateFile, targetFile, user, mode)
         
     def loadInfo(self):
-        user = userInfo();
+        user = userInfo()
         with open("TestCase.json", "r" , encoding='utf-8') as f:
             data = json.load(f)
             for dict in data:
@@ -38,13 +37,19 @@ class docWriter:
                     setattr( user , key , dict[key] )
         return user
 
-    def write(self, src, dst, user, mode="docx"):
+    def write(self, src, dst, user, mode=".docx"):
         try:
-            if mode == "docx":
+            absolutSrcPath = Path(src) if Path(src).is_absolute() else Path.cwd() / Path(src)
+            absolutDstPath = Path(dst) if Path(dst).is_absolute() else Path.cwd() / Path(dst)
+            if not absolutDstPath.parent.exists():
+                absolutDstPath.parent.mkdir(parents=True)
+            src = str(absolutSrcPath)
+            dst = str(absolutDstPath)
+            if mode == ".docx":
                 rep = Replace()
                 doc = rep.run(src, dst, user)
                 self.saveAsDocx(doc, dst)
-            elif mode == 'xlsx':
+            elif mode == '.xlsx':
                 xls = excel()
                 reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
                 prefix = re.search(reg, dst.split('\\')[-1], re.M|re.I).group(1)
@@ -62,4 +67,4 @@ class docWriter:
             log = open( file , 'a' )
             log.write( str(e) + '\n' )
             log.close()
-            print('err')
+            print(e)

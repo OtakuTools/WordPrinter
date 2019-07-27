@@ -497,7 +497,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setDepStruct()
 
     def generateDoc(self):
-        genDocCtrl = WriteDocController(self.user.fileName, self.currentSelectedFile)
+        genDocCtrl = WriteDocController(fileName=self.user.fileName, 
+                                        projects=[proj.BasicInfo.PartyA.projectName for proj in self.user.projects], 
+                                        selectedFile=self.currentSelectedFile)
         #genDocCtrl.show()
         if genDocCtrl.exec_() == QDialog.Accepted:
             validMsg = self.user.validChecker()
@@ -511,7 +513,7 @@ class Controller(QMainWindow, Ui_MainWindow):
                 progress.setWindowTitle("请稍等")  
                 progress.setLabelText("正在生成...")
                 progress.setCancelButtonText("取消")
-                progress.setWindowModality(Qt.WindowModal);
+                progress.setWindowModality(Qt.WindowModal)
                 progress.setRange(0,100)
                 progress.setMinimumDuration(2000)
                 progress.setValue(0)
@@ -527,8 +529,10 @@ class Controller(QMainWindow, Ui_MainWindow):
                     # 线程优化
                     self.writeDocLock.acquire()
                     count += 1
-                    wrt_thread = WrtDocThread(self.user, self.pathSelector.getFilePath(file),
-                                              self.graphStyle, self.pathSelector.getFilePath(file,self.user.fileName))
+                    wrt_thread = WrtDocThread(user=self.user, 
+                                              srcDir=self.pathSelector.getFileInfo(file)["spath"], #self.pathSelector.getFilePath(file),
+                                              tarDir=self.pathSelector.getFileInfo(file)["tpath"], #self.pathSelector.getFilePath(file,self.user.fileName))
+                                              fileType=self.pathSelector.getFileInfo(file)["type"]) 
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
@@ -606,6 +610,7 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.setDepStruct()
 
     # level 2 / 3 file list
+    '''
     def getLevelFiles(self, LEVEL_NAME):
         self.pathSelector.autoRefresh()
         level = self.pathSelector.getLevelDir()
@@ -620,56 +625,77 @@ class Controller(QMainWindow, Ui_MainWindow):
             if key != LEVEL_NAME:
                 tree.pop(key)
         return tree
+    '''
 
     def setupLevelFileList(self):
         self.currentSelectedFile_temp = self.currentSelectedFile
         self.currentSelectedFile = set()
-        self.setupLevelFileList_level(self.level2_fileList, "Level2", '二层文件模板目录')
-        self.setupLevelFileList_level(self.level3_fileList, "Level3", '三层文件模板目录')
+        self.setupLevelFileList_level(treeNode=self.pathSelector.customFileTree[self.pathSelector.sampleDir], 
+                                         nodeName="Level2",
+                                         viewNode=None,
+                                         selectedFile=self.currentSelectedFile_temp,
+                                         isRoot=True,
+                                         filePath="/".join([self.pathSelector.sampleDir, "Level2"]),
+                                         fileList_item=self.level2_fileList, 
+                                         rootName='二层文件模板目录')
+        self.setupLevelFileList_level(treeNode=self.pathSelector.customFileTree[self.pathSelector.sampleDir], 
+                                         nodeName="Level3",
+                                         viewNode=None,
+                                         selectedFile=self.currentSelectedFile_temp,
+                                         isRoot=True,
+                                         filePath="/".join([self.pathSelector.sampleDir, "Level3"]),
+                                         fileList_item=self.level3_fileList, 
+                                         rootName='三层文件模板目录')
 
-    def setupLevelFileList_level(self, fileList_item, levelstr, rootname):
-        fileList_item.takeTopLevelItem(0)
-        root = QTreeWidgetItem(fileList_item)
-        root.setText(0,  rootname) # 设置根节点的名称
-        fileList_item.addTopLevelItem(root)
-        fileList_item.reset()
-
-        tree = self.getLevelFiles(levelstr)
-
-        for key, value in tree.items():
-            for val in value:
-                child = QTreeWidgetItem(root)
-                child.setText(0, os.path.split(self.pathSelector.getFilePath(val, self.user.fileName, False))[1])
-                if val in self.currentSelectedFile_temp:
-                    child.setCheckState(0, Qt.Checked)
+    def setupLevelFileList_level(self, treeNode, nodeName, viewNode, selectedFile, isRoot=True, filePath=None, fileList_item=None, rootName=None):
+        if isRoot:
+            isRoot = False
+            # 删除源节点
+            fileList_item.takeTopLevelItem(0)
+            # 新建源节点
+            root = QTreeWidgetItem(fileList_item)
+            root.setText(0, rootName)  # 设置根节点的名称
+            fileList_item.addTopLevelItem(root)
+            fileList_item.reset()
+            self.setupLevelFileList_level(treeNode[nodeName], None, root, selectedFile, isRoot, filePath)
+            fileList_item.sortItems(0, Qt.AscendingOrder)
+            fileList_item.expandItem(root)
+            return
+        if isinstance(treeNode, list):
+            return
+        else:
+            for k, v in treeNode.items():
+                p = "/".join([filePath, k])
+                child = QTreeWidgetItem(viewNode)
+                child.setText(0, k)
+                child.setText(1, p)
+                if isinstance(treeNode[k], list):
+                    if p in selectedFile:
+                        child.setCheckState(0, Qt.Checked)
+                    else:
+                        child.setCheckState(0, Qt.Unchecked)
                 else:
-                    child.setCheckState(0, Qt.Unchecked)
-        fileList_item.sortItems(0, Qt.AscendingOrder)
-        fileList_item.expandAll()
+                    self.setupLevelFileList_level(treeNode[k], k, child, selectedFile, isRoot, p)
 
     def updateLevelFileList(self):
+        self.pathSelector.autoRefresh(company=self.user.fileName, projects=[proj.BasicInfo.PartyA.projectName for proj in self.user.projects])
         self.setupLevelFileList()
-
-    def getLable(self, name):
-        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
-        prefix = re.search(reg, name, re.M|re.I)
-        label = []
-        if(prefix):
-            label = prefix.group(1).split("-")
-            label = label[-3:len(label)]
-        return "-".join(label)
 
     def level2FileChangeHandler(self, item, column):
         if item.checkState(column) == Qt.Checked:
-            self.currentSelectedFile.add(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.add(item.text(column+1))
         elif item.checkState(column) == Qt.Unchecked:
-            self.currentSelectedFile.discard(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.discard(item.text(column+1))
 
     def level3FileChangeHandler(self, item, column):
         if item.checkState(column) == Qt.Checked:
-            self.currentSelectedFile.add(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.add(item.text(column+1))
         elif item.checkState(column) == Qt.Unchecked:
-            self.currentSelectedFile.discard(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.discard(item.text(column+1))
 
     #四层页面
     def connectProjectList( self ):
