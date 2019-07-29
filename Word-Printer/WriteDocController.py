@@ -71,21 +71,58 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
                     child.setText(0, k)
                 child.setText(1, p)
                 if isinstance(treeNode[k], list):
+                    child.setText(2, "0")
                     if p in selectedFile:
                         child.setCheckState(0, Qt.Checked)
                     else:
                         child.setCheckState(0, Qt.Unchecked)
                 else:
+                    child.setText(2, "1")
+                    child.setCheckState(0, Qt.Unchecked)
                     self.setupTreeView(treeNode[k], k, child, selectedFile, isRoot, p)
+
+    def changeChildStatus(self, node, status):
+        if not node:
+            return
+        for i in range(node.childCount()):
+            node_i = node.child(i)
+            node_i.setCheckState(0, status)
+            self.changeChildStatus(node_i, status)
+    
+    def changeParentStatus(self, node):
+        if not node:
+            return
+        parent = node.parent()
+        selectCount = 0
+        cancelCount = 0
+        status = Qt.Checked
+        for i in range(parent.childCount()):
+            if parent.child(i).checkState(0) == Qt.Unchecked:
+                cancelCount += 1
+            else:
+                selectCount += 1
+        if selectCount == parent.childCount():
+            status = Qt.Checked
+        elif cancelCount == parent.childCount():
+            status = Qt.Unchecked
+        else:
+            status = Qt.PartiallyChecked
+        parent.setCheckState(0, status)
 
     def handleChanged(self, item, column):
         if item.checkState(column) == Qt.Checked:
-            if item.text(column+1):
+            if item.text(column+1) and item.text(column+2) and item.text(column+2) == "0":
                 self.selectedItem.add(item.text(column+1))
+                self.changeParentStatus(item)
+            elif item.text(column+2) and item.text(column+2) == "1":
+                self.changeChildStatus(item, Qt.Checked)
         elif item.checkState(column) == Qt.Unchecked:
-            if item.text(column+1):
+            if item.text(column+1) and item.text(column+2) and item.text(column+2) == "0":
                 self.selectedItem.discard(item.text(column+1))
-            
+                self.changeParentStatus(item)
+            elif item.text(column+2) and item.text(column+2) == "1":
+                self.changeChildStatus(item, Qt.Unchecked)
+
     def getAllSelectedFile(self):
         return self.selectedItem
 
