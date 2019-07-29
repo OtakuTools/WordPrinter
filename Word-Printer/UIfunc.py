@@ -610,23 +610,6 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.setDepStruct()
 
     # level 2 / 3 file list
-    '''
-    def getLevelFiles(self, LEVEL_NAME):
-        self.pathSelector.autoRefresh()
-        level = self.pathSelector.getLevelDir()
-        tree = {}
-        for key,value in level.items():
-            if value in tree:
-                tree[value].append(key)
-            else:
-                tree[value] = [key]
-
-        for key in list(tree.keys()):
-            if key != LEVEL_NAME:
-                tree.pop(key)
-        return tree
-    '''
-
     def setupLevelFileList(self):
         self.currentSelectedFile_temp = self.currentSelectedFile
         self.currentSelectedFile = set()

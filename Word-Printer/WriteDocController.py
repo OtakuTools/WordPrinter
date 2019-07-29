@@ -90,7 +90,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
             self.changeChildStatus(node_i, status)
     
     def changeParentStatus(self, node):
-        if not node:
+        if not node or not node.parent() or not node.parent().parent():
             return
         parent = node.parent()
         selectCount = 0
@@ -99,7 +99,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
         for i in range(parent.childCount()):
             if parent.child(i).checkState(0) == Qt.Unchecked:
                 cancelCount += 1
-            else:
+            elif parent.child(i).checkState(0) == Qt.Checked:
                 selectCount += 1
         if selectCount == parent.childCount():
             status = Qt.Checked
@@ -108,6 +108,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
         else:
             status = Qt.PartiallyChecked
         parent.setCheckState(0, status)
+        self.changeParentStatus(parent)
 
     def handleChanged(self, item, column):
         if item.checkState(column) == Qt.Checked:
