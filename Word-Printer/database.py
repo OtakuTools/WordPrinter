@@ -155,6 +155,20 @@ class DB:
             self.dbException = str(e)
             self.db.rollback()
 
+    def resetDB(self):
+        try:
+            ptr = self.db.cursor()
+            sql = """
+                    DROP DATABASE %s;
+                  """ % (self.info["dbname"])
+            ptr.execute(sql)
+            self.createDB(self.info["dbname"])
+        except Exception as e:
+            self.db.rollback()
+            print(e)
+            return False
+        return True
+
     def searchWithKeyword(self):
         companyList = []
         try:

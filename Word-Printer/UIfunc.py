@@ -90,8 +90,10 @@ class Controller(QMainWindow, Ui_MainWindow):
         tool = self.addToolBar("设置")
         edit0 = QAction(QIcon(""),"数据库配置",self)
         tool.addAction(edit0)
-        edit1 = QAction(QIcon(""),"更新模板文件",self)
+        edit1 = QAction(QIcon(""), "重置数据库", self)
         tool.addAction(edit1)
+        edit2 = QAction(QIcon(""),"更新模板文件",self)
+        tool.addAction(edit2)
         tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
@@ -250,6 +252,8 @@ class Controller(QMainWindow, Ui_MainWindow):
                     self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" 
                                                    + self.db.dbException 
                                                    + "\n您做的任何变动将无法存入数据库!" )
+        elif qaction.text() == "重置数据库":
+            self.msgDialog.showWarningDialogWithMethod("风险警告", "重置数据库有风险，请谨慎操作！", self.cleanDB)
         elif qaction.text() == "更新模板文件":
             self.updateLevelFileList()
 
@@ -269,6 +273,11 @@ class Controller(QMainWindow, Ui_MainWindow):
             elif isinstance(self.__dict__[objName], QPlainTextEdit):
                 self.__dict__[objName].setPlainText(self.wpc.getInfo())
 
+    def cleanDB(self):
+        if self.db.resetDB():
+            self.msgDialog.showInformationDialog("提示", "重置数据库成功！")
+        else:
+            self.msgDialog.showErrorDialog("操作失败", "重置数据库失败！")
 
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
