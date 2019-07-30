@@ -56,6 +56,7 @@ class Ui_MainWindow(object):
         self.newUserButton.setObjectName("newUserButton")
         self.gridLayout_34.addWidget(self.newUserButton, 0, 4, 1, 1)
         self.tabWidget_2 = QtWidgets.QTabWidget(self.centralwidget)
+        self.tabWidget_2.setTabBar(HorizontalTabBar())
         self.tabWidget_2.setTabPosition(QtWidgets.QTabWidget.West)
         self.tabWidget_2.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tabWidget_2.setIconSize(QtCore.QSize(16, 16))
