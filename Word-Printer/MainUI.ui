@@ -74,7 +74,7 @@
      </widget>
     </item>
     <item row="0" column="4">
-     <widget class="QPushButton" name="cancelButton">
+     <widget class="QPushButton" name="newUserButton">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -82,7 +82,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>放弃修改</string>
+       <string>新建用户</string>
       </property>
      </widget>
     </item>
@@ -827,6 +827,9 @@ gridline-color:rgb(0, 0, 0);</string>
                 <widget class="QDateEdit" name="auditDateText">
                  <property name="displayFormat">
                   <string>yyyy年MM月dd日</string>
+                 </property>
+                 <property name="calendarPopup">
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
@@ -2663,7 +2666,7 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>releaseVersionText</tabstop>
   <tabstop>saveButton</tabstop>
   <tabstop>createBotton</tabstop>
-  <tabstop>cancelButton</tabstop>
+  <tabstop>newUserButton</tabstop>
   <tabstop>saveProject</tabstop>
   <tabstop>cancelProject</tabstop>
   <tabstop>processText</tabstop>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import os
-import json
+import json,datetime
 
 from presetData import *
 
@@ -215,7 +215,10 @@ class userInfo:
     organization = Organization()
 
     def __init__(self):
-        pass
+        self.auditDate = datetime.datetime.now().strftime('%Y{y}%m{m}%d{d}').format(y='年', m='月', d='日')
+        self.releaseDate = datetime.datetime.now().strftime('%Y{y}%m{m}%d{d}').format(y='年', m='月', d='日')
+        self.resetDepartment()
+        self.projects = []
 
     def __del__(self):
         pass

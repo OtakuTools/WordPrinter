@@ -66,11 +66,17 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         #userInit
         self.user = userInfo()
-        self.user.resetDepartment()
         self.refreshDepartmentList()
         if self.user.color == "":
             self.user.color = json.dumps(self.graphStyle)
         self.setupLevelFileList()
+
+        #UI日期默认当前日期
+        dateReg = re.compile(r"^(?P<year>\d{4})[\u4e00-\u9fa5](?P<month>\d{2})[\u4e00-\u9fa5](?P<day>\d{2})[\u4e00-\u9fa5]$")
+        date1 = dateReg.match(self.user.releaseDate)
+        date2 = dateReg.match(self.user.auditDate)
+        self.releaseDateText.setDate(QDate(int(date1.group("year")), int(date1.group("month")), int(date1.group("day"))))
+        self.auditDateText.setDate(QDate(int(date2.group("year")), int(date2.group("month")), int(date2.group("day"))))
 
     def init_Samples(self):
         self.pathSelector = pathSelection()
@@ -156,7 +162,7 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         #generateDoc
         self.createBotton.clicked.connect(lambda: self.generateDoc())
-        self.cancelButton.clicked.connect(lambda: self.discard() )
+        self.newUserButton.clicked.connect(lambda: self.newUser() )
         self.saveButton.clicked.connect(lambda: self.saveInfoButNotGen())
 
         #search
@@ -562,35 +568,14 @@ class Controller(QMainWindow, Ui_MainWindow):
             #print("更新数据库成功")
             self.getCompanyInfo()
 
-    def discard(self):
-        #第一页左
-        self.fileNameText.setText("")
-        self.companyText.setText("")
-        self.addressText.setText("")
-        self.coverFieldText.setText("")
-        self.policyText.setText("")
-        self.introductionText.setPlainText("")
-        #第一页右
-        self.managerText.setText("")
-        self.guandaiText.setText("")
-        self.compilerText.setText("")
-        self.approverText.setText("")
-        self.auditText.setText("")
-        self.announcerText.setText("")
-        self.zipText.setText("")
-        self.phoneText.setText("")
-        #日期
+    def newUser(self):
+        #提示保存到数据库
         pass
-        #部门结构
-        #self.user.departments = []
-        self.user.resetDepartment()
-        self.refreshDepartmentList()
-        #第二页右
-        self.depName.setText("")
-        self.depLevel.setValue(1)
-        self.depIntro.setPlainText("")
-        for i in range(1,43):
-            getattr(self,'duty_'+str(i)).setCheckState(0)
+        #
+        new = userInfo()
+        new.color = json.dumps(self.graphStyle)
+        self.setInput(new)
+        
 
     def refreshUserColor(self):
         self.user.color = json.dumps(self.graphStyle)
