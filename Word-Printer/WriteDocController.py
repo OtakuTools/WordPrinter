@@ -26,10 +26,7 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
         self.selectedItem = set()
         self.setupUi(self)
         self.setConnect()
-        if fileName or fileName == "" or projects or len(projects) == 0:
-            self.pathSelector = pathSelection()
-        else:
-            self.pathSelector = pathSelection(fileName, projects)
+        self.pathSelector = pathSelection()
         self.setupSample(fileName, projects, selectedFile)
 
     def setConnect(self):

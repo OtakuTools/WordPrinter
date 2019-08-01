@@ -21,8 +21,11 @@ class pathSelection:
     def autoRefresh(self, company=None, projects=None):
         self.reset()
         self.searchAllFiles(self.sampleDir, self.fileTree)
-        if company and projects:
-            self.customizeFilePath(self.fileTree, self.customFileTree, company, projects)
+        if company:
+            if projects and len(projects):
+                self.customizeFilePath(self.fileTree, self.customFileTree, company, projects)
+            else:
+                self.customizeFilePath(self.fileTree, self.customFileTree, company, ["XXX"])
         else:
             self.customizeFilePath(self.fileTree, self.customFileTree, "ZRXX", ["XXX"])
 
