@@ -232,9 +232,20 @@ class Replace:
 
     def run(self, src , dst , user):
         self.document = Document(src)
-        user = getTime(user)
-        self.user = user
-        #todo = []
+        self.user = getTime(user)
+
+        #获取项目对象
+        self.project = None
+        try:
+            projectName = getattr( re.search( "项目(\\S+)项目" , dst , re.M|re.I ) , 'group' , str )()
+            if projectName != "":
+                projectName = projectName[3:-2]
+                for proj in self.user.projects:
+                    self.project = proj if proj.BasicInfo.PartyA.projectName == projectName else self.project
+            #projectName = dst.split('项目')[-3][1:]        #另一种方法
+            #pathselection也会返回projectName的String       #第三种方法
+        except Exception as e:
+            raise
 
         #更新目录
         element_updatefields = lxml.etree.SubElement(
@@ -247,6 +258,7 @@ class Replace:
         threadList.append(threading.Thread(target=self.findAndReplaceTables))
         threadList.append(threading.Thread(target=self.findAndReplaceParagraphs))
 
+        #一层SM文件有职责表
         if re.search( "(.*)-SM-(.*)" , src ):
             self.replaceDepartmentTable()
 
@@ -254,9 +266,6 @@ class Replace:
             t.start()
         for t in threadList:
             t.join()
-
-        #e = time.time()
-        #print(e-s)
-
+            
         print('成功生成 '+dst )
         return self.document
