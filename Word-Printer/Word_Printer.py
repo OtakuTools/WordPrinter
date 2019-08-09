@@ -25,8 +25,8 @@ class docWriter:
     def saveAsExcel( self , xls , dst ):
         xls.save(dst)
 
-    def loadAndWrite(self, user , templateFile, targetFile, mode=".docx"):
-        self.write(templateFile, targetFile, user, mode)
+    def loadAndWrite(self, user , templateFile, targetFile, mode=".docx", projectName=None):
+        self.write(templateFile, targetFile, user, mode, projectName)
         
     def loadInfo(self):
         user = userInfo()
@@ -37,7 +37,7 @@ class docWriter:
                     setattr( user , key , dict[key] )
         return user
 
-    def write(self, src, dst, user, mode=".docx"):
+    def write(self, src, dst, user, mode=".docx", projectName=None):
         try:
             absolutSrcPath = Path(src) if Path(src).is_absolute() else Path.cwd() / Path(src)
             absolutDstPath = Path(dst) if Path(dst).is_absolute() else Path.cwd() / Path(dst)
@@ -47,7 +47,7 @@ class docWriter:
             dst = str(absolutDstPath)
             if mode == ".docx":
                 rep = Replace()
-                doc = rep.run(src, dst, user)
+                doc = rep.run(src, dst, user,projectName)
                 self.saveAsDocx(doc, dst)
             elif mode == '.xlsx':
                 xls = excel()

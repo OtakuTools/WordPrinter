@@ -230,20 +230,17 @@ class Replace:
                     finally:
                         self.lock.release()
 
-    def run(self, src , dst , user):
+    def run(self, src , dst , user, projectName):
         self.document = Document(src)
         self.user = getTime(user)
 
         #获取项目对象
         self.project = None
         try:
-            projectName = getattr( re.search( "项目(\\S+)项目" , dst , re.M|re.I ) , 'group' , str )()
-            if projectName != "":
-                projectName = projectName[3:-2]
+            if projectName != None and projectName != "" :
                 for proj in self.user.projects:
                     self.project = proj if proj.BasicInfo.PartyA.projectName == projectName else self.project
-            #projectName = dst.split('项目')[-3][1:]        #另一种方法
-            #pathselection也会返回projectName的String       #第三种方法
+                print(self.project.BasicInfo.PartyA.projectName)
         except Exception as e:
             raise
 
