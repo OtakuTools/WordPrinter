@@ -8,19 +8,9 @@ https://github.com/OtakuTools/WordPrinter
 
 https://python-docx.readthedocs.io/en/latest/index.html
 
-### xlrd document
+### python openpyxl document
 
-https://xlrd.readthedocs.io/en/latest/index.html
-
-### xlwt document
-
-https://xlwt.readthedocs.io/en/latest/index.html
-
-### xlutils document
-
-https://xlutils.readthedocs.io/en/latest/index.html
-
-
+<https://openpyxl.readthedocs.io/en/stable/>
 
 ### pymysql document
 
