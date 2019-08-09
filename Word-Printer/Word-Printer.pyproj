@@ -23,6 +23,9 @@
   <ItemGroup>
     <Compile Include="database.py" />
     <Compile Include="databaseSetting.py" />
+    <Compile Include="databaseTableConfig.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dataStruct.py" />
     <Compile Include="excel.py">
       <SubType>Code</SubType>
@@ -40,6 +43,7 @@
     <Compile Include="pathSelection.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="presetData.py" />
     <Compile Include="replace.py" />
     <Compile Include="StyleSheet.py">
       <SubType>Code</SubType>
@@ -53,6 +57,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MainUI.ui" />
+    <Content Include="requirements.txt" />
+    <Content Include="TestCase.json" />
+    <Content Include="替换文字样式说明.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Interpreter Include="env\">
       <Id>env</Id>
       <Version>3.6</Version>
@@ -62,12 +72,6 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MainUI.ui" />
-    <Content Include="requirements.txt" />
-    <Content Include="TestCase.json" />
-    <Content Include="替换文字样式说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

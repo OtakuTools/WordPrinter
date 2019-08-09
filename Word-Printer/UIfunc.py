@@ -1,63 +1,23 @@
 from MainUI import Ui_MainWindow
 from generateDocConfirm import Ui_GenerateDocConfirm
 from databaseSetting import Ui_databaseSetting
-from PyQt5.QtWidgets import * #QApplication, QMainWindow, QColorDialog, QMessageBox, QCompleter, QProgressDialog 
+from WordPad import Ui_WordPad
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import json, time, re, os, shutil
 import threading
 
-from dataStruct import userInfo
+from dataStruct import userInfo,Project
 from generateGraph import drawGraph
 from database import DB, DBSettingController
 from messageDialog import MessageDialog
 from pathSelection import pathSelection
 from WriteDocController import WriteDocController, WrtDocThread
+from WordPadController import WordPadController
+from presetData import *
 
 class Controller(QMainWindow, Ui_MainWindow):
-
-    sampleDir = "./samples/"
-    
-    writeDocLock = threading.RLock()
-    currentSelectedFile = set()
-    currentSelectedFile_temp = set()
-
-    graphStyle = [{ 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#008000',
-                    },
-                    'lineLen' : 3},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#800000',
-                    },
-                    'lineLen' : 3},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#000080',
-                    },
-                    'lineLen' : 3},
-                  { 'nodes': {
-                        'fontname': 'KaiTi',
-                        'shape': 'box',
-                        'fontcolor': 'black',
-                        'color': 'white',
-                        'style': 'filled',
-                        'fillcolor': '#ffff00',
-                    },
-                    'lineLen' : 3}]
 
     def __init__(self):
         #init
@@ -65,6 +25,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         Ui_GenerateDocConfirm.__init__(self)
         Ui_databaseSetting.__init__(self)
+        Ui_WordPad.__init__(self)
         self.setupUi(self)
 
         #connect
@@ -76,8 +37,21 @@ class Controller(QMainWindow, Ui_MainWindow):
         #message dialog
         self.msgDialog = MessageDialog()
 
+        #graph style
+        self.setupVars()
+
+        # use wordPad
+        self.connectWordPad()
+
         #sample dir
         self.init_Samples()
+
+    def setupVars(self):
+        self.writeDocLock = threading.RLock()
+        self.currentSelectedFile = set()
+        self.currentSelectedFile_temp = set()
+        self.graphStyle = getGraphStyle()
+        self.wpc = None
 
     def init_DB_user(self):
         #database
@@ -92,25 +66,34 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         #userInit
         self.user = userInfo()
-        self.user.resetDepartment()
         self.refreshDepartmentList()
         if self.user.color == "":
             self.user.color = json.dumps(self.graphStyle)
         self.setupLevelFileList()
 
+        #UI日期默认当前日期
+        dateReg = re.compile(r"^(?P<year>\d{4})[\u4e00-\u9fa5](?P<month>\d{2})[\u4e00-\u9fa5](?P<day>\d{2})[\u4e00-\u9fa5]$")
+        date1 = dateReg.match(self.user.releaseDate)
+        date2 = dateReg.match(self.user.auditDate)
+        self.releaseDateText.setDate(QDate(int(date1.group("year")), int(date1.group("month")), int(date1.group("day"))))
+        self.auditDateText.setDate(QDate(int(date2.group("year")), int(date2.group("month")), int(date2.group("day"))))
+
     def init_Samples(self):
         self.pathSelector = pathSelection()
-        #self.pathSelector.autoRefresh()
 
     def initToolBar(self):
         self.tabWidget_2.setStyleSheet("QTabBar::tab { height: 50px; width: 120px; font-size: 9pt;}")
         self.tabWidget.setStyleSheet("QTabBar::tab { height: 28px !important; width: 110px !important; }")
+        self.tabWidget_3.setStyleSheet("QTabBar::tab { height: 28px !important; width: 110px !important; }")
+        self.tabWidget_4.setStyleSheet("QTabBar::tab { height: 28px !important; width: 150px !important; }")
 
         tool = self.addToolBar("设置")
         edit0 = QAction(QIcon(""),"数据库配置",self)
         tool.addAction(edit0)
-        edit1 = QAction(QIcon(""),"更新模板文件",self)
+        edit1 = QAction(QIcon(""), "重置数据库", self)
         tool.addAction(edit1)
+        edit2 = QAction(QIcon(""),"更新模板文件",self)
+        tool.addAction(edit2)
         tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
@@ -181,14 +164,45 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         #generateDoc
         self.createBotton.clicked.connect(lambda: self.generateDoc())
-        self.cancelButton.clicked.connect(lambda: self.discard() )
+        self.newUserButton.clicked.connect(lambda: self.newUser() )
         self.saveButton.clicked.connect(lambda: self.saveInfoButNotGen())
 
         #search
         self.searchButton.clicked.connect(lambda: self.search())
 
+    def openPadAction(self, name):
+        wordpad = QAction(QIcon(""), "打开写字板", self)
+        wordpad.triggered.connect(lambda: self.openWordPad(name))
+        ctrlC = QAction(QIcon(""), "复制", self)
+        ctrlC.setShortcut("Ctrl+C")
+        ctrlC.triggered.connect(self.__dict__[name].copy)
+        ctrlV = QAction(QIcon(""), "粘贴", self)
+        ctrlV.setShortcut("Ctrl+V")
+        ctrlV.triggered.connect(self.__dict__[name].paste)
+        ctrlX = QAction(QIcon(""), "剪切", self)
+        ctrlX.setShortcut("Ctrl+X")
+        ctrlX.triggered.connect(self.__dict__[name].cut)
+        ctrlA = QAction(QIcon(""), "全选", self)
+        ctrlA.setShortcut("Ctrl+A")
+        ctrlA.triggered.connect(self.__dict__[name].selectAll)
+        return [wordpad, ctrlC, ctrlV, ctrlX,ctrlA]
+
+    def connectWordPad(self):
+        for k,v in self.__dict__.items():
+            if isinstance(v, QLineEdit) or isinstance(v, QPlainTextEdit):
+                actionList = self.openPadAction(k)
+                for act in actionList:
+                    self.__dict__[k].addAction(act)
+                self.__dict__[k].setContextMenuPolicy(Qt.ActionsContextMenu)
 
     def connectList(self):
+        #连接一层department列表
+        self.connectDepartmentList()
+
+        #连接四层project列表
+        self.connectProjectList()
+
+    def connectDepartmentList(self):
         #可能没选中，故用getattr确认
         self.departmentList.currentItemChanged.connect( lambda: self.showDepartmentDetail( getattr( self.departmentList.currentItem(),'text',str)() ))
         # button
@@ -218,7 +232,6 @@ class Controller(QMainWindow, Ui_MainWindow):
             try:
                 shutil.copy(path, tarDir)
             except Exception as e:
-                #self.msgDialog.showWarningDialogWithMethod("警告","发现同名图片文件，是否进行替换？", lambda: shutil.move(path, tarDir), lambda: print("calcel"))
                 shutil.move(path, tarDir)
             image = image.scaledToHeight(self.logoView.height())
             scene = QGraphicsScene()
@@ -239,12 +252,36 @@ class Controller(QMainWindow, Ui_MainWindow):
                     self.msgDialog.showErrorDialog("初始化数据库出错","数据库无法连接，请检查相应配置！\n异常信息为：" 
                                                    + self.db.dbException 
                                                    + "\n您做的任何变动将无法存入数据库!" )
+        elif qaction.text() == "重置数据库":
+            self.msgDialog.showWarningDialogWithMethod("风险警告", "重置数据库有风险，请谨慎操作！", self.cleanDB)
         elif qaction.text() == "更新模板文件":
             self.updateLevelFileList()
 
+    def openWordPad(self, objName):
+        self.wpc = WordPadController() if self.wpc is None else self.wpc
+        #print(objName)
+        if isinstance(self.__dict__[objName], QLineEdit):
+            self.wpc.initInfo(self.__dict__[objName].text())
+        elif isinstance(self.__dict__[objName], QPlainTextEdit):
+            self.wpc.initInfo(self.__dict__[objName].toPlainText())
+        else:
+            self.msgDialog.showErrorDialog("出错", "该项暂不支持写字板输入")
+            return
+        if self.wpc.exec_() == QDialog.Accepted:
+            if isinstance(self.__dict__[objName], QLineEdit):
+                self.__dict__[objName].setText(self.wpc.getInfo())
+            elif isinstance(self.__dict__[objName], QPlainTextEdit):
+                self.__dict__[objName].setPlainText(self.wpc.getInfo())
+
+    def cleanDB(self):
+        if self.db.resetDB():
+            self.msgDialog.showInformationDialog("提示", "重置数据库成功！")
+        else:
+            self.msgDialog.showErrorDialog("操作失败", "重置数据库失败！")
+
     def resetDB(self):
         dbSettingCtrl = DBSettingController()
-        dbSettingCtrl.show()
+        #dbSettingCtrl.show()
         return dbSettingCtrl.exec_() == QDialog.Accepted
 
     def setGraphColor(self, tar, pos, option): 
@@ -291,6 +328,9 @@ class Controller(QMainWindow, Ui_MainWindow):
         c = self.previewPic.count()
         for i in range(c):
             self.previewPic.takeItem(0)
+        c = self.projectList.count()
+        for i in range(c):
+            self.projectList.takeItem(0)
 
         #
         self.fileNameText.setText(user.fileName)
@@ -338,6 +378,15 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.depIntro.setPlainText("")
         for i in range(1,43):
             getattr(self,'duty_'+str(i)).setCheckState(0)
+
+        #四层项目
+        self.user.projects = []
+        for proj in user.projects:
+            self.projectList.addItem( proj.BasicInfo.PartyA.projectName )
+            self.user.projects.append( proj )
+        #四层组织
+        self.user.organization = user.organization
+        self.showOrganization()
 
     def setUser(self):
         #
@@ -463,8 +512,10 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.setDepStruct()
 
     def generateDoc(self):
-        genDocCtrl = WriteDocController(self.user.fileName, self.currentSelectedFile)
-        genDocCtrl.show()
+        genDocCtrl = WriteDocController(fileName=self.user.fileName, 
+                                        projects=[proj.BasicInfo.PartyA.projectName for proj in self.user.projects], 
+                                        selectedFile=self.currentSelectedFile)
+        #genDocCtrl.show()
         if genDocCtrl.exec_() == QDialog.Accepted:
             validMsg = self.user.validChecker()
             files = genDocCtrl.getAllSelectedFile()
@@ -477,19 +528,26 @@ class Controller(QMainWindow, Ui_MainWindow):
                 progress.setWindowTitle("请稍等")  
                 progress.setLabelText("正在生成...")
                 progress.setCancelButtonText("取消")
-                progress.setWindowModality(Qt.WindowModal);
+                progress.setWindowModality(Qt.WindowModal)
                 progress.setRange(0,100)
                 progress.setMinimumDuration(2000)
                 progress.setValue(0)
 
                 total = len(files)
                 count = 0
+
+                #生成并保存部门结构图
+                graph = drawGraph()
+                self.user = graph.draw("save", self.user, self.graphStyle)
             
                 for file in files:
                     # 线程优化
                     self.writeDocLock.acquire()
                     count += 1
-                    wrt_thread = WrtDocThread(self.user, self.pathSelector.getFilePath(file), self.graphStyle, self.pathSelector.getFilePath(file,self.user.fileName))
+                    wrt_thread = WrtDocThread(user=self.user, 
+                                              srcDir=self.pathSelector.getFileInfo(file)["spath"], #self.pathSelector.getFilePath(file),
+                                              tarDir=self.pathSelector.getFileInfo(file)["tpath"], #self.pathSelector.getFilePath(file,self.user.fileName))
+                                              fileType=self.pathSelector.getFileInfo(file)["type"]) 
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
@@ -513,41 +571,20 @@ class Controller(QMainWindow, Ui_MainWindow):
             #print("更新数据库失败")
             print(e)
             self.msgDialog.showErrorDialog("连接数据库出错","数据库无法连接，更新数据库失败，请检查相应配置！\n异常信息为：" 
-                                           + self.db.dbException 
+                                           + self.db.dbException
                                            + "\n您做的任何变动将无法存入数据库!")
         else:
             #print("更新数据库成功")
             self.getCompanyInfo()
 
-    def discard(self):
-        #第一页左
-        self.fileNameText.setText("")
-        self.companyText.setText("")
-        self.addressText.setText("")
-        self.coverFieldText.setText("")
-        self.policyText.setText("")
-        self.introductionText.setPlainText("")
-        #第一页右
-        self.managerText.setText("")
-        self.guandaiText.setText("")
-        self.compilerText.setText("")
-        self.approverText.setText("")
-        self.auditText.setText("")
-        self.announcerText.setText("")
-        self.zipText.setText("")
-        self.phoneText.setText("")
-        #日期
+    def newUser(self):
+        #提示保存到数据库
         pass
-        #部门结构
-        #self.user.departments = []
-        self.user.resetDepartment()
-        self.refreshDepartmentList()
-        #第二页右
-        self.depName.setText("")
-        self.depLevel.setValue(1)
-        self.depIntro.setPlainText("")
-        for i in range(1,43):
-            getattr(self,'duty_'+str(i)).setCheckState(0)
+        #
+        new = userInfo()
+        new.color = json.dumps(self.graphStyle)
+        self.setInput(new)
+        
 
     def refreshUserColor(self):
         self.user.color = json.dumps(self.graphStyle)
@@ -567,67 +604,377 @@ class Controller(QMainWindow, Ui_MainWindow):
             self.setDepStruct()
 
     # level 2 / 3 file list
-    def getLevelFiles(self, LEVEL_NAME):
-        self.pathSelector.autoRefresh()
-        level = self.pathSelector.getLevelDir()
-        tree = {}
-        for key,value in level.items():
-            if value in tree:
-                tree[value].append(key)
-            else:
-                tree[value] = [key]
-
-        for key in list(tree.keys()):
-            if key != LEVEL_NAME:
-                tree.pop(key)
-        return tree
-
     def setupLevelFileList(self):
         self.currentSelectedFile_temp = self.currentSelectedFile
         self.currentSelectedFile = set()
-        self.setupLevelFileList_level(self.level2_fileList, "Level2", '二层文件模板目录')
-        self.setupLevelFileList_level(self.level3_fileList, "Level3", '三层文件模板目录')
+        self.setupLevelFileList_level(treeNode=self.pathSelector.customFileTree[self.pathSelector.sampleDir], 
+                                         nodeName="Level2",
+                                         viewNode=None,
+                                         selectedFile=self.currentSelectedFile_temp,
+                                         isRoot=True,
+                                         filePath="/".join([self.pathSelector.sampleDir, "Level2"]),
+                                         fileList_item=self.level2_fileList, 
+                                         rootName='二层文件模板目录')
+        self.setupLevelFileList_level(treeNode=self.pathSelector.customFileTree[self.pathSelector.sampleDir], 
+                                         nodeName="Level3",
+                                         viewNode=None,
+                                         selectedFile=self.currentSelectedFile_temp,
+                                         isRoot=True,
+                                         filePath="/".join([self.pathSelector.sampleDir, "Level3"]),
+                                         fileList_item=self.level3_fileList, 
+                                         rootName='三层文件模板目录')
 
-    def setupLevelFileList_level(self, fileList_item, levelstr, rootname):
-        fileList_item.takeTopLevelItem(0)
-        root = QTreeWidgetItem(fileList_item)
-        root.setText(0,  rootname) # 设置根节点的名称
-        fileList_item.addTopLevelItem(root)
-        fileList_item.reset()
-
-        tree = self.getLevelFiles(levelstr)
-
-        for key, value in tree.items():
-            for val in value:
-                child = QTreeWidgetItem(root)
-                child.setText(0, os.path.split(self.pathSelector.getFilePath(val, self.user.fileName, False))[1])
-                if val in self.currentSelectedFile_temp:
-                    child.setCheckState(0, Qt.Checked)
+    def setupLevelFileList_level(self, treeNode, nodeName, viewNode, selectedFile, isRoot=True, filePath=None, fileList_item=None, rootName=None):
+        if isRoot:
+            isRoot = False
+            # 删除源节点
+            fileList_item.takeTopLevelItem(0)
+            # 新建源节点
+            root = QTreeWidgetItem(fileList_item)
+            root.setText(0, rootName)  # 设置根节点的名称
+            fileList_item.addTopLevelItem(root)
+            fileList_item.reset()
+            self.setupLevelFileList_level(treeNode[nodeName], None, root, selectedFile, isRoot, filePath)
+            fileList_item.sortItems(0, Qt.AscendingOrder)
+            fileList_item.expandItem(root)
+            return
+        if isinstance(treeNode, list):
+            return
+        else:
+            for k, v in treeNode.items():
+                p = "/".join([filePath, k])
+                child = QTreeWidgetItem(viewNode)
+                child.setText(0, k)
+                child.setText(1, p)
+                if isinstance(treeNode[k], list):
+                    if p in selectedFile:
+                        child.setCheckState(0, Qt.Checked)
+                    else:
+                        child.setCheckState(0, Qt.Unchecked)
                 else:
-                    child.setCheckState(0, Qt.Unchecked)
-        fileList_item.sortItems(0, Qt.AscendingOrder)
-        fileList_item.expandAll()
+                    self.setupLevelFileList_level(treeNode[k], k, child, selectedFile, isRoot, p)
 
     def updateLevelFileList(self):
+        self.pathSelector.autoRefresh(company=self.user.fileName, projects=[proj.BasicInfo.PartyA.projectName for proj in self.user.projects])
         self.setupLevelFileList()
-
-    def getLable(self, name):
-        reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"
-        prefix = re.search(reg, name, re.M|re.I)
-        label = []
-        if(prefix):
-            label = prefix.group(1).split("-")
-            label = label[-3:len(label)]
-        return "-".join(label)
 
     def level2FileChangeHandler(self, item, column):
         if item.checkState(column) == Qt.Checked:
-            self.currentSelectedFile.add(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.add(item.text(column+1))
         elif item.checkState(column) == Qt.Unchecked:
-            self.currentSelectedFile.discard(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.discard(item.text(column+1))
 
     def level3FileChangeHandler(self, item, column):
         if item.checkState(column) == Qt.Checked:
-            self.currentSelectedFile.add(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.add(item.text(column+1))
         elif item.checkState(column) == Qt.Unchecked:
-            self.currentSelectedFile.discard(self.getLable(item.text(column)))
+            if item.text(column+1):
+                self.currentSelectedFile.discard(item.text(column+1))
+
+    #四层页面
+    def connectProjectList( self ):
+        #可能没选中，用attr确认
+        #选中时为 projectList.currentItem().text() ,否则为 str()
+        self.projectList.currentItemChanged.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
+        self.AddProject.clicked.connect( lambda: self.addProject() )
+        self.DeleteProject.clicked.connect( lambda: self.removeProject( getattr(self.projectList.currentItem(),'text',str)() ) )
+        self.cancelProject.clicked.connect( lambda: self.showProjectDetail( getattr(self.projectList.currentItem(),'text',str)() ) )
+        self.saveProject.clicked.connect( lambda: self.setProject( getattr(self.projectList.currentItem(),'text',str)() ) )
+        #四层组织
+        self.saveOrgan.clicked.connect( lambda: self.setOrganization() )
+        self.discardOrgan.clicked.connect( lambda: self.showOrganization() )
+
+    def addProject( self , projectName="项目名称" ):
+        self.projectList.addItem( projectName )
+        new = Project(projectName)
+        self.user.projects.append( new )
+        self.projectList.setCurrentItem( self.projectList.item( self.projectList.count()-1 )  )
+
+    def removeProject( self , projectName="" ):
+        if( projectName == "" ):
+            return
+        else:
+            ### critical ###
+            index = self.projectList.row( self.projectList.currentItem() )
+            self.projectList.takeItem( index )
+            del self.user.projects[ index ]
+            ### end Critical ###
+
+    def setProject( self , projectName ):
+        if projectName == "":
+            pass
+        elif self.AprojectNameText.text() == "":
+            self.msgDialog.showErrorDialog("录入信息错误","项目名称不能为空")
+        else:
+            project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
+            self.projectList.currentItem().setText( self.AprojectNameText.text() )
+            self.setA(project)
+            self.setB(project)
+            self.setDetail(project)
+            self.setTeam(project)
+            self.setReport(project)
+            self.setProjectEvent(project)
+            self.setConfig(project)
+            self.setContinuity(project)
+            #self.setAudit(project)
+            #self.setRecord(project)
+
+    def showProjectDetail( self, projectName ):
+        if projectName == "":
+            self.showA()
+            self.showB()
+            self.showDetail()
+            self.showTeam()
+            self.showReport()
+            self.showProjectEvent()
+            self.showConfig()
+            self.showContinuity()
+            #self.showAudit()
+            #self.showRecord()
+        else:
+            project = self.user.projects[self.projectList.row( self.projectList.currentItem() ) ]
+            self.showA(project)
+            self.showB(project)
+            self.showDetail(project)
+            self.showTeam(project)
+            self.showReport(project)
+            self.showProjectEvent(project)
+            self.showConfig(project)
+            self.showContinuity(project)
+            #self.showAudit(project)
+            #self.showRecord(project)
+
+    def setOrganization(self):
+        self.setAudit()
+        self.setRecord()
+        #
+        self.showOrganization()
+
+    def showOrganization(self):
+        self.showAudit()
+        self.showRecord()
+
+    def setA(self,project):
+        project.BasicInfo.PartyA.projectName = self.AprojectNameText.text()
+        project.BasicInfo.PartyA.company = self.AcompanyText.text()
+        project.BasicInfo.PartyA.name = self.AnameText.text()
+        project.BasicInfo.PartyA.phone = self.AphoneText.text()
+        project.BasicInfo.PartyA.address = self.AaddressText.text()
+
+    def setB(self,project):
+        project.BasicInfo.PartyB.contactName = self.BcontactNameText.text()
+        project.BasicInfo.PartyB.serviceName = self.BserviceNameText.text()
+        project.BasicInfo.PartyB.serviceMail = self.BserviceMailText.text()
+        project.BasicInfo.PartyB.servicePhone = self.BservicePhoneText.text()
+        project.BasicInfo.PartyB.complainName = self.BcomplainNameText.text()
+        project.BasicInfo.PartyB.complainMail = self.BcomplainMailText.text()
+        project.BasicInfo.PartyB.complainPhone = self.BcomplainPhoneText.text()
+
+    def setDetail(self,project):
+         project.BasicInfo.Detail.amount = self.amountText.text()
+         project.BasicInfo.Detail.period = self.periodText.text()
+         project.BasicInfo.Detail.config = self.configText.text()
+         project.BasicInfo.Detail.name = self.detailNameText.text()
+         project.BasicInfo.Detail.level = self.detailLevelText.text()
+         project.BasicInfo.Detail.details = self.detailsText.text()
+         project.BasicInfo.Detail.demand = self.demandText.text()
+         project.BasicInfo.Detail.ddl = self.ddlText.text()
+
+    def setTeam(self,project):
+        project.BasicInfo.Team.startTime = self.startTimeText.text()
+        project.BasicInfo.Team.require = self.requireText.text()
+        project.BasicInfo.Team.PM = self.PMText.text()
+        project.BasicInfo.Team.TM = self.TMText.text()
+
+    def setReport(self,project):
+        project.ServiceProcess.Report.time = str(self.reportTimeText.toPlainText()).split('\n')
+        project.ServiceProcess.Report.keypoint = str(self.keypointText.toPlainText()).split('\n')
+        project.ServiceProcess.Report.revisit = self.revisitText.text()
+
+    def setProjectEvent(self,project):
+        project.ServiceProcess.Event.eventManager = self.eventManagerText.text()
+        project.ServiceProcess.Event.issueManager = self.issueManagerText.text()
+        project.ServiceProcess.Event.level = self.eventLevelText.currentText()
+        project.ServiceProcess.Event.accepted = self.acceptedText.value()
+        project.ServiceProcess.Event.closed = self.closedText.value()
+        project.ServiceProcess.Event.transformed = self.transformedText.value()
+        project.ServiceProcess.Event.summarized = self.summarizedText.value()
+
+    def setConfig(self,project):
+        project.ServiceProcess.Config.modifyManager = self.modifyManagerText.text()
+        project.ServiceProcess.Config.configManager = self.configManagerText.text()
+        project.ServiceProcess.Config.releaseManager = self.releaseManagerText.text()
+        project.ServiceProcess.Config.relatedManager = self.relatedManagerText.text()
+        project.ServiceProcess.Config.configVersion = self.configVersionText.text()
+        project.ServiceProcess.Config.configReleaseDate = self.configReleaseDateText.text()
+        project.ServiceProcess.Config.changes = int(self.changesText.text())
+        project.ServiceProcess.Config.releases = int(self.releasesText.text())
+        project.ServiceProcess.Config.releaseDate = self.ConfigReleaseDateText.text()
+        project.ServiceProcess.Config.preReleaseDate = self.ConfigPreReleaseDateText.text()
+        project.ServiceProcess.Config.applicationDate = self.applicationDateText.text()
+        project.ServiceProcess.Config.SN = self.SNText.text()
+        project.ServiceProcess.Config.target = self.targetText.text()
+        project.ServiceProcess.Config.item = self.itemText.text()
+        project.ServiceProcess.Config.releaseVersion = self.releaseVersionText.text()
+
+    def setContinuity(self,project):
+        project.ServiceProcess.Continuity.process = str(self.processText.toPlainText()).split('\n')
+        project.ServiceProcess.Continuity.result = str(self.resultText.toPlainText()).split('\n')
+        project.ServiceProcess.Continuity.date = self.ContinuityDateText.text()
+        project.ServiceProcess.Continuity.technicist = self.technicistText.text()
+        project.ServiceProcess.Continuity.approver = self.ContinuityApproverText.text()
+        project.ServiceProcess.Continuity.compileDate = self.ContinuityCompileDateText.text()
+        project.ServiceProcess.Continuity.auditDate = self.ContinuityAuditDateText.text()
+
+    def setAudit(self):
+        self.user.organization.Audit.planDate = self.planDateText.text()
+        self.user.organization.Audit.auditDate = self.AuditAuditDateText.text()
+        self.user.organization.Audit.auditLeader = self.auditLeaderText.text()
+        self.user.organization.Audit.audit1 = self.audit1Text.text()
+        self.user.organization.Audit.audit2 = self.audit2Text.text()
+        self.user.organization.Audit.audit3 = self.audit3Text.text()
+        self.user.organization.Audit.reviewDate = self.reviewDateText.text()
+        self.user.organization.Audit.scheduleDate = self.scheduleDateText.text()
+        self.user.organization.Audit.excuteDate = self.excuteDateText.text()
+        self.user.organization.Audit.reportDate = self.reportDateText.text()
+        self.user.organization.Audit.compiler = self.AuditCompilerText.text()
+        self.user.organization.Audit.audit = self.AuditAuditText.text()
+        self.user.organization.Audit.compileDate = self.AuditCompileDateText.text()
+        self.user.organization.Audit.approveDate = self.AuditApproveDateText.text()
+    
+    def setRecord(self):
+        self.user.organization.Record.target = self.RecordTargetText.text()
+        self.user.organization.Record.time = self.RecordTimeText.text()
+        self.user.organization.Record.staff = self.RecordStaffText.text()
+        self.user.organization.Record.arrange = self.RecordArrangeText.text()
+        self.user.organization.Record.content = str(self.RecordContentText.toPlainText()).split('\n')
+        self.user.organization.Record.fileName = self.RecordFileNameText.text()
+        self.user.organization.Record.auditContent = str(self.auditContentText.toPlainText()).split('\n')
+        self.user.organization.Record.auditProcess = str(self.auditProcessText.toPlainText()).split('\n')
+        self.user.organization.Record.audit = self.RecordAuditText.text()
+        self.user.organization.Record.auditDate = self.RecordAuditDateText.text()
+        self.user.organization.Record.approver = self.RecordApproverText.text()
+        self.user.organization.Record.approveDate = self.RecordApproveDateText.text()
+        self.user.organization.Record.provider = self.providerText.text()
+
+    def showA(self,project=""):
+        if project == "":
+            project = Project("")
+        self.AprojectNameText.setText(project.BasicInfo.PartyA.projectName)
+        self.AcompanyText.setText(project.BasicInfo.PartyA.company)
+        self.AnameText.setText(project.BasicInfo.PartyA.name)
+        self.AphoneText.setText(project.BasicInfo.PartyA.phone)
+        self.AaddressText.setText(project.BasicInfo.PartyA.address)
+    
+    def showB(self,project=""):
+        if project == "":
+            project = Project("")
+        self.BcontactNameText.setText(project.BasicInfo.PartyB.contactName)
+        self.BserviceNameText.setText(project.BasicInfo.PartyB.serviceName)
+        self.BserviceMailText.setText(project.BasicInfo.PartyB.serviceMail)
+        self.BservicePhoneText.setText(project.BasicInfo.PartyB.servicePhone)
+        self.BcomplainNameText.setText(project.BasicInfo.PartyB.complainName)
+        self.BcomplainMailText.setText(project.BasicInfo.PartyB.complainMail)
+        self.BcomplainPhoneText.setText(project.BasicInfo.PartyB.complainPhone)
+    
+    def showDetail(self,project=""):
+        if project == "":
+            project = Project("")
+        self.amountText.setText(project.BasicInfo.Detail.amount)
+        self.periodText.setText(project.BasicInfo.Detail.period)
+        self.configText.setText(project.BasicInfo.Detail.config)
+        self.detailNameText.setText(project.BasicInfo.Detail.name)
+        self.detailLevelText.setText(project.BasicInfo.Detail.level)
+        self.detailsText.setText(project.BasicInfo.Detail.details)
+        self.demandText.setText(project.BasicInfo.Detail.demand)
+        self.ddlText.setText(project.BasicInfo.Detail.ddl)
+    
+    def showTeam(self,project=""):
+        if project == "":
+            project = Project("")
+        self.startTimeText.setText(project.BasicInfo.Team.startTime)
+        self.requireText.setText(project.BasicInfo.Team.require)
+        self.PMText.setText(project.BasicInfo.Team.PM)
+        self.TMText.setText(project.BasicInfo.Team.TM)
+    
+    def showReport(self,project=""):
+        if project == "":
+            project = Project("")
+        self.reportTimeText.setPlainText( "\n".join(project.ServiceProcess.Report.time) )
+        self.keypointText.setPlainText( "\n".join(project.ServiceProcess.Report.keypoint) )
+        self.revisitText.setText(project.ServiceProcess.Report.revisit)
+    
+    def showProjectEvent(self,project=""):
+        if project == "":
+            project = Project("")
+        self.eventManagerText.setText(project.ServiceProcess.Event.eventManager)
+        self.issueManagerText.setText(project.ServiceProcess.Event.issueManager)
+        self.eventLevelText.setCurrentText(project.ServiceProcess.Event.level)
+        self.acceptedText.setValue(project.ServiceProcess.Event.accepted)
+        self.closedText.setValue(project.ServiceProcess.Event.closed)
+        self.transformedText.setValue(project.ServiceProcess.Event.transformed)
+        self.summarizedText.setValue(project.ServiceProcess.Event.summarized)
+    
+    def showConfig(self,project=""):
+        if project == "":
+            project = Project("")
+        self.modifyManagerText.setText(project.ServiceProcess.Config.modifyManager)
+        self.configManagerText.setText(project.ServiceProcess.Config.configManager)
+        self.releaseManagerText.setText(project.ServiceProcess.Config.releaseManager)
+        self.relatedManagerText.setText(project.ServiceProcess.Config.relatedManager)
+        self.configVersionText.setText(project.ServiceProcess.Config.configVersion)
+        self.configReleaseDateText.setText(project.ServiceProcess.Config.configReleaseDate)
+        self.changesText.setText(str(project.ServiceProcess.Config.changes))
+        self.releasesText.setText(str(project.ServiceProcess.Config.releases))
+        self.ConfigReleaseDateText.setText(project.ServiceProcess.Config.releaseDate)
+        self.ConfigPreReleaseDateText.setText(project.ServiceProcess.Config.preReleaseDate)
+        self.applicationDateText.setText(project.ServiceProcess.Config.applicationDate)
+        self.SNText.setText(project.ServiceProcess.Config.SN)
+        self.targetText.setText(project.ServiceProcess.Config.target)
+        self.itemText.setText(project.ServiceProcess.Config.item)
+        self.releaseVersionText.setText(project.ServiceProcess.Config.releaseVersion)
+    
+    def showContinuity(self,project=""):
+        if project == "":
+            project = Project("")
+        self.processText.setPlainText("\n".join(project.ServiceProcess.Continuity.process))
+        self.resultText.setPlainText("\n".join(project.ServiceProcess.Continuity.result))
+        self.ContinuityDateText.setText(project.ServiceProcess.Continuity.date)
+        self.technicistText.setText(project.ServiceProcess.Continuity.technicist)
+        self.ContinuityApproverText.setText(project.ServiceProcess.Continuity.approver)
+        self.ContinuityCompileDateText.setText(project.ServiceProcess.Continuity.compileDate)
+        self.ContinuityAuditDateText.setText(project.ServiceProcess.Continuity.auditDate)
+    
+    def showAudit(self):
+        self.planDateText.setText(self.user.organization.Audit.planDate)
+        self.AuditAuditDateText.setText(self.user.organization.Audit.auditDate)
+        self.auditLeaderText.setText(self.user.organization.Audit.auditLeader)
+        self.audit1Text.setText(self.user.organization.Audit.audit1)
+        self.audit2Text.setText(self.user.organization.Audit.audit2)
+        self.audit3Text.setText(self.user.organization.Audit.audit3)
+        self.reviewDateText.setText(self.user.organization.Audit.reviewDate)
+        self.scheduleDateText.setText(self.user.organization.Audit.scheduleDate)
+        self.excuteDateText.setText(self.user.organization.Audit.excuteDate)
+        self.reportDateText.setText(self.user.organization.Audit.reportDate)
+        self.AuditCompilerText.setText(self.user.organization.Audit.compiler)
+        self.AuditAuditText.setText(self.user.organization.Audit.audit)
+        self.AuditCompileDateText.setText(self.user.organization.Audit.compileDate)
+        self.AuditApproveDateText.setText(self.user.organization.Audit.approveDate)
+    
+    def showRecord(self):
+        self.RecordTargetText.setText(self.user.organization.Record.target)
+        self.RecordTimeText.setText(self.user.organization.Record.time)
+        self.RecordStaffText.setText(self.user.organization.Record.staff)
+        self.RecordArrangeText.setText(self.user.organization.Record.arrange)
+        self.RecordContentText.setPlainText("\n".join(self.user.organization.Record.content))
+        self.RecordFileNameText.setText(self.user.organization.Record.fileName)
+        self.auditContentText.setPlainText("\n".join(self.user.organization.Record.auditContent))
+        self.auditProcessText.setPlainText("\n".join(self.user.organization.Record.auditProcess))
+        self.RecordAuditText.setText(self.user.organization.Record.audit)
+        self.RecordAuditDateText.setText(self.user.organization.Record.auditDate)
+        self.RecordApproverText.setText(self.user.organization.Record.approver)
+        self.RecordApproveDateText.setText(self.user.organization.Record.approveDate)
+        self.providerText.setText(self.user.organization.Record.provider)

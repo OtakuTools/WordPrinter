@@ -13,9 +13,11 @@ class MessageDialog(QMessageBox):
     def showWarningDialog(self, title, content):
         reply = QMessageBox.warning(self, title, content, QMessageBox.Yes | QMessageBox.Cancel)
 
-    def showWarningDialogWithMethod(self, title, content, yesMethod, cancelMethod):
+    def showWarningDialogWithMethod(self, title, content, yesMethod, cancelMethod=None):
         reply = QMessageBox.warning(self, title, content, QMessageBox.Yes | QMessageBox.Cancel)
         if reply == QMessageBox.Yes:
-            yesMethod()
+            if yesMethod:
+                yesMethod()
         else:
-            cancelMethod()
+            if cancelMethod:
+                cancelMethod()

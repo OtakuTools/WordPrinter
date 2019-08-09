@@ -11,7 +11,7 @@ class Replace:
     lock = threading.RLock()
 
     def __init__(self):
-        pass
+        self.timeCount = 0
 
     def __del__(self):
         pass
@@ -40,7 +40,10 @@ class Replace:
         elif str(r.font.color.rgb) == 'F60000':
             r.text = self.user.releaseDate
         elif str(r.font.color.rgb) == 'F50000':
-            r.text = self.user.modifyDate.pop(0)
+            r.text = self.user.modifyDate[ self.timeCount%5 ]
+            self.timeCount+=1
+        elif str(r.font.color.rgb) >= 'F50001' and str(r.font.color.rgb) <= 'F50005':
+            r.text = self.user.modifyDate[ r.font.color.rgb[2]-1 ]
         elif str(r.font.color.rgb) == 'F40000':
             r.text = self.user.zip
         elif str(r.font.color.rgb) == 'F30000':
@@ -57,6 +60,50 @@ class Replace:
             pass#pic
         elif str(r.font.color.rgb) == 'EC0000':
             r.text = self.user.corporateRepresentative
+        elif str(r.font.color.rgb) == 'EB0000':
+            r.text = self.user.organization.Audit.auditLeader
+        elif str(r.font.color.rgb) == 'EA0000':
+            r.text = self.user.organization.Audit.audit1
+        elif str(r.font.color.rgb) == 'E90000':
+            r.text = self.user.organization.Audit.audit2
+        elif str(r.font.color.rgb) == 'E80000':
+            r.text = self.user.organization.Audit.audit3
+        elif str(r.font.color.rgb) == 'E70000':
+            r.text = self.user.organization.Audit.planDate
+        elif str(r.font.color.rgb) == 'E60000':
+            r.text = self.user.organization.Audit.auditDate
+        elif str(r.font.color.rgb) == 'E50000':
+            r.text = self.user.organization.Audit.scheduleDate
+        elif str(r.font.color.rgb) == 'E40000':
+            r.text = self.user.organization.Audit.compiler
+        elif str(r.font.color.rgb) == 'E30000':
+            r.text = self.user.organization.Audit.compileDate
+        elif str(r.font.color.rgb) == 'E20000':
+            r.text = self.user.organization.Audit.audit
+        elif str(r.font.color.rgb) == 'E10000':
+            r.text = self.user.organization.Audit.approveDate
+        elif str(r.font.color.rgb) == 'E00000':
+            r.text = self.user.organization.Audit.reviewDate
+        elif str(r.font.color.rgb) == 'DF0000':
+            r.text = self.user.organization.Audit.excuteDate
+        elif str(r.font.color.rgb) == 'DE0000':
+            r.text = self.user.organization.Audit.reportDate
+        elif str(r.font.color.rgb) == 'DD0000':
+            r.text = self.user.organization.Record.fileName
+        elif str(r.font.color.rgb) == 'DC0000':
+            r.text = '\n'.join(self.user.organization.Record.auditContent)
+        elif str(r.font.color.rgb) == 'DB0000':
+            r.text = '\n'.join(self.user.organization.Record.auditProcess)
+        elif str(r.font.color.rgb) == 'DA0000':
+            r.text = self.user.organization.Record.audit
+        elif str(r.font.color.rgb) == 'D90000':
+            r.text = self.user.organization.Record.auditDate
+        elif str(r.font.color.rgb) == 'D80000':
+            r.text = self.user.organization.Record.approver
+        elif str(r.font.color.rgb) == 'D70000':
+            r.text = self.user.organization.Record.approveDate
+        elif str(r.font.color.rgb) == 'D60000':
+            r.text = self.user.organization.Record.provider
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
@@ -64,20 +111,24 @@ class Replace:
     def findAndReplaceFootAndHead(self):
         #页眉页脚
         self.lock.acquire()
-        for s in self.document.sections:
-            for p in s.footer.paragraphs:
-                for r in p.runs:
-                    if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
-                        r.text = self.user.company
-                        r.font.highlight_color = None
-                        r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-            for p in s.header.paragraphs:
-                for r in p.runs:
-                    if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
-                        r.text = self.user.fileName
-                        r.font.highlight_color = None
-                        r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
-        self.lock.release()
+        try:
+            for s in self.document.sections:
+                for p in s.footer.paragraphs:
+                    for r in p.runs:
+                        if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
+                            r.text = self.user.company
+                            r.font.highlight_color = None
+                            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+                for p in s.header.paragraphs:
+                    for r in p.runs:
+                        if r.font.highlight_color == WD_COLOR_INDEX.YELLOW:
+                            r.text = self.user.fileName
+                            r.font.highlight_color = None
+                            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        except Exception as e:
+            print(e)
+        finally:
+            self.lock.release()
 
     def findAndReplaceTables(self):
         #表格
@@ -87,41 +138,47 @@ class Replace:
                     for p in cc.paragraphs:
                         for r in p.runs:
                             if r.font.highlight_color == WD_COLOR_INDEX.YELLOW :
-                                #todo.append(r)
-                                self.lock.acquire()
-                                self.replaceRules(r)
-                                self.lock.release()
+                                try:
+                                    self.lock.acquire()
+                                    self.replaceRules(r)
+                                except Exception as e:
+                                    print(e)
+                                finally:
+                                    self.lock.release()
 
     def replaceDepartmentTable(self):
         #服务管理职责分配表
-        table = self.document.tables[-1]
-        table_row_len = len(table.rows)
-        #s = time.time()
-        for d in self.user.departments:
-            #特殊情况
-            if d["name"] == "管理者代表":
-                continue
-            # 表头
-            column = table.add_column( Cm(3) )
-            cell = column.cells[0]
-            #特别情况
-            if d["name"] == "总经理":
-                cell.text = "管理层"
-            else:
-                cell.text = d["name"]
-            cell.paragraphs[0].style = "表格标记"
-            # 内容
-            # 优化替换速度，用set取代list，平均速度提高可达10%
-            funcSet = set(d["func"])
-            for i in range(1, table_row_len):
-                cell = column.cells[i]
-                if i in funcSet:
-                    cell.text = "▲"
+        try:
+            table = self.document.tables[-1]
+            table_row_len = len(table.rows)
+            #s = time.time()
+            for d in self.user.departments:
+                #特殊情况
+                if d["name"] == "管理者代表":
+                    continue
+                # 表头
+                column = table.add_column( Cm(3) )
+                cell = column.cells[0]
+                #特别情况
+                if d["name"] == "总经理":
+                    cell.text = "管理层"
                 else:
-                    cell.text = "△"
+                    cell.text = d["name"]
                 cell.paragraphs[0].style = "表格标记"
-        table.style = 'Table Theme'
-        table.autofit = True
+                # 内容
+                # 优化替换速度，用set取代list，平均速度提高可达10%
+                funcSet = set(d["func"])
+                for i in range(1, table_row_len):
+                    cell = column.cells[i]
+                    if i in funcSet:
+                        cell.text = "▲"
+                    else:
+                        cell.text = "△"
+                    cell.paragraphs[0].style = "表格标记"
+            table.style = 'Table Theme'
+            table.autofit = True
+        except Exception as e:
+            print(e)
 
     def findAndReplaceParagraphs(self):
         #正文
@@ -165,10 +222,13 @@ class Replace:
                         #clear text
                         p.clear()
 
-                    #todo.append(r)
-                    self.lock.acquire()
-                    self.replaceRules(r)
-                    self.lock.release()
+                    try:
+                        self.lock.acquire()
+                        self.replaceRules(r)
+                    except Exception as e:
+                        print(e)
+                    finally:
+                        self.lock.release()
 
     def run(self, src , dst , user):
         self.document = Document(src)

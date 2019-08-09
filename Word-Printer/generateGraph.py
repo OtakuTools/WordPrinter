@@ -44,7 +44,7 @@ class drawGraph:
 
     def preview(self, graph):
         # using cmd
-        name = self.saveDir+"prewview.dot"
+        name = self.saveDir+"preview.dot"
         with open(name, "w", encoding="utf-8") as f:
             f.write(graph.source)
         os.system("dot -Tpng -o" + self.saveDir + "preview.png " + name)

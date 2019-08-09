@@ -1,17 +1,15 @@
 
 .vs/Word-Printer/v15/.suo
-/test/~$出文件-样例.doc
-/Word-Printer/~$demo.docx
-Word-Printer/~$SM.docx
-Word-Printer/~$sample.docx
+/test
 Word-Printer/dbConfig.json
 *.pyc
-/Word-Printer/~$MP-20000-SM-M-01.docx
 /Word-Printer/dist
-/Word-Printer/build/main
+/Word-Printer/build
 *.spec
 /Word-Printer/save
 /Word-Printer/docSave
 /Word-Printer/picture_save
 /Word-Printer/logoData
 /.vs
+/Word-Printer/logging
+Word-Printer/env/
