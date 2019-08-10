@@ -249,6 +249,15 @@ class Replace:
                         #clear text
                         p.clear()
 
+                    # 部门名称
+                    if str(r.font.color.rgb) == 'D50000':
+                        r.text = ''
+                        for dep in self.user.departments:
+                            if dep['name'] != '管理层' and dep['name'] != '总经理' and dep['name'] != '管理者代表':
+                                r.text += ( '、'+dep['name'] )
+                        r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+                        r.font.highlight_color = None
+
                     try:
                         self.lock.acquire()
                         #self.replaceRules(r)

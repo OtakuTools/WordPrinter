@@ -48,7 +48,8 @@ def getColorStyle():
         'D90000':'organization.Record.auditDate',   #(217,0,0)
         'D80000':'organization.Record.approver',    #(216,0,0)
         'D70000':'organization.Record.approveDate', #(215,0,0)
-        'D60000':'organization.Record.provider'     #(214,0,0)
+        'D60000':'organization.Record.provider',    #(214,0,0)
+        'D50000':''#12/07部门名称#(213,0,0)                  
     }
 
 def getGraphStyle():
