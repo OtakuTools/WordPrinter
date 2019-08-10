@@ -314,6 +314,11 @@ class userInfo:
                 isValid = False
         return ( isValid , errMsg )
 
+class List2Dot:
+    def __init__(self,list):
+        for i in range(1,6):
+            setattr( self , "index"+str(i) , list[i-1] )
+
 if __name__ == "__main__":
     test = Project("aaa")
     print(test.BasicInfo.PartyA.projectName)

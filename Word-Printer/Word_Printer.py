@@ -57,7 +57,7 @@ class docWriter:
                 self.saveAsExcel( xlsx , dst )
             else:
                 rep = Replace()
-                doc = rep.run(src, dst, user)
+                doc = rep.run(src, dst, user, projectName)
                 self.saveAsPdf(doc, dst)
         except Exception as e:
             if not os.path.exists( './logging/' ):
@@ -65,6 +65,6 @@ class docWriter:
             stamp = time.strftime('%Y-%m-%d-%H-%M',time.localtime(time.time()))
             file = './logging/debug ' + stamp + '.log'
             log = open( file , 'a' )
-            log.write( str(e) + '\n' )
+            log.write( str(dst) + "  :  " +str(e) + '\n' )
             log.close()
             print(e)

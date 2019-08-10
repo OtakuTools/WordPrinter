@@ -6,6 +6,9 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 import json, time, lxml, threading
 import re, os
 from getTime import getTime
+from presetData import getColorStyle
+from dataStruct import List2Dot
+
 
 class Replace:
     lock = threading.RLock()
@@ -15,7 +18,7 @@ class Replace:
 
     def __del__(self):
         pass
-
+    '''
     def replaceRules(self, r):
         #替换规则
         r.font.highlight_color = None
@@ -56,6 +59,8 @@ class Replace:
             r.text = self.user.announcer
         elif str(r.font.color.rgb) == 'EF0000':
             pass#logo
+        elif str(r.font.color.rgb) == 'EE0000':
+            pass#departments
         elif str(r.font.color.rgb) == 'ED0000':
             pass#pic
         elif str(r.font.color.rgb) == 'EC0000':
@@ -107,6 +112,26 @@ class Replace:
         else:
             r.font.highlight_color = WD_COLOR_INDEX.YELLOW
         r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        '''
+
+    def rule(self, r):
+        try:
+            r.font.highlight_color = None
+
+            #取颜色对应的属性
+            obj = self.user
+            for attrName in self.colorDict[str(r.font.color.rgb)].split('.'):
+                obj = getattr( obj , attrName, r.text )
+            
+            #针对modifyDate
+            if str(r.font.color.rgb) == 'F50000':
+                obj = getattr(obj,'index'+str(self.timeCount%5+1))
+                self.timeCount += 1
+
+            r.text = str(obj)
+            r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
+        except Exception as e:
+            print(str(e))
 
     def findAndReplaceFootAndHead(self):
         #页眉页脚
@@ -140,9 +165,11 @@ class Replace:
                             if r.font.highlight_color == WD_COLOR_INDEX.YELLOW :
                                 try:
                                     self.lock.acquire()
-                                    self.replaceRules(r)
+                                    #self.replaceRules(r)
+                                    self.rule(r)
                                 except Exception as e:
-                                    print(e)
+                                    print('表格'+str(e))
+                                    raise
                                 finally:
                                     self.lock.release()
 
@@ -178,7 +205,7 @@ class Replace:
             table.style = 'Table Theme'
             table.autofit = True
         except Exception as e:
-            print(e)
+            raise
 
     def findAndReplaceParagraphs(self):
         #正文
@@ -224,15 +251,20 @@ class Replace:
 
                     try:
                         self.lock.acquire()
-                        self.replaceRules(r)
+                        #self.replaceRules(r)
+                        self.rule(r)
                     except Exception as e:
-                        print(e)
+                        raise
                     finally:
                         self.lock.release()
 
     def run(self, src , dst , user, projectName):
         self.document = Document(src)
         self.user = getTime(user)
+        self.colorDict = getColorStyle()
+        #针对modifyDate
+        dateList = self.user.modifyDate
+        self.user.modifyDate = List2Dot(self.user.modifyDate)
 
         #获取项目对象
         self.project = None
@@ -240,7 +272,7 @@ class Replace:
             if projectName != None and projectName != "" :
                 for proj in self.user.projects:
                     self.project = proj if proj.BasicInfo.PartyA.projectName == projectName else self.project
-                print(self.project.BasicInfo.PartyA.projectName)
+                print("projectName = " + self.project.BasicInfo.PartyA.projectName)
         except Exception as e:
             raise
 
@@ -265,4 +297,8 @@ class Replace:
             t.join()
             
         print('成功生成 '+dst )
+
+        #针对modifyDate
+        self.user.modifyDate = dateList
+
         return self.document
