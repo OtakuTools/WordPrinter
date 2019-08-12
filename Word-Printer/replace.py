@@ -125,7 +125,11 @@ class Replace:
             if str(r.font.color.rgb) == 'F50000':
                 obj = getattr(obj,'index'+str(self.timeCount%5+1))
                 self.timeCount += 1
-                
+            
+            #针对多行文本
+            if type(obj) == type([]):
+                obj = '\n'.join(obj)
+
             r.text = str(obj)
             #r.font.highlight_color = None#测试期间凸现变化
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
