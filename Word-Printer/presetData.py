@@ -82,7 +82,7 @@ def getColorStyle():
         'B80000':'project.ServiceProcess.Event.level',            #(184,0,0)
         'B70000':'project.ServiceProcess.Event.accepted',         #(183,0,0)
         'B60000':'project.ServiceProcess.Event.closed',           #(182,0,0)
-        'B50000':'project.ServiceProcess.Event.tansformed',       #(181,0,0)
+        'B50000':'project.ServiceProcess.Event.transformed',       #(181,0,0)
         'B40000':'project.ServiceProcess.Event.summarized',       #(180,0,0)
         'B30000':'project.ServiceProcess.Config.modifyManager',         #(179,0,0)
         'B20000':'project.ServiceProcess.Config.configManager',         #(178,0,0)
