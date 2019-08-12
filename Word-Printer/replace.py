@@ -116,10 +116,8 @@ class Replace:
 
     def rule(self, r):
         try:
-            r.font.highlight_color = None
-
             #取颜色对应的属性
-            obj = self.user
+            obj = self
             for attrName in self.colorDict[str(r.font.color.rgb)].split('.'):
                 obj = getattr( obj , attrName, r.text )
             
@@ -127,8 +125,9 @@ class Replace:
             if str(r.font.color.rgb) == 'F50000':
                 obj = getattr(obj,'index'+str(self.timeCount%5+1))
                 self.timeCount += 1
-
+                
             r.text = str(obj)
+            #r.font.highlight_color = None#测试期间凸现变化
             r.font.color.rgb = RGBColor(0x00, 0x00, 0x00)
         except Exception as e:
             print(str(e))
