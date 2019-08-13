@@ -270,7 +270,7 @@ class Replace:
                     finally:
                         self.lock.release()
 
-    def run(self, src , dst , user, projectName):
+    def run(self, src , dst , user, project):
         self.document = Document(src)
         self.user = getTime(user)
         self.colorDict = getColorStyle()
@@ -279,15 +279,8 @@ class Replace:
         self.user.modifyDate = List2Dot(self.user.modifyDate)
 
         #获取项目对象
-        self.project = None
-        try:
-            if projectName != None and projectName != "" :
-                for proj in self.user.projects:
-                    self.project = proj if proj.BasicInfo.PartyA.projectName == projectName else self.project
-                print("projectName = " + self.project.BasicInfo.PartyA.projectName)
-        except Exception as e:
-            raise
-
+        self.project = project
+        
         #更新目录
         element_updatefields = lxml.etree.SubElement(
             self.document.settings.element, "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"+"updateFields"
