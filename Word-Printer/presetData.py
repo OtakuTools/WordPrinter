@@ -2,9 +2,10 @@ def getColorStyle():
     return {
         #RGB(Hex):key           #RGB(Dem)
         'None':'',              #it happens
+        '000000':'',            #it just happens
         'FF0000':'user.fileName',    #(255,0,0)
         'FE0000':'user.company',     #(254,0,0)
-        'FD0000':'',#introduction#(253,0,0)
+        'FD0000':'',#introduction    #(253,0,0)
         'FC0000':'user.address',     #(252,0,0)
         'FB0000':'user.coverField',  #(251,0,0)
         'FA0000':'user.manager',     #(250,0,0)
