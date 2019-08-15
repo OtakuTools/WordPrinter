@@ -45,11 +45,11 @@ class Organization():
                 "target" : "" , # 审计对象
                 "time" : "" , # 审计时间
                 "staff" : "" , # 审计人员
-                "arrange" : "" , # 审计安排
-                "content" : "" , # 文件审批内容
+                "arrange" : [] , # 审计安排
+                "content" : [] , # 文件审批内容
                 "fileName" : "" , # 审批文件名称
-                "auditContent" : "" , # 审批文件审核内容
-                "auditProcess" : "" , # 审批文件过程简述
+                "auditContent" : [] , # 审批文件审核内容
+                "auditProcess" : [] , # 审批文件过程简述
                 "audit" : "" , # 文件审批人
                 "auditDate" : "" , # 文件审批日期
                 "approver" : "" , # 文件批准人
@@ -84,11 +84,11 @@ class Project():
                 "Detail": {
                     "amount": "",  # 项目金额
                     "period": "",  # 项目有效期
-                    "config": "",  # 服务配置项
+                    "config": [],  # 服务配置项
                     "name": "",  # 服务名称
                     "level": "",  # 服务级别
-                    "details": "",  # 服务内容
-                    "demand": "",  # 服务要求
+                    "details": [],  # 服务内容
+                    "demand": [],  # 服务要求
                     "ddl": ""  # 服务时间要求
                 },
                 "Team": {
@@ -110,8 +110,12 @@ class Project():
                 "Event": {
                     "eventManager": "",  # 事件管理经理
                     "issueManager": "",  # 问题管理经理
-                    "level": "S1",  # 受理事件等级
-                    "accepted": 0,  # 受理事件数
+                    #"level": "S1",  # 受理事件等级
+                    #"accepted": 0,  # 受理事件数
+                    'S1' : 0,
+                    'S2' : 0,
+                    'S3' : 0,
+                    'S4' : 0,
                     "closed": 0,  # 关闭事件数
                     "transformed": 0,  # 转化为问题的事件数
                     "summarized": 0,  # 汇总问题数
@@ -136,8 +140,8 @@ class Project():
                 },
 
                 "Continuity": {
-                    "process": "",  # 连续性测试经过内容
-                    "result": "",  # 连续性测试结果内容
+                    "process": [],  # 连续性测试经过内容
+                    "result": [],  # 连续性测试结果内容
                     "date": "",  # 连续性测试日期
                     "technicist": "",  # 可用性技术人员
                     "approver": "",  # 可用性审批人员

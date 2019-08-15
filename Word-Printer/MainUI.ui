@@ -1602,7 +1602,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="1">
+                   <item row="0" column="2">
                     <widget class="QLineEdit" name="amountText"/>
                    </item>
                    <item row="1" column="0">
@@ -1612,7 +1612,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
+                   <item row="1" column="2">
                     <widget class="QLineEdit" name="periodText"/>
                    </item>
                    <item row="2" column="0">
@@ -1622,9 +1622,6 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QLineEdit" name="configText"/>
-                   </item>
                    <item row="3" column="0">
                     <widget class="QLabel" name="detailNameLabel">
                      <property name="text">
@@ -1632,7 +1629,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
+                   <item row="3" column="2">
                     <widget class="QLineEdit" name="detailNameText"/>
                    </item>
                    <item row="4" column="0">
@@ -1642,7 +1639,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="4" column="2">
                     <widget class="QLineEdit" name="detailLevelText"/>
                    </item>
                    <item row="5" column="0">
@@ -1652,18 +1649,12 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
-                    <widget class="QLineEdit" name="detailsText"/>
-                   </item>
                    <item row="6" column="0">
                     <widget class="QLabel" name="demandLabel">
                      <property name="text">
                       <string>服务要求</string>
                      </property>
                     </widget>
-                   </item>
-                   <item row="6" column="1">
-                    <widget class="QLineEdit" name="demandText"/>
                    </item>
                    <item row="7" column="0">
                     <widget class="QLabel" name="ddlLabel">
@@ -1672,8 +1663,17 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="1">
+                   <item row="7" column="2">
                     <widget class="QLineEdit" name="ddlText"/>
+                   </item>
+                   <item row="2" column="2">
+                    <widget class="QPlainTextEdit" name="configText"/>
+                   </item>
+                   <item row="6" column="2">
+                    <widget class="QPlainTextEdit" name="demandText"/>
+                   </item>
+                   <item row="5" column="2">
+                    <widget class="QPlainTextEdit" name="detailsText"/>
                    </item>
                   </layout>
                  </widget>
@@ -1734,53 +1734,6 @@ gridline-color:rgb(0, 0, 0);</string>
                 <string>服务过程管理信息1</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_33">
-                <item row="0" column="0">
-                 <widget class="QGroupBox" name="Report">
-                  <property name="title">
-                   <string>服务报告</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_27">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="reportTimeLabel">
-                     <property name="text">
-                      <string>服务报告期</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QTextEdit" name="reportTimeText">
-                     <property name="tabChangesFocus">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="keypointLabel">
-                     <property name="text">
-                      <string>下阶段重点工作内容</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0">
-                    <widget class="QTextEdit" name="keypointText">
-                     <property name="tabChangesFocus">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="revisitLabel">
-                     <property name="text">
-                      <string>服务回访日期</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="0">
-                    <widget class="QLineEdit" name="revisitText"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
                 <item row="0" column="1" rowspan="2">
                  <widget class="QGroupBox" name="Config">
                   <property name="title">
@@ -1794,7 +1747,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="1">
+                   <item row="0" column="2">
                     <widget class="QLineEdit" name="modifyManagerText"/>
                    </item>
                    <item row="1" column="0">
@@ -1804,7 +1757,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
+                   <item row="1" column="2">
                     <widget class="QLineEdit" name="configManagerText"/>
                    </item>
                    <item row="2" column="0">
@@ -1814,7 +1767,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
+                   <item row="2" column="2">
                     <widget class="QLineEdit" name="releaseManagerText"/>
                    </item>
                    <item row="3" column="0">
@@ -1824,7 +1777,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
+                   <item row="3" column="2">
                     <widget class="QLineEdit" name="relatedManagerText"/>
                    </item>
                    <item row="4" column="0">
@@ -1834,7 +1787,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="4" column="2">
                     <widget class="QLineEdit" name="configVersionText"/>
                    </item>
                    <item row="5" column="0">
@@ -1844,7 +1797,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="1">
+                   <item row="5" column="2">
                     <widget class="QLineEdit" name="configReleaseDateText"/>
                    </item>
                    <item row="6" column="0">
@@ -1854,7 +1807,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="1">
+                   <item row="6" column="2">
                     <widget class="QLineEdit" name="changesText"/>
                    </item>
                    <item row="7" column="0">
@@ -1864,7 +1817,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="1">
+                   <item row="7" column="2">
                     <widget class="QLineEdit" name="releasesText"/>
                    </item>
                    <item row="8" column="0">
@@ -1874,7 +1827,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="8" column="1">
+                   <item row="8" column="2">
                     <widget class="QLineEdit" name="ConfigReleaseDateText"/>
                    </item>
                    <item row="9" column="0">
@@ -1884,7 +1837,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="9" column="1">
+                   <item row="9" column="2">
                     <widget class="QLineEdit" name="ConfigPreReleaseDateText"/>
                    </item>
                    <item row="10" column="0">
@@ -1894,7 +1847,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="10" column="1">
+                   <item row="10" column="2">
                     <widget class="QLineEdit" name="applicationDateText"/>
                    </item>
                    <item row="11" column="0">
@@ -1904,7 +1857,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="11" column="1">
+                   <item row="11" column="2">
                     <widget class="QLineEdit" name="SNText"/>
                    </item>
                    <item row="12" column="0">
@@ -1914,7 +1867,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="12" column="1">
+                   <item row="12" column="2">
                     <widget class="QLineEdit" name="targetText"/>
                    </item>
                    <item row="13" column="0">
@@ -1924,7 +1877,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="13" column="1">
+                   <item row="13" column="2">
                     <widget class="QLineEdit" name="itemText"/>
                    </item>
                    <item row="14" column="0">
@@ -1934,8 +1887,47 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="14" column="1">
+                   <item row="14" column="2">
                     <widget class="QLineEdit" name="releaseVersionText"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QGroupBox" name="Report">
+                  <property name="title">
+                   <string>服务报告</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_27">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="reportTimeLabel">
+                     <property name="text">
+                      <string>服务报告期</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="keypointLabel">
+                     <property name="text">
+                      <string>下阶段重点工作内容</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="revisitLabel">
+                     <property name="text">
+                      <string>服务回访日期</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLineEdit" name="revisitText"/>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLineEdit" name="reportTimeText"/>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLineEdit" name="keypointText"/>
                    </item>
                   </layout>
                  </widget>
@@ -1964,13 +1956,6 @@ gridline-color:rgb(0, 0, 0);</string>
                     <widget class="QTextEdit" name="processText">
                      <property name="tabChangesFocus">
                       <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0" colspan="3">
-                    <widget class="QLabel" name="resultLabel">
-                     <property name="text">
-                      <string>连续性测试结果内容</string>
                      </property>
                     </widget>
                    </item>
@@ -2031,6 +2016,13 @@ gridline-color:rgb(0, 0, 0);</string>
                    <item row="4" column="2">
                     <widget class="QLineEdit" name="ContinuityDateText"/>
                    </item>
+                   <item row="2" column="0" colspan="3">
+                    <widget class="QLabel" name="resultLabel">
+                     <property name="text">
+                      <string>连续性测试结果内容</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </widget>
                 </item>
@@ -2047,7 +2039,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="1" colspan="2">
+                   <item row="0" column="1" colspan="3">
                     <widget class="QLineEdit" name="eventManagerText"/>
                    </item>
                    <item row="1" column="0">
@@ -2057,84 +2049,77 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1" colspan="2">
+                   <item row="1" column="1" colspan="3">
                     <widget class="QLineEdit" name="issueManagerText"/>
                    </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="eventLevelLabel">
+                   <item row="2" column="0" colspan="2">
+                    <widget class="QLabel" name="S1acceptedLabel">
                      <property name="text">
-                      <string>受理事件等级</string>
+                      <string>S1受理事件件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1" colspan="2">
-                    <widget class="QComboBox" name="eventLevelText">
-                     <property name="editable">
-                      <bool>false</bool>
-                     </property>
-                     <property name="currentIndex">
-                      <number>0</number>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>S1</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>S2</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>S3</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>S4</string>
-                      </property>
-                     </item>
-                    </widget>
+                   <item row="2" column="2" colspan="2">
+                    <widget class="QSpinBox" name="S1acceptedText"/>
                    </item>
-                   <item row="3" column="0">
-                    <widget class="QLabel" name="acceptedLabel">
+                   <item row="3" column="0" colspan="2">
+                    <widget class="QLabel" name="S2acceptedLabel">
                      <property name="text">
-                      <string>受理事件件数</string>
+                      <string>S2受理事件件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
-                    <widget class="QSpinBox" name="acceptedText"/>
+                   <item row="3" column="2" colspan="2">
+                    <widget class="QSpinBox" name="S2acceptedText"/>
                    </item>
-                   <item row="4" column="0">
+                   <item row="4" column="0" colspan="2">
+                    <widget class="QLabel" name="S3acceptedLabel">
+                     <property name="text">
+                      <string>S3受理事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="2" colspan="2">
+                    <widget class="QSpinBox" name="S3acceptedText"/>
+                   </item>
+                   <item row="5" column="0" colspan="2">
+                    <widget class="QLabel" name="S4acceptedLabel">
+                     <property name="text">
+                      <string>S4受理事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="2" colspan="2">
+                    <widget class="QSpinBox" name="S4acceptedText"/>
+                   </item>
+                   <item row="6" column="0">
                     <widget class="QLabel" name="closedLabel">
                      <property name="text">
                       <string>关闭事件件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="1">
+                   <item row="6" column="1" colspan="2">
                     <widget class="QSpinBox" name="closedText"/>
                    </item>
-                   <item row="5" column="0" colspan="2">
+                   <item row="7" column="0" colspan="3">
                     <widget class="QLabel" name="transformedLabel">
                      <property name="text">
                       <string>转化为问题的事件件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="2">
+                   <item row="7" column="3">
                     <widget class="QSpinBox" name="transformedText"/>
                    </item>
-                   <item row="6" column="0">
+                   <item row="8" column="0">
                     <widget class="QLabel" name="summarizedLabel">
                      <property name="text">
                       <string>汇总问题件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="1">
+                   <item row="8" column="1" colspan="2">
                     <widget class="QSpinBox" name="summarizedText"/>
                    </item>
                   </layout>
@@ -2421,9 +2406,6 @@ gridline-color:rgb(0, 0, 0);</string>
                <item row="13" column="1">
                 <widget class="QLineEdit" name="RecordApproverText"/>
                </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="RecordArrangeText"/>
-               </item>
                <item row="1" column="1">
                 <widget class="QLineEdit" name="RecordTimeText"/>
                </item>
@@ -2460,6 +2442,9 @@ gridline-color:rgb(0, 0, 0);</string>
                   <bool>true</bool>
                  </property>
                 </widget>
+               </item>
+               <item row="3" column="1">
+                <widget class="QPlainTextEdit" name="RecordArrangeText"/>
                </item>
               </layout>
              </widget>
@@ -2646,9 +2631,6 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>requireText</tabstop>
   <tabstop>PMText</tabstop>
   <tabstop>TMText</tabstop>
-  <tabstop>reportTimeText</tabstop>
-  <tabstop>keypointText</tabstop>
-  <tabstop>revisitText</tabstop>
   <tabstop>modifyManagerText</tabstop>
   <tabstop>configManagerText</tabstop>
   <tabstop>releaseManagerText</tabstop>
@@ -2664,6 +2646,9 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>targetText</tabstop>
   <tabstop>itemText</tabstop>
   <tabstop>releaseVersionText</tabstop>
+  <tabstop>reportTimeText</tabstop>
+  <tabstop>keypointText</tabstop>
+  <tabstop>revisitText</tabstop>
   <tabstop>saveButton</tabstop>
   <tabstop>createBotton</tabstop>
   <tabstop>newUserButton</tabstop>
@@ -2678,8 +2663,7 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>ContinuityAuditDateText</tabstop>
   <tabstop>eventManagerText</tabstop>
   <tabstop>issueManagerText</tabstop>
-  <tabstop>eventLevelText</tabstop>
-  <tabstop>acceptedText</tabstop>
+  <tabstop>S1acceptedText</tabstop>
   <tabstop>closedText</tabstop>
   <tabstop>transformedText</tabstop>
   <tabstop>summarizedText</tabstop>
@@ -2712,6 +2696,9 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>providerText</tabstop>
   <tabstop>saveOrgan</tabstop>
   <tabstop>discardOrgan</tabstop>
+  <tabstop>S2acceptedText</tabstop>
+  <tabstop>S3acceptedText</tabstop>
+  <tabstop>S4acceptedText</tabstop>
  </tabstops>
  <resources/>
  <connections/>
