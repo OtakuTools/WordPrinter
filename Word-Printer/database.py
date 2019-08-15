@@ -290,49 +290,52 @@ class DB:
                     project.BasicInfo.PartyB.complainPhone = row[firstIndex + 11]
                     project.BasicInfo.Detail.amount = row[firstIndex + 12]
                     project.BasicInfo.Detail.period = row[firstIndex + 13]
-                    project.BasicInfo.Detail.config = row[firstIndex + 14]
+                    project.BasicInfo.Detail.config = row[firstIndex + 14].split("#")
                     project.BasicInfo.Detail.name = row[firstIndex + 15]
                     project.BasicInfo.Detail.level = row[firstIndex + 16]
-                    project.BasicInfo.Detail.details = row[firstIndex + 17]
-                    project.BasicInfo.Detail.demand = row[firstIndex + 18]
+                    project.BasicInfo.Detail.details = row[firstIndex + 17].split("#")
+                    project.BasicInfo.Detail.demand = row[firstIndex + 18].split("#")
                     project.BasicInfo.Detail.ddl = row[firstIndex + 19]
                     project.BasicInfo.Team.startTime = row[firstIndex + 20]
                     project.BasicInfo.Team.require = row[firstIndex + 21]
                     project.BasicInfo.Team.PM = row[firstIndex + 22]
                     project.BasicInfo.Team.TM = row[firstIndex + 23]
                     # 24,25,26跳过
-                    project.ServiceProcess.Report.time = row[firstIndex+27].split("#")
-                    project.ServiceProcess.Report.keypoint = row[firstIndex+28].split("#")
+                    project.ServiceProcess.Report.time = row[firstIndex+27]
+                    project.ServiceProcess.Report.keypoint = row[firstIndex+28]
                     project.ServiceProcess.Report.revisit = row[firstIndex+29]
                     project.ServiceProcess.Event.eventManager = row[firstIndex+30]
                     project.ServiceProcess.Event.issueManager = row[firstIndex+31]
-                    project.ServiceProcess.Event.level = row[firstIndex+32]
-                    project.ServiceProcess.Event.accepted = row[firstIndex+33]
-                    project.ServiceProcess.Event.closed = row[firstIndex+34]
-                    project.ServiceProcess.Event.transformed = row[firstIndex+35]
-                    project.ServiceProcess.Event.summarized = row[firstIndex+36]
-                    project.ServiceProcess.Config.modifyManager = row[firstIndex+37]
-                    project.ServiceProcess.Config.configManager = row[firstIndex+38]
-                    project.ServiceProcess.Config.releaseManager = row[firstIndex+39]
-                    project.ServiceProcess.Config.relatedManager = row[firstIndex+40]
-                    project.ServiceProcess.Config.configVersion = row[firstIndex+41]
-                    project.ServiceProcess.Config.configReleaseDate = row[firstIndex+42]
-                    project.ServiceProcess.Config.changes = row[firstIndex+43]
-                    project.ServiceProcess.Config.releases = row[firstIndex+44]
-                    project.ServiceProcess.Config.releaseDate = row[firstIndex+45]
-                    project.ServiceProcess.Config.preReleaseDate = row[firstIndex+46]
-                    project.ServiceProcess.Config.applicationDate = row[firstIndex+47]
-                    project.ServiceProcess.Config.SN = row[firstIndex+48]
-                    project.ServiceProcess.Config.target = row[firstIndex+49]
-                    project.ServiceProcess.Config.item = row[firstIndex+50]
-                    project.ServiceProcess.Config.releaseVersion = row[firstIndex+51]
-                    project.ServiceProcess.Continuity.process = row[firstIndex+52].split("#")
-                    project.ServiceProcess.Continuity.result = row[firstIndex+53].split("#")
-                    project.ServiceProcess.Continuity.date = row[firstIndex+54]
-                    project.ServiceProcess.Continuity.technicist = row[firstIndex+55]
-                    project.ServiceProcess.Continuity.approver = row[firstIndex+56]
-                    project.ServiceProcess.Continuity.compileDate = row[firstIndex+57]
-                    project.ServiceProcess.Continuity.auditDate = row[firstIndex+58]
+                    project.ServiceProcess.Event.S1 = row[firstIndex+32]
+                    project.ServiceProcess.Event.S2 = row[firstIndex + 33]
+                    project.ServiceProcess.Event.S3 = row[firstIndex + 34]
+                    project.ServiceProcess.Event.S4 = row[firstIndex + 35]
+                    project.ServiceProcess.Event.closed = row[firstIndex+36]
+                    project.ServiceProcess.Event.transformed = row[firstIndex+37]
+                    project.ServiceProcess.Event.summarized = row[firstIndex+38]
+                    project.ServiceProcess.Config.modifyManager = row[firstIndex+39]
+                    project.ServiceProcess.Config.configManager = row[firstIndex+40]
+                    project.ServiceProcess.Config.releaseManager = row[firstIndex+41]
+                    project.ServiceProcess.Config.relatedManager = row[firstIndex+42]
+                    project.ServiceProcess.Config.configVersion = row[firstIndex+43]
+                    project.ServiceProcess.Config.configReleaseDate = row[firstIndex+44]
+                    project.ServiceProcess.Config.changes = row[firstIndex+45]
+                    project.ServiceProcess.Config.releases = row[firstIndex+46]
+                    project.ServiceProcess.Config.releaseDate = row[firstIndex+47]
+                    project.ServiceProcess.Config.preReleaseDate = row[firstIndex+48]
+                    project.ServiceProcess.Config.applicationDate = row[firstIndex+49]
+                    project.ServiceProcess.Config.SN = row[firstIndex+50]
+                    project.ServiceProcess.Config.target = row[firstIndex+51]
+                    project.ServiceProcess.Config.item = row[firstIndex+52]
+                    project.ServiceProcess.Config.releaseVersion = row[firstIndex+53]
+                    project.ServiceProcess.Config.subject = row[firstIndex + 54]
+                    project.ServiceProcess.Continuity.process = row[firstIndex+55].split("#")
+                    project.ServiceProcess.Continuity.result = row[firstIndex+56].split("#")
+                    project.ServiceProcess.Continuity.date = row[firstIndex+57]
+                    project.ServiceProcess.Continuity.technicist = row[firstIndex+58]
+                    project.ServiceProcess.Continuity.approver = row[firstIndex+59]
+                    project.ServiceProcess.Continuity.compileDate = row[firstIndex+60]
+                    project.ServiceProcess.Continuity.auditDate = row[firstIndex+61]
                 except Exception as e:
                     print("Get Project Error:",e)
                     continue
@@ -364,7 +367,7 @@ class DB:
                 organization.Record.target = row[firstIndex+14]
                 organization.Record.time = row[firstIndex+15]
                 organization.Record.staff = row[firstIndex+16]
-                organization.Record.arrange = row[firstIndex+17]
+                organization.Record.arrange = row[firstIndex+17].split("#")
                 organization.Record.content = row[firstIndex+18].split("#")
                 organization.Record.fileName = row[firstIndex+19]
                 organization.Record.auditContent = row[firstIndex+20].split("#")
@@ -503,11 +506,11 @@ class DB:
                       project.BasicInfo.PartyB.complainPhone,
                       project.BasicInfo.Detail.amount,
                       project.BasicInfo.Detail.period,
-                      project.BasicInfo.Detail.config,
+                      "#".join(project.BasicInfo.Detail.config),
                       project.BasicInfo.Detail.name,
                       project.BasicInfo.Detail.level,
-                      project.BasicInfo.Detail.details,
-                      project.BasicInfo.Detail.demand,
+                      "#".join(project.BasicInfo.Detail.details),
+                      "#".join(project.BasicInfo.Detail.demand),
                       project.BasicInfo.Detail.ddl,
                       project.BasicInfo.Team.startTime,
                       project.BasicInfo.Team.require,
@@ -518,29 +521,31 @@ class DB:
             sql3 = """
                 INSERT INTO serviceProcess(
                     refId, refAprojectName, RepTime, RepKeypoint, RepRevisit,
-                    EveEventManager, EveIssueManager, EveLevel, EveAccepted, EveClosed,
+                    EveEventManager, EveIssueManager, EveS1, EveS2, EveS3, EveS4, EveClosed,
                     EveTransformed, EveSummarized, CofModifyManager, CofConfigManager, CofReleaseManager,
                     CofRelatedManager, CofConfigVersion, CofConfigReleaseDate, CofChanges, CofReleases,
                     CofReleaseDate, CofPreReleaseDate, CofApplicationDate, CofSN, CofTarget,
-                    CofItem, CofReleaseVersion, CotProcess, CotResult, CotDate,
+                    CofItem, CofReleaseVersion, CofSubject, CotProcess, CotResult, CotDate,
                     CotTechnicist, CotApprover, CotCompileDate, CotAuditDate
                 ) VALUES (
                  '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s',  %d ,  %d ,
+                 '%s', '%s',  %d ,  %d ,  %d , %d ,  %d ,
                   %d ,  %d , '%s', '%s', '%s',
                  '%s', '%s', '%s',  %d ,  %d ,
                  '%s', '%s', '%s', '%s', '%s',
-                 '%s', '%s', '%s', '%s', '%s',
+                 '%s', '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s');
                """ % (data.company,
                       project.BasicInfo.PartyA.projectName, 
-                      "#".join(project.ServiceProcess.Report.time),
-                      "#".join(project.ServiceProcess.Report.keypoint),
+                      project.ServiceProcess.Report.time,
+                      project.ServiceProcess.Report.keypoint,
                       project.ServiceProcess.Report.revisit,
                       project.ServiceProcess.Event.eventManager,
                       project.ServiceProcess.Event.issueManager,
-                      project.ServiceProcess.Event.level,
-                      project.ServiceProcess.Event.accepted,
+                      project.ServiceProcess.Event.S1,
+                      project.ServiceProcess.Event.S2,
+                      project.ServiceProcess.Event.S3,
+                      project.ServiceProcess.Event.S4,
                       project.ServiceProcess.Event.closed,
                       project.ServiceProcess.Event.transformed,
                       project.ServiceProcess.Event.summarized,
@@ -559,6 +564,7 @@ class DB:
                       project.ServiceProcess.Config.target,
                       project.ServiceProcess.Config.item,
                       project.ServiceProcess.Config.releaseVersion,
+                      project.ServiceProcess.Config.subject,
                       "#".join(project.ServiceProcess.Continuity.process),
                       "#".join(project.ServiceProcess.Continuity.result),
                       project.ServiceProcess.Continuity.date,
@@ -619,7 +625,7 @@ class DB:
                       data.organization.Record.target,
                       data.organization.Record.time,
                       data.organization.Record.staff,
-                      data.organization.Record.arrange,
+                      "#".join(data.organization.Record.arrange),
                       "#".join(data.organization.Record.content),
                       data.organization.Record.fileName,
                       "#".join(data.organization.Record.auditContent),
