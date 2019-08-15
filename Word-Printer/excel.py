@@ -14,11 +14,12 @@ class excel:
             for row in worksheet.rows:
                 for curCell in row:
                     if curCell.fill.fgColor.rgb == 'FFFFFF00':
-                        print( str(curCell.font.color) )
                         if curCell.font.color.rgb == 'FFFF0000':
                             curCell.value = title
                         elif curCell.font.color.rgb == 'FFD30000':
-                            curCell.value = "客户名称：" + project.BasicInfo.PartyA.company
+                            curCell.value = "客户名称：" + str(project.BasicInfo.PartyA.company)
+                        elif curCell.font.color.rgb == 'FFBD0000':
+                            curCell.value = str( project.ServiceProcess.Report.time )
                         else:
                             pass
                         curCell.fill = PatternFill( fill_type=None )
