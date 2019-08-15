@@ -107,6 +107,10 @@ def getColorStyle():
         '9F0000':'project.ServiceProcess.Continuity.approver',     #(159,0,0)
         '9E0000':'project.ServiceProcess.Continuity.compileDate',  #(158,0,0)
         '9D0000':'project.ServiceProcess.Continuity.auditDate',    #(157,0,0)
+        '9C0000':'user.organization.Record.arrange', #(156,0,0)
+        '9B0000':'user.organization.Record.staff', #(155,0,0)
+        '9A0000':'user.organization.Record.target', #(154,0,0)
+        '990000':'user.organization.Record.time', #(153,0,0)
     }
 
 def getGraphStyle():
