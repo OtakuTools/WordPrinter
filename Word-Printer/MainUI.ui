@@ -1510,7 +1510,7 @@ gridline-color:rgb(0, 0, 0);</string>
                   </layout>
                  </widget>
                 </item>
-                <item row="0" column="1">
+                <item row="0" column="1" rowspan="2">
                  <widget class="QGroupBox" name="PartyB">
                   <property name="title">
                    <string>乙方信息</string>
@@ -1589,7 +1589,7 @@ gridline-color:rgb(0, 0, 0);</string>
                   </layout>
                  </widget>
                 </item>
-                <item row="1" column="0">
+                <item row="1" column="0" rowspan="2">
                  <widget class="QGroupBox" name="Detail">
                   <property name="title">
                    <string>项目服务内容信息</string>
@@ -1678,7 +1678,7 @@ gridline-color:rgb(0, 0, 0);</string>
                   </layout>
                  </widget>
                 </item>
-                <item row="1" column="1">
+                <item row="2" column="1">
                  <widget class="QGroupBox" name="Team">
                   <property name="title">
                    <string>项目服务团队信息</string>
@@ -1734,7 +1734,7 @@ gridline-color:rgb(0, 0, 0);</string>
                 <string>服务过程管理信息1</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_33">
-                <item row="0" column="1" rowspan="2">
+                <item row="0" column="0">
                  <widget class="QGroupBox" name="Config">
                   <property name="title">
                    <string>配置、变更、发布管理</string>
@@ -1747,7 +1747,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
+                   <item row="0" column="1">
                     <widget class="QLineEdit" name="modifyManagerText"/>
                    </item>
                    <item row="1" column="0">
@@ -1757,7 +1757,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="2">
+                   <item row="1" column="1">
                     <widget class="QLineEdit" name="configManagerText"/>
                    </item>
                    <item row="2" column="0">
@@ -1767,7 +1767,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="2">
+                   <item row="2" column="1">
                     <widget class="QLineEdit" name="releaseManagerText"/>
                    </item>
                    <item row="3" column="0">
@@ -1777,7 +1777,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="2">
+                   <item row="3" column="1">
                     <widget class="QLineEdit" name="relatedManagerText"/>
                    </item>
                    <item row="4" column="0">
@@ -1787,7 +1787,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="2">
+                   <item row="4" column="1">
                     <widget class="QLineEdit" name="configVersionText"/>
                    </item>
                    <item row="5" column="0">
@@ -1797,7 +1797,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="5" column="2">
+                   <item row="5" column="1">
                     <widget class="QLineEdit" name="configReleaseDateText"/>
                    </item>
                    <item row="6" column="0">
@@ -1807,7 +1807,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="2">
+                   <item row="6" column="1">
                     <widget class="QLineEdit" name="changesText"/>
                    </item>
                    <item row="7" column="0">
@@ -1817,7 +1817,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="7" column="2">
+                   <item row="7" column="1">
                     <widget class="QLineEdit" name="releasesText"/>
                    </item>
                    <item row="8" column="0">
@@ -1827,7 +1827,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="8" column="2">
+                   <item row="8" column="1">
                     <widget class="QLineEdit" name="ConfigReleaseDateText"/>
                    </item>
                    <item row="9" column="0">
@@ -1837,7 +1837,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="9" column="2">
+                   <item row="9" column="1">
                     <widget class="QLineEdit" name="ConfigPreReleaseDateText"/>
                    </item>
                    <item row="10" column="0">
@@ -1847,7 +1847,7 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="10" column="2">
+                   <item row="10" column="1">
                     <widget class="QLineEdit" name="applicationDateText"/>
                    </item>
                    <item row="11" column="0">
@@ -1857,38 +1857,142 @@ gridline-color:rgb(0, 0, 0);</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="11" column="2">
+                   <item row="11" column="1">
                     <widget class="QLineEdit" name="SNText"/>
                    </item>
                    <item row="12" column="0">
+                    <widget class="QLabel" name="subjectLabel">
+                     <property name="text">
+                      <string>发布主题</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="12" column="1">
+                    <widget class="QLineEdit" name="subjectText"/>
+                   </item>
+                   <item row="13" column="0">
                     <widget class="QLabel" name="targetLabel">
                      <property name="text">
                       <string>发布目标</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="12" column="2">
+                   <item row="13" column="1">
                     <widget class="QLineEdit" name="targetText"/>
                    </item>
-                   <item row="13" column="0">
+                   <item row="14" column="0">
                     <widget class="QLabel" name="itemLabel">
                      <property name="text">
                       <string>发布交付物</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="13" column="2">
+                   <item row="14" column="1">
                     <widget class="QLineEdit" name="itemText"/>
                    </item>
-                   <item row="14" column="0">
+                   <item row="15" column="0">
                     <widget class="QLabel" name="releaseVersionLabel">
                      <property name="text">
                       <string>发布版本</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="14" column="2">
+                   <item row="15" column="1">
                     <widget class="QLineEdit" name="releaseVersionText"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="tab_9">
+               <attribute name="title">
+                <string>服务过程管理信息2</string>
+               </attribute>
+               <layout class="QGridLayout" name="gridLayout_26">
+                <item row="0" column="0" rowspan="3">
+                 <widget class="QGroupBox" name="Continuity">
+                  <property name="title">
+                   <string>连续性管理</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_32">
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="ContinuityDateText"/>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="QLineEdit" name="ContinuityCompileDateText"/>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="ContinuityApproverLabel">
+                     <property name="text">
+                      <string>可用性审批人员</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QLineEdit" name="technicistText"/>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="QLineEdit" name="ContinuityApproverText"/>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="ContinuityCompileDateLabel">
+                     <property name="text">
+                      <string>记录编制时间</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="technicistLabel">
+                     <property name="text">
+                      <string>可用性技术人员</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0" colspan="2">
+                    <widget class="QTextEdit" name="processText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="ContinuityDateLabel">
+                     <property name="text">
+                      <string>测试日期</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0" colspan="2">
+                    <widget class="QLabel" name="processLabel">
+                     <property name="text">
+                      <string>连续性测试经过内容</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QLineEdit" name="ContinuityAuditDateText"/>
+                   </item>
+                   <item row="3" column="0" colspan="2">
+                    <widget class="QTextEdit" name="resultText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0" colspan="2">
+                    <widget class="QLabel" name="resultLabel">
+                     <property name="text">
+                      <string>连续性测试结果内容</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="QLabel" name="ContinuityAuditDateLabel">
+                     <property name="text">
+                      <string>记录审核时间</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -1932,106 +2036,15 @@ gridline-color:rgb(0, 0, 0);</string>
                   </layout>
                  </widget>
                 </item>
-               </layout>
-              </widget>
-              <widget class="QWidget" name="tab_9">
-               <attribute name="title">
-                <string>服务过程管理信息2</string>
-               </attribute>
-               <layout class="QGridLayout" name="gridLayout_32">
-                <item row="0" column="0">
-                 <widget class="QGroupBox" name="Continuity">
-                  <property name="title">
-                   <string>连续性管理</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_26">
-                   <item row="0" column="0" colspan="3">
-                    <widget class="QLabel" name="processLabel">
-                     <property name="text">
-                      <string>连续性测试经过内容</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0" colspan="3">
-                    <widget class="QTextEdit" name="processText">
-                     <property name="tabChangesFocus">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0" colspan="3">
-                    <widget class="QTextEdit" name="resultText">
-                     <property name="tabChangesFocus">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="ContinuityDateLabel">
-                     <property name="text">
-                      <string>测试日期</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="technicistLabel">
-                     <property name="text">
-                      <string>可用性技术人员</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="2">
-                    <widget class="QLineEdit" name="technicistText"/>
-                   </item>
-                   <item row="6" column="0">
-                    <widget class="QLabel" name="ContinuityApproverLabel">
-                     <property name="text">
-                      <string>可用性审批人员</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="6" column="2">
-                    <widget class="QLineEdit" name="ContinuityApproverText"/>
-                   </item>
-                   <item row="7" column="0">
-                    <widget class="QLabel" name="ContinuityCompileDateLabel">
-                     <property name="text">
-                      <string>记录编制时间</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="7" column="2">
-                    <widget class="QLineEdit" name="ContinuityCompileDateText"/>
-                   </item>
-                   <item row="8" column="0">
-                    <widget class="QLabel" name="ContinuityAuditDateLabel">
-                     <property name="text">
-                      <string>记录审核时间</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="8" column="2">
-                    <widget class="QLineEdit" name="ContinuityAuditDateText"/>
-                   </item>
-                   <item row="4" column="2">
-                    <widget class="QLineEdit" name="ContinuityDateText"/>
-                   </item>
-                   <item row="2" column="0" colspan="3">
-                    <widget class="QLabel" name="resultLabel">
-                     <property name="text">
-                      <string>连续性测试结果内容</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item row="0" column="1">
+                <item row="0" column="1" rowspan="2">
                  <widget class="QGroupBox" name="Event">
                   <property name="title">
                    <string>事件与问题管理</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_23">
+                   <item row="11" column="1" colspan="3">
+                    <widget class="QSpinBox" name="summarizedText"/>
+                   </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="eventManagerLabel">
                      <property name="text">
@@ -2052,75 +2065,72 @@ gridline-color:rgb(0, 0, 0);</string>
                    <item row="1" column="1" colspan="3">
                     <widget class="QLineEdit" name="issueManagerText"/>
                    </item>
-                   <item row="2" column="0" colspan="2">
-                    <widget class="QLabel" name="S1acceptedLabel">
-                     <property name="text">
-                      <string>S1受理事件件数</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="2" colspan="2">
-                    <widget class="QSpinBox" name="S1acceptedText"/>
-                   </item>
-                   <item row="3" column="0" colspan="2">
-                    <widget class="QLabel" name="S2acceptedLabel">
-                     <property name="text">
-                      <string>S2受理事件件数</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="2" colspan="2">
-                    <widget class="QSpinBox" name="S2acceptedText"/>
-                   </item>
-                   <item row="4" column="0" colspan="2">
-                    <widget class="QLabel" name="S3acceptedLabel">
-                     <property name="text">
-                      <string>S3受理事件件数</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="2" colspan="2">
-                    <widget class="QSpinBox" name="S3acceptedText"/>
-                   </item>
-                   <item row="5" column="0" colspan="2">
-                    <widget class="QLabel" name="S4acceptedLabel">
-                     <property name="text">
-                      <string>S4受理事件件数</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="2" colspan="2">
-                    <widget class="QSpinBox" name="S4acceptedText"/>
-                   </item>
-                   <item row="6" column="0">
+                   <item row="7" column="0">
                     <widget class="QLabel" name="closedLabel">
                      <property name="text">
                       <string>关闭事件件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="6" column="1" colspan="2">
-                    <widget class="QSpinBox" name="closedText"/>
-                   </item>
-                   <item row="7" column="0" colspan="3">
-                    <widget class="QLabel" name="transformedLabel">
-                     <property name="text">
-                      <string>转化为问题的事件件数</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="7" column="3">
-                    <widget class="QSpinBox" name="transformedText"/>
-                   </item>
-                   <item row="8" column="0">
+                   <item row="11" column="0">
                     <widget class="QLabel" name="summarizedLabel">
                      <property name="text">
                       <string>汇总问题件数</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="8" column="1" colspan="2">
-                    <widget class="QSpinBox" name="summarizedText"/>
+                   <item row="9" column="0">
+                    <widget class="QLabel" name="transformedLabel">
+                     <property name="text">
+                      <string>转化为问题的事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1" colspan="3">
+                    <widget class="QSpinBox" name="closedText"/>
+                   </item>
+                   <item row="9" column="1" colspan="3">
+                    <widget class="QSpinBox" name="transformedText"/>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="S4acceptedLabel">
+                     <property name="text">
+                      <string>S4受理事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="S3acceptedLabel">
+                     <property name="text">
+                      <string>S3受理事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="3" column="0">
+                    <widget class="QLabel" name="S2acceptedLabel">
+                     <property name="text">
+                      <string>S2受理事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="S1acceptedLabel">
+                     <property name="text">
+                      <string>S1受理事件件数</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="1" colspan="3">
+                    <widget class="QSpinBox" name="S1acceptedText"/>
+                   </item>
+                   <item row="3" column="1" colspan="3">
+                    <widget class="QSpinBox" name="S2acceptedText"/>
+                   </item>
+                   <item row="4" column="1" colspan="3">
+                    <widget class="QSpinBox" name="S3acceptedText"/>
+                   </item>
+                   <item row="5" column="1" colspan="3">
+                    <widget class="QSpinBox" name="S4acceptedText"/>
                    </item>
                   </layout>
                  </widget>
@@ -2643,12 +2653,10 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>ConfigPreReleaseDateText</tabstop>
   <tabstop>applicationDateText</tabstop>
   <tabstop>SNText</tabstop>
+  <tabstop>subjectText</tabstop>
   <tabstop>targetText</tabstop>
   <tabstop>itemText</tabstop>
   <tabstop>releaseVersionText</tabstop>
-  <tabstop>reportTimeText</tabstop>
-  <tabstop>keypointText</tabstop>
-  <tabstop>revisitText</tabstop>
   <tabstop>saveButton</tabstop>
   <tabstop>createBotton</tabstop>
   <tabstop>newUserButton</tabstop>
@@ -2664,9 +2672,14 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>eventManagerText</tabstop>
   <tabstop>issueManagerText</tabstop>
   <tabstop>S1acceptedText</tabstop>
+  <tabstop>S2acceptedText</tabstop>
+  <tabstop>S3acceptedText</tabstop>
+  <tabstop>S4acceptedText</tabstop>
   <tabstop>closedText</tabstop>
-  <tabstop>transformedText</tabstop>
   <tabstop>summarizedText</tabstop>
+  <tabstop>reportTimeText</tabstop>
+  <tabstop>keypointText</tabstop>
+  <tabstop>revisitText</tabstop>
   <tabstop>planDateText</tabstop>
   <tabstop>AuditAuditDateText</tabstop>
   <tabstop>auditLeaderText</tabstop>
@@ -2696,9 +2709,7 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>providerText</tabstop>
   <tabstop>saveOrgan</tabstop>
   <tabstop>discardOrgan</tabstop>
-  <tabstop>S2acceptedText</tabstop>
-  <tabstop>S3acceptedText</tabstop>
-  <tabstop>S4acceptedText</tabstop>
+  <tabstop>transformedText</tabstop>
  </tabstops>
  <resources/>
  <connections/>

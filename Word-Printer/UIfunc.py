@@ -822,6 +822,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Config.target = self.targetText.text()
         project.ServiceProcess.Config.item = self.itemText.text()
         project.ServiceProcess.Config.releaseVersion = self.releaseVersionText.text()
+        project.ServiceProcess.Config.subject = self.subjectText.text()
 
     def setContinuity(self,project):
         project.ServiceProcess.Continuity.process = str(self.processText.toPlainText()).split('\n')
@@ -941,6 +942,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.targetText.setText(project.ServiceProcess.Config.target)
         self.itemText.setText(project.ServiceProcess.Config.item)
         self.releaseVersionText.setText(project.ServiceProcess.Config.releaseVersion)
+        self.subjectText.setText( project.ServiceProcess.Config.subject )
     
     def showContinuity(self,project=""):
         if project == "":

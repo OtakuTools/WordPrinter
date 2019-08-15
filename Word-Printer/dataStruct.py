@@ -137,6 +137,7 @@ class Project():
                     "target": "",  # 发布目标
                     "item": "",  # 发布交付物
                     "releaseVersion": "",  # 发布版本
+                    "subject":"", #发布主题
                 },
 
                 "Continuity": {

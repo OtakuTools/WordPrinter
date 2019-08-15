@@ -111,6 +111,7 @@ def getColorStyle():
         '9B0000':'user.organization.Record.staff', #(155,0,0)
         '9A0000':'user.organization.Record.target', #(154,0,0)
         '990000':'user.organization.Record.time', #(153,0,0)
+        '980000':'project.ServiceProcess.Config.subject',#(152,0,0)
     }
 
 def getGraphStyle():
