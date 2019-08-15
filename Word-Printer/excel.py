@@ -2,6 +2,19 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill,Font
 
 class excel:
+    def __init__(self):
+        self.colorDict = {
+            'FFFFFF00':'title',
+            'FFD40000':'BasicInfo.PartyA.projectName',
+            #'FFD30000':'BasicInfo.PartyA.company',
+            'FFC90000':'BasicInfo.Detail.amount',
+            'FFBF0000':'BasicInfo.Team.PM',
+            'FFBD0000':'ServiceProcess.Report.time',
+            'FFA90000':'ServiceProcess.Config.preReleaseDate',
+            'FFA80000':'ServiceProcess.Config.applicationDate',
+            'FFA70000':'ServiceProcess.Config.SN',
+            }
+
     def title( self, title ):
         for worksheet in self.xlsx.worksheets:
             if worksheet['A2'].fill.fgColor.rgb == 'FFFFFF00':
@@ -18,10 +31,12 @@ class excel:
                             curCell.value = title
                         elif curCell.font.color.rgb == 'FFD30000':
                             curCell.value = "客户名称：" + str(project.BasicInfo.PartyA.company)
-                        elif curCell.font.color.rgb == 'FFBD0000':
-                            curCell.value = str( project.ServiceProcess.Report.time )
                         else:
-                            pass
+                            obj = project
+                            for attrName in self.colorDict[str(curCell.font.color.rgb)].split('.'):
+                                obj = getattr( obj , attrName, curCell.value )
+                            curCell.value = str(obj)
+
                         curCell.fill = PatternFill( fill_type=None )
                         curCell.font = Font( name=curCell.font.name ,color=None )
 
