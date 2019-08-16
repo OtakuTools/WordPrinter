@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>信息技术服务管理文件平台 v1.1</string>
+   <string>信息技术服务管理文件平台 v1.0</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_34">
@@ -1403,23 +1403,6 @@ gridline-color:rgb(0, 0, 0);</string>
                <string>项目列表</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_29">
-               <item row="0" column="0" colspan="2">
-                <widget class="QListWidget" name="projectList"/>
-               </item>
-               <item row="1" column="0">
-                <widget class="QPushButton" name="saveProject">
-                 <property name="text">
-                  <string>保存修改</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="cancelProject">
-                 <property name="text">
-                  <string>放弃修改</string>
-                 </property>
-                </widget>
-               </item>
                <item row="2" column="0">
                 <widget class="QPushButton" name="AddProject">
                  <property name="text">
@@ -1431,6 +1414,23 @@ gridline-color:rgb(0, 0, 0);</string>
                 <widget class="QPushButton" name="DeleteProject">
                  <property name="text">
                   <string>删除</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPushButton" name="cancelProject">
+                 <property name="text">
+                  <string>放弃修改</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0" colspan="2">
+                <widget class="QListWidget" name="projectList"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="saveProject">
+                 <property name="text">
+                  <string>保存修改</string>
                  </property>
                 </widget>
                </item>
@@ -1910,93 +1910,6 @@ gridline-color:rgb(0, 0, 0);</string>
                 <string>服务过程管理信息2</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_26">
-                <item row="0" column="0" rowspan="3">
-                 <widget class="QGroupBox" name="Continuity">
-                  <property name="title">
-                   <string>连续性管理</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_32">
-                   <item row="4" column="1">
-                    <widget class="QLineEdit" name="ContinuityDateText"/>
-                   </item>
-                   <item row="7" column="1">
-                    <widget class="QLineEdit" name="ContinuityCompileDateText"/>
-                   </item>
-                   <item row="6" column="0">
-                    <widget class="QLabel" name="ContinuityApproverLabel">
-                     <property name="text">
-                      <string>可用性审批人员</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="1">
-                    <widget class="QLineEdit" name="technicistText"/>
-                   </item>
-                   <item row="6" column="1">
-                    <widget class="QLineEdit" name="ContinuityApproverText"/>
-                   </item>
-                   <item row="7" column="0">
-                    <widget class="QLabel" name="ContinuityCompileDateLabel">
-                     <property name="text">
-                      <string>记录编制时间</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="5" column="0">
-                    <widget class="QLabel" name="technicistLabel">
-                     <property name="text">
-                      <string>可用性技术人员</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0" colspan="2">
-                    <widget class="QTextEdit" name="processText">
-                     <property name="tabChangesFocus">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0">
-                    <widget class="QLabel" name="ContinuityDateLabel">
-                     <property name="text">
-                      <string>测试日期</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0" colspan="2">
-                    <widget class="QLabel" name="processLabel">
-                     <property name="text">
-                      <string>连续性测试经过内容</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="8" column="1">
-                    <widget class="QLineEdit" name="ContinuityAuditDateText"/>
-                   </item>
-                   <item row="3" column="0" colspan="2">
-                    <widget class="QTextEdit" name="resultText">
-                     <property name="tabChangesFocus">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0" colspan="2">
-                    <widget class="QLabel" name="resultLabel">
-                     <property name="text">
-                      <string>连续性测试结果内容</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="8" column="0">
-                    <widget class="QLabel" name="ContinuityAuditDateLabel">
-                     <property name="text">
-                      <string>记录审核时间</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
                 <item row="2" column="1">
                  <widget class="QGroupBox" name="Report">
                   <property name="title">
@@ -2131,6 +2044,85 @@ gridline-color:rgb(0, 0, 0);</string>
                    </item>
                    <item row="5" column="1" colspan="3">
                     <widget class="QSpinBox" name="S4acceptedText"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="0" rowspan="3">
+                 <widget class="QGroupBox" name="Continuity">
+                  <property name="title">
+                   <string>连续性管理</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_32">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="processLabel">
+                     <property name="text">
+                      <string>连续性测试经过内容</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="resultLabel">
+                     <property name="text">
+                      <string>连续性测试结果内容</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="0">
+                    <widget class="QLabel" name="ContinuityDateLabel">
+                     <property name="text">
+                      <string>测试日期</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="4" column="1">
+                    <widget class="QLineEdit" name="ContinuityDateText"/>
+                   </item>
+                   <item row="5" column="0">
+                    <widget class="QLabel" name="technicistLabel">
+                     <property name="text">
+                      <string>可用性技术人员</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="5" column="1">
+                    <widget class="QLineEdit" name="technicistText"/>
+                   </item>
+                   <item row="6" column="0">
+                    <widget class="QLabel" name="ContinuityApproverLabel">
+                     <property name="text">
+                      <string>可用性审批人员</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="6" column="1">
+                    <widget class="QLineEdit" name="ContinuityApproverText"/>
+                   </item>
+                   <item row="7" column="0">
+                    <widget class="QLabel" name="ContinuityCompileDateLabel">
+                     <property name="text">
+                      <string>记录编制时间</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="7" column="1">
+                    <widget class="QLineEdit" name="ContinuityCompileDateText"/>
+                   </item>
+                   <item row="8" column="0">
+                    <widget class="QLabel" name="ContinuityAuditDateLabel">
+                     <property name="text">
+                      <string>记录审核时间</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="8" column="1">
+                    <widget class="QLineEdit" name="ContinuityAuditDateText"/>
+                   </item>
+                   <item row="1" column="0" colspan="2">
+                    <widget class="QPlainTextEdit" name="processText"/>
+                   </item>
+                   <item row="3" column="0" colspan="2">
+                    <widget class="QPlainTextEdit" name="resultText"/>
                    </item>
                   </layout>
                  </widget>
@@ -2662,10 +2654,6 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>newUserButton</tabstop>
   <tabstop>saveProject</tabstop>
   <tabstop>cancelProject</tabstop>
-  <tabstop>processText</tabstop>
-  <tabstop>resultText</tabstop>
-  <tabstop>ContinuityDateText</tabstop>
-  <tabstop>technicistText</tabstop>
   <tabstop>ContinuityApproverText</tabstop>
   <tabstop>ContinuityCompileDateText</tabstop>
   <tabstop>ContinuityAuditDateText</tabstop>
