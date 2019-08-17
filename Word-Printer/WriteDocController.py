@@ -129,12 +129,13 @@ class WriteDocController(QDialog, Ui_GenerateDocConfirm):
 
 class WrtDocThread(QThread):
     
-    def __init__(self, user, srcDir, tarDir, fileType):
+    def __init__(self, user, srcDir, tarDir, fileType, projectName):
         super(WrtDocThread, self).__init__()
         self.user = user
         self.sample = srcDir
         self.target = tarDir
         self.type = fileType
+        self.projectName = projectName
 
     def __del__(self):
         self.quit()
@@ -143,7 +144,7 @@ class WrtDocThread(QThread):
     def run(self):
         start_time = time.time()
         docWrt = docWriter()
-        docWrt.loadAndWrite(self.user, self.sample, self.target, self.type)
+        docWrt.loadAndWrite(self.user, self.sample, self.target, self.type, self.projectName )
         end_time = time.time()
         print("共耗时：",end_time-start_time,"秒")
         

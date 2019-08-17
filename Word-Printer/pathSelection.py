@@ -56,6 +56,7 @@ class pathSelection:
                 filePath = re.sub(r"(XXX|XXXX)", projects[projIndex], filePath)
                 samplePath = PurePath(filePath).parts
                 targetFileTree[temp_k] = [{
+                    "belongto": projects[projIndex] if projIndex > -1 else None,
                     "type" : v[0],
                     "spath": v[1],
                     "tpath": "/".join([self.saveDir, company] + list(samplePath[1:]))

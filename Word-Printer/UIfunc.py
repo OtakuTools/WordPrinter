@@ -547,7 +547,8 @@ class Controller(QMainWindow, Ui_MainWindow):
                     wrt_thread = WrtDocThread(user=self.user, 
                                               srcDir=self.pathSelector.getFileInfo(file)["spath"], #self.pathSelector.getFilePath(file),
                                               tarDir=self.pathSelector.getFileInfo(file)["tpath"], #self.pathSelector.getFilePath(file,self.user.fileName))
-                                              fileType=self.pathSelector.getFileInfo(file)["type"]) 
+                                              fileType=self.pathSelector.getFileInfo(file)["type"],
+                                              projectName=self.pathSelector.getFileInfo(file)["belongto"]) 
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
@@ -776,11 +777,11 @@ class Controller(QMainWindow, Ui_MainWindow):
     def setDetail(self,project):
          project.BasicInfo.Detail.amount = self.amountText.text()
          project.BasicInfo.Detail.period = self.periodText.text()
-         project.BasicInfo.Detail.config = self.configText.text()
+         project.BasicInfo.Detail.config = str(self.configText.toPlainText()).split('\n')
          project.BasicInfo.Detail.name = self.detailNameText.text()
          project.BasicInfo.Detail.level = self.detailLevelText.text()
-         project.BasicInfo.Detail.details = self.detailsText.text()
-         project.BasicInfo.Detail.demand = self.demandText.text()
+         project.BasicInfo.Detail.details = str(self.detailsText.toPlainText()).split('\n')
+         project.BasicInfo.Detail.demand = str(self.demandText.toPlainText()).split('\n')
          project.BasicInfo.Detail.ddl = self.ddlText.text()
 
     def setTeam(self,project):
@@ -790,15 +791,17 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.BasicInfo.Team.TM = self.TMText.text()
 
     def setReport(self,project):
-        project.ServiceProcess.Report.time = str(self.reportTimeText.toPlainText()).split('\n')
-        project.ServiceProcess.Report.keypoint = str(self.keypointText.toPlainText()).split('\n')
+        project.ServiceProcess.Report.time = self.reportTimeText.text()
+        project.ServiceProcess.Report.keypoint = self.keypointText.text()
         project.ServiceProcess.Report.revisit = self.revisitText.text()
 
     def setProjectEvent(self,project):
         project.ServiceProcess.Event.eventManager = self.eventManagerText.text()
         project.ServiceProcess.Event.issueManager = self.issueManagerText.text()
-        project.ServiceProcess.Event.level = self.eventLevelText.currentText()
-        project.ServiceProcess.Event.accepted = self.acceptedText.value()
+        project.ServiceProcess.Event.S1 = self.S1acceptedText.value()
+        project.ServiceProcess.Event.S2 = self.S2acceptedText.value()
+        project.ServiceProcess.Event.S3 = self.S3acceptedText.value()
+        project.ServiceProcess.Event.S4 = self.S4acceptedText.value()
         project.ServiceProcess.Event.closed = self.closedText.value()
         project.ServiceProcess.Event.transformed = self.transformedText.value()
         project.ServiceProcess.Event.summarized = self.summarizedText.value()
@@ -819,6 +822,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         project.ServiceProcess.Config.target = self.targetText.text()
         project.ServiceProcess.Config.item = self.itemText.text()
         project.ServiceProcess.Config.releaseVersion = self.releaseVersionText.text()
+        project.ServiceProcess.Config.subject = self.subjectText.text()
 
     def setContinuity(self,project):
         project.ServiceProcess.Continuity.process = str(self.processText.toPlainText()).split('\n')
@@ -849,7 +853,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.user.organization.Record.target = self.RecordTargetText.text()
         self.user.organization.Record.time = self.RecordTimeText.text()
         self.user.organization.Record.staff = self.RecordStaffText.text()
-        self.user.organization.Record.arrange = self.RecordArrangeText.text()
+        self.user.organization.Record.arrange = str(self.RecordArrangeText.toPlainText()).split('\n')
         self.user.organization.Record.content = str(self.RecordContentText.toPlainText()).split('\n')
         self.user.organization.Record.fileName = self.RecordFileNameText.text()
         self.user.organization.Record.auditContent = str(self.auditContentText.toPlainText()).split('\n')
@@ -885,11 +889,11 @@ class Controller(QMainWindow, Ui_MainWindow):
             project = Project("")
         self.amountText.setText(project.BasicInfo.Detail.amount)
         self.periodText.setText(project.BasicInfo.Detail.period)
-        self.configText.setText(project.BasicInfo.Detail.config)
+        self.configText.setPlainText("\n".join(project.BasicInfo.Detail.config))
         self.detailNameText.setText(project.BasicInfo.Detail.name)
         self.detailLevelText.setText(project.BasicInfo.Detail.level)
-        self.detailsText.setText(project.BasicInfo.Detail.details)
-        self.demandText.setText(project.BasicInfo.Detail.demand)
+        self.detailsText.setPlainText("\n".join(project.BasicInfo.Detail.details))
+        self.demandText.setPlainText("\n".join(project.BasicInfo.Detail.demand))
         self.ddlText.setText(project.BasicInfo.Detail.ddl)
     
     def showTeam(self,project=""):
@@ -903,8 +907,8 @@ class Controller(QMainWindow, Ui_MainWindow):
     def showReport(self,project=""):
         if project == "":
             project = Project("")
-        self.reportTimeText.setPlainText( "\n".join(project.ServiceProcess.Report.time) )
-        self.keypointText.setPlainText( "\n".join(project.ServiceProcess.Report.keypoint) )
+        self.reportTimeText.setText( project.ServiceProcess.Report.time ) 
+        self.keypointText.setText( project.ServiceProcess.Report.keypoint )
         self.revisitText.setText(project.ServiceProcess.Report.revisit)
     
     def showProjectEvent(self,project=""):
@@ -912,8 +916,10 @@ class Controller(QMainWindow, Ui_MainWindow):
             project = Project("")
         self.eventManagerText.setText(project.ServiceProcess.Event.eventManager)
         self.issueManagerText.setText(project.ServiceProcess.Event.issueManager)
-        self.eventLevelText.setCurrentText(project.ServiceProcess.Event.level)
-        self.acceptedText.setValue(project.ServiceProcess.Event.accepted)
+        self.S1acceptedText.setValue(project.ServiceProcess.Event.S1)
+        self.S2acceptedText.setValue(project.ServiceProcess.Event.S2)
+        self.S3acceptedText.setValue(project.ServiceProcess.Event.S3)
+        self.S4acceptedText.setValue(project.ServiceProcess.Event.S4)
         self.closedText.setValue(project.ServiceProcess.Event.closed)
         self.transformedText.setValue(project.ServiceProcess.Event.transformed)
         self.summarizedText.setValue(project.ServiceProcess.Event.summarized)
@@ -936,6 +942,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.targetText.setText(project.ServiceProcess.Config.target)
         self.itemText.setText(project.ServiceProcess.Config.item)
         self.releaseVersionText.setText(project.ServiceProcess.Config.releaseVersion)
+        self.subjectText.setText( project.ServiceProcess.Config.subject )
     
     def showContinuity(self,project=""):
         if project == "":
@@ -968,7 +975,7 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.RecordTargetText.setText(self.user.organization.Record.target)
         self.RecordTimeText.setText(self.user.organization.Record.time)
         self.RecordStaffText.setText(self.user.organization.Record.staff)
-        self.RecordArrangeText.setText(self.user.organization.Record.arrange)
+        self.RecordArrangeText.setPlainText("\n".join(self.user.organization.Record.arrange))
         self.RecordContentText.setPlainText("\n".join(self.user.organization.Record.content))
         self.RecordFileNameText.setText(self.user.organization.Record.fileName)
         self.auditContentText.setPlainText("\n".join(self.user.organization.Record.auditContent))
