@@ -68,7 +68,7 @@ def getColorStyle():
         'C70000':'project.BasicInfo.Detail.config',     #(199,0,0)
         'C60000':'project.BasicInfo.Detail.name',       #(198,0,0)
         'C50000':'project.BasicInfo.Detail.level',      #(197,0,0)
-        'C40000':'project.BasicInfo.Detail.details',    #(196,0,0)
+        #'C40000':'project.BasicInfo.Detail.details',    #(196,0,0)
         'C30000':'project.BasicInfo.Detail.demand',     #(195,0,0)
         'C20000':'project.BasicInfo.Detail.ddl',        #(194,0,0)
         'C10000':'project.BasicInfo.Team.startTime', #(193,0,0)
@@ -118,6 +118,16 @@ def getColorStyle():
         '940000':'criticalRate',                                 #(148,0,0)
         '930000':'accepted',                                     #(147,0,0)
     }
+
+def getParagraphStyle():
+    return {
+        'FD0000':{ 'style':'简介','attr':'user.introduction'},
+        'C40000':{ 'style':'服务内容','attr':'project.BasicInfo.Detail.details'},
+        'C70000':{ 'style':'服务配置项','attr':'project.BasicInfo.Detail.config'},
+        'A30000':{ 'style':'正文','attr':'project.ServiceProcess.Continuity.process'},
+        'C30000':{ 'style':'服务要求','attr':'project.BasicInfo.Detail.demand'},
+        '9C0000':{ 'style':'审计安排','attr':'user.organization.Record.arrange'},
+        }
 
 def getGraphStyle():
     return [
