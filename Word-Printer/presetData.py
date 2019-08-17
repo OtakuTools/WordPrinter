@@ -80,10 +80,10 @@ def getColorStyle():
         'BB0000':'project.ServiceProcess.Report.revisit',     #(187,0,0)
         'BA0000':'project.ServiceProcess.Event.eventManager',     #(186,0,0)
         'B90000':'project.ServiceProcess.Event.issueManager',     #(185,0,0)
-        'B80000':'project.ServiceProcess.Event.level',            #(184,0,0)
-        'B70000':'project.ServiceProcess.Event.accepted',         #(183,0,0)
+        'B80000':'project.ServiceProcess.Event.S1',               #(184,0,0)
+        'B70000':'project.ServiceProcess.Event.S2',               #(183,0,0)
         'B60000':'project.ServiceProcess.Event.closed',           #(182,0,0)
-        'B50000':'project.ServiceProcess.Event.transformed',       #(181,0,0)
+        'B50000':'project.ServiceProcess.Event.transformed',      #(181,0,0)
         'B40000':'project.ServiceProcess.Event.summarized',       #(180,0,0)
         'B30000':'project.ServiceProcess.Config.modifyManager',         #(179,0,0)
         'B20000':'project.ServiceProcess.Config.configManager',         #(178,0,0)
@@ -112,6 +112,11 @@ def getColorStyle():
         '9A0000':'user.organization.Record.target', #(154,0,0)
         '990000':'user.organization.Record.time', #(153,0,0)
         '980000':'project.ServiceProcess.Config.subject',#(152,0,0)
+        '970000':'project.ServiceProcess.Event.S3',              #(151,0,0)
+        '960000':'project.ServiceProcess.Event.S4',              #(150,0,0)
+        '950000':'closeRate',                                    #(149,0,0)
+        '940000':'criticalRate',                                 #(148,0,0)
+        '930000':'accepted',                                     #(147,0,0)
     }
 
 def getGraphStyle():

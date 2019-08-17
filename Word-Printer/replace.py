@@ -280,6 +280,14 @@ class Replace:
 
         #获取项目对象
         self.project = project
+        if self.project != None:
+            event = self.project.ServiceProcess.Event
+            #受理事件数
+            self.accepted = event.S1 + event.S2 + event.S3 + event.S4
+            #重大事件比率
+            self.criticalRate = event.S1 / self.accepted
+            #事件关闭率
+            self.closeRate = self.accepted / event.closed
         
         #更新目录
         element_updatefields = lxml.etree.SubElement(
