@@ -222,7 +222,11 @@ class Controller(QMainWindow, Ui_MainWindow):
         path = re.search(reg, logoPath, re.M|re.I).group(2)
         image = QImage()
         #print(path)
-        if path and path != "" and image.load(path):
+        if path == None or path == "":
+            scene = QGraphicsScene()
+            self.logoView.setScene(scene)
+            self.logoView.show()
+        elif path and image.load(path):
             filepath, filename = os.path.split(path)
             if not os.path.exists("./logoData"):
                 os.makedirs("./logoData")
@@ -348,6 +352,8 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.phoneText.setText(user.phone)
         self.policyText.setText(user.policy)
         self.Logo.setPlainText(user.logoPath)
+        self.showLogo()
+
         #
         dateReg = re.compile(r"^(?P<year>\d{4})[\u4e00-\u9fa5](?P<month>\d{2})[\u4e00-\u9fa5](?P<day>\d{2})[\u4e00-\u9fa5]$")
         date = dateReg.match(user.releaseDate)
