@@ -89,11 +89,17 @@ class Controller(QMainWindow, Ui_MainWindow):
 
         tool = self.addToolBar("设置")
         edit0 = QAction(QIcon(""),"数据库配置",self)
+        edit0.setToolTip("数据库的配置信息")
         tool.addAction(edit0)
         edit1 = QAction(QIcon(""), "重置数据库", self)
+        edit1.setToolTip("该操作将清空当前数据库并重置所有数据表")
         tool.addAction(edit1)
-        edit2 = QAction(QIcon(""),"更新模板文件",self)
+        edit2 = QAction(QIcon(""),"更新文件列表",self)
+        edit2.setToolTip("手动更新模板文件列表")
         tool.addAction(edit2)
+        edit3 = QAction(QIcon(""), "帮助", self)
+        edit3.setToolTip("帮助及版本信息")
+        tool.addAction(edit3)
         tool.actionTriggered.connect(self.toolBtnPressed)
 
     def connectText(self):
@@ -258,8 +264,15 @@ class Controller(QMainWindow, Ui_MainWindow):
                                                    + "\n您做的任何变动将无法存入数据库!" )
         elif qaction.text() == "重置数据库":
             self.msgDialog.showWarningDialogWithMethod("风险警告", "重置数据库有风险，请谨慎操作！", self.cleanDB)
-        elif qaction.text() == "更新模板文件":
+        elif qaction.text() == "更新文件列表":
             self.updateLevelFileList()
+        elif qaction.text() == "帮助":
+            self.showTips()
+
+    def showTips(self):
+        with open("config/help.json", "r") as f:
+            obj = json.load(f)
+        self.msgDialog.showInformationDialog("帮助", obj["help"] + "\n" + "版本：" + obj["version"])
 
     def openWordPad(self, objName):
         self.wpc = WordPadController() if self.wpc is None else self.wpc
