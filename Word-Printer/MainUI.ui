@@ -1682,13 +1682,25 @@ gridline-color:rgb(0, 0, 0);</string>
                     <widget class="QLineEdit" name="ddlText"/>
                    </item>
                    <item row="2" column="2">
-                    <widget class="QPlainTextEdit" name="configText"/>
+                    <widget class="QPlainTextEdit" name="configText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="6" column="2">
-                    <widget class="QPlainTextEdit" name="demandText"/>
+                    <widget class="QPlainTextEdit" name="demandText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="5" column="2">
-                    <widget class="QPlainTextEdit" name="detailsText"/>
+                    <widget class="QPlainTextEdit" name="detailsText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -2134,10 +2146,18 @@ gridline-color:rgb(0, 0, 0);</string>
                     <widget class="QLineEdit" name="ContinuityAuditDateText"/>
                    </item>
                    <item row="1" column="0" colspan="2">
-                    <widget class="QPlainTextEdit" name="processText"/>
+                    <widget class="QPlainTextEdit" name="processText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                    <item row="3" column="0" colspan="2">
-                    <widget class="QPlainTextEdit" name="resultText"/>
+                    <widget class="QPlainTextEdit" name="resultText">
+                     <property name="tabChangesFocus">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -2321,10 +2341,17 @@ gridline-color:rgb(0, 0, 0);</string>
                <string>文件与记录管理</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_25">
-               <item row="12" column="0">
-                <widget class="QLabel" name="RecordAuditDateLabel">
-                 <property name="text">
-                  <string>文件审批日期</string>
+               <item row="5" column="0" colspan="2">
+                <widget class="QPlainTextEdit" name="RecordContentText">
+                 <property name="tabChangesFocus">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="8" column="0" colspan="2">
+                <widget class="QPlainTextEdit" name="auditContentText">
+                 <property name="tabChangesFocus">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -2335,6 +2362,13 @@ gridline-color:rgb(0, 0, 0);</string>
                  </property>
                 </widget>
                </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="RecordTimeLabel">
+                 <property name="text">
+                  <string>审计时间</string>
+                 </property>
+                </widget>
+               </item>
                <item row="7" column="0">
                 <widget class="QLabel" name="auditContentLabel">
                  <property name="text">
@@ -2342,10 +2376,10 @@ gridline-color:rgb(0, 0, 0);</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="RecordTimeLabel">
+               <item row="12" column="0">
+                <widget class="QLabel" name="RecordAuditDateLabel">
                  <property name="text">
-                  <string>审计时间</string>
+                  <string>文件审批日期</string>
                  </property>
                 </widget>
                </item>
@@ -2356,15 +2390,39 @@ gridline-color:rgb(0, 0, 0);</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="1">
-                <widget class="QLineEdit" name="RecordFileNameText"/>
-               </item>
-               <item row="13" column="0">
-                <widget class="QLabel" name="RecordApproverLabel">
-                 <property name="text">
-                  <string>文件批准人</string>
+               <item row="3" column="1">
+                <widget class="QPlainTextEdit" name="RecordArrangeText">
+                 <property name="tabChangesFocus">
+                  <bool>true</bool>
                  </property>
                 </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="RecordStaffLabel">
+                 <property name="text">
+                  <string>审计人员</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="RecordTargetLabel">
+                 <property name="text">
+                  <string>审计对象</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="14" column="1">
+                <widget class="QLineEdit" name="RecordApproveDateText"/>
+               </item>
+               <item row="15" column="0">
+                <widget class="QLabel" name="providerLabel">
+                 <property name="text">
+                  <string>文件发放人</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="1">
+                <widget class="QLineEdit" name="providerText"/>
                </item>
                <item row="14" column="0">
                 <widget class="QLabel" name="RecordApproveDateLabel">
@@ -2380,12 +2438,18 @@ gridline-color:rgb(0, 0, 0);</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="RecordStaffLabel">
+               <item row="4" column="0">
+                <widget class="QLabel" name="RecordContentLabel">
                  <property name="text">
-                  <string>审计人员</string>
+                  <string>文件审批内容</string>
                  </property>
                 </widget>
+               </item>
+               <item row="13" column="1">
+                <widget class="QLineEdit" name="RecordApproverText"/>
+               </item>
+               <item row="12" column="1">
+                <widget class="QLineEdit" name="RecordAuditDateText"/>
                </item>
                <item row="6" column="0">
                 <widget class="QLabel" name="RecordFileNameLabel">
@@ -2394,15 +2458,18 @@ gridline-color:rgb(0, 0, 0);</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="RecordTargetLabel">
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="RecordStaffText"/>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="RecordTimeText"/>
+               </item>
+               <item row="13" column="0">
+                <widget class="QLabel" name="RecordApproverLabel">
                  <property name="text">
-                  <string>审计对象</string>
+                  <string>文件批准人</string>
                  </property>
                 </widget>
-               </item>
-               <item row="14" column="1">
-                <widget class="QLineEdit" name="RecordApproveDateText"/>
                </item>
                <item row="0" column="1">
                 <widget class="QLineEdit" name="RecordTargetText"/>
@@ -2410,58 +2477,15 @@ gridline-color:rgb(0, 0, 0);</string>
                <item row="11" column="1">
                 <widget class="QLineEdit" name="RecordAuditText"/>
                </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="RecordContentLabel">
-                 <property name="text">
-                  <string>文件审批内容</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="RecordStaffText"/>
-               </item>
-               <item row="13" column="1">
-                <widget class="QLineEdit" name="RecordApproverText"/>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="RecordTimeText"/>
-               </item>
-               <item row="12" column="1">
-                <widget class="QLineEdit" name="RecordAuditDateText"/>
-               </item>
-               <item row="15" column="0">
-                <widget class="QLabel" name="providerLabel">
-                 <property name="text">
-                  <string>文件发放人</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="15" column="1">
-                <widget class="QLineEdit" name="providerText"/>
+               <item row="6" column="1">
+                <widget class="QLineEdit" name="RecordFileNameText"/>
                </item>
                <item row="10" column="0" colspan="2">
-                <widget class="QTextEdit" name="auditProcessText">
+                <widget class="QPlainTextEdit" name="auditProcessText">
                  <property name="tabChangesFocus">
                   <bool>true</bool>
                  </property>
                 </widget>
-               </item>
-               <item row="8" column="0" colspan="2">
-                <widget class="QTextEdit" name="auditContentText">
-                 <property name="tabChangesFocus">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0" colspan="2">
-                <widget class="QTextEdit" name="RecordContentText">
-                 <property name="tabChangesFocus">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QPlainTextEdit" name="RecordArrangeText"/>
                </item>
               </layout>
              </widget>
@@ -2529,6 +2553,9 @@ gridline-color:rgb(0, 0, 0);</string>
  <tabstops>
   <tabstop>searchContent</tabstop>
   <tabstop>searchButton</tabstop>
+  <tabstop>saveButton</tabstop>
+  <tabstop>createBotton</tabstop>
+  <tabstop>newUserButton</tabstop>
   <tabstop>tabWidget_2</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>companyText</tabstop>
@@ -2546,9 +2573,11 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>auditText</tabstop>
   <tabstop>approverText</tabstop>
   <tabstop>announcerText</tabstop>
-  <tabstop>logoChooseButton</tabstop>
   <tabstop>auditDateText</tabstop>
   <tabstop>releaseDateText</tabstop>
+  <tabstop>logoChooseButton</tabstop>
+  <tabstop>Logo</tabstop>
+  <tabstop>logoView</tabstop>
   <tabstop>level1Border</tabstop>
   <tabstop>level1Font</tabstop>
   <tabstop>level1Width</tabstop>
@@ -2562,9 +2591,15 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>level4Font</tabstop>
   <tabstop>level4Width</tabstop>
   <tabstop>previewButton</tabstop>
+  <tabstop>previewPic</tabstop>
+  <tabstop>departmentList</tabstop>
   <tabstop>AddDep</tabstop>
   <tabstop>DeleteDep</tabstop>
+  <tabstop>addOrModifyDep</tabstop>
+  <tabstop>cancelDep</tabstop>
   <tabstop>depName</tabstop>
+  <tabstop>leader</tabstop>
+  <tabstop>Operator</tabstop>
   <tabstop>depLevel</tabstop>
   <tabstop>depIntro</tabstop>
   <tabstop>duty_1</tabstop>
@@ -2609,29 +2644,20 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>duty_40</tabstop>
   <tabstop>duty_41</tabstop>
   <tabstop>duty_42</tabstop>
-  <tabstop>previewPic</tabstop>
-  <tabstop>logoView</tabstop>
-  <tabstop>departmentList</tabstop>
-  <tabstop>Logo</tabstop>
-  <tabstop>leader</tabstop>
-  <tabstop>Operator</tabstop>
   <tabstop>level2_fileList</tabstop>
   <tabstop>level3_fileList</tabstop>
   <tabstop>tabWidget_3</tabstop>
   <tabstop>projectList</tabstop>
+  <tabstop>AddProject</tabstop>
+  <tabstop>DeleteProject</tabstop>
+  <tabstop>saveProject</tabstop>
+  <tabstop>cancelProject</tabstop>
   <tabstop>tabWidget_4</tabstop>
   <tabstop>AprojectNameText</tabstop>
   <tabstop>AcompanyText</tabstop>
   <tabstop>AnameText</tabstop>
   <tabstop>AphoneText</tabstop>
   <tabstop>AaddressText</tabstop>
-  <tabstop>BcontactNameText</tabstop>
-  <tabstop>BserviceNameText</tabstop>
-  <tabstop>BserviceMailText</tabstop>
-  <tabstop>BservicePhoneText</tabstop>
-  <tabstop>BcomplainNameText</tabstop>
-  <tabstop>BcomplainMailText</tabstop>
-  <tabstop>BcomplainPhoneText</tabstop>
   <tabstop>amountText</tabstop>
   <tabstop>periodText</tabstop>
   <tabstop>configText</tabstop>
@@ -2640,6 +2666,13 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>detailsText</tabstop>
   <tabstop>demandText</tabstop>
   <tabstop>ddlText</tabstop>
+  <tabstop>BcontactNameText</tabstop>
+  <tabstop>BserviceNameText</tabstop>
+  <tabstop>BserviceMailText</tabstop>
+  <tabstop>BservicePhoneText</tabstop>
+  <tabstop>BcomplainNameText</tabstop>
+  <tabstop>BcomplainMailText</tabstop>
+  <tabstop>BcomplainPhoneText</tabstop>
   <tabstop>startTimeText</tabstop>
   <tabstop>requireText</tabstop>
   <tabstop>PMText</tabstop>
@@ -2660,11 +2693,10 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>targetText</tabstop>
   <tabstop>itemText</tabstop>
   <tabstop>releaseVersionText</tabstop>
-  <tabstop>saveButton</tabstop>
-  <tabstop>createBotton</tabstop>
-  <tabstop>newUserButton</tabstop>
-  <tabstop>saveProject</tabstop>
-  <tabstop>cancelProject</tabstop>
+  <tabstop>processText</tabstop>
+  <tabstop>resultText</tabstop>
+  <tabstop>ContinuityDateText</tabstop>
+  <tabstop>technicistText</tabstop>
   <tabstop>ContinuityApproverText</tabstop>
   <tabstop>ContinuityCompileDateText</tabstop>
   <tabstop>ContinuityAuditDateText</tabstop>
@@ -2675,6 +2707,7 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>S3acceptedText</tabstop>
   <tabstop>S4acceptedText</tabstop>
   <tabstop>closedText</tabstop>
+  <tabstop>transformedText</tabstop>
   <tabstop>summarizedText</tabstop>
   <tabstop>reportTimeText</tabstop>
   <tabstop>keypointText</tabstop>
@@ -2708,7 +2741,6 @@ gridline-color:rgb(0, 0, 0);</string>
   <tabstop>providerText</tabstop>
   <tabstop>saveOrgan</tabstop>
   <tabstop>discardOrgan</tabstop>
-  <tabstop>transformedText</tabstop>
  </tabstops>
  <resources/>
  <connections/>
