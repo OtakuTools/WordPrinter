@@ -31,6 +31,9 @@ class excel:
                             curCell.value = title
                         elif curCell.font.color.rgb == 'FFD30000':
                             curCell.value = "客户名称：" + str(project.BasicInfo.PartyA.company)
+                        elif curCell.font.color.rgb == 'FF930000':
+                            accepted = project.ServiceProcess.Event.S1 + project.ServiceProcess.Event.S2 + project.ServiceProcess.Event.S3 + project.ServiceProcess.Event.S4
+                            curCell.value = "报告期内总共发生了" + str(accepted) + "个变更，都是一般变更，现变更已被关闭。"
                         else:
                             obj = project
                             for attrName in self.colorDict[str(curCell.font.color.rgb)].split('.'):
