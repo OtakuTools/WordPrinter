@@ -8,6 +8,7 @@ from excel import excel
 import re
 from dataStruct import userInfo
 import time
+from comtypes.client import CreateObject
 
 class docWriter:
     def __init__(self):
@@ -19,7 +20,17 @@ class docWriter:
     def saveAsDocx(self, doc, filepath):
         doc.save(filepath)
 
-    def saveAsPdf(self, doc, filepath):
+    def saveAsPdf(self, fullsrc, fulldst):
+        if fullsrc and fullsrc.split(',')[-1] == 'docx':
+            word = CreateObject("Word.Application")
+            doc = word.Documents.Open(fullsrc)
+            doc.SaveAs(fulldst)
+        '''
+        if fullsrc and fullsrc.split(',')[-1] == 'docx':
+            word = CreateObject("Excel.Application")
+            doc = word.Workbooks.Open(fullsrc)
+            doc.SaveAs(fulldst)
+        '''
         pass
 
     def saveAsExcel( self , xls , dst ):
