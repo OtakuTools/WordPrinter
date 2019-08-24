@@ -27,6 +27,8 @@ class Organization():
             "Audit" : {
                 "planDate" : "" , # 内审计划时间
                 "auditDate" : "" , # 内审审核执行时间
+                "reportCompileDate" : "",#内审报告编制日期
+                "reportApproveDate" : "",#内审报告批准日期
                 "auditLeader" : "" , # 审核组长
                 "audit1" : "" , # 审核员1
                 "audit2" : "" , # 审核员2

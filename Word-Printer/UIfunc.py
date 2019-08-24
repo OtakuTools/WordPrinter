@@ -855,6 +855,8 @@ class Controller(QMainWindow, Ui_MainWindow):
     def setAudit(self):
         self.user.organization.Audit.planDate = self.planDateText.text()
         self.user.organization.Audit.auditDate = self.AuditAuditDateText.text()
+        self.user.organization.Audit.reportCompileDate = self.AuditReportCompileDateText.text()
+        self.user.organization.Audit.reportApproveDate = self.AuditReportApproveDateText.text()
         self.user.organization.Audit.auditLeader = self.auditLeaderText.text()
         self.user.organization.Audit.audit1 = self.audit1Text.text()
         self.user.organization.Audit.audit2 = self.audit2Text.text()
@@ -977,6 +979,8 @@ class Controller(QMainWindow, Ui_MainWindow):
     def showAudit(self):
         self.planDateText.setText(self.user.organization.Audit.planDate)
         self.AuditAuditDateText.setText(self.user.organization.Audit.auditDate)
+        self.AuditReportCompileDateText.setText(self.user.organization.Audit.reportCompileDate)
+        self.AuditReportApproveDateText.setText(self.user.organization.Audit.reportApproveDate)
         self.auditLeaderText.setText(self.user.organization.Audit.auditLeader)
         self.audit1Text.setText(self.user.organization.Audit.audit1)
         self.audit2Text.setText(self.user.organization.Audit.audit2)

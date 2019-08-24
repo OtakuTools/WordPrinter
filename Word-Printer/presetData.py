@@ -117,6 +117,8 @@ def getColorStyle():
         '950000':'closeRate',                                    #(149,0,0)
         '940000':'criticalRate',                                 #(148,0,0)
         '930000':'accepted',                                     #(147,0,0)
+        '920000':'user.organization.Audit.reportCompileDate',   #(146,0,0)
+        '910000':'user.organization.Audit.reportApproveDate',   #(145,0,0)
     }
 
 def getParagraphStyle():
