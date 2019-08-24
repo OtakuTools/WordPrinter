@@ -24,7 +24,7 @@ class docWriter:
         if fullsrc and fullsrc.split(',')[-1] == 'docx':
             word = CreateObject("Word.Application")
             doc = word.Documents.Open(fullsrc)
-            doc.SaveAs(fulldst)
+            doc.SaveAs(fulldst,17)
         '''
         if fullsrc and fullsrc.split(',')[-1] == 'docx':
             word = CreateObject("Excel.Application")
