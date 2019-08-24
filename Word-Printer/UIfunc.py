@@ -34,16 +34,16 @@ class Controller(QMainWindow, Ui_MainWindow):
         self.connectText()
         self.connectList()
         
-        #message dialog
+        # message dialog
         self.msgDialog = MessageDialog()
 
-        #graph style
+        # graph style
         self.setupVars()
 
         # use wordPad
         self.connectWordPad()
 
-        #sample dir
+        # sample dir
         self.init_Samples()
 
     def setupVars(self):
