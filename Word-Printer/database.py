@@ -353,30 +353,32 @@ class DB:
                 organization.Audit.planDate = row[firstIndex+0]
                 organization.Audit.auditDate = row[firstIndex+1]
                 organization.Audit.auditLeader = row[firstIndex+2]
-                organization.Audit.audit1 = row[firstIndex+3]
-                organization.Audit.audit2 = row[firstIndex+4]
-                organization.Audit.audit3 = row[firstIndex+5]
-                organization.Audit.reviewDate = row[firstIndex+6]
-                organization.Audit.scheduleDate = row[firstIndex+7]
-                organization.Audit.excuteDate = row[firstIndex+8]
-                organization.Audit.reportDate = row[firstIndex+9]
-                organization.Audit.compiler = row[firstIndex+10]
-                organization.Audit.audit = row[firstIndex+11]
-                organization.Audit.compileDate = row[firstIndex+12]
-                organization.Audit.approveDate = row[firstIndex+13]
-                organization.Record.target = row[firstIndex+14]
-                organization.Record.time = row[firstIndex+15]
-                organization.Record.staff = row[firstIndex+16]
-                organization.Record.arrange = row[firstIndex+17].split("#")
-                organization.Record.content = row[firstIndex+18].split("#")
-                organization.Record.fileName = row[firstIndex+19]
-                organization.Record.auditContent = row[firstIndex+20].split("#")
-                organization.Record.auditProcess = row[firstIndex+21].split("#")
-                organization.Record.audit = row[firstIndex+22]
-                organization.Record.auditDate = row[firstIndex+23]
-                organization.Record.approver = row[firstIndex+24]
-                organization.Record.approveDate = row[firstIndex+25]
-                organization.Record.provider= row[firstIndex+26]
+                organization.Audit.reportCompileDate = row[firstIndex+3]
+                organization.Audit.reportApproveDate = row[firstIndex+4]
+                organization.Audit.audit1 = row[firstIndex+5]
+                organization.Audit.audit2 = row[firstIndex+6]
+                organization.Audit.audit3 = row[firstIndex+7]
+                organization.Audit.reviewDate = row[firstIndex+8]
+                organization.Audit.scheduleDate = row[firstIndex+9]
+                organization.Audit.excuteDate = row[firstIndex+10]
+                organization.Audit.reportDate = row[firstIndex+11]
+                organization.Audit.compiler = row[firstIndex+12]
+                organization.Audit.audit = row[firstIndex+13]
+                organization.Audit.compileDate = row[firstIndex+14]
+                organization.Audit.approveDate = row[firstIndex+15]
+                organization.Record.target = row[firstIndex+16]
+                organization.Record.time = row[firstIndex+17]
+                organization.Record.staff = row[firstIndex+18]
+                organization.Record.arrange = row[firstIndex+19].split("#")
+                organization.Record.content = row[firstIndex+20].split("#")
+                organization.Record.fileName = row[firstIndex+21]
+                organization.Record.auditContent = row[firstIndex+22].split("#")
+                organization.Record.auditProcess = row[firstIndex+23].split("#")
+                organization.Record.audit = row[firstIndex+24]
+                organization.Record.auditDate = row[firstIndex+25]
+                organization.Record.approver = row[firstIndex+26]
+                organization.Record.approveDate = row[firstIndex+27]
+                organization.Record.provider= row[firstIndex+28]
             info.organization = organization
         except Exception as e:
             print("Search Organization Error:", e)
@@ -592,15 +594,15 @@ class DB:
         
         sql4 = """
                 INSERT INTO organization(
-                    refId, AudPlanDate,
-                    AudAuditDate, AudAuditLeader, AudAudit1, AudAudit2, AudAudit3,
+                    refId, AudPlanDate, AudAuditDate, AudAuditLeader, 
+                    AudRepoCompDate, AudRepoApprDate, AudAudit1, AudAudit2, AudAudit3,
                     AudReviewDate, AudScheduleDate, AudExcuteDate, AudReportDate, AudCompiler,
                     AudAudit, AudCompileDate, AudApproveDate, RecTarget, RecTime,
                     RecStaff, RecArrange, RecContent, RecFileName, RecAuditContent,
                     RecAuditProcess, RecAudit, RecAuditDate, RecApprover, RecApproveDate,
                     RecProvider
                 ) VALUES (
-                 '%s', '%s',
+                 '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
                  '%s', '%s', '%s', '%s', '%s',
@@ -610,6 +612,8 @@ class DB:
                """ % (data.company,
                       data.organization.Audit.planDate,
                       data.organization.Audit.auditDate,
+                      data.organization.Audit.reportCompileDate,
+                      data.organization.Audit.reportApproveDate,
                       data.organization.Audit.auditLeader,
                       data.organization.Audit.audit1,
                       data.organization.Audit.audit2,
