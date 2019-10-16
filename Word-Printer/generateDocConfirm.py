@@ -18,11 +18,14 @@ class Ui_GenerateDocConfirm(object):
         self.showSamples.setObjectName("showSamples")
         self.showSamples.headerItem().setText(0, "1")
         self.showSamples.header().setVisible(False)
-        self.gridLayout.addWidget(self.showSamples, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.showSamples, 0, 1, 1, 2)
+        self.checkBox = QtWidgets.QCheckBox(GenerateDocConfirm)
+        self.checkBox.setObjectName("checkBox")
+        self.gridLayout.addWidget(self.checkBox, 1, 1, 1, 1)
         self.confirmBox = QtWidgets.QDialogButtonBox(GenerateDocConfirm)
         self.confirmBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.confirmBox.setObjectName("confirmBox")
-        self.gridLayout.addWidget(self.confirmBox, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.confirmBox, 1, 2, 1, 1)
 
         self.retranslateUi(GenerateDocConfirm)
         QtCore.QMetaObject.connectSlotsByName(GenerateDocConfirm)
@@ -30,8 +33,5 @@ class Ui_GenerateDocConfirm(object):
     def retranslateUi(self, GenerateDocConfirm):
         _translate = QtCore.QCoreApplication.translate
         GenerateDocConfirm.setWindowTitle(_translate("GenerateDocConfirm", "生成文档选择"))
-        GenerateDocConfirm.setWindowFlags(QtCore.Qt.WindowMaximizeButtonHint |
-                               QtCore.Qt.WindowMinimizeButtonHint |
-                               QtCore.Qt.WindowCloseButtonHint |
-                               QtCore.Qt.WindowStaysOnTopHint)
+        self.checkBox.setText(_translate("GenerateDocConfirm", "生成PDF"))
 

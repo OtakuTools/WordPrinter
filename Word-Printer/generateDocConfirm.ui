@@ -14,7 +14,7 @@
    <string>生成文档选择</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="0" column="1" colspan="2">
     <widget class="QTreeWidget" name="showSamples">
      <attribute name="headerVisible">
       <bool>false</bool>
@@ -26,7 +26,14 @@
      </column>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="1" column="1">
+    <widget class="QCheckBox" name="checkBox">
+     <property name="text">
+      <string>生成PDF</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
     <widget class="QDialogButtonBox" name="confirmBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>

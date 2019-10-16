@@ -21,9 +21,10 @@ class docWriter:
         doc.save(filepath)
 
     def saveAsPdf(self, fullsrc, fulldst):
-        if fullsrc and fullsrc.split(',')[-1] == 'docx':
+        if fullsrc and fullsrc.split('.')[-1] == 'docx':
             word = CreateObject("Word.Application")
             doc = word.Documents.Open(fullsrc)
+            print(fulldst)
             doc.SaveAs(fulldst,17)
         '''
         if fullsrc and fullsrc.split(',')[-1] == 'docx':
@@ -36,8 +37,8 @@ class docWriter:
     def saveAsExcel( self , xls , dst ):
         xls.save(dst)
 
-    def loadAndWrite(self, user , templateFile, targetFile, mode=".docx", projectName=None):
-        self.write(templateFile, targetFile, user, mode, projectName)
+    def loadAndWrite(self, user , templateFile, targetFile, mode=".docx", projectName=None, PDFlag=False):
+        self.write(templateFile, targetFile, user, mode, projectName, PDFlag)
         
     def loadInfo(self):
         user = userInfo()
@@ -48,7 +49,7 @@ class docWriter:
                     setattr( user , key , dict[key] )
         return user
 
-    def write(self, src, dst, user, mode=".docx", projectName=None):
+    def write(self, src, dst, user, mode=".docx", projectName=None, PDFlag=False):
         try:
             absolutSrcPath = Path(src) if Path(src).is_absolute() else Path.cwd() / Path(src)
             absolutDstPath = Path(dst) if Path(dst).is_absolute() else Path.cwd() / Path(dst)
@@ -71,6 +72,9 @@ class docWriter:
                 rep = Replace()
                 doc = rep.run(src, dst, user,project)
                 self.saveAsDocx(doc, dst)
+                if PDFlag == 2:
+                    pdfdst = dst
+                    self.saveAsPdf( dst , pdfdst.replace('docx','pdf') )
             elif mode == '.xlsx':
                 xls = excel()
                 reg = "([A-Z]{4}-\d{5}-[A-Z]{2}-[A-Z]-\d{2})"

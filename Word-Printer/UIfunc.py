@@ -567,7 +567,9 @@ class Controller(QMainWindow, Ui_MainWindow):
                                               srcDir=self.pathSelector.getFileInfo(file)["spath"], #self.pathSelector.getFilePath(file),
                                               tarDir=self.pathSelector.getFileInfo(file)["tpath"], #self.pathSelector.getFilePath(file,self.user.fileName))
                                               fileType=self.pathSelector.getFileInfo(file)["type"],
-                                              projectName=self.pathSelector.getFileInfo(file)["belongto"]) 
+                                              projectName=self.pathSelector.getFileInfo(file)["belongto"],
+                                              PDFlag=genDocCtrl.getPDF()
+                                              ) 
                     wrt_thread.start()
                     wrt_thread.wait()
                     progress.setValue(int((float(count) / total) * 100))
