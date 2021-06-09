@@ -14,7 +14,7 @@ mccabe==0.6.1
 openpyxl==2.6.2
 pefile==2018.8.8
 Pillow==5.4.1
-pip==19.0.2
+pip==19.2
 PyInstaller==3.4
 pylint==2.2.2
 PyMySQL==0.9.3
